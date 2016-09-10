@@ -16,7 +16,7 @@ public class Triangle {
 	/** Переменная определяющая существует ли треугольник */
 	public boolean existTriangle = false;
     
-	/** ������� */
+	/** Площадь */
 	public double areaTriagle;
 
 	public Triangle(Point a, Point b, Point c){

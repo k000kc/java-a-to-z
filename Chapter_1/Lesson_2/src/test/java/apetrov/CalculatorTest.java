@@ -16,14 +16,14 @@ public class CalculatorTest {
     @Test
     public void sub() throws Exception {
         final Calculator calc = new Calculator();
-        calc.substruct(2, 1);
+        calc.sub(2, 1);
         assertThat(calc.getResult(), is(1.0));
     }
 
     @Test
     public void mult() throws Exception {
         final Calculator calc = new Calculator();
-        calc.multiple(2, 2);
+        calc.mult(2, 2);
         assertThat(calc.getResult(), is(4.0));
     }
 

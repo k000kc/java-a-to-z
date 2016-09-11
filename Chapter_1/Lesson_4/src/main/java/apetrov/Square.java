@@ -3,7 +3,7 @@ package apetrov;
 public class Square{
 
 	/**
-	* Вычисляет формулу квадратного уравнения
+	* Р’С‹С‡РёСЃР»СЏРµС‚ С„РѕСЂРјСѓР»Сѓ РєРІР°РґСЂР°С‚РЅРѕРіРѕ СѓСЂР°РІРЅРµРЅРёСЏ
 	* @author Andrey
 	*/	
 	public int a;
@@ -17,9 +17,9 @@ public class Square{
 	}
 
 	/**
-	* Вычисляем значение функции в точке
+	* Р’С‹С‡РёСЃР»СЏРµРј Р·РЅР°С‡РµРЅРёРµ С„СѓРЅРєС†РёРё РІ С‚РѕС‡РєРµ
 	* @param x
-	* @return Значение функции
+	* @return Р—РЅР°С‡РµРЅРёРµ С„СѓРЅРєС†РёРё
 	*/
 	public float calculate(int x){
 		return (float)(this.a * Math.pow(x, 2) + this.b * x + this.c);

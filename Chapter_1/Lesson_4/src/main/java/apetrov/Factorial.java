@@ -1,7 +1,7 @@
 package apetrov;
 
 **
-* Класс для вычисления факториала
+* РљР»Р°СЃСЃ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ С„Р°РєС‚РѕСЂРёР°Р»Р°
 * @author Andrey
 */
 public class Factorial{
@@ -10,7 +10,7 @@ public class Factorial{
 	public int result = 1;
 
 	/**
-	* Матод вычисляющий факториал
+	* РњР°С‚РѕРґ РІС‹С‡РёСЃР»СЏСЋС‰РёР№ С„Р°РєС‚РѕСЂРёР°Р»
 	* @param number
 	* @return result
 	*/

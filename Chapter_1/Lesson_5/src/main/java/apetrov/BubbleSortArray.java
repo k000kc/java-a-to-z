@@ -5,7 +5,7 @@ public class BubbleSortArray {
 	public int[] values;
 
 	/**
-	* Класс для пузырьковой сортировки массива
+	* РљР»Р°СЃСЃ РґР»СЏ РїСѓР·С‹СЂСЊРєРѕРІРѕР№ СЃРѕСЂС‚РёСЂРѕРІРєРё РјР°СЃСЃРёРІР°
 	* @param values 
 	*/    
 	public BubbleSortArray(int[] values){
@@ -13,8 +13,8 @@ public class BubbleSortArray {
     	}
 
 	/**
-	* Метод пузырьковой сортировки массива
-	* @return отсортированный массив
+	* РњРµС‚РѕРґ РїСѓР·С‹СЂСЊРєРѕРІРѕР№ СЃРѕСЂС‚РёСЂРѕРІРєРё РјР°СЃСЃРёРІР°
+	* @return result
 	*/
 	public int[] sort(){
 

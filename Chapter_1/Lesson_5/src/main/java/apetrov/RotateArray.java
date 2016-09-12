@@ -1,5 +1,8 @@
 package apetrov;
 
+/**
+ * Класс поворачивает массив на 90 градусов
+*/
 public class RotateArray{
 
 	public int[][] values;
@@ -8,6 +11,10 @@ public class RotateArray{
 		this.values = values;
 	}
 
+	/**
+	 * Метод поворачивает массив на 90 градусов
+	 * @return result
+	 */
 	public int[][] rotate(int[][] values){
 		int[][] result = values;
 		int temp;

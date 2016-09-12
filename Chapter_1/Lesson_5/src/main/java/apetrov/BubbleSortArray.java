@@ -1,13 +1,13 @@
 package apetrov;
 
+/**
+* Класс для пузырьковой сортировки массива
+* @param values 
+*/    
 public class BubbleSortArray {
     
 	public int[] values;
 
-	/**
-	* Класс для пузырьковой сортировки массива
-	* @param values 
-	*/    
 	public BubbleSortArray(int[] values){
         	this.values = values;
     	}

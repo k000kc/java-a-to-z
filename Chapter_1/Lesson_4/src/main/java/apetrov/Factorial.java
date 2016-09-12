@@ -1,6 +1,6 @@
 package apetrov;
 
-**
+/**
 * Класс для вычисления факториала
 * @author Andrey
 */

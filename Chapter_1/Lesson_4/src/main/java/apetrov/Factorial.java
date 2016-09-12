@@ -6,17 +6,15 @@ package apetrov;
 */
 public class Factorial{
 
-	public int number;
-	public int result = 1;
-
 	/**
 	* Матод вычисляющий факториал
 	* @param number
 	* @return result
 	*/
 	public int getFactorial(int number){
+		int result = 1;
 		for (int i = number; i > 0; i--){
-			result = result*i;
+			result *= i;
 		}
 		return result;
 	}

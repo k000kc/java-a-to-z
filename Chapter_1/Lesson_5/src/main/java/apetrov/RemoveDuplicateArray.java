@@ -1,9 +1,17 @@
 package apetrov;
 
+/**
+ * Класс для удаления дубликатов в массиве
+ */
 public class RemoveDuplicateArray{
 
 	public String[] values;
 
+	/*
+	* Метод удаляет дубликаты в массиве
+	* @param String[] values
+	* @return result
+	*/
 	public RemoveDuplicateArray(String[] values){
 		this.values = values;
 	}

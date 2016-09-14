@@ -22,7 +22,7 @@ public class RemoveDuplicateArray{
 				}
 			}
 		}
-		int index = 1;
+		int index = 0;
 		String[] result = new String[sizeResult];
 		for(int i = 0; i < this.values.length; i++){
 			if(this.values[i] != null){

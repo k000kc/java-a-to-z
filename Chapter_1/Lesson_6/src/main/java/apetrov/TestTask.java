@@ -1,7 +1,15 @@
 package apetrov;
 
+/**
+* Класс проверяющий, что строка sub является подстрокой origin.
+*/
 public class TestTask{
 	
+	/**
+	 * Проверяем, что строка sub  является подстокой origin
+	 * @param origin, sub
+	 * @return result: true/false
+	 */
 	public boolean contains(String origin, String sub){
 		
 		char[] originArray = origin.toCharArray();

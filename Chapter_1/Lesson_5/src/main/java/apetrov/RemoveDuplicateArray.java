@@ -16,7 +16,7 @@ public class RemoveDuplicateArray{
 		this.values = values;
 	}
 
-	public String[] rmDuplicate(String[] values){
+	public String[] rmDuplicate(){
 		
 		int sizeResult = this.values.length;
 

@@ -1,6 +1,9 @@
 package ru.apetrov.models;
 
 public class Item{
+
+	private String id;
+
 	public String name;
 	
 	public String description;
@@ -26,5 +29,13 @@ public class Item{
 
 	public long getCreate(){
 		return this.create;
+	}
+
+	public String getId(){
+		return this.id;
+	}
+
+	public void setId(String id){
+		this.id = id;
 	}
 }

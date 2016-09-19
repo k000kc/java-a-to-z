@@ -1,27 +1,40 @@
 package ru.apetrov.start;
 
 import ru.apetrov.models.*;
+import java.util.*;
 
 public class Tracker{
 	
-	public Item[] items = new Item[3];
-	
-	public static void main(String[] args){
+	private Item[] items = new Item[10];
+	private int position = 0;
+	private static final Random RN = new Random();
 
-		Tracker tracker = new Tracker();
+	public Item add(Item item){
+		item.setId(this.generateId());
+		this.items[position++] = item;
+		return item;
+	}
 
-		tracker.items[0] = new Item("item", "desc", 01);
-		tracker.items[1] = new Task("task", "desc");
-		tracker.items[2] = new Bug();
-
-		for(Item item : tracker.items){
-			if(item instanceof Task){
-				Task task = (Task)item;
-				System.out.println(task.calculatePrice());
+	protected Item findById(String id){
+		Item result = null;
+		for (Item item : items){
+			if(item != null && item.getId().equals(id)){
+				result = item;
+				break;
 			}
-			System.out.println(item.getName() + " " + item.getDescription());
 		}
+		return result;
+	}
 
-	
-	} 
+	String generateId(){
+		return String.valueOf(System.currentTimeMillis() + RN.nextInt());
+	}
+
+	public Item[] getAll(){
+		Item[] result = new Item[position];
+		for(int index = 0; index != this.position; index++){
+			result[index] = this.items[index];
+		}
+		return result;
+	}
 }

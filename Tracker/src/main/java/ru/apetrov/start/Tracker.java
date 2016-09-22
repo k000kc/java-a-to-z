@@ -15,6 +15,17 @@ public class Tracker{
 		return item;
 	}
 
+	public void edit(Item item){
+        	for (Item index : items){
+            		if (index.getId().equals(item.getId())){
+                		index.setName(item.getName());
+                		index.setDescription(item.getDescription());
+                		index = item;
+                		break;
+            		}
+        	}
+    	}
+
     	public  void remove(Item item){
         	for (int index = 0; index < this.items.length; index++){
             		if (this.items[index].equals(item)){

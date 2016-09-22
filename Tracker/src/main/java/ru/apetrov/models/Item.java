@@ -23,13 +23,25 @@ public class Item{
 		return this.name;
 	}
 
+	public void setName(String name) {
+        	this.name = name;
+    	}
+
 	public String getDescription(){
 		return this.description;
 	}
 
+    	public void setDescription(String description) {
+        	this.description = description;
+    	}
+
 	public long getCreate(){
 		return this.create;
 	}
+
+    	public void setCreate(long create) {
+        	this.create = create;
+    	}
 
 	public String getId(){
 		return this.id;

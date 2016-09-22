@@ -64,6 +64,24 @@ public class Tracker{
             		}
         	}
         	return result;
+    	}
+
+	protected Item[] findByDesc(String desc){
+        	int numbDuplicateDesc = 0;
+        	for(Item item : this.items){
+            		if (item != null && item.getDescription().equals(desc)){
+                		numbDuplicateDesc++;
+            		}
+        	}
+
+        	Item[] result = new Item[numbDuplicateDesc];
+        	int descPosition = 0;
+        	for (int index = 0; index < this.items.length; index++){
+            		if (this.items[index] != null && this.items[index].getDescription().equals(desc)){
+                		result[descPosition++] = this.items[index];
+            		}
+        	}
+        	return result;
     	}	
 
 	String generateId(){

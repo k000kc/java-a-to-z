@@ -10,6 +10,8 @@ public class Item{
 
 	public long create;
 
+	private Comment comment;
+
 	public Item(){
 	}
 
@@ -49,5 +51,13 @@ public class Item{
 
 	public void setId(String id){
 		this.id = id;
+	}
+	
+	public Comment getComment(){
+		return this.comment;
+	}
+
+	public void setComment(Comment comment){
+		this.comment = comment;
 	}
 }

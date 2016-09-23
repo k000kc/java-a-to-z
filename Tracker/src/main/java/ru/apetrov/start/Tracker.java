@@ -16,6 +16,7 @@ public class Tracker{
 	}
 
 	public Item addComment(Comment comment){
+		Item item = this.findById(comment.getId());
 		item.setComment(comment);
 		return item;
 	}

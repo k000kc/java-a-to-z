@@ -15,10 +15,10 @@ public class Tracker{
 		return item;
 	}
 
-    	public Item addComment(Comment comment){
-        	Item item = this.findById(comment.getId());
-        	item.setComment(comment);
-        	return item;
+    	public void addComment(Item item, Comment comment){
+		if(item != null){
+			item.setComment(comment);
+		}
     	}
 
 	public void edit(Item item){
@@ -26,7 +26,6 @@ public class Tracker{
             		if (index.getId().equals(item.getId())){
                 		index.setName(item.getName());
                 		index.setDescription(item.getDescription());
-                		index = item;
                 		break;
             		}
         	}

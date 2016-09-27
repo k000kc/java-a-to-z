@@ -3,64 +3,96 @@ package ru.apetrov.start;
 import ru.apetrov.models.*;
 
 public class StartUI{
-	
-	public static void main(String[] args){
-		
+
+	private Input input;
+
+	public StartUI(Input input){
+		this.input = input;
+	}
+
+	public void init(){
 		Tracker tracker = new Tracker();
+		boolean isExit = false;
+	
+		do{
 
-        	Item item1 = new Task("first task", "first desc");
-        	Item item2 = new Task("second task", "second desc");
-        	Item item3 = new Task("three task", "three desc");
-        	Item item4 = new Task("four task", "four desc");
-        	Item item5 = new Task("five task", "five desc");
-        	Item item6 = new Task("six item", "six desc");
+			String action = input.ask("Select an action:\n1. - Add Item;\n2. - Edit Item;\n3. - Remove Item;\n4. - Find by Name;\n5. - Find by Descriotion;\n6. - Add Comment;\n7. - Get All Item.\n8. - Exit\n");
 
-		tracker.add(item1);
-        	tracker.add(item2);
-        	tracker.add(item3);
-        	tracker.add(item4);
-        	tracker.add(item5);
-        	tracker.add(item6);
+			if (action.equals("1")){
+				String name = input.ask("Enter the name of the Item:");
+				String desc = input.ask("Enter the description of the Item:");
+				tracker.add(new Task(name, desc));
+				continue;		
+			}
 
-        	System.out.println("----------------------get all---------------------------------");
+			if (action.equals("2")){
+				String id =  input.ask("Enter the id of the Item:");
+				if (tracker.findById(id) != null){
+					String name = input.ask("Enter the new name of the Item:");
+					String desc = input.ask("Enter the new description of the Item:");
+					Item editItem = new Task(name, desc);
+        				editItem.setId(id);
+        				tracker.edit(editItem);
+				}else{
+					System.out.println("Item with this Id does not exist");
+				}
 		
-        	for (Item item : tracker.getAll()){
-            		System.out.println(item.getName());
-        	}
+			}
 
-        	System.out.println("-----------------------find by name--------------------------------");
-		
-        	for (Item item : tracker.findByName("three task")) {
-            		System.out.println(item.getName());
-       	 	}
+			if (action.equals("3")){
+				String id =  input.ask("Enter the id of the Item:");
+				if (tracker.findById(id) != null){
+					Item delItem = tracker.findById(id);
+					tracker.remove(delItem);
+				}else{
+					System.out.println("Item with this Id does not exist");
+				}			
+			}
 
-        	System.out.println("-----------------------find by description--------------------------------");
+			if (action.equals("4")){
+				String name =  input.ask("Enter the name of the Item:");
+        			for (Item item : tracker.findByName(name)) {
+            				System.out.println(item.getName());
+        			}		
+			}
 
-        	for (Item item : tracker.findByDesc("four desc")) {
-            		System.out.println(item.getName());
-        	}
+			if (action.equals("5")){
+				String desc =  input.ask("Enter the description of the Item:");
+        			for (Item item : tracker.findByDesc(desc)) {
+            				System.out.println(item.getName());
+        			}		
+			}
 
-        	System.out.println("--------------------------del item-----------------------------");
+			if (action.equals("6")){
+				String id =  input.ask("Enter the id of the Item:");
+				String text = input.ask("Enter Comment:");
+				if (tracker.findById(id) != null){
+					Item item = tracker.findById(id);
+					Comment comment = new Comment(text); 
+					tracker.addComment(item, comment);
+				}else{
+					System.out.println("Item with this Id does not exist");
+				}			
+			}
 
-        	tracker.remove(item3);
+			if (action.equals("7")){
+		        	for (Item item : tracker.getAll()){
+           				System.out.println(item.getName());
+           				System.out.println(item.getDescription());
+           				System.out.println(item.getId());
+           				System.out.println(item.getComment());
+        			}
+			}
 
-        	for (Item item : tracker.getAll()){
-            		System.out.println(item.getName());
-        	}
+			if (action.equals("8")){
+				isExit = true;
+			}
 
-        	System.out.println("----------------------edit item---------------------------------");
+		}while(!isExit);
+	}
 
-        	Item editItem = new Task("editItem task", "editItem desk");
-        	editItem.setId(item2.getId());
-        	tracker.edit(editItem);
-        	for (Item item : tracker.getAll()){
-            		System.out.println(item.getName());
-        	}
-
-        	System.out.println("---------------add comment------------------------");
-
-        	Comment comment = new Comment("This is a comment");
-        	tracker.addComment(item6, comment);
-        	System.out.println(item6.getComment().getValue());
+	public static void main(String[] args){
+		Input input = new ConsoleInput();
+		new StartUI(input).init();
 	}
 }

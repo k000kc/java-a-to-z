@@ -21,8 +21,7 @@ public class StartUI{
 			if (action.equals("1")){
 				String name = input.ask("Enter the name of the Item:");
 				String desc = input.ask("Enter the description of the Item:");
-				tracker.add(new Task(name, desc));
-				continue;		
+				tracker.add(new Task(name, desc));		
 			}
 
 			if (action.equals("2")){

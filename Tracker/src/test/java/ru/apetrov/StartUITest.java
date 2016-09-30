@@ -59,7 +59,7 @@ public class StartUITest{
 					Item delItem = tracker.findById(id);
 					tracker.remove(delItem);
 					for(Item item : tracker.getAll()){
-						assertFalse(item.getName().equals("edit item"));
+						assertNull(item);
 					}
 				}else{
 					System.out.println("Item with this Id does not exist");

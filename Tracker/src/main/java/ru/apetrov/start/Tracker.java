@@ -53,7 +53,7 @@ public class Tracker{
         	position--;
     	}
 
-	protected Item findById(String id){
+	public Item findById(String id){
 		Item result = null;
 		for (Item item : items){
 			if(item != null && item.getId().equals(id)){
@@ -64,7 +64,7 @@ public class Tracker{
 		return result;
 	}
 
-    	protected Item[] findByName(String name){
+    	public Item[] findByName(String name){
         	int numbDuplicateName = 0;
         	for(Item item : items){
             		if (item != null && item.getName().equals(name)){
@@ -82,7 +82,7 @@ public class Tracker{
         	return result;
     	}
 
-	protected Item[] findByDesc(String desc){
+	public Item[] findByDesc(String desc){
         	int numbDuplicateDesc = 0;
         	for(Item item : this.items){
             		if (item != null && item.getDescription().equals(desc)){

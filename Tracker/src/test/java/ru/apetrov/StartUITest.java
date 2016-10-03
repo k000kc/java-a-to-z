@@ -31,8 +31,7 @@ public class StartUITest{
 		Input inputFirst = new StubInput(new String[] {"first item", "this is a first item"});
 		new StartUI(inputFirst).addItem(tracker);
 
-		Item[] items = tracker.findByName("first item");
-		for(Item item : items){
+		for(Item item : tracker.findByName("first item")){
 			if(item.getName().equals("first item")){
 				resultId = item.getId();
 			}
@@ -52,9 +51,7 @@ public class StartUITest{
 		Input inputFirst = new StubInput(new String[] {"first item", "this is a first item"});
 		new StartUI(inputFirst).addItem(tracker);
 
-
-		Item[] items = tracker.findByName("first item");
-		for(Item item : items){
+		for(Item item : tracker.findByName("first item")){
 			if(item.getName().equals("first item")){
 				resultId = item.getId();
 			}
@@ -94,8 +91,7 @@ public class StartUITest{
 		Input inputFirst = new StubInput(new String[] {"first item", "this is a first item"});
 		new StartUI(inputFirst).addItem(tracker);
 
-		Item[] items = tracker.findByName("first item");
-		for(Item item : items){
+		for(Item item : tracker.findByName("first item")){
 			if(item.getName().equals("first item")){
 				resultId = item.getId();
 			}

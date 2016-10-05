@@ -13,7 +13,6 @@ public class StartUITest{
 
 	@Test
 	public void whenAddItemThenInputNameAndDesc(){
-		Tracker tracker = new Tracker();
 		Input input = new StubInput(new String[] {"first item", "this is a first item"});
 		new StartUI(input).addItem(tracker);
 		for (Item item : tracker.getAll()){
@@ -26,7 +25,6 @@ public class StartUITest{
 
 	@Test
 	public void whenEditItemThenSelectIdItem(){
-		Tracker tracker = new Tracker();
 		String resultId = null;
 		Input inputFirst = new StubInput(new String[] {"first item", "this is a first item"});
 		new StartUI(inputFirst).addItem(tracker);
@@ -46,7 +44,6 @@ public class StartUITest{
 
 	@Test
 	public void whenRemoveItemThenSelectIdItem(){
-		Tracker tracker = new Tracker();
 		String resultId = null;
 		Input inputFirst = new StubInput(new String[] {"first item", "this is a first item"});
 		new StartUI(inputFirst).addItem(tracker);
@@ -65,8 +62,7 @@ public class StartUITest{
 	}
 
 	@Test
-	public void whenFindByNameThenInputName(){
-		Tracker tracker = new Tracker();	
+	public void whenFindByNameThenInputName(){	
 		Input inputFirst = new StubInput(new String[] {"first item", "this is a first item"});
 		new StartUI(inputFirst).addItem(tracker);
 		for (Item item : tracker.findByName("first item")) {
@@ -75,8 +71,7 @@ public class StartUITest{
 	}
 
 	@Test
-	public void whenFindByDescriptionThenInputDescription(){
-		Tracker tracker = new Tracker();	
+	public void whenFindByDescriptionThenInputDescription(){	
 		Input inputFirst = new StubInput(new String[] {"first item", "this is a first item"});
 		new StartUI(inputFirst).addItem(tracker);
 		for (Item item : tracker.findByDesc("first item")) {
@@ -86,7 +81,6 @@ public class StartUITest{
 
 	@Test
 	public void whenAddCommentThenInputIdAndAddComment(){
-		Tracker tracker = new Tracker();
 		String resultId = null;
 		Input inputFirst = new StubInput(new String[] {"first item", "this is a first item"});
 		new StartUI(inputFirst).addItem(tracker);
@@ -108,7 +102,6 @@ public class StartUITest{
 
 	@Test
 	public void whenGetAllItem(){
-		Tracker tracker = new Tracker();	
 		Input inputFirst = new StubInput(new String[] {"first item", "this is a first item"});
 		new StartUI(inputFirst).addItem(tracker);
 		for (Item item : tracker.getAll()){

@@ -12,6 +12,7 @@ public class StartUI{
 
 	public void init(){
 		Tracker tracker = new Tracker();
+		StartUI start = new StartUI(input);
 		boolean isExit = false;
 	
 		do{
@@ -19,31 +20,31 @@ public class StartUI{
 			String action = input.ask("Select an action:\n1. - Add Item;\n2. - Edit Item;\n3. - Remove Item;\n4. - Find by Name;\n5. - Find by Descriotion;\n6. - Add Comment;\n7. - Get All Item.\n8. - Exit\n");
 
 			if (action.equals("1")){
-				new StartUI(input).addItem(tracker);		
+				start.addItem(tracker);		
 			}
 
 			if (action.equals("2")){
-				new StartUI(input).editItem(tracker);
+				start.editItem(tracker);
 			}
 
 			if (action.equals("3")){
-				new StartUI(input).removeItem(tracker);			
+				start.removeItem(tracker);			
 			}
 
 			if (action.equals("4")){
-				new StartUI(input).findByNameItem(tracker);	
+				start.findByNameItem(tracker);	
 			}
 
 			if (action.equals("5")){
-				new StartUI(input).findByDescItem(tracker);
+				start.findByDescItem(tracker);
 			}
 
 			if (action.equals("6")){
-				new StartUI(input).addCommentItem(tracker);		
+				start.addCommentItem(tracker);		
 			}
 
 			if (action.equals("7")){
-				new StartUI(input).getAllItem(tracker);
+				start.getAllItem(tracker);
 			}
 
 			if (action.equals("8")){

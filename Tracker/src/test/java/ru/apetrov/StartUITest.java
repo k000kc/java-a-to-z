@@ -1,4 +1,4 @@
-package ru.apetrov;
+/*package ru.apetrov;
 
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
@@ -110,4 +110,4 @@ public class StartUITest{
 			}
 		}	
 	}
-}
+}*/

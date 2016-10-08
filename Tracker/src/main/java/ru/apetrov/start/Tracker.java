@@ -23,9 +23,10 @@ public class Tracker{
 
 	public void edit(Item item){
         	for (Item index : items){
-            		if (index.getId().equals(item.getId())){
+            		if (item != null && index.getId().equals(item.getId())){
                 		index.setName(item.getName());
                 		index.setDescription(item.getDescription());
+				index.setComment(item.getComment());
                 		break;
             		}
         	}
@@ -76,7 +77,8 @@ public class Tracker{
         	int namePosition = 0;
         	for (int index = 0; index < items.length; index++){
             		if (items[index] != null && items[index].getName().equals(name)){
-                		result[namePosition++] = items[index];
+                		result[namePosition] = items[index];
+				namePosition++;
             		}
         	}
         	return result;
@@ -94,7 +96,8 @@ public class Tracker{
         	int descPosition = 0;
         	for (int index = 0; index < this.items.length; index++){
             		if (this.items[index] != null && this.items[index].getDescription().equals(desc)){
-                		result[descPosition++] = this.items[index];
+                		result[descPosition] = this.items[index];
+				descPosition++;
             		}
         	}
         	return result;

@@ -6,11 +6,19 @@ public class MenuTracker {
 
 	private Input input;
 	private Tracker tracker;
-	private UserAction[] actions = new UserAction[8];	
+	private UserAction[] actions = new UserAction[7];	
 
 	public MenuTracker(Input input, Tracker tracker){
 		this.input = input;
 		this.tracker = tracker;
+	}
+	
+	public int[] getRanges(){
+		int[] result = new int[this.actions.length];
+		for (int index = 0; index < this.actions.length; index++){
+			result[index] = index;
+		}
+		return result;
 	}
 
 	public void fillActions(){
@@ -59,11 +67,17 @@ public class MenuTracker {
 
 		public void execute(Input input, Tracker tracker){
 			String id = input.ask("Enter the Item's Id:");
-			String name = input.ask("Enter the new name of the Item:");
-			String desc = input.ask("Enter the new desc of the Item:");
-			Task task = new Task(name, desc);
-			task.setId(id);
-			tracker.edit(task);
+			
+			if(tracker.findById(id) != null){			
+
+				String name = input.ask("Enter the new name of the Item:");
+				String desc = input.ask("Enter the new desc of the Item:");
+				Task task = new Task(name, desc);
+				task.setId(id);
+				tracker.edit(task);
+			}else{
+				System.out.println("Item with this Id does not exist.");
+			}
 		}
 
 		public String info(){
@@ -100,7 +114,7 @@ public class MenuTracker {
 		public void execute(Input input, Tracker tracker){
 			String name = input.ask("Enter the name of the Item:");
         		for (Item item : tracker.findByName(name)) {
-        			System.out.println(item.getName());
+	        		System.out.println(item.getName());
         		}
 		}
 
@@ -133,8 +147,8 @@ public class MenuTracker {
 
 		public void execute(Input input, Tracker tracker){
 			String id =  input.ask("Enter the id of the Item:");
-			String text = input.ask("Enter Comment:");
 			if (tracker.findById(id) != null){
+				String text = input.ask("Enter Comment:");
 				Item item = tracker.findById(id);
 				Comment comment = new Comment(text); 
 				tracker.addComment(item, comment);

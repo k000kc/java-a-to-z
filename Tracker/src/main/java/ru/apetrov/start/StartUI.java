@@ -15,14 +15,13 @@ public class StartUI{
 		menu.fillActions();
 		do{
 			menu.show();
-			int key = Integer.valueOf(input.ask("Select:"));
-			menu.select(key);
+			menu.select(input.ask("Select:", menu.getRanges()));
 		}while(!"y".equals(this.input.ask("Exit?(y/n): ")));
 	}
 
 	public static void main(String[] args){
 		Tracker tracker = new Tracker();
-		Input input = new ConsoleInput();
+		Input input = new ValidateInput();
 		new StartUI(input).init(tracker);
 	}
 }

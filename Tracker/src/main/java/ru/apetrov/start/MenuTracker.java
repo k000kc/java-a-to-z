@@ -43,7 +43,12 @@ public class MenuTracker {
 		}
 	}
 
-	private class AddItem implements UserAction{
+	private class AddItem extends BaseAction{
+
+		public AddItem(){
+			super("Add Item");
+		}
+
 		public int key(){
 			return 0;
 		}
@@ -54,12 +59,13 @@ public class MenuTracker {
 			tracker.add(new Task(name, desc));
 		}
 
-		public String info(){
-			return String.format("%s. %s", this.key(), "Add the new item.");
-		}
 	}
 
-	private class EditItem implements UserAction{
+	private class EditItem extends BaseAction{
+
+		public EditItem(){
+			super("Edit Item");
+		}
 
 		public int key(){
 			return 1;
@@ -79,13 +85,13 @@ public class MenuTracker {
 				System.out.println("Item with this Id does not exist.");
 			}
 		}
-
-		public String info(){
-			return String.format("%s. %s", this.key(), "Edit the item.");
-		}
 	}
 
-	private class RemoveItem implements UserAction{
+	private class RemoveItem extends BaseAction{
+
+		public RemoveItem(){
+			super("Remove Item");
+		}
 
 		public int key(){
 			return 2;
@@ -100,13 +106,14 @@ public class MenuTracker {
 				System.out.println("Item with this Id does not exist");
 			}
 		}
-
-		public String info(){
-			return String.format("%s. %s", this.key(), "Remove the item.");
-		}
 	}
 
-	private class FindName implements UserAction{
+	private class FindName extends BaseAction{
+
+		public FindName(){
+			super("Find by name");
+		}
+
 		public int key(){
 			return 3;
 		}
@@ -117,13 +124,14 @@ public class MenuTracker {
 	        		System.out.println(item.getName());
         		}
 		}
-
-		public String info(){
-			return String.format("%s. %s", this.key(), "Find by name items.");
-		}
 	}
 
-	private class FindDescription implements UserAction{
+	private class FindDescription extends BaseAction{
+
+		public FindDescription(){
+			super("Find by Description");
+		}
+
 		public int key(){
 			return 4;
 		}
@@ -134,13 +142,14 @@ public class MenuTracker {
         			System.out.println(item.getName() + " - " + item.getDescription());
         		}
 		}
-
-		public String info(){
-			return String.format("%s. %s", this.key(), "Find by description items.");
-		}
 	}
 
-	private class AddComment implements UserAction{
+	private class AddComment extends BaseAction{
+
+		public AddComment(){
+			super("Add Comment");
+		}
+
 		public int key(){
 			return 5;
 		}
@@ -156,13 +165,14 @@ public class MenuTracker {
 				System.out.println("Item with this Id does not exist");
 			}
 		}
-
-		public String info(){
-			return String.format("%s. %s", this.key(), "Add comment.");
-		}
 	}	
 
-	private class ShowItems implements UserAction{
+	private class ShowItems extends BaseAction{
+
+		public ShowItems(){
+			super("Show all Items");
+		}
+
 		public int key(){
 			return 6;
 		}
@@ -171,10 +181,6 @@ public class MenuTracker {
 			for(Item item : tracker.getAll()){
 				System.out.println(String.format("%s. %s. %s. %s", item.getId(), item.getName(), item.getDescription(), item.getComment()));
 			}
-		}
-
-		public String info(){
-			return String.format("%s. %s", this.key(), "Show all items.");
 		}
 	}
 }

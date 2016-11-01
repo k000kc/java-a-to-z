@@ -1,14 +1,26 @@
 package ru.apetrov;
 
+import ru.apetrov.models.Horse;
+
 public class ChessBoard {
 
 	private Figure[][] figures = new Figure[8][8];
 
     	public void move(Figure figure, Position position){
-        	if (boardRangeChecking(position) && positionOccupiedChecking(figure, position) && figure.moveTo(position)){
-            		this.removeFigure(figure);
-            		figure.setPosition(position);
-            		this.addFigure(figure);
+        	if (boardRangeChecking(position) && positionOccupiedChecking(figure, position)){
+            		if (!figures[figure.getPosition().getY()][figure.getPosition().getX()].equals(new Horse(position))){
+                		if (moveByDiagonal(figure, position) && moveByVerticaleOrHorizontale(figure, position)){
+                    			this.removeFigure(figure);
+                    			figure.setPosition(position);
+                    			this.addFigure(figure);
+                		}
+            		}else {
+                		if (moveByDiagonal(figure, position) && moveByVerticaleOrHorizontale(figure, position)){
+                    			this.removeFigure(figure);
+                    			figure.setPosition(position);
+                    			this.addFigure(figure);
+                		}
+            		}
         	}
     	}
 

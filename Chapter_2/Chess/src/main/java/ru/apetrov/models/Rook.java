@@ -11,6 +11,11 @@ public class Rook extends Figure {
 
     	@Override
     	public boolean moveTo(Position position) {
-        	return false;
+        	boolean result = false;
+
+        	if (this.getPosition().getY() == position.getY() || this.getPosition().getX() == position.getX()){
+            		result = true;
+        	}
+        	return result;
     	}
 }

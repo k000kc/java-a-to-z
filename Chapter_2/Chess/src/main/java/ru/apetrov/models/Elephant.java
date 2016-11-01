@@ -10,8 +10,12 @@ public class Elephant extends Figure{
     	}
 
     	@Override
-    	public boolean moveTo(Position position) {
+   	public boolean moveTo(Position position) {
         	boolean result = false;
+
+        	if (Math.abs(this.getPosition().getY() - position.getY()) == Math.abs(this.getPosition().getX() - position.getX())){
+            		result = true;
+        	}
         	return result;
     	}
 }

@@ -4,6 +4,14 @@ public class ChessBoard {
 
 	private Figure[][] figures = new Figure[8][8];
 
+    	public void move(Figure figure, Position position){
+        	if (boardRangeChecking(position) && positionOccupiedChecking(figure, position) && figure.moveTo(position)){
+            		this.removeFigure(figure);
+            		figure.setPosition(position);
+            		this.addFigure(figure);
+        	}
+    	}
+
     	public void addFigure(Figure figure){
         	this.figures[figure.getPosition().getY()][figure.getPosition().getX()] = figure;
     	}

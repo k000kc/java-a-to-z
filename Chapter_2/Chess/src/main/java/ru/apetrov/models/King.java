@@ -11,6 +11,19 @@ public class King extends Figure {
 
     	@Override
     	public boolean moveTo(Position position) {
-        	return false;
+        	boolean result = false;
+
+        	if (Math.abs(this.getPosition().getY() - position.getY()) == 1 && Math.abs(this.getPosition().getX() - position.getX()) == 1){
+           		result = true;
+        	}
+
+        	if (Math.abs(this.getPosition().getY() - position.getY()) == 1 && this.getPosition().getX() == position.getX()){
+            		result = true;
+        	}
+
+        	if (Math.abs(this.getPosition().getX() - position.getX()) == 1 && this.getPosition().getY() == position.getY()){
+            		result = true;
+        	}
+        	return result;
     	}
 }

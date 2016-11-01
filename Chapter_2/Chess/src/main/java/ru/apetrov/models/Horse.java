@@ -12,6 +12,15 @@ public class Horse extends Figure{
 
     	@Override
     	public boolean moveTo(Position position) {
-        	return false;
+        	boolean result = false;
+
+        	if (Math.abs(this.getPosition().getY() - position.getY()) == 2 && Math.abs(this.getPosition().getX() - position.getX()) == 1){
+            		result = true;
+        	}
+
+        	if (Math.abs(this.getPosition().getY() - position.getY()) == 1 && Math.abs(this.getPosition().getX() - position.getX()) == 2){
+            		result = true;
+        	}
+        	return result;
     	}
 }

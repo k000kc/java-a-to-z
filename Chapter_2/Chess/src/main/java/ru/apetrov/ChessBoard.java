@@ -7,18 +7,14 @@ public class ChessBoard {
 	private Figure[][] figures = new Figure[8][8];
 
     	public void move(Figure figure, Position position){
-        	if (boardRangeChecking(position) && positionOccupiedChecking(figure, position)){
-            		if (!figures[figure.getPosition().getY()][figure.getPosition().getX()].equals(new Horse(position))){
-                		if (moveByDiagonal(figure, position) && moveByVerticaleOrHorizontale(figure, position)){
+        	if (boardRangeChecking(position) && positionOccupiedChecking(figure, position)) {
+            		if (moveByDiagonal(figure, position) && moveByVerticaleOrHorizontale(figure, position)) {
+                		if (figure.moveTo(position)) {
                     			this.removeFigure(figure);
                     			figure.setPosition(position);
                     			this.addFigure(figure);
                 		}
-            		}else {
-                    		this.removeFigure(figure);
-                    		figure.setPosition(position);
-                    		this.addFigure(figure);
-                	}
+            		}
         	}
     	}
 

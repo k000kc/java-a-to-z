@@ -15,12 +15,10 @@ public class ChessBoard {
                     			this.addFigure(figure);
                 		}
             		}else {
-                		if (moveByDiagonal(figure, position) && moveByVerticaleOrHorizontale(figure, position)){
-                    			this.removeFigure(figure);
-                    			figure.setPosition(position);
-                    			this.addFigure(figure);
-                		}
-            		}
+                    		this.removeFigure(figure);
+                    		figure.setPosition(position);
+                    		this.addFigure(figure);
+                	}
         	}
     	}
 

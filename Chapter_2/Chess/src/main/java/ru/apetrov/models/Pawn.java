@@ -4,7 +4,7 @@ import ru.apetrov.*;
 
 public class Pawn extends Figure {
 
-    	private MoveChecking checking;
+    	private MoveChecking checking = new MoveChecking();
     	private boolean isFirstMove = true;
 
     	public Pawn(Position position) {

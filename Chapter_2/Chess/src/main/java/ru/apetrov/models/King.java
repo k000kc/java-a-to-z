@@ -4,7 +4,7 @@ import ru.apetrov.*;
 
 public class King extends Figure {
 
-    	private MoveChecking checking;
+    	private MoveChecking checking = new MoveChecking();
 
     	public King(Position position) {
         	super(position);

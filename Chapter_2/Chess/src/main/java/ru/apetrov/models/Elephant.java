@@ -4,7 +4,7 @@ import ru.apetrov.*;
 
 public class Elephant extends Figure{
 
-    	private MoveChecking checking;
+    	private MoveChecking checking = new MoveChecking();
 
     	public Elephant(Position position) {
         	super(position);

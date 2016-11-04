@@ -4,7 +4,7 @@ import ru.apetrov.*;
 
 public class Horse extends Figure{
 
-    	private MoveChecking checking;
+    	private MoveChecking checking = new MoveChecking();
 
     	public Horse(Position position) {
         	super(position);

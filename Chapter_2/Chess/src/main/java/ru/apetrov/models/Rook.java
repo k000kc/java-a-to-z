@@ -4,7 +4,7 @@ import ru.apetrov.*;
 
 public class Rook extends Figure {
 
-    	private MoveChecking checking;
+    	private MoveChecking checking = new MoveChecking();
 
     	public Rook(Position position) {
         	super(position);

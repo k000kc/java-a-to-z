@@ -16,6 +16,7 @@
 		<module>Chapter_2/Lesson_7</module>
 		<module>Chapter_2/Chess</module>
 		<module>Tracker</module>
+		<module>Chapter_3/Lesson-1</module>
 	</modules>
 
 	<dependencies>

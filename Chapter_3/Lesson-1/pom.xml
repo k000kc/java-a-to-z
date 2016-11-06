@@ -9,8 +9,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <groupId>ru.apetrov</groupId>
     <artifactId>Lesson-1</artifactId>
-
-
+    <version>1.0</version>
+    <packaging>jar</packaging>
 </project>

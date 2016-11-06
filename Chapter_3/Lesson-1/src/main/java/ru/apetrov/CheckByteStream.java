@@ -13,8 +13,8 @@ public class CheckByteStream{
 
         if (in.read() % 2 == 0){
             result = true;
-            in.close();
         }
+        in.close();
         return result;
     }
 }

@@ -24,6 +24,12 @@ public class CheckByteStreamTest {
             result = cbs.isNumber(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         assertTrue(result);
     }
@@ -35,6 +41,12 @@ public class CheckByteStreamTest {
             result = cbs.isNumber(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         assertFalse(result);
     }

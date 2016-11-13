@@ -1,25 +1,36 @@
 package ru.apetrov;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 
 /**
  * Created by Andrey on 05.11.2016.
  */
-//@Ignore
 public class CheckByteStreamTest {
 
-    CheckByteStream cbs = new CheckByteStream();
-    boolean result = false;
+    /**
+     * init class.
+     */
+    private CheckByteStream cbs = new CheckByteStream();
 
+    /**
+     * field result.
+     */
+    private boolean result = false;
+
+    /**
+     * Check Even number.
+     */
     @Test
-    public void whenInputEvenNumberThenCheckNumber(){
-        try(InputStream inputStream = new ByteArrayInputStream("4".getBytes())){
+    public void whenInputEvenNumberThenCheckNumber() {
+        try (InputStream inputStream = new ByteArrayInputStream("4".getBytes())) {
             result = cbs.isNumber(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
@@ -27,9 +38,12 @@ public class CheckByteStreamTest {
         assertTrue(result);
     }
 
+    /**
+     * Check odd number.
+     */
     @Test
-    public void whenInputOddNumberThenCheckNumber(){
-        try(InputStream inputStream = new ByteArrayInputStream("3".getBytes())) {
+    public void whenInputOddNumberThenCheckNumber() {
+        try (InputStream inputStream = new ByteArrayInputStream("3".getBytes())) {
             result = cbs.isNumber(inputStream);
         } catch (IOException e) {
             e.printStackTrace();

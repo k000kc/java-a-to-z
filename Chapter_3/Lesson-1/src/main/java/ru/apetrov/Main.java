@@ -20,7 +20,7 @@ public class Main {
          */
         MegreSort sort = new MegreSort();
         File fileSource = new File("H:\\projects\\java-a-to-z\\Chapter_3\\Lesson-1\\src\\main\\resources\\SourceFile");
-        File fileDestance = new File("H:\\projects\\java-a-to-z\\Chapter_3\\Lesson-1\\src\\main\\resources\\DestanceFile");
-        sort.sort(fileSource, fileDestance);
+        File fileDistance = new File("H:\\projects\\java-a-to-z\\Chapter_3\\Lesson-1\\src\\main\\resources\\DistanceFile");
+        sort.sort(fileSource, fileDistance);
     }
 }

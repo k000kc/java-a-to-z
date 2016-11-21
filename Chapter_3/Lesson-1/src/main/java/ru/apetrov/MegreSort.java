@@ -60,7 +60,7 @@ public class MegreSort {
      * @param raf файл для разбиения
      * @throws IOException IOException
      */
-    public void splitFile(RandomAccessFile raf) throws IOException {
+    private void splitFile(RandomAccessFile raf) throws IOException {
 
         raf.seek(0);
         this.rafFirst.setLength(0);
@@ -100,7 +100,7 @@ public class MegreSort {
      * @param second второй вспомогательный файл
      * @throws IOException IOException
      */
-    public void megreFile(RandomAccessFile first, RandomAccessFile second) throws IOException {
+    private void megreFile(RandomAccessFile first, RandomAccessFile second) throws IOException {
         this.rafDistance.setLength(0);
         first.seek(0);
         second.seek(0);
@@ -115,7 +115,7 @@ public class MegreSort {
 
         while (lineFirst != null && lineSecond != null) {
 
-            if (lineFirst != null && lineSecond != null){
+            if (lineFirst != null && lineSecond != null) {
                 if (lineFirst.length() < lineSecond.length()) {
                     if (countFirst <= lineFirst.length()) {
                         this.rafDistance.writeBytes(String.format("%s\r\n", lineFirst));

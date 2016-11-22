@@ -1,4 +1,4 @@
-package ru.apetrov;
+package ru.apetrov.CheckByteStream;
 
 import java.io.IOException;
 import java.io.InputStream;

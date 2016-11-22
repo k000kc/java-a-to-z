@@ -1,6 +1,7 @@
 package ru.apetrov;
 
 import org.junit.Test;
+import ru.apetrov.RemoveBannedWords.RemoveBannedWords;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

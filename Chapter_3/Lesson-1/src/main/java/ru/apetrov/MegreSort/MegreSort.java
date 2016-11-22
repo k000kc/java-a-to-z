@@ -1,4 +1,4 @@
-package ru.apetrov;
+package ru.apetrov.MegreSort;
 
 import java.io.File;
 import java.io.IOException;

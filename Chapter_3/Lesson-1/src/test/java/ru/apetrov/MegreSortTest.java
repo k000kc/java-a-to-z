@@ -1,6 +1,7 @@
 package ru.apetrov;
 
 import org.junit.Test;
+import ru.apetrov.MegreSort.MegreSort;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -51,7 +51,7 @@ public class Palindrom {
         if (word.length() == lengthWodr && word.equalsIgnoreCase(reverseWord)) {
             result = true;
         } else {
-            throw new IOException(String.format("%s", "Слово должно содержать 5 букв"));
+            throw new IOException(String.format("%s%s", "Слово должно содержать 5 букв", word));
         }
         reader.close();
 

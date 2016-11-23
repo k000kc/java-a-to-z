@@ -20,10 +20,14 @@ public class PalindromTest {
      * @throws IOException IOExeption
      */
     @Test
-    public void whenInputWordThenCheckIsPolindrom() throws IOException {
+    public void whenInputWordThenCheckIsPolindrom() {
         Palindrom palindrom = new Palindrom();
-        InputStream inputStream = new ByteArrayInputStream("КоМок".getBytes());
         boolean result = true;
-        assertThat(palindrom.isPalindrom(inputStream), is(result));
+
+        try(InputStream inputStream = new ByteArrayInputStream("КоМок".getBytes());) {
+            assertThat(palindrom.isPalindrom(inputStream), is(result));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

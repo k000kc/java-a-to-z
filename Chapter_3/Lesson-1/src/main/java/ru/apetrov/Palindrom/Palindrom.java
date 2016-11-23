@@ -36,24 +36,27 @@ public class Palindrom {
      * @return false/true - существует ли палиндром
      * @throws IOException IOExeption
      */
-    public boolean isPalindrom(InputStream is) throws IOException {
+    public boolean isPalindrom(InputStream is) {
 
         boolean result = false;
         StringBuilder builder = new StringBuilder();
-        Reader reader = new InputStreamReader(is);
 
-        while ((value = reader.read()) != -1) {
-            word = builder.append((char) value).toString();
+        try(Reader reader = new InputStreamReader(is)) {
+            while ((value = reader.read()) != -1) {
+                word = builder.append((char) value).toString();
+            }
+
+            reverseWord = builder.reverse().toString();
+
+            if (word.length() == lengthWodr && word.equalsIgnoreCase(reverseWord)) {
+                result = true;
+            } else {
+                throw new IOException(String.format("%s%s", "Слово должно содержать 5 букв", word));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        reverseWord = builder.reverse().toString();
-
-        if (word.length() == lengthWodr && word.equalsIgnoreCase(reverseWord)) {
-            result = true;
-        } else {
-            throw new IOException(String.format("%s%s", "Слово должно содержать 5 букв", word));
-        }
-        reader.close();
 
         return result;
     }

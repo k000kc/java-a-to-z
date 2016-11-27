@@ -50,7 +50,7 @@ public class Chat {
 
 
     /**
-     * Метд для работы работы с чатом.
+     * Метд для работы с чатом.
      * @param in Входящий поток
      */
     public void runChat(InputStream in) {

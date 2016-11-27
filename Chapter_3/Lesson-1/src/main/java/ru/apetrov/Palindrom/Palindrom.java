@@ -41,7 +41,7 @@ public class Palindrom {
         boolean result = false;
         StringBuilder builder = new StringBuilder();
 
-        try(Reader reader = new InputStreamReader(is)) {
+        try (Reader reader = new InputStreamReader(is)) {
             while ((value = reader.read()) != -1) {
                 word = builder.append((char) value).toString();
             }

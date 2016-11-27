@@ -1,32 +1,68 @@
 package ru.apetrov.Chat;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.util.Random;
+import java.io.InputStreamReader;
+import java.io.IOException;
 
 /**
  * Created by Andrey on 26.11.2016.
  */
 public class Chat {
 
+    /**
+     * Исходный файл с фразами.
+     */
     private RandomAccessFile rafSource;
+
+    /**
+     * Лог файл.
+     */
     private RandomAccessFile rafLog;
+
+    /**
+     * Поставить чат на паузу.
+     */
     private boolean stopChat = false;
+
+    /**
+     * Сообщение пользователя.
+     */
     private String msg;
+
+    /**
+     * Случайная фраза чата.
+     */
     private String phrase;
-    private String[] phrases = new String[10];
+
+    /**
+     * Размерность массива фраз.
+     */
+    private final int arraySize = 10;
+
+    /**
+     * Массив фраз чата.
+     */
+    private String[] phrases = new String[arraySize];
 
 
-
+    /**
+     * Метд для работы работы с чатом.
+     * @param in Входящий поток
+     */
     public void runChat(InputStream in) {
 
         File logFile = new File("H:\\projects\\java-a-to-z\\Chapter_3\\Lesson-1\\src\\main\\resources\\log");
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
-
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
 
             this.rafLog = new RandomAccessFile(logFile, "rw");
             long positionLog;
 
-            while (!(this.msg = reader.readLine()).equalsIgnoreCase("exit")) {
+            this.msg = reader.readLine();
+            while (!this.msg.equalsIgnoreCase("exit")) {
 
                 positionLog = this.rafLog.length();
                 this.rafLog.seek(positionLog);
@@ -44,12 +80,18 @@ public class Chat {
                 if (this.msg.equalsIgnoreCase("start")) {
                     this.stopChat = false;
                 }
+                this.msg = reader.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Метод выбирающий случайную фразу из массива.
+     * @return случайная фраза.
+     * @throws IOException IOExeption
+     */
     private String randomPhrase() throws IOException {
         String result = "";
         Random random = new Random();
@@ -61,7 +103,7 @@ public class Chat {
             phrases[index] = line;
             index++;
         }
-        result = phrases[random.nextInt(10)];
+        result = phrases[random.nextInt(arraySize)];
         return result;
     }
 }

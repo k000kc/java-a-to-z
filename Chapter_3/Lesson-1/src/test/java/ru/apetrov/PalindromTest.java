@@ -24,7 +24,7 @@ public class PalindromTest {
         Palindrom palindrom = new Palindrom();
         boolean result = true;
 
-        try(InputStream inputStream = new ByteArrayInputStream("КоМок".getBytes());) {
+        try (InputStream inputStream = new ByteArrayInputStream("КоМок".getBytes());) {
             assertThat(palindrom.isPalindrom(inputStream), is(result));
         } catch (IOException e) {
             e.printStackTrace();

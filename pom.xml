@@ -23,6 +23,7 @@
 		<module>Chapter_2/Chess</module>
 		<module>Tracker</module>
 		<module>Chapter_3/Lesson-1</module>
+		<module>Chapter_3/Lesson-2</module>
 	</modules>
 
 	<dependencies>

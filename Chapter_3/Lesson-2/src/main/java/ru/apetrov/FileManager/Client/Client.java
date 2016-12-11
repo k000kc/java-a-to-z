@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Properties;
 
 /**
  * Created by Andrey on 03.12.2016.
@@ -14,13 +15,20 @@ public class Client {
     private int port;
     private String host;
 
-    public Client(int port, String host) {
-        this.port = port;
-        this.host = host;
+    public void setClient() {
+        try(FileInputStream fis = new FileInputStream("Chapter_3\\Lesson-2\\src\\main\\resources\\config.properties")) {
+            Properties properties = new Properties();
+            properties.load(fis);
+            this.port = Integer.valueOf(properties.getProperty("port"));
+            this.host = properties.getProperty("host");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-
-    public void connectByServer() {
+    public void startClient() {
 
         try {
         InetAddress inetAddress = InetAddress.getByName(host);
@@ -34,14 +42,15 @@ public class Client {
             DataOutputStream out = new DataOutputStream(outputStream);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
             String s = null;
-            System.out.println("Input messages");
+            System.out.println("Введите \"help\", чтобы вызвать справку");
             while (true) {
                 s = reader.readLine();
                 out.writeUTF(s);
                 out.flush();
                 s = in.readUTF();
-                System.out.println("Server answer: " + s);
+                System.out.println("Server answer:\r\n" + s);
                 System.out.println("Input messages");
             }
 

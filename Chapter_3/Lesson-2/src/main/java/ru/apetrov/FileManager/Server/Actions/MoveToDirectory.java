@@ -6,19 +6,15 @@ import main.java.ru.apetrov.FileManager.Server.BaseAction;
  * Класс для входа в подкаталог.
  * Created by Andrey on 03.12.2016.
  */
-public class MoveToCatalog extends BaseAction {
+public class MoveToDirectory extends BaseAction {
 
-    public MoveToCatalog(String name) {
-        super(name);
+    public MoveToDirectory(String key, String name) {
+        super(key, name);
     }
 
     @Override
-    public int key() {
-        return 0;
-    }
-
-    @Override
-    public void execute() {
-
+    public String execute() {
+        String result = "MoveToDirectory";
+        return result;
     }
 }

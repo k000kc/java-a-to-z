@@ -8,17 +8,13 @@ import main.java.ru.apetrov.FileManager.Server.BaseAction;
  */
 public class UplaodFile extends BaseAction {
 
-    public UplaodFile(String name) {
-        super(name);
+    public UplaodFile(String key, String name) {
+        super(key, name);
     }
 
     @Override
-    public int key() {
-        return 0;
-    }
-
-    @Override
-    public void execute() {
-
+    public String execute() {
+        String result = "UplaodFile";
+        return result;
     }
 }

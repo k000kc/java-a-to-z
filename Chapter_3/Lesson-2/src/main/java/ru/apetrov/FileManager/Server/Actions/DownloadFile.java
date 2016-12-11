@@ -8,17 +8,13 @@ import main.java.ru.apetrov.FileManager.Server.BaseAction;
  */
 public class DownloadFile extends BaseAction {
 
-    public DownloadFile(String name) {
-        super(name);
+    public DownloadFile(String key, String name) {
+        super(key, name);
     }
 
     @Override
-    public int key() {
-        return 0;
-    }
-
-    @Override
-    public void execute() {
-
+    public String execute() {
+        String result = "Download";
+        return result;
     }
 }

@@ -1,28 +1,47 @@
 package main.java.ru.apetrov.FileManager.Server;
 
+import javafx.scene.layout.Priority;
+import main.java.ru.apetrov.FileManager.Server.Actions.*;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Properties;
 
 /**
  * Created by Andrey on 03.12.2016.
- * Класс сервер, этот код временный просто для проверки.
+ * Класс сервер.
  */
 public class Server {
 
-    private int port;
+    private Integer port = null;
     private String rootDir;
 
-    public Server(int port, String rootDir) {
-        this.port = port;
-        this.rootDir = rootDir;
+    public String getRootDir() {
+        return rootDir;
     }
 
-    public void connectByClient() {
+    public void setServer() {
+        try(FileInputStream fis = new FileInputStream("Chapter_3\\Lesson-2\\src\\main\\resources\\config.properties")) {
+            Properties priority = new Properties();
+            priority.load(fis);
+
+            this.port = Integer.valueOf(priority.getProperty("port"));
+            this.rootDir = priority.getProperty("host");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void startServer() {
+        MenuServer menu = new MenuServer(new File(rootDir));
+
         try(ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Waiting for connection...");
             Socket socket = serverSocket.accept();
-            System.out.println("Connection accepted.");
+            System.out.println("Connection accepted.\r\n");
 
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
@@ -35,7 +54,7 @@ public class Server {
                 s = in.readUTF();
                 System.out.println("Message delivered " + s);
                 System.out.println("answer");
-                out.writeUTF(s);
+                out.writeUTF(menu.selectActions(s));
                 out.flush();
             }
 

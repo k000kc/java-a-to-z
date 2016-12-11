@@ -8,17 +8,13 @@ import main.java.ru.apetrov.FileManager.Server.BaseAction;
  */
 public class RootDirectory extends BaseAction {
 
-    public RootDirectory(String name) {
-        super(name);
+    public RootDirectory(String key, String name) {
+        super(key, name);
     }
 
     @Override
-    public int key() {
-        return 0;
-    }
-
-    @Override
-    public void execute() {
-
+    public String execute() {
+        String result = "RootDirectory";
+        return result;
     }
 }

@@ -9,7 +9,8 @@ public class TestClient {
 
     public static void main(String[] args) {
 
-        Client client = new Client(5000, "localhost");
-        client.connectByServer();
+        Client client = new Client();
+        client.setClient();
+        client.startClient();
     }
 }

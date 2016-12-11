@@ -9,7 +9,8 @@ public class TestServer {
 
     public static void main(String[] args) {
 
-        Server server = new Server(5000, "H:\\");
-        server.connectByClient();
+        Server server = new Server();
+        server.setServer();
+        server.startServer();
     }
 }

@@ -9,29 +9,32 @@ public abstract class BaseAction {
     /**
      * Название апи.
      */
-    String name;
+    private String name;
+    private String key;
 
-    public BaseAction(String name) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public BaseAction(String key, String name) {
+        this.key = key;
         this.name = name;
     }
 
     /**
-     * Ключ апи.
-     * @return номер апи
-     */
-    public abstract int key();
-
-    /**
      * Выполнение апи.
      */
-    public abstract void execute();
-
-    /**
-     * Информация о конкретном апи.
-     * @return информаця об апи
-     */
-    public String info() {
-        return String.format("%s. %s", this.key(), this.name);
-    }
-
+    public abstract String execute();
 }

@@ -1,7 +1,5 @@
 package main.java.ru.apetrov.FileManager.Server;
 
-import main.java.ru.apetrov.FileManager.Server.Actions.*;
-
 import java.io.File;
 
 /**
@@ -68,6 +66,74 @@ public class MenuServer {
                 }
             }
             result = builder.toString();
+            return result;
+        }
+    }
+
+    /**
+     * Класс для входа в подкаталог.
+     * Created by Andrey on 03.12.2016.
+     */
+    public class MoveToDirectory extends BaseAction {
+
+        public MoveToDirectory(String key, String name) {
+            super(key, name);
+        }
+
+        @Override
+        public String execute() {
+            String result = "MoveToDirectory";
+            return result;
+        }
+    }
+
+    /**
+     * Класс для перехода в корневую директорию.
+     * Created by Andrey on 03.12.2016.
+     */
+    public class RootDirectory extends BaseAction {
+
+        public RootDirectory(String key, String name) {
+            super(key, name);
+        }
+
+        @Override
+        public String execute() {
+            String result = "RootDirectory";
+            return result;
+        }
+    }
+
+    /**
+     * Класс для скачивания файла.
+     * Created by Andrey on 03.12.2016.
+     */
+    public class DownloadFile extends BaseAction {
+
+        public DownloadFile(String key, String name) {
+            super(key, name);
+        }
+
+        @Override
+        public String execute() {
+            String result = "Download";
+            return result;
+        }
+    }
+
+    /**
+     * Класс для загрузки файла.
+     * Created by Andrey on 03.12.2016.
+     */
+    public class UplaodFile extends BaseAction {
+
+        public UplaodFile(String key, String name) {
+            super(key, name);
+        }
+
+        @Override
+        public String execute() {
+            String result = "UplaodFile";
             return result;
         }
     }

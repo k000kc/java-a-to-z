@@ -30,6 +30,7 @@ public class MenuServer {
                 builder.append(String.format("%s\r\n", action.getName()));
             }
         }
+        builder.append("Введите \"exit\", для выхода");
         result = builder.toString();
         return result;
     }

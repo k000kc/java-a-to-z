@@ -47,6 +47,9 @@ public class Client {
             System.out.println("Введите \"help\", чтобы вызвать справку");
             while (true) {
                 s = reader.readLine();
+                if (s.equalsIgnoreCase("exit")) {
+                    break;
+                }
                 out.writeUTF(s);
                 out.flush();
                 s = in.readUTF();

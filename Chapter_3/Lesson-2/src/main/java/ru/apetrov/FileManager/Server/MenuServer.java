@@ -61,7 +61,11 @@ public class MenuServer {
             String result = "";
             StringBuilder builder = new StringBuilder();
             for (File file : dir.listFiles()) {
-                builder.append(String.format("%s\r\n", file.getName()));
+                if (file.isDirectory()) {
+                    builder.append(String.format("%s\t\t%s\r\n", "dir", file.getName()));
+                } else {
+                    builder.append(String.format("\t\t%s\r\n", file.getName()));
+                }
             }
             result = builder.toString();
             return result;

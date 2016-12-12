@@ -27,7 +27,7 @@ public class Server {
             priority.load(fis);
 
             this.port = Integer.valueOf(priority.getProperty("port"));
-            this.rootDir = priority.getProperty("host");
+            this.rootDir = priority.getProperty("rootDir");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

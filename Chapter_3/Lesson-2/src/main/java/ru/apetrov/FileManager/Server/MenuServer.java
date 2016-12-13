@@ -95,7 +95,7 @@ public class MenuServer {
         @Override
         public String execute(String command) {
             String[] commands = command.split(" ");
-            String result = "";
+            String result = "Нет такого каталога!";
 
             if (commands[1].equals("..")) {
                 setDir(new File(String.format("%s", getDir().getParent())));

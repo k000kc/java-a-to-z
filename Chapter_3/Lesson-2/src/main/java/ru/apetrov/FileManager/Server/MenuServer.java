@@ -7,19 +7,26 @@ import java.io.File;
  */
 public class MenuServer {
 
-    private BaseAction actions[] = new BaseAction[5];
+    private BaseAction actions[] = new BaseAction[4];
     private File dir;
 
     public MenuServer(File dir) {
         this.dir = dir;
     }
 
+    public File getDir() {
+        return dir;
+    }
+
+    public void setDir(File dir) {
+        this.dir = dir;
+    }
+
     public void fillActions() {
         this.actions[0] = new ShowDirectory("ls", "Введите \"ls\", чтобы просмотреть директорию");
-        this.actions[1] = new MoveToDirectory("cd", "Введите \"cd\", чтобы перейти в каталог");
-        this.actions[2] = new RootDirectory("cd ..", "Введите \"cd ..\", чтобы вернуться в корневой каталог");
-        this.actions[3] = new DownloadFile("download", "Введите \"download\", чтобы скачать файл");
-        this.actions[4] = new UplaodFile("upload", "Введите \"upload\", чтобы загрузить файл");
+        this.actions[1] = new MoveDirectory("cd", "Введите \"cd <имя каталога>\", чтобы перейти в каталог\r\nВведите \"cd ..\", чтобы вернуться в корневой каталог");
+        this.actions[2] = new DownloadFile("download", "Введите \"download\", чтобы скачать файл");
+        this.actions[3] = new UplaodFile("upload", "Введите \"upload\", чтобы загрузить файл");
     }
 
     public String showActions() {
@@ -37,18 +44,22 @@ public class MenuServer {
 
     public String selectActions(String key) {
         fillActions();
+        String[] keys = key.split(" ");
         String result = "Неизвестная команда!";
-        if (key.equalsIgnoreCase("help")) {
+        if (keys[0].equalsIgnoreCase("help")) {
             result = showActions();
         }
         for (BaseAction action : actions) {
-            if (key.equalsIgnoreCase(action.getKey())) {
-                result = action.execute();
+            if (keys[0].equalsIgnoreCase(action.getKey())) {
+                result = action.execute(key);
             }
         }
         return result;
     }
 
+    /**
+     * Класс для просмотре файлов и каталогов в директории.
+     */
     public class ShowDirectory extends BaseAction {
 
         public ShowDirectory(String key, String name) {
@@ -56,10 +67,10 @@ public class MenuServer {
         }
 
         @Override
-        public String execute() {
+        public String execute(String command) {
             String result = "";
             StringBuilder builder = new StringBuilder();
-            for (File file : dir.listFiles()) {
+            for (File file : getDir().listFiles()) {
                 if (file.isDirectory()) {
                     builder.append(String.format("%s\t\t%s\r\n", "dir", file.getName()));
                 } else {
@@ -75,32 +86,29 @@ public class MenuServer {
      * Класс для входа в подкаталог.
      * Created by Andrey on 03.12.2016.
      */
-    public class MoveToDirectory extends BaseAction {
+    public class MoveDirectory extends BaseAction {
 
-        public MoveToDirectory(String key, String name) {
+        public MoveDirectory(String key, String name) {
             super(key, name);
         }
 
         @Override
-        public String execute() {
-            String result = "MoveToDirectory";
-            return result;
-        }
-    }
+        public String execute(String command) {
+            String[] commands = command.split(" ");
+            String result = "";
 
-    /**
-     * Класс для перехода в корневую директорию.
-     * Created by Andrey on 03.12.2016.
-     */
-    public class RootDirectory extends BaseAction {
-
-        public RootDirectory(String key, String name) {
-            super(key, name);
-        }
-
-        @Override
-        public String execute() {
-            String result = "RootDirectory";
+            if (commands[1].equals("..")) {
+                setDir(new File(String.format("%s", getDir().getParent())));
+                result = String.format("%s%s", getDir().getName(), "\\");
+            }
+            for (File file : getDir().listFiles()) {
+                if (file.isDirectory()) {
+                    if (commands[1].equals(file.getName())) {
+                        setDir(new File(String.format("%s\\%s", getDir(), commands[1])));
+                        result = String.format("%s%s", getDir().getName(), "\\");
+                    }
+                }
+            }
             return result;
         }
     }
@@ -116,7 +124,7 @@ public class MenuServer {
         }
 
         @Override
-        public String execute() {
+        public String execute(String command) {
             String result = "Download";
             return result;
         }
@@ -133,7 +141,7 @@ public class MenuServer {
         }
 
         @Override
-        public String execute() {
+        public String execute(String command) {
             String result = "UplaodFile";
             return result;
         }

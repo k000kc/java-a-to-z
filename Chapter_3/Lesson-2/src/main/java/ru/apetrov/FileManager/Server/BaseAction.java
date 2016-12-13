@@ -36,5 +36,5 @@ public abstract class BaseAction {
     /**
      * Выполнение апи.
      */
-    public abstract String execute();
+    public abstract String execute(String command);
 }

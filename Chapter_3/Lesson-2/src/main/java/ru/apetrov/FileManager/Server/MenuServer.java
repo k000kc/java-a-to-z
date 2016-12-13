@@ -83,7 +83,7 @@ public class MenuServer {
     }
 
     /**
-     * Класс для входа в подкаталог.
+     * Класс для хождения по каталогам.
      * Created by Andrey on 03.12.2016.
      */
     public class MoveDirectory extends BaseAction {

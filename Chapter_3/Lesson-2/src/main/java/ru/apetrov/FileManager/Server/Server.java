@@ -25,8 +25,6 @@ public class Server {
 
             this.port = Integer.valueOf(priority.getProperty("port"));
             this.rootDir = priority.getProperty("rootDir");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,7 +49,7 @@ public class Server {
                 s = in.readUTF();
                 System.out.println("Message delivered " + s);
                 System.out.println("answer");
-                out.writeUTF(menu.selectActions(s));
+                menu.selectActions(s);
                 out.flush();
             }
 

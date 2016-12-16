@@ -1,6 +1,6 @@
 package main.java.ru.apetrov.FileManager.Server;
 
-import java.io.File;
+import java.io.*;
 
 /**
  * Created by Andrey on 04.12.2016.
@@ -25,36 +25,34 @@ public class MenuServer {
     public void fillActions() {
         this.actions[0] = new ShowDirectory("ls", "Введите \"ls\", чтобы просмотреть директорию");
         this.actions[1] = new MoveDirectory("cd", "Введите \"cd <имя каталога>\", чтобы перейти в каталог\r\nВведите \"cd ..\", чтобы вернуться в корневой каталог");
-        this.actions[2] = new DownloadFile("download", "Введите \"download\", чтобы скачать файл");
-        this.actions[3] = new UplaodFile("upload", "Введите \"upload\", чтобы загрузить файл");
+        this.actions[2] = new DownloadFile("dload", "Введите \"download\", чтобы скачать файл");
+        this.actions[3] = new UplaodFile("uload", "Введите \"upload\", чтобы загрузить файл");
     }
 
-    public String showActions() {
+    public void showActions() {
         StringBuilder builder = new StringBuilder();
-        String result;
+        PrintWriter msg;
         for (BaseAction action : this.actions) {
             if (action != null) {
                 builder.append(String.format("%s\r\n", action.getName()));
             }
         }
         builder.append("Введите \"exit\", для выхода");
-        result = builder.toString();
-        return result;
+        builder.toString();
     }
 
-    public String selectActions(String key) {
+    public void selectActions(String key) {
         fillActions();
         String[] keys = key.split(" ");
         String result = "Неизвестная команда!";
         if (keys[0].equalsIgnoreCase("help")) {
-            result = showActions();
+            showActions();
         }
         for (BaseAction action : actions) {
             if (keys[0].equalsIgnoreCase(action.getKey())) {
-                result = action.execute(key);
+                action.execute(key);
             }
         }
-        return result;
     }
 
     /**
@@ -67,7 +65,7 @@ public class MenuServer {
         }
 
         @Override
-        public String execute(String command) {
+        public void execute(String command) {
             String result = "";
             StringBuilder builder = new StringBuilder();
             for (File file : getDir().listFiles()) {
@@ -78,7 +76,6 @@ public class MenuServer {
                 }
             }
             result = builder.toString();
-            return result;
         }
     }
 
@@ -93,7 +90,7 @@ public class MenuServer {
         }
 
         @Override
-        public String execute(String command) {
+        public void execute(String command) {
             String[] commands = command.split(" ");
             String result = "Нет такого каталога!";
 
@@ -109,7 +106,6 @@ public class MenuServer {
                     }
                 }
             }
-            return result;
         }
     }
 
@@ -124,9 +120,9 @@ public class MenuServer {
         }
 
         @Override
-        public String execute(String command) {
-            String result = "Download";
-            return result;
+        public void execute(String command) {
+            System.out.println("Download");
+
         }
     }
 
@@ -141,9 +137,8 @@ public class MenuServer {
         }
 
         @Override
-        public String execute(String command) {
-            String result = "UplaodFile";
-            return result;
+        public void execute(String command) {
+            System.out.println("UplaodFile");
         }
     }
 }

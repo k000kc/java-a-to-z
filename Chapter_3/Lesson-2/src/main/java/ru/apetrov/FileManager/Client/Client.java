@@ -1,10 +1,10 @@
 package main.java.ru.apetrov.FileManager.Client;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+import main.java.ru.apetrov.FileManager.Settings;
+
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Properties;
 
 /**
  * Created by Andrey on 03.12.2016.
@@ -14,53 +14,42 @@ public class Client {
 
     private int port;
     private String host;
+    private String clientDir;
 
-    public void setClient() {
-        try(FileInputStream fis = new FileInputStream("Chapter_3\\Lesson-2\\src\\main\\resources\\config.properties")) {
-            Properties properties = new Properties();
-            properties.load(fis);
-            this.port = Integer.valueOf(properties.getProperty("port"));
-            this.host = properties.getProperty("host");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String getClientDir() {
+        return clientDir;
+    }
+
+    private void initProperties() {
+        Settings settings = new Settings();
+        settings.load();
+        this.port = Integer.valueOf(settings.getValue("port"));
+        this.host = settings.getValue("host");
+        this.clientDir = settings.getValue("clientDir");
     }
 
     public void startClient() {
+        initProperties();
+        System.out.println("Welcome!");
+        try(Socket socket = new Socket(this.host, this.port)) {
 
-        try {
-        InetAddress inetAddress = InetAddress.getByName(host);
-            System.out.println("Connect by " + host);
-            Socket socket = new Socket(host, port);
-
-            InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
-
-            DataInputStream in = new DataInputStream(inputStream);
-            DataOutputStream out = new DataOutputStream(outputStream);
-
+            DataInputStream in = new DataInputStream(socket.getInputStream());
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-            String s = null;
-            System.out.println("Введите \"help\", чтобы вызвать справку");
-            while (true) {
-                s = reader.readLine();
-                if (s.equalsIgnoreCase("exit")) {
-                    break;
-                }
+            String s = reader.readLine();
+            while (!s.equalsIgnoreCase("exit")) {
                 out.writeUTF(s);
                 out.flush();
                 s = in.readUTF();
                 System.out.println("Server answer:\r\n" + s);
                 System.out.println("Input messages");
+                s = reader.readLine();
             }
 
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

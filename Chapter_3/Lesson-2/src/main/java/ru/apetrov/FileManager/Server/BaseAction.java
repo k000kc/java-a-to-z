@@ -1,5 +1,8 @@
 package main.java.ru.apetrov.FileManager.Server;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 /**
  * Created by Andrey on 03.12.2016.
  * Срисовал с треккера. Абстрактный класс для апи Сервера.
@@ -36,5 +39,5 @@ public abstract class BaseAction {
     /**
      * Выполнение апи.
      */
-    public abstract void execute(String command);
+    public abstract void execute(String command) throws IOException;
 }

@@ -8,9 +8,7 @@ import main.java.ru.apetrov.FileManager.Server.Server;
 public class TestServer {
 
     public static void main(String[] args) {
-
         Server server = new Server();
-        server.setServer();
         server.startServer();
     }
 }

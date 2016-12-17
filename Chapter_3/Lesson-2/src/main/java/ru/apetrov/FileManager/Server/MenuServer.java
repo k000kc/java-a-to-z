@@ -9,9 +9,15 @@ public class MenuServer {
 
     private BaseAction actions[] = new BaseAction[4];
     private File dir;
+    private OutputStream out;
 
-    public MenuServer(File dir) {
+    public OutputStream getOut() {
+        return out;
+    }
+
+    public MenuServer(File dir, OutputStream out) {
         this.dir = dir;
+        this.out = out;
     }
 
     public File getDir() {
@@ -25,26 +31,26 @@ public class MenuServer {
     public void fillActions() {
         this.actions[0] = new ShowDirectory("ls", "Введите \"ls\", чтобы просмотреть директорию");
         this.actions[1] = new MoveDirectory("cd", "Введите \"cd <имя каталога>\", чтобы перейти в каталог\r\nВведите \"cd ..\", чтобы вернуться в корневой каталог");
-        this.actions[2] = new DownloadFile("dload", "Введите \"download\", чтобы скачать файл");
-        this.actions[3] = new UplaodFile("uload", "Введите \"upload\", чтобы загрузить файл");
+        this.actions[2] = new DownloadFile("dload", "Введите \"dload\", чтобы скачать файл");
+        this.actions[3] = new UplaodFile("uload", "Введите \"uload\", чтобы загрузить файл");
     }
 
-    public void showActions() {
+    public void showActions() throws IOException {
         StringBuilder builder = new StringBuilder();
-        PrintWriter msg;
+        DataOutputStream writer = new DataOutputStream(this.out);
         for (BaseAction action : this.actions) {
             if (action != null) {
                 builder.append(String.format("%s\r\n", action.getName()));
             }
         }
         builder.append("Введите \"exit\", для выхода");
-        builder.toString();
+        writer.writeUTF(builder.toString());
+        writer.flush();
     }
 
-    public void selectActions(String key) {
+    public void selectActions(String key) throws IOException {
         fillActions();
         String[] keys = key.split(" ");
-        String result = "Неизвестная команда!";
         if (keys[0].equalsIgnoreCase("help")) {
             showActions();
         }
@@ -65,9 +71,9 @@ public class MenuServer {
         }
 
         @Override
-        public void execute(String command) {
-            String result = "";
+        public void execute(String command) throws IOException {
             StringBuilder builder = new StringBuilder();
+            DataOutputStream out = new DataOutputStream(getOut());
             for (File file : getDir().listFiles()) {
                 if (file.isDirectory()) {
                     builder.append(String.format("%s\t\t%s\r\n", "dir", file.getName()));
@@ -75,7 +81,8 @@ public class MenuServer {
                     builder.append(String.format("\t\t%s\r\n", file.getName()));
                 }
             }
-            result = builder.toString();
+            out.writeUTF(builder.toString());
+            out.flush();
         }
     }
 
@@ -90,9 +97,12 @@ public class MenuServer {
         }
 
         @Override
-        public void execute(String command) {
+        public void execute(String command) throws IOException {
+            String result = "Нет такого каталога";
             String[] commands = command.split(" ");
-            String result = "Нет такого каталога!";
+            DataOutputStream out = new DataOutputStream(getOut());
+
+
 
             if (commands[1].equals("..")) {
                 setDir(new File(String.format("%s", getDir().getParent())));
@@ -106,6 +116,8 @@ public class MenuServer {
                     }
                 }
             }
+            out.writeUTF(result);
+            out.flush();
         }
     }
 
@@ -120,9 +132,10 @@ public class MenuServer {
         }
 
         @Override
-        public void execute(String command) {
-            System.out.println("Download");
-
+        public void execute(String command) throws IOException {
+            DataOutputStream out = new DataOutputStream(getOut());
+            out.writeUTF("Download");
+            out.flush();
         }
     }
 
@@ -137,8 +150,10 @@ public class MenuServer {
         }
 
         @Override
-        public void execute(String command) {
-            System.out.println("UplaodFile");
+        public void execute(String command) throws IOException {
+            DataOutputStream out = new DataOutputStream(getOut());
+            out.writeUTF("Upload");
+            out.flush();
         }
     }
 }

@@ -1,9 +1,10 @@
 package main.java.ru.apetrov.FileManager.Server;
 
+import main.java.ru.apetrov.FileManager.Settings;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Properties;
 
 /**
  * Created by Andrey on 03.12.2016.
@@ -11,50 +12,41 @@ import java.util.Properties;
  */
 public class Server {
 
-    private Integer port = null;
+    private int port;
     private String rootDir;
+
+    private void initProperties() {
+        Settings settings = new Settings();
+        settings.load();
+        this.port = Integer.valueOf(settings.getValue("port"));
+        this.rootDir = settings.getValue("rootDir");
+    }
 
     public String getRootDir() {
         return rootDir;
     }
 
-    public void setServer() {
-        try(FileInputStream fis = new FileInputStream("Chapter_3\\Lesson-2\\src\\main\\resources\\config.properties")) {
-            Properties priority = new Properties();
-            priority.load(fis);
-
-            this.port = Integer.valueOf(priority.getProperty("port"));
-            this.rootDir = priority.getProperty("rootDir");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void startServer() {
-        MenuServer menu = new MenuServer(new File(rootDir));
-
-        try(ServerSocket serverSocket = new ServerSocket(port)) {
+        initProperties();
+        try (ServerSocket server = new ServerSocket(this.port)) {
             System.out.println("Waiting for connection...");
-            Socket socket = serverSocket.accept();
+            Socket socket = server.accept();
             System.out.println("Connection accepted.\r\n");
 
-            InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
+            DataInputStream in = new DataInputStream(socket.getInputStream());
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 
-            DataInputStream in = new DataInputStream(inputStream);
-            DataOutputStream out = new DataOutputStream(outputStream);
-
-            String s = null;
-            while (true) {
-                s = in.readUTF();
+            MenuServer menu = new MenuServer(new File(this.rootDir), out);
+            String s = in.readUTF();
+            while (!s.equalsIgnoreCase("exit")) {
                 System.out.println("Message delivered " + s);
-                System.out.println("answer");
                 menu.selectActions(s);
-                out.flush();
+                s = in.readUTF();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

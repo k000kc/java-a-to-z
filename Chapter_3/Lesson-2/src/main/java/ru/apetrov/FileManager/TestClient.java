@@ -8,9 +8,7 @@ import main.java.ru.apetrov.FileManager.Client.Client;
 public class TestClient {
 
     public static void main(String[] args) {
-
         Client client = new Client();
-        client.setClient();
         client.startClient();
     }
 }

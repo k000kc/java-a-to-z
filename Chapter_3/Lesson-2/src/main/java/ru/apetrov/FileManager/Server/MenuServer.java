@@ -9,15 +9,21 @@ public class MenuServer {
 
     private BaseAction actions[] = new BaseAction[4];
     private File dir;
-    private OutputStream out;
+    private OutputStream outputStream;
+    private InputStream inputStream;
 
-    public OutputStream getOut() {
-        return out;
+    public InputStream getInputStream() {
+        return inputStream;
     }
 
-    public MenuServer(File dir, OutputStream out) {
+    public OutputStream getOutputStream() {
+        return outputStream;
+    }
+
+    public MenuServer(File dir, OutputStream outputStream, InputStream inputStream) {
         this.dir = dir;
-        this.out = out;
+        this.outputStream = outputStream;
+        this.inputStream = inputStream;
     }
 
     public File getDir() {
@@ -37,7 +43,7 @@ public class MenuServer {
 
     public void showActions() throws IOException {
         StringBuilder builder = new StringBuilder();
-        DataOutputStream writer = new DataOutputStream(this.out);
+        DataOutputStream writer = new DataOutputStream(this.outputStream);
         for (BaseAction action : this.actions) {
             if (action != null) {
                 builder.append(String.format("%s\r\n", action.getName()));
@@ -73,7 +79,7 @@ public class MenuServer {
         @Override
         public void execute(String command) throws IOException {
             StringBuilder builder = new StringBuilder();
-            DataOutputStream out = new DataOutputStream(getOut());
+            DataOutputStream out = new DataOutputStream(getOutputStream());
             for (File file : getDir().listFiles()) {
                 if (file.isDirectory()) {
                     builder.append(String.format("%s\t\t%s\r\n", "dir", file.getName()));
@@ -100,9 +106,7 @@ public class MenuServer {
         public void execute(String command) throws IOException {
             String result = "Нет такого каталога";
             String[] commands = command.split(" ");
-            DataOutputStream out = new DataOutputStream(getOut());
-
-
+            DataOutputStream out = new DataOutputStream(getOutputStream());
 
             if (commands[1].equals("..")) {
                 setDir(new File(String.format("%s", getDir().getParent())));
@@ -133,9 +137,22 @@ public class MenuServer {
 
         @Override
         public void execute(String command) throws IOException {
-            DataOutputStream out = new DataOutputStream(getOut());
-            out.writeUTF("Download");
-            out.flush();
+            String[] commands = command.split(" ");
+            for (File file : getDir().listFiles()) {
+                if (file.isFile()) {
+                    if (commands[1].equals(file.getName())) {
+                        DataOutputStream out = new DataOutputStream(getOutputStream());
+                        out.writeUTF(String.format("%s %s %s", commands[0], commands[1], file.length()));
+                        out.flush();
+                        FileInputStream inStream = new FileInputStream(file);
+                        int count;
+                        while ((count = inStream.read()) != -1) {
+                            out.write(count);
+                            out.flush();
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -151,9 +168,20 @@ public class MenuServer {
 
         @Override
         public void execute(String command) throws IOException {
-            DataOutputStream out = new DataOutputStream(getOut());
-            out.writeUTF("Upload");
-            out.flush();
+            String[] commands = command.split(" ");
+            String inFile = String.format("%s%s", getDir(), commands[1]);
+            File file = new File(inFile);
+            DataInputStream in = new DataInputStream(getInputStream());
+            try(FileOutputStream outStream = new FileOutputStream(file)) {
+                int count;
+                long fileSize = Long.valueOf(commands[2]);
+                while (fileSize > 0) {
+                    count = in.read();
+                    outStream.write(count);
+                    outStream.flush();
+                    fileSize--;
+                }
+            }
         }
     }
 }

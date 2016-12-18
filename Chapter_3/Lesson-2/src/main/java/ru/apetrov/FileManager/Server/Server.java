@@ -22,13 +22,9 @@ public class Server {
         this.rootDir = settings.getValue("rootDir");
     }
 
-    public String getRootDir() {
-        return rootDir;
-    }
-
     public void startServer() {
         initProperties();
-        try (ServerSocket server = new ServerSocket(this.port)) {
+        try (ServerSocket server = new ServerSocket(this.port);) {
             System.out.println("Waiting for connection...");
             Socket socket = server.accept();
             System.out.println("Connection accepted.\r\n");
@@ -36,17 +32,15 @@ public class Server {
             DataInputStream in = new DataInputStream(socket.getInputStream());
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 
-            MenuServer menu = new MenuServer(new File(this.rootDir), out);
+            MenuServer menu = new MenuServer(new File(this.rootDir), out, in);
             String s = in.readUTF();
             while (!s.equalsIgnoreCase("exit")) {
                 System.out.println("Message delivered " + s);
                 menu.selectActions(s);
                 s = in.readUTF();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

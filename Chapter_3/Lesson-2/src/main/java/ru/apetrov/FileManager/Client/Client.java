@@ -81,7 +81,7 @@ public class Client {
     }
 
     public void upload(Socket socket, File file) {
-        try(FileInputStream inputStream = new FileInputStream(file)) {
+        try (FileInputStream inputStream = new FileInputStream(file)) {
             int count;
             long fileSize = file.length();
             while (fileSize > 0) {

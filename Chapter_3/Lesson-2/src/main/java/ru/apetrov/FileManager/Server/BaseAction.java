@@ -36,12 +36,12 @@ public abstract class BaseAction {
 
     /**
      * Конструктор.
-     * @param k ключ апи.
-     * @param n имя апи.
+     * @param key ключ апи.
+     * @param name имя апи.
      */
-    public BaseAction(String k, String n) {
-        this.key = k;
-        this.name = n;
+    public BaseAction(String key, String name) {
+        this.key = key;
+        this.name = name;
     }
 
     /**

@@ -58,14 +58,14 @@ public class MenuServer {
 
     /**
      * Конструктор.
-     * @param directory Текущая директория.
-     * @param outStream outputStream
-     * @param inStream inputStream
+     * @param dir Текущая директория.
+     * @param outputStream outputStream
+     * @param inputStream inputStream
      */
-    public MenuServer(File directory, OutputStream outStream, InputStream inStream) {
-        this.dir = directory;
-        this.outputStream = outStream;
-        this.inputStream = inStream;
+    public MenuServer(File dir, OutputStream outputStream, InputStream inputStream) {
+        this.dir = dir;
+        this.outputStream = outputStream;
+        this.inputStream = inputStream;
     }
 
     /**
@@ -78,10 +78,10 @@ public class MenuServer {
 
     /**
      * Сменить директорию.
-     * @param directory dir
+     * @param dir dir
      */
-    public void setDir(File directory) {
-        this.dir = directory;
+    public void setDir(File dir) {
+        this.dir = dir;
     }
 
     /**

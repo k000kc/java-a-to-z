@@ -142,7 +142,7 @@ public class MenuServer {
                 if (file.isFile()) {
                     if (commands[1].equals(file.getName())) {
                         DataOutputStream out = new DataOutputStream(getOutputStream());
-                        out.writeUTF(String.format("%s %s %s", commands[0], commands[1], file.length()));
+                        out.writeUTF(String.format("%s %s %s kB", commands[0], commands[1], file.length()));
                         out.flush();
                         FileInputStream inStream = new FileInputStream(file);
                         int count;
@@ -172,7 +172,8 @@ public class MenuServer {
             String inFile = String.format("%s%s", getDir(), commands[1]);
             File file = new File(inFile);
             DataInputStream in = new DataInputStream(getInputStream());
-            try(FileOutputStream outStream = new FileOutputStream(file)) {
+            DataOutputStream out = new DataOutputStream(getOutputStream());
+            FileOutputStream outStream = new FileOutputStream(file);
                 int count;
                 long fileSize = Long.valueOf(commands[2]);
                 while (fileSize > 0) {
@@ -181,7 +182,9 @@ public class MenuServer {
                     outStream.flush();
                     fileSize--;
                 }
-            }
+                out.writeUTF(String.format("upload %s %s kB", commands[1], file.length()));
+                out.flush();
+
         }
     }
 }

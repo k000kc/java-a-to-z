@@ -37,15 +37,7 @@ public class Client {
             while (!s.equalsIgnoreCase("exit")) {
                 String[] msg = s.split(" ");
                 if (msg[0].equals("uload")) {
-                    for (File file : new File(clientDir).listFiles()) {
-                        if (file.isFile()) {
-                            if (msg[1].equals(file.getName())) {
-                                out.writeUTF(String.format("%s %s %s", msg[0], msg[1], file.length()));
-                                out.flush();
-                                upload(socket, file);
-                            }
-                        }
-                    }
+                    upload(out, msg[1]);
                 } else {
                     out.writeUTF(s);
                     out.flush();
@@ -80,18 +72,21 @@ public class Client {
         }
     }
 
-    public void upload(Socket socket, File file) {
-        try (FileInputStream inputStream = new FileInputStream(file)) {
-            int count;
-            long fileSize = file.length();
-            while (fileSize > 0) {
-                count = inputStream.read();
-                socket.getOutputStream().write(count);
-                socket.getOutputStream().flush();
-                fileSize--;
+    public void upload(DataOutputStream outStream, String nameFile) throws IOException {
+        for (File file : new File(clientDir).listFiles()) {
+            if (file.isFile()) {
+                if (nameFile.equals(file.getName())) {
+                    outStream.writeUTF(String.format("uload %s %s", nameFile, file.length()));
+                    outStream.flush();
+                    FileInputStream inputStream = new FileInputStream(file);
+                    int count;
+                    while ((count = inputStream.read()) != -1) {
+                        outStream.write(count);
+                        outStream.flush();
+                    }
+                    break;
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

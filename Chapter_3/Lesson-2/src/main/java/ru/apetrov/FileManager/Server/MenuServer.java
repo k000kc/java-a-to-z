@@ -1,39 +1,92 @@
 package main.java.ru.apetrov.FileManager.Server;
 
-import java.io.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.DataOutputStream;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 /**
  * Created by Andrey on 04.12.2016.
  */
 public class MenuServer {
 
-    private BaseAction actions[] = new BaseAction[4];
+    /**
+     * Колличество АПИ.
+     */
+    private final int api = 4;
+
+    /**
+     * Массив с возможными апи.
+     */
+    private BaseAction[] actions = new BaseAction[api];
+
+    /**
+     * Текущая директория.
+     */
     private File dir;
+
+    /**
+     * Исходящий поток.
+     */
     private OutputStream outputStream;
+
+    /**
+     * Входящий поток.
+     */
     private InputStream inputStream;
 
+    /**
+     * Доступ к Входящему потоку.
+     * @return inputStream
+     */
     public InputStream getInputStream() {
         return inputStream;
     }
 
+    /**
+     * Доступ к исходещему потоку.
+     * @return outputStream
+     */
     public OutputStream getOutputStream() {
         return outputStream;
     }
 
-    public MenuServer(File dir, OutputStream outputStream, InputStream inputStream) {
-        this.dir = dir;
-        this.outputStream = outputStream;
-        this.inputStream = inputStream;
+    /**
+     * Конструктор.
+     * @param directory Текущая директория.
+     * @param outStream outputStream
+     * @param inStream inputStream
+     */
+    public MenuServer(File directory, OutputStream outStream, InputStream inStream) {
+        this.dir = directory;
+        this.outputStream = outStream;
+        this.inputStream = inStream;
     }
 
+    /**
+     * Доступ к текущей директории.
+     * @return dir
+     */
     public File getDir() {
         return dir;
     }
 
-    public void setDir(File dir) {
-        this.dir = dir;
+    /**
+     * Сменить директорию.
+     * @param directory dir
+     */
+    public void setDir(File directory) {
+        this.dir = directory;
     }
 
+    /**
+     * Инициализация массива апи.
+     */
     public void fillActions() {
         this.actions[0] = new ShowDirectory("ls", "Введите \"ls\", чтобы просмотреть директорию");
         this.actions[1] = new MoveDirectory("cd", "Введите \"cd <имя каталога>\", чтобы перейти в каталог\r\nВведите \"cd ..\", чтобы вернуться в корневой каталог");
@@ -41,6 +94,10 @@ public class MenuServer {
         this.actions[3] = new UplaodFile("uload", "Введите \"uload\", чтобы загрузить файл");
     }
 
+    /**
+     * Покажем список апи (Справка).
+     * @throws IOException IOException
+     */
     public void showActions() throws IOException {
         StringBuilder builder = new StringBuilder();
         DataOutputStream writer = new DataOutputStream(this.outputStream);
@@ -54,6 +111,11 @@ public class MenuServer {
         writer.flush();
     }
 
+    /**
+     * Выбор апи.
+     * @param key ключ апи
+     * @throws IOException IOException
+     */
     public void selectActions(String key) throws IOException {
         fillActions();
         String[] keys = key.split(" ");
@@ -174,17 +236,16 @@ public class MenuServer {
             DataInputStream in = new DataInputStream(getInputStream());
             DataOutputStream out = new DataOutputStream(getOutputStream());
             FileOutputStream outStream = new FileOutputStream(file);
-                int count;
-                long fileSize = Long.valueOf(commands[2]);
-                while (fileSize > 0) {
-                    count = in.read();
-                    outStream.write(count);
-                    outStream.flush();
-                    fileSize--;
-                }
-                out.writeUTF(String.format("upload %s %s kB", commands[1], file.length()));
-                out.flush();
-
+            int count;
+            long fileSize = Long.valueOf(commands[2]);
+            while (fileSize > 0) {
+                count = in.read();
+                outStream.write(count);
+                outStream.flush();
+                fileSize--;
+            }
+            out.writeUTF(String.format("upload %s %s kB", commands[1], file.length()));
+            out.flush();
         }
     }
 }

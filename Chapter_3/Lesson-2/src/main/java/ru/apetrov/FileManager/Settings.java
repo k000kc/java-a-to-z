@@ -9,17 +9,28 @@ import java.util.Properties;
  */
 public class Settings {
 
+    /**
+     * Для настроек сервера.
+     */
     private Properties properties = new Properties();
 
+    /**
+     * Загрузка настроек.
+     */
     public void load() {
         ClassLoader loader = Settings.class.getClassLoader();
-        try(InputStream it = loader.getResourceAsStream("config.properties")) {
+        try (InputStream it = loader.getResourceAsStream("config.properties")) {
             this.properties.load(it);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Доступ к полям в файле настроек.
+     * @param key key
+     * @return выбранное поле настроек.
+     */
     public String getValue(String key) {
         return this.properties.getProperty(key);
     }

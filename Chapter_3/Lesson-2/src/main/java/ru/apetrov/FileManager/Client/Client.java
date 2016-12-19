@@ -2,19 +2,40 @@ package main.java.ru.apetrov.FileManager.Client;
 
 import main.java.ru.apetrov.FileManager.Settings;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.net.Socket;
 
 /**
  * Created by Andrey on 03.12.2016.
- * Временный код для проверки работы.
+ * Класс клиент.
  */
 public class Client {
 
+    /**
+     * port.
+     */
     private int port;
+
+    /**
+     * host.
+     */
     private String host;
+
+    /**
+     * корневая директория клиентской части программы.
+     */
     private String clientDir;
 
+    /**
+     * проинициализируем настройки программы.
+     */
     private void initProperties() {
         Settings settings = new Settings();
         settings.load();
@@ -25,10 +46,13 @@ public class Client {
         file.mkdir();
     }
 
+    /**
+     * Запуск клиентской части программы.
+     */
     public void startClient() {
         initProperties();
         System.out.println("Welcome!");
-        try(Socket socket = new Socket(this.host, this.port);
+        try (Socket socket = new Socket(this.host, this.port);
             DataInputStream in = new DataInputStream(socket.getInputStream());
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
@@ -58,8 +82,15 @@ public class Client {
         }
     }
 
-    public void download(Socket socket, String filePath, long fileSize) {
-        try(FileOutputStream outFile = new FileOutputStream(filePath)) {
+    /**
+     * Метод для скачивания файла с сервера через сокет.
+     * @param socket сокет.
+     * @param fileName имя файла.
+     * @param fileSize размер файла.
+     */
+
+    public void download(Socket socket, String fileName, long fileSize) {
+        try (FileOutputStream outFile = new FileOutputStream(fileName)) {
             int count;
             while (fileSize > 0) {
                 count = socket.getInputStream().read();
@@ -72,6 +103,12 @@ public class Client {
         }
     }
 
+    /**
+     * Класс для загрузки файла на сервер через сокет.
+     * @param outStream исходящий поток для отправки информации о файле на сервер.
+     * @param nameFile имя файла.
+     * @throws IOException IOException.
+     */
     public void upload(DataOutputStream outStream, String nameFile) throws IOException {
         for (File file : new File(clientDir).listFiles()) {
             if (file.isFile()) {

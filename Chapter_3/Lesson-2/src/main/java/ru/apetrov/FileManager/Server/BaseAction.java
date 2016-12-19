@@ -1,43 +1,53 @@
 package main.java.ru.apetrov.FileManager.Server;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * Created by Andrey on 03.12.2016.
- * Срисовал с треккера. Абстрактный класс для апи Сервера.
+ * Абстрактный класс для апи Сервера.
  */
 public abstract class BaseAction {
 
     /**
-     * Название апи.
+     * Имя апи.
      */
     private String name;
+
+    /**
+     * ключ апи.
+     */
     private String key;
 
+    /**
+     * для доступа к имени апи.
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * для выбора апи.
+     * @return key
+     */
     public String getKey() {
         return key;
     }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public BaseAction(String key, String name) {
-        this.key = key;
-        this.name = name;
+    /**
+     * Конструктор.
+     * @param k ключ апи.
+     * @param n имя апи.
+     */
+    public BaseAction(String k, String n) {
+        this.key = k;
+        this.name = n;
     }
 
     /**
      * Выполнение апи.
+     * @param command Команда.
+     * @throws IOException IOException
      */
     public abstract void execute(String command) throws IOException;
 }

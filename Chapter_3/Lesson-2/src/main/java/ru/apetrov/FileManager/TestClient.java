@@ -7,6 +7,10 @@ import main.java.ru.apetrov.FileManager.Client.Client;
  */
 public class TestClient {
 
+    /**
+     * Запуск Клиента.
+     * @param args args
+     */
     public static void main(String[] args) {
         Client client = new Client();
         client.startClient();

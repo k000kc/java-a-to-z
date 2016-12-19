@@ -7,6 +7,10 @@ import main.java.ru.apetrov.FileManager.Server.Server;
  */
 public class TestServer {
 
+    /**
+     * Запуск сервера.
+     * @param args args
+     */
     public static void main(String[] args) {
         Server server = new Server();
         server.startServer();

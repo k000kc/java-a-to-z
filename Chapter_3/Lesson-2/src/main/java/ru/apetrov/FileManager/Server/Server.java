@@ -2,7 +2,10 @@ package main.java.ru.apetrov.FileManager.Server;
 
 import main.java.ru.apetrov.FileManager.Settings;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -12,9 +15,19 @@ import java.net.Socket;
  */
 public class Server {
 
+    /**
+     * port.
+     */
     private int port;
+
+    /**
+     * Корневая директория  на сервере.
+     */
     private String rootDir;
 
+    /**
+     * Инициализация настроек сервера.
+     */
     private void initProperties() {
         Settings settings = new Settings();
         settings.load();
@@ -22,9 +35,12 @@ public class Server {
         this.rootDir = settings.getValue("rootDir");
     }
 
+    /**
+     * Запуск сервера.
+     */
     public void startServer() {
         initProperties();
-        try (ServerSocket server = new ServerSocket(this.port);) {
+        try (ServerSocket server = new ServerSocket(this.port)) {
             System.out.println("Waiting for connection...");
             Socket socket = server.accept();
             System.out.println("Connection accepted.\r\n");

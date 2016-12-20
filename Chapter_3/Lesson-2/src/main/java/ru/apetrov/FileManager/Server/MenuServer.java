@@ -171,7 +171,9 @@ public class MenuServer {
             DataOutputStream out = new DataOutputStream(getOutputStream());
 
             if (commands[1].equals("..")) {
-                setDir(new File(String.format("%s", getDir().getParent())));
+                if (!getDir().isAbsolute()) {
+                    setDir(new File(String.format("%s", getDir().getParent())));
+                }
                 result = String.format("%s%s", getDir().getName(), "\\");
             }
             for (File file : getDir().listFiles()) {

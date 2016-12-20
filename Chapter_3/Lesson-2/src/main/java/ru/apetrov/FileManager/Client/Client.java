@@ -121,7 +121,6 @@ public class Client {
                         outStream.write(count);
                         outStream.flush();
                     }
-                    break;
                 }
             }
         }

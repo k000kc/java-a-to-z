@@ -24,6 +24,7 @@
 		<module>Tracker</module>
 		<module>Chapter_3/Lesson-1</module>
 		<module>Chapter_3/Lesson-2</module>
+		<module>Chapter_3/Lesson-3</module>
 	</modules>
 
 	<dependencies>

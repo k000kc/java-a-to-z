@@ -1,6 +1,6 @@
-package main.java.ru.apetrov.FileManager.Client;
+package ru.apetrov.FileManager.Client;
 
-import main.java.ru.apetrov.FileManager.Settings;
+import ru.apetrov.FileManager.Settings;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;

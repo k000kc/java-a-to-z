@@ -1,4 +1,4 @@
-package main.java.ru.apetrov.FileManager;
+package ru.apetrov.FileManager;
 
 import java.io.IOException;
 import java.io.InputStream;

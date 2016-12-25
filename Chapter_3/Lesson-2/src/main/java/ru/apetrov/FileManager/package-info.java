@@ -12,4 +12,4 @@
  *
  * 4. настройки портов и адреса считывать с app.properties
  * */
-package main.java.ru.apetrov.FileManager;
+package ru.apetrov.FileManager;

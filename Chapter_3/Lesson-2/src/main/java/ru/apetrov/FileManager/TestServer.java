@@ -1,6 +1,6 @@
-package main.java.ru.apetrov.FileManager;
+package ru.apetrov.FileManager;
 
-import main.java.ru.apetrov.FileManager.Server.Server;
+import ru.apetrov.FileManager.Server.Server;
 
 /**
  * Created by Andrey on 03.12.2016.

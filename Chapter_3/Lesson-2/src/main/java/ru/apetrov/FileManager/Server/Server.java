@@ -1,6 +1,6 @@
-package main.java.ru.apetrov.FileManager.Server;
+package ru.apetrov.FileManager.Server;
 
-import main.java.ru.apetrov.FileManager.Settings;
+import ru.apetrov.FileManager.Settings;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

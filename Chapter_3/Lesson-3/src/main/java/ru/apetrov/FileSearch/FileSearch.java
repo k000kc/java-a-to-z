@@ -43,7 +43,7 @@ public class FileSearch {
         if (fileSearch.isValidate(args) && this.dir.isDirectory()) {
 
             if (args[4].equals("-m")) {
-
+                System.out.println(new FindByMask(this.dir, args[3]));
             }
 
             if (args[4].equals("-f")) {
@@ -54,7 +54,6 @@ public class FileSearch {
 
             }
         } else {
-
             System.out.printf("%s", "Ключи \n" +
                     "-d - директория в которая начинать поиск.\n" +
                     "-n - имя файл, маска, либо регулярное выражение.\n" +

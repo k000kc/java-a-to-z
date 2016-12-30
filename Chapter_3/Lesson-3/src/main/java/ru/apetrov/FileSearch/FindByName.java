@@ -1,6 +1,6 @@
 package ru.apetrov.FileSearch;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 public class FindByName {
     File dir;
     String name;
+    StringBuilder builder = new StringBuilder("Найденные файлы:\n");
 
     public FindByName(File dir, String name) {
         this.dir = dir;
@@ -17,19 +18,21 @@ public class FindByName {
     }
 
     public String find(File dir, String name) {
-        String result = "Файл не найден";
+        String result;
         for (File file : dir.listFiles()) {
             if (file.isDirectory()) {
                 find(file, name);
             } else if (name.equals(file.getName())) {
-                result = "Файл найден";
+                builder.append(String.format("%s\\%s%n", dir, name));
             }
         }
+        result = builder.toString();
+        new WriteLogFile().writeFile(result);
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format("%s: %s\\%s", find(this.dir, this.name), Paths.get(String.valueOf(this.dir)), this.name);
+        return String.format("%s", find(this.dir, this.name));
     }
 }

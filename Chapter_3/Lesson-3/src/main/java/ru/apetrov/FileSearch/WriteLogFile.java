@@ -1,8 +1,6 @@
 package ru.apetrov.FileSearch;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by Andrey on 30.12.2016.

@@ -51,7 +51,7 @@ public class FileSearch {
             }
 
             if (args[4].equals("-r")) {
-
+                System.out.println(new FindByRegExp(this.dir, args[3]));
             }
         } else {
             System.out.printf("%s", "Ключи \n" +

@@ -1,30 +1,29 @@
 package ru.apetrov.FileSearch;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
+import java.util.regex.Pattern;
 
 /**
- * Created by Andrey on 30.12.2016.
+ * Created by Andrey on 31.12.2016.
  */
-public class FindByMask {
+public class FindByRegExp {
 
     File dir;
-    String mask;
+    String regExp;
     StringBuilder builder = new StringBuilder("Найденные файлы:\n");
 
-    public FindByMask(File dir, String mask) {
+    public FindByRegExp(File dir, String regExp) {
         this.dir = dir;
-        this.mask = mask;
+        this.regExp = regExp;
     }
 
-    public String find(File dir, String mask) {
+    public String find(File dir, String regExp) {
         String result;
+        Pattern pattern = Pattern.compile(regExp);
         for (File file : dir.listFiles()) {
             if (file.isDirectory()) {
-                find(file, mask);
-            } else if (file.getName().endsWith(mask)) {
+                find(file, regExp);
+            } else if (pattern.matcher(regExp).find()) {
                 builder.append(String.format("%s\\%s%n", dir, file.getName()));
             }
         }
@@ -35,6 +34,6 @@ public class FindByMask {
 
     @Override
     public String toString() {
-        return String.format("%s", find(this.dir, this.mask));
+        return String.format("%s", find(this.dir, this.regExp));
     }
 }

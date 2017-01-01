@@ -5,10 +5,13 @@ package ru.apetrov;
  */
 public class RemoveDuplicateArray{
 
+	/**
+	 * исходный массив.
+	 */
 	public String[] values;
 
 	/*
-	* Метод удаляет дубликаты в массиве
+	* Конструктор.
 	* @param String[] values
 	* @return result
 	*/
@@ -16,8 +19,16 @@ public class RemoveDuplicateArray{
 		this.values = values;
 	}
 
+
+	/**
+	 * Метод удаляет дубликаты в массиве.
+	 * @return
+	 */
 	public String[] rmDuplicate(){
-		
+
+		/**
+		 * Длина результирующего массива.
+		 */
 		int sizeResult = this.values.length;
 
 		for(int i = 0; i < this.values.length; i++){
@@ -38,6 +49,6 @@ public class RemoveDuplicateArray{
 				index++;
 			}
 		}
-	return result;
+		return result;
 	}
 }

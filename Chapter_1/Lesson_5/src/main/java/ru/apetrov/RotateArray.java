@@ -5,8 +5,15 @@ package ru.apetrov;
 */
 public class RotateArray{
 
+	/**
+	 * исходный массив.
+	 */
 	public int[][] values;
 
+	/**
+	 * конструктор.
+	 * @param values исходний массив.
+	 */
 	public RotateArray(int[][] values){
 		this.values = values;
 	}

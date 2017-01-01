@@ -2,36 +2,55 @@ package ru.apetrov.models;
 
 import ru.apetrov.*;
 
+/**
+ * Класс пешки.
+ */
 public class Pawn extends Figure {
 
-    	private MoveChecking checking = new MoveChecking();
-    	private boolean isFirstMove = true;
+	/**
+	 * класс проверок хода.
+	 */
+	private MoveChecking checking = new MoveChecking();
 
-    	public Pawn(Position position) {
-        	super(position);
-    	}
+	/**
+	 * Проверяет первый ли ход совершает пешка.
+	 */
+	private boolean isFirstMove = true;
 
-    	@Override
-    	public boolean moveTo(Position position) {
+	/**
+	 * конструктор.
+	 * @param position позиция.
+	 */
+	public Pawn(Position position) {
+		super(position);
+	}
 
-        	boolean result = false;
+	/**
+	 * корректность хода.
+ 	 * @param position новая позиция.
+	 * @return возможность хода.
+	 */
+	@Override
+	public boolean moveTo(Position position) {
 
-        	if (checking.boardRangeChecking(position) && checking.positionOccupiedChecking(this, position) &&
-                	checking.moveByVerticaleOrHorizontale(this, position)) {
+		boolean result = false;
 
-            		if (this.isFirstMove) {
-                		if (this.getPosition().getX() == position.getX() && this.getPosition().getY() != position.getY()) {
-                    			if (Math.abs(this.getPosition().getY() - position.getY()) <= 2) {
-                        			result = true;
-                    			}
-                		}
-                		this.isFirstMove = false;
-            		} else {
-                		if (this.getPosition().getX() == position.getX() && Math.abs(this.getPosition().getY() - position.getY()) == 1) {
-                    			result = true;
-                		}
-            		}
-        	}
-        	return result;
-    	}
+		if (checking.boardRangeChecking(position) && checking.positionOccupiedChecking(this, position) &&
+				checking.moveByVerticaleOrHorizontale(this, position)) {
+
+			if (this.isFirstMove) {
+				if (this.getPosition().getX() == position.getX() && this.getPosition().getY() != position.getY()) {
+					if (Math.abs(this.getPosition().getY() - position.getY()) <= 2) {
+						result = true;
+					}
+				}
+				this.isFirstMove = false;
+			} else {
+				if (this.getPosition().getX() == position.getX() && Math.abs(this.getPosition().getY() - position.getY()) == 1) {
+					result = true;
+				}
+			}
+		}
+		return result;
+	}
 }

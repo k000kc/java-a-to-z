@@ -1,15 +1,15 @@
 package ru.apetrov;
 
 /**
-* Класс для вычисления факториала
-* @author Andrey
+* Класс для вычисления факториала.
+* @author Andrey.
 */
 public class Factorial{
 
 	/**
-	* Матод вычисляющий факториал
-	* @param number
-	* @return result
+	* Матод вычисляющий факториал.
+	* @param number число.
+	* @return result.
 	*/
 	public int getFactorial(int number){
 		int result = 1;

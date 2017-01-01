@@ -1,7 +1,7 @@
 package ru.apetrov;
 
 /**
- * Класс определяющий расстояние между точками
+ * Класс определяющий расстояние между точками.
  * @author Andrey
  * @since 08.09.2016
  */        
@@ -9,6 +9,11 @@ public class Point {
     public double x;
     public double y;
 
+    /**
+     * конструктор.
+     * @param x точка.
+     * @param y точка.
+     */
     public Point(double x, double y){
 	this.x = x;
 	this.y = y;

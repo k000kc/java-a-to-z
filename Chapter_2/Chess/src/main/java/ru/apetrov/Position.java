@@ -1,28 +1,58 @@
 package ru.apetrov;
 
+/**
+ * Класс позиции.
+ */
 public class Position {
 
+	/**
+	 * Координата по Х
+	 */
 	private int x;
-    	private int y;
+	/**
+	 * Координата по У
+	 */
+	private int y;
 
-    	public Position(int x, int y) {
-        	this.x = x;
-        	this.y = y;
-    	}
+	/**
+	 * Конструктор.
+	 * @param x координата.
+	 * @param y координата.
+	 */
+	public Position(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
-    	public int getX() {
-        	return x;
-    	}
+	/**
+	 * Геттер.
+	 * @return х.
+	 */
+	public int getX() {
+		return x;
+	}
 
-    	public void setX(int x) {
-        	this.x = x;
-    	}
+	/**
+	 * Сеттер.
+	 * @param x координата.
+	 */
+	public void setX(int x) {
+		this.x = x;
+	}
 
-    	public int getY() {
-        	return y;
-    	}
+	/**
+	 * Геттер.
+	 * @return у.
+	 */
+	public int getY() {
+		return y;
+	}
 
-    	public void setY(int y) {
-        	this.y = y;
-    	}
+	/**
+	 * Сеттер.
+	 * @param y координата.
+	 */
+	public void setY(int y) {
+		this.y = y;
+	}
 }

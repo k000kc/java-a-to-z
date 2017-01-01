@@ -1,5 +1,6 @@
 package ru.apetrov.start;
 
+
 public abstract class BaseAction implements UserAction{
 
 	String name;

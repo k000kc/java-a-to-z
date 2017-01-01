@@ -1,22 +1,28 @@
 package ru.apetrov;
 
 /**
- * Класс определяет существует ли треугольник, определяет его площадь и
- * максимальную его сторону
- * @author Andrey
+ * Класс определяет существует ли треугольник, определяет его площадь и максимальную его сторону.
+ * @author Andrey.
  * @since 08.09.2016
  */
 public class Triangle {
 
-	/** Точки */
+	/**
+	 * Точки.
+	 */
 	public Point a;
 	public Point b;
 	public Point c;
     
-	/** Переменная определяющая существует ли треугольник */
+	/**
+	 *  Переменная определяющая существует ли треугольник.
+	 *
+	 */
 	public boolean existTriangle = false;
     
-	/** Площадь */
+	/**
+	 *  Площадь.
+	 */
 	public double areaTriagle;
 
 	public Triangle(Point a, Point b, Point c){
@@ -26,8 +32,8 @@ public class Triangle {
     	}
     
 	/**
-	* Существует ли треугольник?
-	* @return true - треугольник существует, false - треугольник не существует
+	* Существует ли треугольник?.
+	* @return true - треугольник существует, false - треугольник не существует.
 	*/
 	public boolean exist(){
 		double ab = a.distanceTo(b);
@@ -42,8 +48,8 @@ public class Triangle {
     	}
     
 	/**
-	* Находим площадь треугольника
-	* @return Площадь треугольника
+	* Находим площадь треугольника.
+	* @return Площадь треугольника.
 	*/
 	public double area(){
 		double ab = a.distanceTo(b);

@@ -1,20 +1,43 @@
 package ru.apetrov;
 
+/**
+ * Класс фигуры.
+ */
 public abstract class Figure {
 
-    	private Position position;
+    /**
+     * Позиция на шахматной доске.
+     */
+    private Position position;
 
-    	public Figure(Position position) {
-        	this.position = position;
-    	}
+    /**
+     * Конструктор.
+     * @param position Позиция на шахматной доске.
+     */
+    public Figure(Position position) {
+        this.position = position;
+    }
 
-    	public Position getPosition() {
-        	return position;
-    	}
+    /**
+     * Геттер.
+     * @return Позиция на шахматной доске.
+     */
+    public Position getPosition() {
+        return position;
+    }
 
-    	public void setPosition(Position position) {
-        	this.position = position;
-    	}
+    /**
+     * Сеттер.
+     * @param position Позиция на шахматной доске.
+     */
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 
-    	public abstract boolean moveTo(Position position);
+    /**
+     * Возможен ли ход.
+     * @param position новая позиция.
+     * @return возможность хода.
+     */
+    public abstract boolean moveTo(Position position);
 }

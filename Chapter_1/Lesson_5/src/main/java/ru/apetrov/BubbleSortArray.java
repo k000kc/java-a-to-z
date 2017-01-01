@@ -1,24 +1,37 @@
 package ru.apetrov;
 
 /**
-* Класс для пузырьковой сортировки массива
-* @param values 
-*/    
+ * сортировка пузырьком.
+ */
 public class BubbleSortArray {
-    
+
+	/**
+	 * массив для сортировки.
+	 */
 	public int[] values;
 
+	/**
+	 * Конструктор.
+	 * @param values массив для сортировки.
+	 */
 	public BubbleSortArray(int[] values){
         	this.values = values;
     	}
 
 	/**
-	* Метод пузырьковой сортировки массива
-	* @return result
+	* Метод пузырьковой сортировки массива.
+	* @return result.
 	*/
 	public int[] sort(){
 
-        	int temp;
+		/**
+		 * временная переменная.
+		 */
+		int temp;
+
+		/**
+		 * htpekmnbhe.obq vfccbd/
+		 */
 		int[] result = values;
 
 		for(int i = 0; i < result.length; i++){

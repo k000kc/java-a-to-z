@@ -2,17 +2,40 @@ package ru.apetrov.start;
 
 import ru.apetrov.models.*;
 
+/**
+ * Меню.
+ */
 public class MenuTracker {
 
+	/**
+	 * ввода.
+	 */
 	private Input input;
-	private Tracker tracker;
-	private UserAction[] actions = new UserAction[7];	
 
+	/**
+	 * реализация действий.
+	 */
+	private Tracker tracker;
+
+	/**
+	 * массив действий.
+	 */
+	private UserAction[] actions = new UserAction[7];
+
+	/**
+	 * конструктор.
+	 * @param input ввод.
+	 * @param tracker действия.
+	 */
 	public MenuTracker(Input input, Tracker tracker){
 		this.input = input;
 		this.tracker = tracker;
 	}
-	
+
+	/**
+	 *
+	 * @return
+	 */
 	public int[] getRanges(){
 		int[] result = new int[this.actions.length];
 		for (int index = 0; index < this.actions.length; index++){
@@ -21,6 +44,9 @@ public class MenuTracker {
 		return result;
 	}
 
+	/**
+	 * инициалицация.
+	 */
 	public void fillActions(){
 		this.actions[0] = new AddItem();
 		this.actions[1] = new EditItem();
@@ -31,10 +57,17 @@ public class MenuTracker {
 		this.actions[6] = new ShowItems();
 	}
 
+	/**
+	 * выбор действия.
+	 * @param key ключ.
+	 */
 	public void select(int key){
 		this.actions[key].execute(this.input, this.tracker);
 	}
 
+	/**
+	 * показать список действий.
+	 */
 	public void show(){
 		for(UserAction action : this.actions){
 			if(action != null){
@@ -43,6 +76,9 @@ public class MenuTracker {
 		}
 	}
 
+	/**
+	 * добавить заявку.
+	 */
 	private class AddItem extends BaseAction{
 
 		public AddItem(){
@@ -61,6 +97,9 @@ public class MenuTracker {
 
 	}
 
+	/**
+	 * изменить заявку.
+	 */
 	private class EditItem extends BaseAction{
 
 		public EditItem(){
@@ -87,6 +126,9 @@ public class MenuTracker {
 		}
 	}
 
+	/**
+	 * удалить заявку.
+	 */
 	private class RemoveItem extends BaseAction{
 
 		public RemoveItem(){
@@ -108,6 +150,9 @@ public class MenuTracker {
 		}
 	}
 
+	/**
+	 * найти заявку по имени.
+	 */
 	private class FindName extends BaseAction{
 
 		public FindName(){
@@ -126,6 +171,9 @@ public class MenuTracker {
 		}
 	}
 
+	/**
+	 * найти заявку по описанию.
+	 */
 	private class FindDescription extends BaseAction{
 
 		public FindDescription(){
@@ -144,6 +192,9 @@ public class MenuTracker {
 		}
 	}
 
+	/**
+	 * добавить косентарий.
+	 */
 	private class AddComment extends BaseAction{
 
 		public AddComment(){
@@ -165,8 +216,11 @@ public class MenuTracker {
 				System.out.println("Item with this Id does not exist");
 			}
 		}
-	}	
+	}
 
+	/**
+	 * показать список заявок.
+	 */
 	private class ShowItems extends BaseAction{
 
 		public ShowItems(){

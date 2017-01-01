@@ -1,12 +1,19 @@
 package ru.apetrov.FileSearch;
 
-import java.io.*;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by Andrey on 30.12.2016.
  */
 public class WriteLogFile {
 
+    /**
+     * Запись результата в log.txt.
+     * @param data данные
+     */
     public void writeFile(String data) {
         try {
             File file = new File("log.txt");

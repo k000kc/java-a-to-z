@@ -1,24 +1,43 @@
 package ru.apetrov.FileSearch;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
 
 /**
  * Created by Andrey on 30.12.2016.
  */
 public class FindByMask {
 
+    /**
+     * директория.
+     */
     File dir;
-    String mask;
-    StringBuilder builder = new StringBuilder("Найденные файлы:\n");
 
+    /**
+     * маска
+     */
+    String mask;
+
+    /**
+     * Собираем результат поиска.
+     */
+    StringBuilder builder = new StringBuilder();
+
+    /**
+     * Конструктор.
+     * @param dir директория
+     * @param mask маска
+     */
     public FindByMask(File dir, String mask) {
         this.dir = dir;
         this.mask = mask;
     }
 
+    /**
+     * Поиск файла по маске.
+     * @param dir директория
+     * @param mask маска
+     * @return результат
+     */
     public String find(File dir, String mask) {
         String result;
         for (File file : dir.listFiles()) {

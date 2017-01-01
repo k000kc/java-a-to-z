@@ -1,22 +1,43 @@
 package ru.apetrov.FileSearch;
 
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
 
 /**
  * Created by Andrey on 25.12.2016.
  */
 public class FindByName {
-    File dir;
-    String name;
-    StringBuilder builder = new StringBuilder("Найденные файлы:\n");
 
+    /**
+     * Директория.
+     */
+    File dir;
+
+    /**
+     * Имя файла.
+     */
+    String name;
+
+    /**
+     * Собираем результат поиска.
+     */
+    StringBuilder builder = new StringBuilder();
+
+    /**
+     * Конструктор.
+     * @param dir директория
+     * @param name имя файла
+     */
     public FindByName(File dir, String name) {
         this.dir = dir;
         this.name = name;
     }
 
+    /**
+     * Поиск файла по имени.
+     * @param dir директория
+     * @param name имя файла
+     * @return Результат
+     */
     public String find(File dir, String name) {
         String result;
         for (File file : dir.listFiles()) {

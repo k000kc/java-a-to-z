@@ -8,15 +8,37 @@ import java.util.regex.Pattern;
  */
 public class FindByRegExp {
 
+    /**
+     * Директория.
+     */
     File dir;
-    String regExp;
-    StringBuilder builder = new StringBuilder("Найденные файлы:\n");
 
+    /**
+     * Регулярное выражение.
+     */
+    String regExp;
+
+    /**
+     * Собираем результат поиска.
+     */
+    StringBuilder builder = new StringBuilder();
+
+    /**
+     * Конструктор.
+     * @param dir директория
+     * @param regExp регулярное выражение
+     */
     public FindByRegExp(File dir, String regExp) {
         this.dir = dir;
         this.regExp = regExp;
     }
 
+    /**
+     * Поиск файла по регулярному выражению.
+     * @param dir директория
+     * @param regExp регулярное выражение
+     * @return результат
+     */
     public String find(File dir, String regExp) {
         String result;
         Pattern pattern = Pattern.compile(regExp);

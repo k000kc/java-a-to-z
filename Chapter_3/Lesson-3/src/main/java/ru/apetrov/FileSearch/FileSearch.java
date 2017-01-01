@@ -7,13 +7,29 @@ import java.io.File;
  */
 public class FileSearch {
 
+    /**
+     * Массив ключей.
+     */
     String[] args;
+
+    /**
+     * директория.
+     */
     File dir;
 
+    /**
+     * конструктор.
+     * @param args массив ключей
+     */
     public FileSearch(String[] args) {
         this.args = args;
     }
 
+    /**
+     * Проверка введенной комманды.
+     * @param args массив ключей
+     * @return результат
+     */
     public boolean isValidate(String[] args) {
         boolean result = true;
         if (!this.args[0].equals("-d")) {
@@ -35,6 +51,9 @@ public class FileSearch {
         return result;
     }
 
+    /**
+     * Запуск программы.
+     */
     public void start() {
 
         FileSearch fileSearch = new FileSearch(args);
@@ -62,6 +81,10 @@ public class FileSearch {
         }
     }
 
+    /**
+     * main.
+     * @param args args
+     */
     public static void main(String[] args) {
         new FileSearch(args).start();
     }

@@ -10,17 +10,17 @@ public class FindByMask {
     /**
      * директория.
      */
-    File dir;
+    private File dir;
 
     /**
-     * маска
+     * маска.
      */
-    String mask;
+    private String mask;
 
     /**
      * Собираем результат поиска.
      */
-    StringBuilder builder = new StringBuilder();
+    private StringBuilder builder = new StringBuilder();
 
     /**
      * Конструктор.

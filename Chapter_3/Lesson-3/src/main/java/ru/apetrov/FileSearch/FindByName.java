@@ -10,17 +10,17 @@ public class FindByName {
     /**
      * Директория.
      */
-    File dir;
+    private File dir;
 
     /**
      * Имя файла.
      */
-    String name;
+    private String name;
 
     /**
      * Собираем результат поиска.
      */
-    StringBuilder builder = new StringBuilder();
+    private StringBuilder builder = new StringBuilder();
 
     /**
      * Конструктор.

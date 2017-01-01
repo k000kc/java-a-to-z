@@ -134,6 +134,11 @@ public class MenuServer {
      */
     public class ShowDirectory extends BaseAction {
 
+        /**
+         * Конструктор.
+         * @param key ключ
+         * @param name имя
+         */
         public ShowDirectory(String key, String name) {
             super(key, name);
         }
@@ -160,6 +165,11 @@ public class MenuServer {
      */
     public class MoveDirectory extends BaseAction {
 
+        /**
+         * Конструктор.
+         * @param key ключ
+         * @param name имя
+         */
         public MoveDirectory(String key, String name) {
             super(key, name);
         }
@@ -195,6 +205,11 @@ public class MenuServer {
      */
     public class DownloadFile extends BaseAction {
 
+        /**
+         * Конструктор.
+         * @param key ключ
+         * @param name имя
+         */
         public DownloadFile(String key, String name) {
             super(key, name);
         }
@@ -226,6 +241,11 @@ public class MenuServer {
      */
     public class UplaodFile extends BaseAction {
 
+        /**
+         * Конструктор.
+         * @param key ключ
+         * @param name имя
+         */
         public UplaodFile(String key, String name) {
             super(key, name);
         }

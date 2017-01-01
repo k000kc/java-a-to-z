@@ -11,17 +11,17 @@ public class FindByRegExp {
     /**
      * Директория.
      */
-    File dir;
+    private File dir;
 
     /**
      * Регулярное выражение.
      */
-    String regExp;
+    private String regExp;
 
     /**
      * Собираем результат поиска.
      */
-    StringBuilder builder = new StringBuilder();
+    private StringBuilder builder = new StringBuilder();
 
     /**
      * Конструктор.

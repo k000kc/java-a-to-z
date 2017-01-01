@@ -5,6 +5,11 @@ package ru.apetrov.Parenthesis;
  */
 public class Parenthesis {
 
+    /**
+     * Проверяем расстановку скобок.
+     * @param text текст
+     * @return результат
+     */
     public boolean checkParenthesis(String text) {
         boolean result = false;
         char[] ch = text.toCharArray();

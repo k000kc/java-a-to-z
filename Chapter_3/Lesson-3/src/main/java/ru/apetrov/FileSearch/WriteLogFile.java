@@ -18,7 +18,7 @@ public class WriteLogFile {
         try {
             File file = new File("log.txt");
             file.createNewFile();
-            try(FileOutputStream inFile = new FileOutputStream(file)) {
+            try (FileOutputStream inFile = new FileOutputStream(file)) {
                 inFile.write(data.getBytes());
             }
         } catch (IOException e) {

@@ -7,9 +7,22 @@ import java.util.Scanner;
  */
 public class InteractCalc {
 
+    /**
+     * Класс калькулятора.
+     */
     private Calculator calculator = new Calculator();
+
+    /**
+     * Сканнер - система ввода.
+     */
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Выбор операции.
+     * @param operation операция.
+     * @param first аргумент.
+     * @param second аргумент.
+     */
     public void checkOperation(String operation, double first, double second) {
 
         if (operation.equals("+")) {
@@ -25,11 +38,21 @@ public class InteractCalc {
         }
     }
 
+    /**
+     * Запрашиваем ввод операции.
+     * @param question вопрос.
+     * @return операция.
+     */
     public String ask(String question) {
         System.out.println(question);
         return scanner.next();
     }
 
+    /**
+     * Запрашиваем ввод аргументов.
+     * @param question вопрос.
+     * @return аргументы.
+     */
     public double inputArg(String question) {
         System.out.println(question);
         if (scanner.hasNextDouble()) {
@@ -39,6 +62,9 @@ public class InteractCalc {
         }
     }
 
+    /**
+     * Запуск программы.
+     */
     public void start() {
         boolean isContinue = false;
         boolean isExit = false;
@@ -67,6 +93,10 @@ public class InteractCalc {
         } while (!isExit);
     }
 
+    /**
+     * main.
+     * @param args args.
+     */
     public static void main(String[] args) {
         new InteractCalc().start();
     }

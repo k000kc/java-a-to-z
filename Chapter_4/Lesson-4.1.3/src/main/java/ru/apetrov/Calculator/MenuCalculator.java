@@ -7,7 +7,7 @@ public class MenuCalculator {
 
     Input input;
     Calculator calculator;
-    BaseActions[] actions = new BaseActions[6];
+    BaseActions[] actions = new BaseActions[5];
     boolean isClean = false;
     boolean isExit = false;
     double first;
@@ -21,12 +21,11 @@ public class MenuCalculator {
     }
 
     public void fillAction() {
-        actions[0] = new Help("help", "Help");
-        actions[1] = new Add("+", "Addition");
-        actions[2] = new Sub("-", "Subtraction");
-        actions[3] = new Mult("*", "Multiplication");
-        actions[4] = new Div("/", "Division");
-        actions[5] = new CleanResult("clean", "Clean Result");
+        actions[0] = new Add("+", "Addition");
+        actions[1] = new Sub("-", "Subtraction");
+        actions[2] = new Mult("*", "Multiplication");
+        actions[3] = new Div("/", "Division");
+        actions[4] = new CleanResult("clean", "Clean Result");
     }
 
     private void show() {
@@ -54,20 +53,9 @@ public class MenuCalculator {
                 select(this.operation);
                 this.first = calculator.getResult();
             }
-            if (input.ask("Для выхода введите exit").equalsIgnoreCase("exit")) {
+            if (input.ask("Выйти из программы? (y/n):").equalsIgnoreCase("y")) {
                 isExit = true;
             }
-        }
-    }
-
-    private class Help extends BaseActions {
-        public Help(String key, String name) {
-            super(key, name);
-        }
-
-        @Override
-        public void execute(Calculator calculator, Input input) {
-
         }
     }
 

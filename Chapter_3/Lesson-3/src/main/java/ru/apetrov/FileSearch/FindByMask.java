@@ -24,12 +24,11 @@ public class FindByMask {
 
     /**
      * Конструктор.
-     * @param dir директория
-     * @param mask маска
+     * @param args args.
      */
-    public FindByMask(File dir, String mask) {
-        this.dir = dir;
-        this.mask = mask;
+    public FindByMask(String[] args) {
+        this.dir = new File(args[1]);
+        this.mask = args[3];
     }
 
     /**

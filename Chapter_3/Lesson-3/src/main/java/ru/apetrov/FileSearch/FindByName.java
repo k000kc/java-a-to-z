@@ -22,15 +22,16 @@ public class FindByName {
      */
     private StringBuilder builder = new StringBuilder();
 
+
     /**
      * Конструктор.
-     * @param dir директория
-     * @param name имя файла
+     * @param args args.
      */
-    public FindByName(File dir, String name) {
-        this.dir = dir;
-        this.name = name;
+    public FindByName(String[] args) {
+        this.dir = new File(args[1]);
+        this.name = args[3];
     }
+
 
     /**
      * Поиск файла по имени.

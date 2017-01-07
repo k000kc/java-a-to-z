@@ -57,15 +57,15 @@ public class Validator {
         if (this.checkArgs() && this.dir.isDirectory()) {
 
             if (this.args[4].equals("-m")) {
-                System.out.println(new FindByMask(this.dir, this.args[3]));
+                System.out.println(new FindByMask(this.args));
             }
 
             if (this.args[4].equals("-f")) {
-                System.out.println(new FindByName(this.dir, this.args[3]));
+                System.out.println(new FindByName(this.args));
             }
 
             if (this.args[4].equals("-r")) {
-                System.out.println(new FindByRegExp(this.dir, this.args[3]));
+                System.out.println(new FindByRegExp(this.args));
             }
         } else {
             System.out.printf("%s", "Ключи \n-d - директория в которая начинать поиск.\n-n - имя файл, маска, либо регулярное выражение.\n-m - искать по маске, либо -f - полное совпадение имени. -r - регулярное выражение.\n-o - результат записать в файл.");

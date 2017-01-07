@@ -10,6 +10,6 @@ public class FileSearch {
      * @param args args
      */
     public static void main(String[] args) {
-        new Validate(args).isValidate();
+        new Validator(args).isValidate();
     }
 }

@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * Created by Andrey on 07.01.2017.
  */
-public class Validate {
+public class Validator {
 
     /**
      * Массив аргументов.
@@ -21,7 +21,7 @@ public class Validate {
      * Конструктор.
      * @param args args.
      */
-    public Validate(String[] args) {
+    public Validator(String[] args) {
         this.args = args;
         this.dir = new File(args[1]);
     }

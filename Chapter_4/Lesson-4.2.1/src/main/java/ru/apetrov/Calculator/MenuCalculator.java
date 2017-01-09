@@ -13,17 +13,17 @@ public class MenuCalculator {
     /**
      * Класс калькулятор.
      */
-    private Calculator calculator;
+    private TrigAction calculator;
 
     /**
      * Массив действий.
      */
-    private BaseActions[] actions = new BaseActions[5];
+    protected BaseActions[] actions;
 
     /**
      * Переменная для записи аргумента (первого).
      */
-    private double first;
+    protected double first;
 
     /**
      * Отчистить результат.
@@ -35,16 +35,17 @@ public class MenuCalculator {
      * @param input ввод.
      * @param calculator ссылка на экземпляр калькулятора.
      */
-    public MenuCalculator(Input input, Calculator calculator) {
+    public MenuCalculator(Input input, TrigAction calculator, int size) {
         this.input = input;
         this.calculator = calculator;
+        this.actions = new BaseActions[size];
         this.fillAction();
     }
 
     /**
      * Инициализация массива действий.
      */
-    private void fillAction() {
+    protected void fillAction() {
         this.actions[0] = new Add("+", "Addition");
         this.actions[1] = new Sub("-", "Subtraction");
         this.actions[2] = new Mult("*", "Multiplication");
@@ -96,14 +97,14 @@ public class MenuCalculator {
     /**
      * Сложение.
      */
-    private class Add extends BaseActions {
+    public class Add extends BaseActions {
 
         /**
          * Конструктор.
          * @param key ключ.
          * @param name имя.
          */
-        private Add(String key, String name) {
+        public Add(String key, String name) {
             super(key, name);
         }
 
@@ -113,7 +114,7 @@ public class MenuCalculator {
          * @param input ввод.
          */
         @Override
-        public void execute(Calculator calculator, Input input) {
+        public void execute(TrigAction calculator, Input input) {
             double second = input.askArgument("Введите второй аргумент");
             calculator.add(first, second);
             System.out.printf("%s%n", calculator.getResult());
@@ -123,14 +124,14 @@ public class MenuCalculator {
     /**
      * Вычитание.
      */
-    private class Sub extends BaseActions {
+    public class Sub extends BaseActions {
 
         /**
          * Конструктор.
          * @param key ключ
          * @param name имя.
          */
-        private Sub(String key, String name) {
+        public Sub(String key, String name) {
             super(key, name);
         }
 
@@ -140,7 +141,7 @@ public class MenuCalculator {
          * @param input ввод.
          */
         @Override
-        public void execute(Calculator calculator, Input input) {
+        public void execute(TrigAction calculator, Input input) {
             double second = input.askArgument("Введите второй аргумент");
             calculator.sub(first, second);
             System.out.printf("%s%n", calculator.getResult());
@@ -150,14 +151,14 @@ public class MenuCalculator {
     /**
      * Умножение.
      */
-    private class Mult extends BaseActions {
+    public class Mult extends BaseActions {
 
         /**
          * Конструктор.
          * @param key ключ.
          * @param name имя.
          */
-        private Mult(String key, String name) {
+        public Mult(String key, String name) {
             super(key, name);
         }
 
@@ -168,7 +169,7 @@ public class MenuCalculator {
          * @param input ввод.
          */
         @Override
-        public void execute(Calculator calculator, Input input) {
+        public void execute(TrigAction calculator, Input input) {
             double second = input.askArgument("Введите второй аргумент");
             calculator.mult(first, second);
             System.out.printf("%s%n", calculator.getResult());
@@ -178,14 +179,14 @@ public class MenuCalculator {
     /**
      * Деление.
      */
-    private class Div extends BaseActions {
+    public class Div extends BaseActions {
 
         /**
          * Деление.
          * @param key ключ.
          * @param name имя.
          */
-        private Div(String key, String name) {
+        public Div(String key, String name) {
             super(key, name);
         }
 
@@ -195,7 +196,7 @@ public class MenuCalculator {
          * @param input ввлд.
          */
         @Override
-        public void execute(Calculator calculator, Input input) {
+        public void execute(TrigAction calculator, Input input) {
             double second = input.askArgument("Введите второй аргумент");
             calculator.div(first, second);
             System.out.printf("%s%n", calculator.getResult());
@@ -205,14 +206,14 @@ public class MenuCalculator {
     /**
      * Очистка результата.
      */
-    private class CleanResult extends BaseActions {
+    public class CleanResult extends BaseActions {
 
         /**
          * Конструтор.
          * @param key ключ.
          * @param name имя.
          */
-        private CleanResult(String key, String name) {
+        public CleanResult(String key, String name) {
             super(key, name);
         }
 
@@ -222,7 +223,7 @@ public class MenuCalculator {
          * @param input ввод.
          */
         @Override
-        public void execute(Calculator calculator, Input input) {
+        public void execute(TrigAction calculator, Input input) {
             isClean = true;
         }
     }

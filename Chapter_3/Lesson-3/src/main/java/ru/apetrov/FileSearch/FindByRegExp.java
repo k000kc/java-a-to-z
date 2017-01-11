@@ -25,11 +25,12 @@ public class FindByRegExp {
 
     /**
      * Конструктор.
-     * @param args args.
+     * @param dir директория.
+     * @param regExp регулярное выражение.
      */
-    public FindByRegExp(String[] args) {
-        this.dir = new File(args[1]);
-        this.regExp = args[3];
+    public FindByRegExp(File dir, String regExp) {
+        this.dir = dir;
+        this.regExp = regExp;
     }
 
     /**

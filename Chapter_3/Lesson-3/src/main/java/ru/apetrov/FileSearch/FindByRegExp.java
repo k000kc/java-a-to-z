@@ -8,15 +8,13 @@ import java.util.regex.Pattern;
  */
 public class FindByRegExp {
 
-    /**
-     * Директория.
-     */
-    private File dir;
-
-    /**
-     * Регулярное выражение.
-     */
+    private Validator validator;
     private String regExp;
+
+    public FindByRegExp(Validator validator) {
+        this.validator = validator;
+        this.regExp = this.validator.getArgs()[3];
+    }
 
     /**
      * Собираем результат поиска.
@@ -24,20 +22,8 @@ public class FindByRegExp {
     private StringBuilder builder = new StringBuilder();
 
     /**
-     * Конструктор.
-     * @param dir директория.
-     * @param regExp регулярное выражение.
-     */
-    public FindByRegExp(File dir, String regExp) {
-        this.dir = dir;
-        this.regExp = regExp;
-    }
-
-    /**
      * Поиск файла по регулярному выражению.
-     * @param dir директория
-     * @param regExp регулярное выражение
-     * @return результат
+     * @return
      */
     public String find(File dir, String regExp) {
         String result;
@@ -46,16 +32,16 @@ public class FindByRegExp {
             if (file.isDirectory()) {
                 find(file, regExp);
             } else if (pattern.matcher(regExp).find()) {
-                builder.append(String.format("%s\\%s%n", dir, file.getName()));
+                this.builder.append(String.format("%s\\%s%n", dir, file.getName()));
             }
         }
-        result = builder.toString();
+        result = this.builder.toString();
         new WriteLogFile().writeFile(result);
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format("%s", find(this.dir, this.regExp));
+        return String.format("%s", find(this.validator.getDir(), this.regExp));
     }
 }

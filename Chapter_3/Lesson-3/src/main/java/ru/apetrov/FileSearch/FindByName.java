@@ -7,15 +7,13 @@ import java.io.File;
  */
 public class FindByName {
 
-    /**
-     * Директория.
-     */
-    private File dir;
-
-    /**
-     * Имя файла.
-     */
+    private Validator validator;
     private String name;
+
+    public FindByName(Validator validator) {
+        this.validator = validator;
+        this.name = validator.getArgs()[3];
+    }
 
     /**
      * Собираем результат поиска.
@@ -23,21 +21,8 @@ public class FindByName {
     private StringBuilder builder = new StringBuilder();
 
     /**
-     * Конструктор.
-     * @param dir директория.
-     * @param name имя файла.
-     */
-    public FindByName(File dir, String name) {
-        this.dir = dir;
-        this.name = name;
-    }
-
-
-    /**
      * Поиск файла по имени.
-     * @param dir директория
-     * @param name имя файла
-     * @return Результат
+     * @return
      */
     public String find(File dir, String name) {
         String result;
@@ -45,16 +30,16 @@ public class FindByName {
             if (file.isDirectory()) {
                 find(file, name);
             } else if (name.equals(file.getName())) {
-                builder.append(String.format("%s\\%s%n", dir, name));
+                this.builder.append(String.format("%s\\%s%n", dir, file.getName()));
             }
         }
-        result = builder.toString();
+        result = this.builder.toString();
         new WriteLogFile().writeFile(result);
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format("%s", find(this.dir, this.name));
+        return String.format("%s", find(this.validator.getDir(), this.name));
     }
 }

@@ -7,36 +7,21 @@ import java.io.File;
  */
 public class FindByMask {
 
-    /**
-     * директория.
-     */
-    private File dir;
-
-    /**
-     * маска.
-     */
+    private Validator validator;
     private String mask;
-
     /**
      * Собираем результат поиска.
      */
     private StringBuilder builder = new StringBuilder();
 
-    /**
-     * Конструктор.
-     * @param dir директория.
-     * @param mask маска.
-     */
-    public FindByMask(File dir, String mask) {
-        this.dir = dir;
-        this.mask = mask;
+    public FindByMask(Validator validator) {
+        this.validator = validator;
+        this.mask = validator.getArgs()[3];
     }
 
     /**
      * Поиск файла по маске.
-     * @param dir директория
-     * @param mask маска
-     * @return результат
+     * @return
      */
     public String find(File dir, String mask) {
         String result;
@@ -44,16 +29,16 @@ public class FindByMask {
             if (file.isDirectory()) {
                 find(file, mask);
             } else if (file.getName().endsWith(mask)) {
-                builder.append(String.format("%s\\%s%n", dir, file.getName()));
+                this.builder.append(String.format("%s\\%s%n", dir, file.getName()));
             }
         }
-        result = builder.toString();
+        result = this.builder.toString();
         new WriteLogFile().writeFile(result);
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format("%s", find(this.dir, this.mask));
+        return String.format("%s", find(this.validator.getDir(), this.mask));
     }
 }

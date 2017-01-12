@@ -33,7 +33,9 @@ public class FindByName {
 
     /**
      * Поиск файла по имени.
-     * @return
+     * @param dir директория.
+     * @param name имя файла.
+     * @return строка с результатом.
      */
     public String find(File dir, String name) {
         String result;

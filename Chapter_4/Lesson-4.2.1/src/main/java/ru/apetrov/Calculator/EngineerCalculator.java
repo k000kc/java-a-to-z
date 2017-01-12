@@ -10,7 +10,7 @@ public class EngineerCalculator extends MenuCalculator {
      *
      * @param input      ввод.
      * @param calculator ссылка на экземпляр калькулятора.
-     * @param size
+     * @param size размер массива.
      */
     public EngineerCalculator(Input input, TrigAction calculator, int size) {
         super(input, calculator, size);
@@ -40,7 +40,7 @@ public class EngineerCalculator extends MenuCalculator {
          * @param key  ключ.
          * @param name имя.
          */
-        public Sinus(String key, String name) {
+        private Sinus(String key, String name) {
             super(key, name);
         }
 
@@ -67,7 +67,7 @@ public class EngineerCalculator extends MenuCalculator {
          * @param key  ключ.
          * @param name имя.
          */
-        public Cosinus(String key, String name) {
+        private Cosinus(String key, String name) {
             super(key, name);
         }
 
@@ -94,7 +94,7 @@ public class EngineerCalculator extends MenuCalculator {
          * @param key  ключ.
          * @param name имя.
          */
-        public Tangens(String key, String name) {
+        private Tangens(String key, String name) {
             super(key, name);
         }
 
@@ -121,7 +121,7 @@ public class EngineerCalculator extends MenuCalculator {
          * @param key  ключ.
          * @param name имя.
          */
-        public Catangens(String key, String name) {
+        private Catangens(String key, String name) {
             super(key, name);
         }
 

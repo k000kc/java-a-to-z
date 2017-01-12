@@ -58,6 +58,10 @@ public class Calculator {
         return this.result;
     }
 
+    /**
+     * Сеттер.
+     * @param result результат.
+     */
     public void setResult(double result) {
         this.result = result;
     }

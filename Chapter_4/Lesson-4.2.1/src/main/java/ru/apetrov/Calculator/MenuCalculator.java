@@ -34,6 +34,7 @@ public class MenuCalculator {
      * Конструктор.
      * @param input ввод.
      * @param calculator ссылка на экземпляр калькулятора.
+     * @param size размер массива.
      */
     public MenuCalculator(Input input, TrigAction calculator, int size) {
         this.input = input;

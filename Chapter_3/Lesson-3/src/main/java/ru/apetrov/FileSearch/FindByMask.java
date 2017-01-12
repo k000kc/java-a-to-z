@@ -33,7 +33,9 @@ public class FindByMask {
 
     /**
      * Поиск файла по маске.
-     * @return
+     * @param dir Директория.
+     * @param mask маска.
+     * @return строка с результатом.
      */
     public String find(File dir, String mask) {
         String result;

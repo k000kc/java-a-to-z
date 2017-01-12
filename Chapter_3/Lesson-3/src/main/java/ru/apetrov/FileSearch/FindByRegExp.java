@@ -34,7 +34,9 @@ public class FindByRegExp {
 
     /**
      * Поиск файла по регулярному выражению.
-     * @return
+     * @param dir директория.
+     * @param regExp регулярное выражение.
+     * @return строка с результатом.
      */
     public String find(File dir, String regExp) {
         String result;

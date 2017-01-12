@@ -7,6 +7,7 @@ public class FileSearch {
 
     /**
      * Выбор типа поиска.
+     * @param validator класс.
      */
     public void init(Validator validator) {
         if (validator.checkArgs() && validator.getDir().isDirectory()) {

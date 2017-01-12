@@ -17,15 +17,27 @@ public class Validator {
      */
     private File dir;
 
+    /**
+     * Конструктор.
+     * @param args args.
+     */
     public Validator(String[] args) {
         this.args = args;
         this.dir = new File(args[1]);
     }
 
+    /**
+     * Геттер.
+     * @return args.
+     */
     public String[] getArgs() {
         return args;
     }
 
+    /**
+     * Геттер.
+     * @return директория.
+     */
     public File getDir() {
         return dir;
     }

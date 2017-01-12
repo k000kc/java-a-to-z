@@ -8,18 +8,29 @@ import java.util.regex.Pattern;
  */
 public class FindByRegExp {
 
+    /**
+     * Класс для проверки ключей.
+     */
     private Validator validator;
-    private String regExp;
 
-    public FindByRegExp(Validator validator) {
-        this.validator = validator;
-        this.regExp = this.validator.getArgs()[3];
-    }
+    /**
+     * Регулярное выражение.
+     */
+    private String regExp;
 
     /**
      * Собираем результат поиска.
      */
     private StringBuilder builder = new StringBuilder();
+
+    /**
+     * Конструктор.
+     * @param validator класс.
+     */
+    public FindByRegExp(Validator validator) {
+        this.validator = validator;
+        this.regExp = this.validator.getArgs()[3];
+    }
 
     /**
      * Поиск файла по регулярному выражению.
@@ -40,6 +51,10 @@ public class FindByRegExp {
         return result;
     }
 
+    /**
+     * Результат.
+     * @return строка с результатом.
+     */
     @Override
     public String toString() {
         return String.format("%s", find(this.validator.getDir(), this.regExp));

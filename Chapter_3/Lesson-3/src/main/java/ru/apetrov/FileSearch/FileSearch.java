@@ -32,7 +32,6 @@ public class FileSearch {
      * @param args args
      */
     public static void main(String[] args) {
-        Validator validator = new Validator(args);
-        new FileSearch().init(validator);
+        new FileSearch().init(new Validator(args));
     }
 }

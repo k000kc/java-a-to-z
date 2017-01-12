@@ -7,18 +7,29 @@ import java.io.File;
  */
 public class FindByName {
 
+    /**
+     * Класс для проверки ключей.
+     */
     private Validator validator;
-    private String name;
 
-    public FindByName(Validator validator) {
-        this.validator = validator;
-        this.name = validator.getArgs()[3];
-    }
+    /**
+     * Имя файла.
+     */
+    private String name;
 
     /**
      * Собираем результат поиска.
      */
     private StringBuilder builder = new StringBuilder();
+
+    /**
+     * Констрктор.
+     * @param validator класс.
+     */
+    public FindByName(Validator validator) {
+        this.validator = validator;
+        this.name = validator.getArgs()[3];
+    }
 
     /**
      * Поиск файла по имени.
@@ -38,6 +49,10 @@ public class FindByName {
         return result;
     }
 
+    /**
+     * Результат.
+     * @return строка с результатом.
+     */
     @Override
     public String toString() {
         return String.format("%s", find(this.validator.getDir(), this.name));

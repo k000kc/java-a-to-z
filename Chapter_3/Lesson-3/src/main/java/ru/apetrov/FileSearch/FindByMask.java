@@ -7,13 +7,25 @@ import java.io.File;
  */
 public class FindByMask {
 
+    /**
+     * Класс для проверки ключей.
+     */
     private Validator validator;
+
+    /**
+     * Маска.
+     */
     private String mask;
+
     /**
      * Собираем результат поиска.
      */
     private StringBuilder builder = new StringBuilder();
 
+    /**
+     * Конструктор.
+     * @param validator класс.
+     */
     public FindByMask(Validator validator) {
         this.validator = validator;
         this.mask = validator.getArgs()[3];
@@ -37,6 +49,10 @@ public class FindByMask {
         return result;
     }
 
+    /**
+     * Результат.
+     * @return строка с результатом.
+     */
     @Override
     public String toString() {
         return String.format("%s", find(this.validator.getDir(), this.mask));

@@ -18,12 +18,28 @@ public class MenuCalculator {
     /**
      * Массив действий.
      */
-    protected BaseActions[] actions;
+    private BaseActions[] actions;
 
     /**
      * Переменная для записи аргумента (первого).
      */
-    protected double first;
+    private double first;
+
+    /**
+     * Геттер.
+     * @return Массив действий.
+     */
+    public BaseActions[] getActions() {
+        return actions;
+    }
+
+    /**
+     * Геттер.
+     * @return аргумент.
+     */
+    public double getFirst() {
+        return first;
+    }
 
     /**
      * Отчистить результат.

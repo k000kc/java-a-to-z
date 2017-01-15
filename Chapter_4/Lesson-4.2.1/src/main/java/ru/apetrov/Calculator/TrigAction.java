@@ -14,7 +14,7 @@ public class TrigAction extends Calculator {
     }
 
     /**
-     * Косинус
+     * Косинус.
      * @param value значение.
      */
     public void cosinus(double value) {

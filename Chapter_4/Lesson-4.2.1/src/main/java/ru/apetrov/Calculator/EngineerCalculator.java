@@ -23,10 +23,10 @@ public class EngineerCalculator extends MenuCalculator {
     @Override
     protected void fillAction() {
         super.fillAction();
-        this.actions[5] = new Sinus("sin", "Sinus");
-        this.actions[6] = new Cosinus("cos", "Cosinus");
-        this.actions[7] = new Tangens("tan", "Tangens");
-        this.actions[8] = new Catangens("cat", "Catangens");
+        this.getActions()[5] = new Sinus("sin", "Sinus");
+        this.getActions()[6] = new Cosinus("cos", "Cosinus");
+        this.getActions()[7] = new Tangens("tan", "Tangens");
+        this.getActions()[8] = new Catangens("cat", "Catangens");
     }
 
     /**
@@ -51,7 +51,7 @@ public class EngineerCalculator extends MenuCalculator {
          */
         @Override
         public void execute(TrigAction calculator, Input input) {
-            calculator.sinus(first);
+            calculator.sinus(getFirst());
             System.out.printf("%s%n", calculator.getResult());
         }
     }
@@ -78,7 +78,7 @@ public class EngineerCalculator extends MenuCalculator {
          */
         @Override
         public void execute(TrigAction calculator, Input input) {
-            calculator.cosinus(first);
+            calculator.cosinus(getFirst());
             System.out.printf("%s%n", calculator.getResult());
         }
     }
@@ -105,7 +105,7 @@ public class EngineerCalculator extends MenuCalculator {
          */
         @Override
         public void execute(TrigAction calculator, Input input) {
-            calculator.tangens(first);
+            calculator.tangens(getFirst());
             System.out.printf("%s%n", calculator.getResult());
         }
     }
@@ -132,7 +132,7 @@ public class EngineerCalculator extends MenuCalculator {
          */
         @Override
         public void execute(TrigAction calculator, Input input) {
-            calculator.catangens(first);
+            calculator.catangens(getFirst());
             System.out.printf("%s%n%", calculator.getResult());
         }
     }

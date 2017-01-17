@@ -1,0 +1,4 @@
+H:\clientDir\new\test1.txt
+H:\clientDir\test.txt
+H:\clientDir\test2.jpg
+H:\clientDir\testFile.txt

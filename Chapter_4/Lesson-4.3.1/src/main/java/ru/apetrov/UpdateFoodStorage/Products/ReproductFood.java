@@ -7,7 +7,11 @@ import java.util.Date;
  */
 public class ReproductFood extends Food {
 
-    boolean canReproduct;
+    private boolean canReproduct;
+
+    public boolean isCanReproduct() {
+        return canReproduct;
+    }
 
     /**
      * Конструктор.
@@ -17,7 +21,7 @@ public class ReproductFood extends Food {
      * @param createDate    дата изготовления.
      * @param price         цена.
      * @param disscount     скидка.
-     * @param canReproduct  подлежит переработки?
+     * @param canReproduct  подлежит переработке?
      */
     public ReproductFood(String name, Date expaireDate, Date createDate, double price, double disscount, boolean canReproduct) {
         super(name, expaireDate, createDate, price, disscount);

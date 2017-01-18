@@ -67,7 +67,7 @@ public class ControllQualityExpansionTest {
 
     @Test
     public void whenFoodsPlaceDeepFreeze() {
-        reproductFood = new ReproductFood("Milk", expaireDate, createDate, 40.0, 10.0, false);
+        reproductFood = new ReproductFood("Milk", expaireDate, createDate, 40.0, 10.0, true);
         try {
             currentDate = new SimpleDateFormat("yyyy-MM-dd").parse("2017-01-31");
         } catch (ParseException e) {

@@ -1,6 +1,5 @@
 package ru.apetrov.UpdateFoodStorage.Storages;
 
-import ru.apetrov.UpdateFoodStorage.Products.Food;
 import ru.apetrov.UpdateFoodStorage.Products.ReproductFood;
 
 import java.util.Date;
@@ -8,9 +7,9 @@ import java.util.Date;
 /**
  * Created by Andrey on 18.01.2017.
  */
-public class DeepFreeze extends BaseStorageDecorator {
+public class RecyclingWarehouse extends BaseStorageDecorator {
 
-    public DeepFreeze(BaseStorage baseStorage) {
+    public RecyclingWarehouse(BaseStorage baseStorage) {
         super(baseStorage);
     }
 

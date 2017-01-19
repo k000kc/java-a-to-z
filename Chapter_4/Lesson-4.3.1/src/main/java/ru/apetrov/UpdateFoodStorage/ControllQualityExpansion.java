@@ -2,6 +2,7 @@ package ru.apetrov.UpdateFoodStorage;
 
 import ru.apetrov.UpdateFoodStorage.Storages.*;
 
+
 /**
  * Created by Andrey on 17.01.2017.
  */
@@ -20,6 +21,5 @@ public class ControllQualityExpansion extends ControllQuality{
     public void init() {
         super.init();
         this.getStorages()[3] = new NewWarehouse();
-        this.getStorages()[4] = new RecyclingWarehouse(new Trash());
     }
 }

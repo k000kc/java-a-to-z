@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class NewWarehouse extends Warehouse {
 
-    public boolean satisfiesConditions(ReproductFood food, Date currentDate) {
-        return super.satisfiesConditions(food, currentDate);
+    public boolean satisfiesConditions(ReproductFood reproductFood, Date currentDate) {
+        return super.satisfiesConditions(reproductFood, currentDate);
     }
 }

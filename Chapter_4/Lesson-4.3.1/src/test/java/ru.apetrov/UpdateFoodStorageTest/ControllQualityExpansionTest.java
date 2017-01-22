@@ -5,6 +5,8 @@ import org.junit.Test;
 import ru.apetrov.UpdateFoodStorage.ControllQualityExpansion;
 import ru.apetrov.UpdateFoodStorage.Products.ReproductFood;
 import ru.apetrov.UpdateFoodStorage.Storages.BaseStorage;
+import ru.apetrov.UpdateFoodStorage.Storages.DeepFreeze;
+import ru.apetrov.UpdateFoodStorage.Storages.ReproductStorage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,11 +45,16 @@ public class ControllQualityExpansionTest {
      */
     private Date currentDate;
 
+    /**
+     * Инициализация.
+     * @throws ParseException exeption.
+     */
     @Before
     public void init() throws ParseException {
-        controlQualityExpansion = new ControllQualityExpansion(5);
+        controlQualityExpansion = new ControllQualityExpansion(4);
         expaireDate = new SimpleDateFormat("yyyy-MM-dd").parse("2017-01-30");
         createDate = new SimpleDateFormat("yyyy-MM-dd").parse("2017-01-01");
+        controlQualityExpansion.addStrorage(new DeepFreeze());
     }
 
     /**
@@ -65,6 +72,9 @@ public class ControllQualityExpansionTest {
         assertThat(storage, is(controlQualityExpansion.getStorages()[3]));
     }
 
+    /**
+     * Ситуация когда продукты помещаются в морозильный склад.
+     */
     @Test
     public void whenFoodsPlaceDeepFreeze() {
         reproductFood = new ReproductFood("Milk", expaireDate, createDate, 40.0, 10.0, true);
@@ -73,7 +83,7 @@ public class ControllQualityExpansionTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        BaseStorage storage = controlQualityExpansion.rellocateFoods(reproductFood, currentDate);
-        assertThat(storage, is(controlQualityExpansion.getStorages()[4]));
+        ReproductStorage storage = controlQualityExpansion.rellocateReproductFoods(reproductFood, currentDate);
+        assertThat(storage, is(controlQualityExpansion.getReproductStorages()[0]));
     }
 }

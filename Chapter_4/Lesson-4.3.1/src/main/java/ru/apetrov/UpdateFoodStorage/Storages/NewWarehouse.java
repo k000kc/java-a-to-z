@@ -10,7 +10,13 @@ import java.util.Date;
  */
 public class NewWarehouse extends Warehouse {
 
-    public boolean satisfiesConditions(ReproductFood reproductFood, Date currentDate) {
-        return super.satisfiesConditions(reproductFood, currentDate);
+    /**
+     * Соответствует ли срок использования товара данному хранилищу.
+     * @param food товар.
+     * @param currentDate текущая дата.
+     * @return true/false.
+     */
+    public boolean satisfiesConditions(Food food, Date currentDate) {
+        return super.satisfiesConditions(food, currentDate);
     }
 }

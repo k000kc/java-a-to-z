@@ -7,8 +7,15 @@ import java.util.Date;
  */
 public class ReproductFood extends Food {
 
+    /**
+     * Подлежит ли переработке.
+     */
     private boolean canReproduct;
 
+    /**
+     * Геттер.
+     * @return true если подлежит переработке.
+     */
     public boolean isCanReproduct() {
         return canReproduct;
     }

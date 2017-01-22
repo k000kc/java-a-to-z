@@ -29,7 +29,7 @@ public class ControllQuality {
      */
     public ControllQuality(int position) {
         this.position = position;
-        this.storages = new BaseStorage[this.position];
+        this.storages = new BaseStorage[position];
         init();
     }
 

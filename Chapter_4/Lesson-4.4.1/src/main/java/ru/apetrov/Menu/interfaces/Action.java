@@ -9,5 +9,9 @@ import java.util.ArrayList;
  */
 public interface Action {
 
+    /**
+     * execute.
+     * @param name name an paragraph.
+     */
     void execute(String name);
 }

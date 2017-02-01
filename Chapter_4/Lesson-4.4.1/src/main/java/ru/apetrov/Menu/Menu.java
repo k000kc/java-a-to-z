@@ -5,8 +5,10 @@ package ru.apetrov.Menu;
  */
 public class Menu {
 
-
-
+    /**
+     * main.
+     * @param args args.
+     */
     public static void main(String[] args) {
 
         Paragraph menu = new Paragraph("", "Menu:");

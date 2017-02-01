@@ -7,5 +7,10 @@ import ru.apetrov.Menu.Paragraph;
  */
 public interface AddParagraph {
 
+    /**
+     * add paragraph.
+     * @param paragraph paragraph.
+     * @return true if add an paragraph.
+     */
     boolean add(Paragraph paragraph);
 }

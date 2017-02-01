@@ -11,25 +11,52 @@ import java.util.ArrayList;
  */
 public class Paragraph implements Action, AddParagraph, ShowParagraph {
 
+    /**
+     * Name.
+     */
     private String name;
 
+    /**
+     * Prefix.
+     */
     private String prefix;
 
+    /**
+     * Array of child.
+     */
     private ArrayList<Paragraph> paragraphs = new ArrayList<Paragraph>(10);
 
+    /**
+     * Constructor.
+     * @param prefix префикс.
+     * @param name имя.
+     */
     public Paragraph(String prefix, String name) {
         this.prefix = prefix;
         this.name = name;
     }
 
+    /**
+     * Getter.
+     * @return name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Getter.
+     * @return prefix.
+     */
     public String getPrefix() {
         return prefix;
     }
 
+    /**
+     * Add paragraph.
+     * @param paragraph paragraph.
+     * @return true if add an paragraph.
+     */
     public boolean add(Paragraph paragraph) {
         boolean result = false;
         if (paragraph != null) {
@@ -38,6 +65,10 @@ public class Paragraph implements Action, AddParagraph, ShowParagraph {
         return result;
     }
 
+    /**
+     * show all paragraphs.
+     * @return paragraphs.
+     */
     public String show() {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format("%s %s%n", this.getPrefix(), this.getName()));
@@ -50,6 +81,10 @@ public class Paragraph implements Action, AddParagraph, ShowParagraph {
         return result;
     }
 
+    /**
+     * execute.
+     * @param name name an paragraph.
+     */
     public void execute(String name) {
         for (Paragraph value : this.paragraphs) {
             if (value != null && value.getName().equals(name)) {

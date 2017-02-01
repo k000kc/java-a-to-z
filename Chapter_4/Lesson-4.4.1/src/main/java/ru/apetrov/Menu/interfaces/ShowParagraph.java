@@ -5,5 +5,9 @@ package ru.apetrov.Menu.interfaces;
  */
 public interface ShowParagraph {
 
+    /**
+     * show all paragraphs.
+     * @return paragraphs.
+     */
     String show();
 }

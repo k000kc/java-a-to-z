@@ -24,9 +24,7 @@ public class ControllQualityExpansion extends ControllQuality{
 
     @Override
     public void init() {
-        this.getStorages()[0] = new Warehouse();
-        this.getStorages()[1] = new Shop();
-        this.getStorages()[2] = new Trash();
+        super.init();
         this.getStorages()[3] = new NewWarehouse();
     }
 

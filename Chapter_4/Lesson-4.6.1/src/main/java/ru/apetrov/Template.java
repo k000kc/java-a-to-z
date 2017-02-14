@@ -13,5 +13,5 @@ public interface Template {
      * @param data
      * @return
      */
-    String generate(String template, Map<String, String> data);
+    String generate(String template, Map<String, String> data) throws KeyNotFoundExeption;
 }

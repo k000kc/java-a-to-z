@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 public class SimpleGeneratorTest {
 
     @Test
-    public void whenTakeTextWithDateShouldReplacePaamsToData1() {
+    public void whenTakeTextWithDateShouldReplacePaamsToData1() throws KeyNotFoundExeption {
 
         // assign
         Template template = new SimpleGenerator();
@@ -32,7 +32,7 @@ public class SimpleGeneratorTest {
     }
 
     @Test
-    public void whenTakeTextWithDateShouldReplacePaamsToData2() {
+    public void whenTakeTextWithDateShouldReplacePaamsToData2() throws KeyNotFoundExeption {
 
         // assign
         Template template = new SimpleGenerator();
@@ -40,6 +40,23 @@ public class SimpleGeneratorTest {
         String checket = "Help, Aaa, Aaa, Aaa!";
         Map<String, String> data = new HashMap<String, String>();
         data.put("sos", "Aaa");
+
+        // act
+        String result = template.generate(text, data);
+
+        // action
+        assertThat(result, is(checket));
+    }
+
+    @Test (expected = KeyNotFoundExeption.class)
+    public void whenKeyNotFound() throws KeyNotFoundExeption {
+
+        // assign
+        Template template = new SimpleGenerator();
+        String text = "I am a ${name}, Who are ${subject}?";
+        String checket = "I am a Andrey, Who are you?";;
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("name", "Andrey");
 
         // act
         String result = template.generate(text, data);

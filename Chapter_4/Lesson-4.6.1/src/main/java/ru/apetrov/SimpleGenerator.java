@@ -12,7 +12,7 @@ public class SimpleGenerator implements Template {
     /**
      * Create pattern.
      */
-    static final Pattern PATTERN = Pattern.compile("\\$\\{(name|subject|sos)\\}");
+    static final Pattern PATTERN = Pattern.compile("\\$\\{(\\w+)\\}");
 
     /**
      * Search keys, and replacement.
@@ -20,11 +20,13 @@ public class SimpleGenerator implements Template {
      * @param data replace word.
      * @return redy text.
      */
-    public String generate(String template, Map<String, String> data) {
+    public String generate(String template, Map<String, String> data) throws KeyNotFoundExeption {
         Matcher matcher = PATTERN.matcher(template);
         while (matcher.find()) {
-            String str = matcher.group();
-            str = str.substring(2, str.length()-1);
+            String str = matcher.group(1);
+            if (!data.containsKey(str)) {
+                throw new KeyNotFoundExeption("Key Not Found");
+            }
             template = matcher.replaceFirst(data.get(str));
             matcher.reset(template);
         }

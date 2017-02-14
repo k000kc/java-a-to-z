@@ -59,9 +59,8 @@ public class TicTacToe {
                 this.players[1].move();
                 this.isMove = false;
             }
-        } while (!this.checkGame.isWinGorizontale());
+        } while (!this.checkGame.isGameOver());
         this.gameField.showField();
-        System.out.println("Победил");
     }
 
     public static void main(String[] args) {

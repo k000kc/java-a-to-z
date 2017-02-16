@@ -20,12 +20,9 @@ public class TicTacToe {
 
     private int size;
 
-    private Player[] players = new Player[2];
+    private Player user;
 
-    public void initPlayers() {
-        players[0] = new User('X',this.gameField);
-        players[1] = new Computer('O', this.gameField);
-    }
+    private Player comp;
 
     public void selectFirstMove(Input input) {
 
@@ -34,10 +31,10 @@ public class TicTacToe {
             firstMove = input.ask(String.format("%s%n%s%n%s", "Who makes the first move", "User - 1", "Comp - 2"));
         } while (firstMove != 1 && firstMove != 2);
         if (firstMove == 1) {
-            players[0].move();
+            this.user.move();
             this.isMove = true;
         } else {
-            players[1].move();
+            this.comp.move();
             this.isMove = false;
         }
     }
@@ -48,15 +45,16 @@ public class TicTacToe {
         } while (this.size < 3);
         this.gameField = new GameField(this.size);
         this.checkGame = new CheckGame(this.gameField);
-        this.initPlayers();
+        this.user = new User('X', this.gameField);
+        this.comp = new Computer('O', this.gameField);
         this.selectFirstMove(input);
         do {
             this.gameField.showField();
             if (!this.isMove) {
-                this.players[0].move();
+                this.user.move();
                 this.isMove = true;
             } else {
-                this.players[1].move();
+                this.comp.move();
                 this.isMove = false;
             }
         } while (!this.checkGame.isGameOver());

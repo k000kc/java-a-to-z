@@ -19,7 +19,7 @@ public class CheckGame {
         if (this.isFullField()) {
             result = true;
         }
-        if (this.isWinGorizontale() || this.isWinVerticale() ||
+        if (this.isWinHorizontal() || this.isWinVertical() ||
                 this.isWinStraightDiagonal() || this.isWinReverseDiagonal()) {
             result = true;
             System.err.println("Game over. Found a winner");
@@ -44,7 +44,7 @@ public class CheckGame {
         return result;
     }
 
-    public boolean isWinGorizontale() {
+    public boolean isWinHorizontal() {
         boolean result = false;
         int count = 1;
         for (int i = 0; i < this.gameField.getFields().length; i++) {
@@ -65,7 +65,7 @@ public class CheckGame {
         return result;
     }
 
-    public boolean isWinVerticale() {
+    public boolean isWinVertical() {
         boolean result = false;
         int count = 1;
         int j = 0;

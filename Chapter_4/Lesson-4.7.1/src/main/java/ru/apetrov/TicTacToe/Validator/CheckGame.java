@@ -54,6 +54,7 @@ public class CheckGame {
                         count++;
                     } else {
                         count = 1;
+                        break;
                     }
                 }
                 if (count == this.gameField.getFields().length) {
@@ -76,6 +77,7 @@ public class CheckGame {
                         count++;
                     } else {
                         count = 1;
+                        break;
                     }
                 }
             }
@@ -95,6 +97,9 @@ public class CheckGame {
             if (this.gameField.getFields()[i][i] != '-') {
                 if (this.gameField.getFields()[i][i] == this.gameField.getFields()[i + 1][i + 1]) {
                     count++;
+                } else {
+                    count = 1;
+                    break;
                 }
             }
         }
@@ -113,6 +118,9 @@ public class CheckGame {
                 if (this.gameField.getFields()[i][i] != '-') {
                     if (this.gameField.getFields()[i][j] == this.gameField.getFields()[i + 1][j - 1]) {
                         count++;
+                    } else {
+                        count = 1;
+                        break;
                     }
                 }
             }

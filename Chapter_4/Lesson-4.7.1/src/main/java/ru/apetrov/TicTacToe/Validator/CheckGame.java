@@ -126,6 +126,7 @@ public class CheckGame {
             }
             if (count == this.gameField.getFields().length) {
                 result = true;
+                break;
             }
             i++;
         } while (i < this.gameField.getFields().length - 1);

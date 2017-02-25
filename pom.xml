@@ -33,6 +33,7 @@
 		<module>Chapter_4/Lesson-4.6.1</module>
 		<module>Chapter_4/Lesson-4.7.1</module>
 		<module>Chapter_4/Lesson-4.7.2</module>
+		<module>Chapter_5/Lesson-5.1.1</module>
 	</modules>
 
 	<dependencies>

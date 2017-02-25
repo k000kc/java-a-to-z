@@ -26,13 +26,11 @@ public class CheckEvenNumbers implements Iterator {
 
     @Override
     public Object next() {
-        Integer result;
+        Integer result = null;
         if (this.isEven(this.index)) {
-            result = this.values[index++];
-        } else {
-            result = null;
-            this.index++;
+            result = this.values[index];
         }
+        index++;
         return result;
     }
 

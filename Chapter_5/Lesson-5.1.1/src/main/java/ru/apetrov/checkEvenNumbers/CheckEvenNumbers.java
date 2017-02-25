@@ -28,9 +28,9 @@ public class CheckEvenNumbers implements Iterator {
     public Object next() {
         Integer result = null;
         if (this.isEven(this.index)) {
-            result = this.values[index];
+            result = this.values[this.index];
         }
-        index++;
+        this.index++;
         return result;
     }
 

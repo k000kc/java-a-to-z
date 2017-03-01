@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * Created by Andrey on 25.02.2017.
  */
-public class CheckPrimeNumbers implements Iterator{
+public class CheckPrimeNumbers implements Iterator {
 
     private final int[] values;
 

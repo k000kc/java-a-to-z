@@ -15,6 +15,10 @@ public class IteratorOfNumbers implements Iterator<Integer> {
         this.values = values;
     }
 
+    public int[] getValues() {
+        return values;
+    }
+
     @Override
     public boolean hasNext() {
         return this.values.length > this.index;

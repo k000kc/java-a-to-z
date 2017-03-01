@@ -17,12 +17,13 @@ public class ConverterTest {
         IteratorOfNumbers i1 = new IteratorOfNumbers(new int[]{1, 2, 3});
         IteratorOfNumbers i2 = new IteratorOfNumbers(new int[]{4, 5, 6});
         IteratorOfNumbers i3 = new IteratorOfNumbers(new int[]{7, 8, 9});
+
         IteratorOfIterators iterators = new IteratorOfIterators(new Iterator[]{i1, i2, i3});
 
         Converter converter = new Converter();
 
         iterators.next();
-        Iterator result = converter.convert(iterators);
+        Iterator<Integer> result = converter.convert(iterators);
 
         assertThat(result, is(i2));
     }

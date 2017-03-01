@@ -11,6 +11,10 @@ public class IteratorOfIterators implements Iterator<Iterator<Integer>> {
 
     private int index = 0;
 
+    public Iterator<Integer>[] getIterator() {
+        return iterator;
+    }
+
     public IteratorOfIterators(Iterator<Integer>[] iterator) {
         this.iterator = iterator;
     }

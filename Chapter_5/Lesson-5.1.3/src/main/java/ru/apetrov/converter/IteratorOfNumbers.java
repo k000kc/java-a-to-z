@@ -5,27 +5,33 @@ import java.util.Iterator;
 /**
  * Created by Andrey on 01.03.2017.
  */
-public class IteratorOfNumbers implements Iterator<Integer> {
+public class IteratorOfNumbers implements Iterator {
 
-    private final int[] values;
+    private final int[][] values;
+    private int[] res;
 
-    private int index = 0;
+    private int indexX = 0;
+    private int indexY = 0;
 
-    public IteratorOfNumbers(int[] values) {
+
+    public IteratorOfNumbers(int[][] values) {
         this.values = values;
-    }
-
-    public int[] getValues() {
-        return values;
+        this.res = new int[values.length * values.length];
     }
 
     @Override
     public boolean hasNext() {
-        return this.values.length > this.index;
+        return this.values.length > this.indexX &&
+                this.values.length > this.indexY;
     }
 
     @Override
-    public Integer next() {
-        return this.values[index++];
+    public int[] next() {
+        int destPos = 0;
+        for (int[] x: values) {
+            System.arraycopy(x, 0, this.res, destPos, x.length);
+            destPos += x.length;
+        }
+        return this.res;
     }
 }

@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * Created by Andrey on 01.03.2017.
  */
-public class IteratorOfNumbers implements Iterator {
+public class IteratorOfNumbers implements Iterator<Integer> {
 
     private final int[][] values;
     private int[] res;
@@ -21,17 +21,22 @@ public class IteratorOfNumbers implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return this.values.length > this.indexX &&
+        return this.values.length > this.indexX ||
                 this.values.length > this.indexY;
     }
 
     @Override
-    public int[] next() {
-        int destPos = 0;
-        for (int[] x: values) {
-            System.arraycopy(x, 0, this.res, destPos, x.length);
-            destPos += x.length;
+    public Integer next() {
+        Integer result = 0;
+        if (this.indexX < this.values.length) {
+            if (this.indexY < this.values.length) {
+                result = values[this.indexX][this.indexY++];
+            } else {
+                this.indexX++;
+                this.indexY = 0;
+                result = values[this.indexX][this.indexY++];
+            }
         }
-        return this.res;
+        return result;
     }
 }

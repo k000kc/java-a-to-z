@@ -8,7 +8,6 @@ import java.util.Iterator;
 public class IteratorOfNumbers implements Iterator<Integer> {
 
     private final int[][] values;
-    private int[] res;
 
     private int indexX = 0;
     private int indexY = 0;
@@ -16,7 +15,6 @@ public class IteratorOfNumbers implements Iterator<Integer> {
 
     public IteratorOfNumbers(int[][] values) {
         this.values = values;
-        this.res = new int[values.length * values.length];
     }
 
     @Override

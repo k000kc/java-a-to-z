@@ -1,6 +1,8 @@
 package ru.apetrov.converter;
 
 import org.junit.Test;
+import ru.apetrov.converter.IteratorOfArray.IteratorOfArray;
+import ru.apetrov.converter.IteratorOfArray.IteratorOfNumbers;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;

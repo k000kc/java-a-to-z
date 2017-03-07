@@ -1,4 +1,4 @@
-package ru.apetrov.converter;
+package ru.apetrov.converter.IteratorOfArray;
 
 import java.util.Iterator;
 

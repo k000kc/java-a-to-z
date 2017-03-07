@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * Created by Andrey on 01.03.2017.
  */
-public class IteratorOfNumbers implements Iterator {
+public class IteratorOfNumbers implements Iterator<Integer> {
 
     private final int[] values;
     private int index = 0;
@@ -20,7 +20,7 @@ public class IteratorOfNumbers implements Iterator {
     }
 
     @Override
-    public Object next() {
+    public Integer next() {
         return this.values[this.index++];
     }
 }

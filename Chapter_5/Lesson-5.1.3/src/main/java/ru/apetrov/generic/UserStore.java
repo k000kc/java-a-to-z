@@ -3,7 +3,7 @@ package ru.apetrov.generic;
 /**
  * Created by Andrey on 08.03.2017.
  */
-public class UserStore implements Store<Base> {
+public class UserStore implements Store<User> {
 
     private final SimpleArray array;
 
@@ -12,12 +12,12 @@ public class UserStore implements Store<Base> {
     }
 
     @Override
-    public void add(Base value) {
+    public void add(User value) {
         this.array.add(value);
     }
 
     @Override
-    public void update(String id, Base newValue) {
+    public void update(String id, User newValue) {
         int index = Integer.parseInt(id);
         this.array.update(index, newValue);
     }

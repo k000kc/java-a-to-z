@@ -10,4 +10,6 @@ public interface Store<T extends Base> {
     void update(String id, T newValue);
 
     void delete(String id);
+
+    T get(String id);
 }

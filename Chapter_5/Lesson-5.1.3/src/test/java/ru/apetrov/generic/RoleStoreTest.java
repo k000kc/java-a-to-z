@@ -11,19 +11,19 @@ import static org.junit.Assert.*;
  */
 public class RoleStoreTest {
 
-    private SimpleArray<Base> array;
-    private Store store;
+    private SimpleArray array;
+    private RoleStore store;
     private Base role1;
     private Base role2;
 
     @Before
     public void init() {
-        this.array = new SimpleArray<>(10);
-        this.store = new RoleStore(this.array);
-        this.role1 = new Role();
-        this.role2 = new Role();
+        this.store = new RoleStore(10);
+        this.role1 = new Role("1");
+        this.role2 = new Role("2");
         this.store.add(this.role1);
         this.store.add(this.role2);
+        this.array = this.store.getArray();
     }
 
     @Test
@@ -33,14 +33,13 @@ public class RoleStoreTest {
 
     @Test
     public void whenUpdateValueThenCheckNewValue() {
-        this.store.update("0", this.role2);
-
+        this.store.update("1", this.role2);
         assertThat(this.array.get(0), is(this.role2));
     }
 
     @Test
     public void whenDeleteValueThenCheckThinPositionToNull() {
-        this.store.delete("0");
+        this.store.delete("1");
         assertNull(this.array.get(0));
     }
 }

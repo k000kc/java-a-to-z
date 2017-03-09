@@ -12,7 +12,7 @@ public class SimpleArrayTest {
 
     @Test
     public void whenCreateContainterShouldReturnTheSameType() {
-        SimpleArray<String> simple = new SimpleArray<String >(4);
+        SimpleArray<String> simple = new SimpleArray<>(4);
         simple.add("test");
         String result = simple.get(0);
 
@@ -21,7 +21,7 @@ public class SimpleArrayTest {
 
     @Test
     public void whenTypeIntShouldReturnInt() {
-        SimpleArray<Integer> simple = new SimpleArray<Integer>(4);
+        SimpleArray<Integer> simple = new SimpleArray<>(4);
         simple.add(2);
         int result = simple.get(0);
 

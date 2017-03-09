@@ -5,8 +5,8 @@ package ru.apetrov.generic;
  */
 public class SimpleArray<E> {
 
-    Object[] objects;
-    int index = 0;
+    private Object[] objects;
+    private int index = 0;
 
     public SimpleArray(int size) {
         this.objects = new Object[size];

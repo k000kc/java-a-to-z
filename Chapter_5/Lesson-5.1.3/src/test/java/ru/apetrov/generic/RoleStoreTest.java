@@ -13,8 +13,8 @@ public class RoleStoreTest {
 
     private SimpleArray array;
     private RoleStore store;
-    private Base role1;
-    private Base role2;
+    private Role role1;
+    private Role role2;
 
     @Before
     public void init() {
@@ -41,5 +41,15 @@ public class RoleStoreTest {
     public void whenDeleteValueThenCheckThinPositionToNull() {
         this.store.delete("1");
         assertNull(this.array.get(0));
+    }
+
+    @Test
+    public void whenErrorTest() {
+        SimpleArray simpleArray = new SimpleArray(10);
+        RoleStore roleStore = new RoleStore(10);
+        Role roleTest = new Role("test1");
+        roleStore.add(roleTest);
+//        simpleArray = roleStore.getArray();
+        assertThat(simpleArray.get(0), is(roleTest));
     }
 }

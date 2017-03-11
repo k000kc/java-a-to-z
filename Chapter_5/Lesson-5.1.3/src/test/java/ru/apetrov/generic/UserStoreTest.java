@@ -13,8 +13,8 @@ public class UserStoreTest {
 
     private SimpleArray array;
     private UserStore store;
-    private Base user1;
-    private Base user2;
+    private User user1;
+    private User user2;
 
     @Before
     public void init() {
@@ -41,5 +41,15 @@ public class UserStoreTest {
     public void whenDeleteValueThenCheckThinPositionToNull() {
         this.store.delete("1");
         assertNull(this.array.get(0));
+    }
+
+    @Test
+    public void whenErrorTest() {
+        SimpleArray simpleArray = new SimpleArray(10);
+        UserStore userStore = new UserStore(10);
+        User userTest = new User("test1");
+        userStore.add(userTest);
+//        simpleArray = userStore.getArray();
+        assertThat(simpleArray.get(0), is(userTest));
     }
 }

@@ -3,9 +3,9 @@ package ru.apetrov.generic;
 /**
  * Created by Andrey on 08.03.2017.
  */
-public class RoleStore implements Store<Base> {
+public class RoleStore implements Store<Role> {
 
-    private final SimpleArray<Base> array;
+    private final SimpleArray<Role> array;
     private int size;
 
     public RoleStore(int size) {
@@ -14,12 +14,12 @@ public class RoleStore implements Store<Base> {
     }
 
     @Override
-    public void add(Base value) {
+    public void add(Role value) {
         this.array.add(value);
     }
 
     @Override
-    public void update(String id, Base newValue) {
+    public void update(String id, Role newValue) {
         this.array.update(this.indexOfId(id), newValue);
     }
 
@@ -29,7 +29,7 @@ public class RoleStore implements Store<Base> {
     }
 
     @Override
-    public Base get(String id) {
+    public Role get(String id) {
         return this.array.get(this.indexOfId(id));
     }
 
@@ -46,7 +46,7 @@ public class RoleStore implements Store<Base> {
         return result;
     }
 
-    public SimpleArray<Base> getArray() {
+    public SimpleArray<Role> getArray() {
         return array;
     }
 }

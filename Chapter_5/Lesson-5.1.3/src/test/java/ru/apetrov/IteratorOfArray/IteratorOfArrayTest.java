@@ -1,16 +1,14 @@
-package ru.apetrov.converter;
+package ru.apetrov.IteratorOfArray;
 
 import org.junit.Test;
-import ru.apetrov.converter.IteratorOfArray.IteratorOfArray;
-import ru.apetrov.converter.IteratorOfArray.IteratorOfNumbers;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 /**
- * Created by Andrey on 01.03.2017.
+ * Created by Andrey on 12.03.2017.
  */
-public class IteratorOfNumbersTest {
+public class IteratorOfArrayTest {
 
     @Test
     public void whenThen() {
@@ -29,4 +27,5 @@ public class IteratorOfNumbersTest {
 
         assertThat(result, is(3));
     }
+
 }

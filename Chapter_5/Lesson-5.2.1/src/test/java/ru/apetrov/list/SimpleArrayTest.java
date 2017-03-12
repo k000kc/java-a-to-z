@@ -47,7 +47,7 @@ public class SimpleArrayTest {
         SimpleArray<Integer> array = new SimpleArray<>(2);
         Iterator iterator = array.iterator();
         array.add(1);
-        array.add(2);
+        iterator.next();
         iterator.next();
         boolean result = iterator.hasNext();
         assertThat(result, is(true));

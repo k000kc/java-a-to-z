@@ -12,7 +12,7 @@ public class SimpleArray<E> implements SimpleContainer<E> {
     private static final Object[] EMPTY_ELEMENTDATA = {};
     private Object[] elementData;
 
-    private int index = 0;
+    private int size = 0;
 
     public SimpleArray(int initialCapacity) {
         if (initialCapacity > 0) {
@@ -28,11 +28,11 @@ public class SimpleArray<E> implements SimpleContainer<E> {
 
     @Override
     public void add(E e) {
-        if (this.elementData.length > this.index) {
-            this.elementData[index++] = e;
+        if (this.elementData.length > this.size) {
+            this.elementData[size++] = e;
         } else {
             this.elementData = Arrays.copyOf(this.elementData, this.elementData.length*2);
-            this.elementData[index++] = e;
+            this.elementData[size++] = e;
         }
     }
 
@@ -52,7 +52,7 @@ public class SimpleArray<E> implements SimpleContainer<E> {
 
         @Override
         public boolean hasNext() {
-            return cursor != index;
+            return cursor != size;
         }
 
         @Override

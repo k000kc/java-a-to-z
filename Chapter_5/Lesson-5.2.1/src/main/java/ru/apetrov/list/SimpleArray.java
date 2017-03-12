@@ -28,12 +28,10 @@ public class SimpleArray<E> implements SimpleContainer<E> {
 
     @Override
     public void add(E e) {
-        if (this.elementData.length > this.size) {
-            this.elementData[size++] = e;
-        } else {
+        if (this.elementData.length == this.size) {
             this.elementData = Arrays.copyOf(this.elementData, this.elementData.length*2);
-            this.elementData[size++] = e;
         }
+        this.elementData[size++] = e;
     }
 
     @Override

@@ -12,7 +12,7 @@ public class SimpleArray<E> implements SimpleContainer<E> {
     private static final Object[] EMPTY_ELEMENTDATA = {};
     private Object[] elementData;
 
-    private int size = 0;
+    private int size;
 
     public SimpleArray(int initialCapacity) {
         if (initialCapacity > 0) {

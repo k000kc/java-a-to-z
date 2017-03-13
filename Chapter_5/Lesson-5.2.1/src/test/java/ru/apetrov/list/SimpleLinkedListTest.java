@@ -30,6 +30,15 @@ public class SimpleLinkedListTest {
         iterator.next();
         iterator.next();
         assertFalse(iterator.hasNext());
+
+    }    @Test
+    public void whenHasNextThenGetTrue() {
+        SimpleLinkedList<String> list = new SimpleLinkedList<>();
+        list.add("test");
+        list.add("test");
+        Iterator<String> iterator = list.iterator();
+        iterator.next();
+        assertTrue(iterator.hasNext());
     }
 
 }

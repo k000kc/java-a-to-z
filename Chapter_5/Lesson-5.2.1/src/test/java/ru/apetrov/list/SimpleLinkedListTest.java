@@ -15,10 +15,10 @@ public class SimpleLinkedListTest {
     @Test
     public void whenAddNewElementThenChekThisElement() {
         SimpleLinkedList<String> list = new SimpleLinkedList<>();
-        list.add("test");
-        list.add("test");
+        list.add("test1");
+        list.add("test2");
 
-        assertThat(list.get(1), is("test"));
+        assertThat(list.get(1), is("test2"));
     }
 
     @Test

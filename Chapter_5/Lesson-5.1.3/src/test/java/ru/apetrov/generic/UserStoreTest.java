@@ -49,7 +49,7 @@ public class UserStoreTest {
         UserStore userStore = new UserStore(10);
         User userTest = new User("test1");
         userStore.add(userTest);
-//        simpleArray = userStore.getArray();
+        simpleArray = userStore.getArray();
         assertThat(simpleArray.get(0), is(userTest));
     }
 }

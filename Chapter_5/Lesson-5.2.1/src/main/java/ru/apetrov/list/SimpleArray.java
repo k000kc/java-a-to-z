@@ -9,7 +9,6 @@ import java.util.Iterator;
 public class SimpleArray<E> implements SimpleContainer<E> {
 
     private static final int DEFAULT_CAPACITY = 10;
-    private static final Object[] EMPTY_ELEMENTDATA = {};
     private Object[] elementData;
 
     private int size;
@@ -17,9 +16,9 @@ public class SimpleArray<E> implements SimpleContainer<E> {
     public SimpleArray(int initialCapacity) {
         if (initialCapacity > 0) {
             this.elementData = new Object[initialCapacity];
-        } else if (initialCapacity == 0) {
-            this.elementData = EMPTY_ELEMENTDATA;
-        } else new IllegalArgumentException("Illegal Capacity: " + initialCapacity);
+        } else {
+            this.elementData = new Object[DEFAULT_CAPACITY];
+        }
     }
 
     public SimpleArray() {

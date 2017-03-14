@@ -49,7 +49,7 @@ public class RoleStoreTest {
         RoleStore roleStore = new RoleStore(10);
         Role roleTest = new Role("test1");
         roleStore.add(roleTest);
-//        simpleArray = roleStore.getArray();
+        simpleArray = roleStore.getArray();
         assertThat(simpleArray.get(0), is(roleTest));
     }
 }

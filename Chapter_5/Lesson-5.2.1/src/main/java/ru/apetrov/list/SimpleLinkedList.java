@@ -35,6 +35,30 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
         return result.item;
     }
 
+//    public void removFirst() {
+//        if (this.size != 0) {
+//            this.first = this.first.next;
+//            this.size--;
+//            if (this.size == 0) {
+//                this.last = null;
+//            } else {
+//                this.first.prev = null;
+//            }
+//        }
+//    }
+
+//    public void removeLast() {
+//
+//    }
+
+//    public void remove(int index) {
+//        Node<E> node = this.first;
+//        for (int i = 0; i < index; i++) {
+//            node = node.next;
+//        }
+//        if ()
+//    }
+
     @Override
     public Iterator<E> iterator() {
         return new Itr();
@@ -69,6 +93,10 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
 
         public Node(E item) {
             this.item = item;
+        }
+
+        public Node<E> getNext() {
+            return next;
         }
     }
 }

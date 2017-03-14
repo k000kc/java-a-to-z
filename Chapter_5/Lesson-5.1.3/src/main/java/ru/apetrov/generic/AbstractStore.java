@@ -3,9 +3,9 @@ package ru.apetrov.generic;
 /**
  * Created by Andrey on 14.03.2017.
  */
-public abstract class AbstractStore<E> implements Store<Base> {
+public abstract class AbstractStore<T extends Base> implements Store<T> {
 
-    private final SimpleArray<Base> array;
+    private final SimpleArray<T> array;
     private int size;
 
     protected AbstractStore(int size) {
@@ -14,12 +14,12 @@ public abstract class AbstractStore<E> implements Store<Base> {
     }
 
     @Override
-    public void add(Base value) {
+    public void add(T value) {
         this.array.add(value);
     }
 
     @Override
-    public void update(String id, Base newValue) {
+    public void update(String id, T newValue) {
         this.array.update(this.indexOfId(id), newValue);
     }
 
@@ -29,8 +29,8 @@ public abstract class AbstractStore<E> implements Store<Base> {
     }
 
     @Override
-    public Base get(String id) {
-        return this.array.get(this.indexOfId(id));
+    public T get(String id) {
+        return (T) this.array.get(this.indexOfId(id));
     }
 
     public int indexOfId(String id) {
@@ -46,7 +46,7 @@ public abstract class AbstractStore<E> implements Store<Base> {
         return result;
     }
 
-    public SimpleArray<Base> getArray() {
+    public SimpleArray<T> getArray() {
         return array;
     }
 }

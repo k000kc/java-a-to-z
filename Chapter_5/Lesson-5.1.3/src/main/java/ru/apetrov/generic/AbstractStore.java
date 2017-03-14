@@ -3,7 +3,7 @@ package ru.apetrov.generic;
 /**
  * Created by Andrey on 14.03.2017.
  */
-public abstract class AbstractStore implements Store<Base> {
+public abstract class AbstractStore<E> implements Store<Base> {
 
     private final SimpleArray<Base> array;
     private int size;

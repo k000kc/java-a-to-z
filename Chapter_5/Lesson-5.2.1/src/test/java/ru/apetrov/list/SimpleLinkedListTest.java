@@ -41,4 +41,15 @@ public class SimpleLinkedListTest {
         assertTrue(iterator.hasNext());
     }
 
+    @Test
+    public void whenRemoveElementByIndexThenCheckElements() {
+        SimpleLinkedList<String> list = new SimpleLinkedList<>();
+        list.add("test1");
+        list.add("test2");
+        list.add("test3");
+        list.remove(1);
+
+        assertThat(list.get(0), is("test3"));
+    }
+
 }

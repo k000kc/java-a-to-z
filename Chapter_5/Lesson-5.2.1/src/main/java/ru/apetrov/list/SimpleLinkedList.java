@@ -13,6 +13,10 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
 
     private Node<E> last;
 
+    public int getSize() {
+        return size;
+    }
+
     @Override
     public void add(E e) {
         Node<E> node = new Node<>(e);
@@ -35,29 +39,29 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
         return result.item;
     }
 
-//    public void removFirst() {
-//        if (this.size != 0) {
-//            this.first = this.first.next;
-//            this.size--;
-//            if (this.size == 0) {
-//                this.last = null;
-//            } else {
-//                this.first.prev = null;
-//            }
-//        }
-//    }
-
-//    public void removeLast() {
-//
-//    }
-
-//    public void remove(int index) {
-//        Node<E> node = this.first;
-//        for (int i = 0; i < index; i++) {
-//            node = node.next;
-//        }
-//        if ()
-//    }
+    public void remove(int index) {
+        //удаление в начале
+        if (index == 0) {
+            this.first = this.first.next;
+            this.first.prev = null;
+        //удаление в конце
+        } else if (index == this.size - 1) {
+            this.last.prev.next = null;
+            this.last = this.last.prev;
+        //удаление в середине
+        } else {
+            Node<E> node = this.first;
+            for (int i = 0; i < index; i++) {
+                node = node.next;
+            }
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+            node.next = null;
+            node.prev = null;
+            node.item = null;
+        }
+        this.size--;
+    }
 
     @Override
     public Iterator<E> iterator() {

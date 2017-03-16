@@ -10,9 +10,13 @@ public class SimpleQueue<E> extends SimpleLinkedList<E> {
         super.add(e);
     }
 
+    E peek() {
+        return super.get(0);
+    }
+
     public E poll() {
-        E result = this.get(0);
-//        super.removFirst();
+        E result = this.peek();
+        super.remove(0);
         return result;
     }
 }

@@ -25,4 +25,20 @@ public class CycleTest {
         Cycle cycle = new Cycle();
         assertThat(cycle.hasCycle(first), is(true));
     }
+
+    @Test
+    public void whenThereIsNoCycleThenResultFalse() {
+        Node first = new Node();
+        Node two = new Node();
+        Node third = new Node();
+        Node four = new Node();
+
+        first.next = two;
+        two.next = third;
+        third.next = four;
+        four.next = null;
+
+        Cycle cycle = new Cycle();
+        assertThat(cycle.hasCycle(first), is(false));
+    }
 }

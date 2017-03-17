@@ -7,7 +7,7 @@ public class Cycle {
 
     boolean hasCycle(Node first) {
         boolean result = false;
-        while (first.next != null) {
+        while (first != null) {
             if (first.isVisited == true) {
                 result = true;
                 break;

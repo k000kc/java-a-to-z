@@ -20,7 +20,7 @@ public class Cycle<E> {
 
     boolean hasCycle2(Node first) {
         boolean result = false;
-        Node<E> temp = first;
+        Node temp = first;
         while (first != null && temp != null && temp.next != null) {
             first = first.next;
             temp = temp.next.next;

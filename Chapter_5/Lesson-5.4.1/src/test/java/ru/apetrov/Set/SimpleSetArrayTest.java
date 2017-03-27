@@ -21,8 +21,8 @@ public class SimpleSetArrayTest {
     @Test
     public void whenAddDuplicateElementThenAddGetFalse() {
         SimpleSet<Integer> set = new SimpleSetArray<>(4);
-        set.add(2);
-        assertTrue(set.add(2));
+        set.add(1);
+        assertFalse(set.add(1));
     }
 
     @Test

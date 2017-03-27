@@ -31,10 +31,10 @@ public class SimpleSetArray<E> implements SimpleSet<E> {
     }
 
     public boolean isDuplicate(E e) {
-        boolean result = false;
+        boolean result = true;
         for (Object element : this.value) {
-            if (!e.equals(element)) {
-                result = true;
+            if (e.equals(element)) {
+                result = false;
             }
         }
         return result;

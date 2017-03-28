@@ -49,7 +49,7 @@ public class SimpleLinkedListTest {
         list.add("test3");
         list.remove(1);
 
-        assertThat(list.get(0), is("test3"));
+        assertThat(list.get(1), is("test3"));
     }
 
 }

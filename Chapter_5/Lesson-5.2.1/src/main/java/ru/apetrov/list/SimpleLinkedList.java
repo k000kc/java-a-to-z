@@ -70,12 +70,12 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
 
     private class Itr implements Iterator<E> {
 
-        int cursir = 0;
+        int cursor = 0;
         Node<E> next;
 
         @Override
         public boolean hasNext() {
-            return cursir != size;
+            return cursor != size;
         }
 
         @Override
@@ -83,7 +83,7 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
             this.next = first;
             Node<E> result = this.next;
             this.next = this.next.next;
-            cursir++;
+            cursor++;
             return result.item;
         }
     }
@@ -97,10 +97,6 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
 
         public Node(E item) {
             this.item = item;
-        }
-
-        public Node<E> getNext() {
-            return next;
         }
     }
 }

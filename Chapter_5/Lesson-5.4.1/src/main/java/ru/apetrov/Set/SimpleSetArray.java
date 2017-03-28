@@ -23,14 +23,14 @@ public class SimpleSetArray<E> implements SimpleSet<E> {
     @Override
     public boolean add(E e) {
         boolean result = false;
-        if (this.isDuplicate(e)) {
+        if (this.isNotDuplicate(e)) {
             this.value[this.index++] = e;
             result = true;
         }
         return result;
     }
 
-    public boolean isDuplicate(E e) {
+    public boolean isNotDuplicate(E e) {
         boolean result = true;
         for (Object element : this.value) {
             if (e.equals(element)) {

@@ -3,13 +3,16 @@ package ru.apetrov.IteratorOfArray;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Andrey on 12.03.2017.
  */
 public class IteratorOfArrayTest {
 
+    /**
+     * convert iterator of array in iterator integers.
+     */
     @Test
     public void whenThen() {
         IteratorOfNumbers it1 = new IteratorOfNumbers(new int[]{1});

@@ -2,28 +2,39 @@ package ru.apetrov.Cycle;
 
 /**
  * Created by Andrey on 17.03.2017.
+ * @param <E> type.
  */
 public class Cycle<E> {
 
+    /**
+     * check for cycle.
+     * @param first element by list.
+     * @return true - if cycle exists.
+     */
     boolean hasCycle(Node first) {
         boolean result = false;
         while (first != null) {
-            if (first.isVisited == true) {
+            if (first.isVisited()) {
                 result = true;
                 break;
             }
-            first.isVisited = true;
-            first = first.next;
+            first.setVisited(true);
+            first = first.getNext();
         }
         return result;
     }
 
+    /**
+     * check for cycle.
+     * @param first element by list.
+     * @return true - if cycle exists.
+     */
     boolean hasCycle2(Node first) {
         boolean result = false;
         Node temp = first;
-        while (first != null && temp != null && temp.next != null) {
-            first = first.next;
-            temp = temp.next.next;
+        while (first != null && temp != null && temp.getNext() != null) {
+            first = first.getNext();
+            temp = temp.getNext().getNext();
             if (first == temp) {
                 result = true;
                 break;

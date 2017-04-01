@@ -7,10 +7,20 @@ import java.util.Iterator;
  */
 public class IteratorOfIterators implements Iterator {
 
+    /**
+     * Iterator of Iterators.
+     */
     private Iterator<Iterator<Integer>> bigIterator;
 
+    /**
+     * Iterator of Integers.
+     */
     private Iterator<Integer> smallIterator;
 
+    /**
+     * Constructor of class.
+     * @param bigIterator iterator of iterators.
+     */
     public IteratorOfIterators(Iterator<Iterator<Integer>> bigIterator) {
         this.bigIterator = bigIterator;
     }
@@ -34,6 +44,11 @@ public class IteratorOfIterators implements Iterator {
         return result;
     }
 
+    /**
+     * method converted iterator of iterators in iterator.
+     * @param it iterator of iterators.
+     * @return iterator of integer.
+     */
     public Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
         return this;
     }

@@ -7,10 +7,20 @@ import java.util.Iterator;
  */
 public class CheckEvenNumbers implements Iterator {
 
+    /**
+     * Array of numbers.
+     */
     private final int[] values;
 
+    /**
+     * index of number.
+     */
     private int index = 0;
 
+    /**
+     * Constructor of class.
+     * @param values array of numbers.
+     */
     public CheckEvenNumbers(int[] values) {
         this.values = values;
     }
@@ -34,6 +44,11 @@ public class CheckEvenNumbers implements Iterator {
         return result;
     }
 
+    /**
+     * Check the number is even.
+     * @param index index of number.
+     * @return true - if number is even.
+     */
     private boolean isEven(int index) {
         boolean result = false;
         if (this.values[index] % 2 == 0) {

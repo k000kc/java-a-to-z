@@ -3,13 +3,16 @@ package ru.apetrov.checkEvenNumbers;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Andrey on 25.02.2017.
  */
 public class CheckEvenNumbersTest {
 
+    /**
+     * Check method next().
+     */
     @Test
     public void whenGetNextCallShouldPointerForward() {
         CheckEvenNumbers it = new CheckEvenNumbers(new int[]{2, 4});
@@ -20,6 +23,9 @@ public class CheckEvenNumbersTest {
         assertThat(result, is(4));
     }
 
+    /**
+     * Check method hasNext().
+     */
     @Test
     public void whenCheckNextPositionShoultReturnContantValue() {
         CheckEvenNumbers it = new CheckEvenNumbers(new int[]{2});

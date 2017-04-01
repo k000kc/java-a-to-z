@@ -5,16 +5,31 @@ package ru.apetrov.generic;
  */
 public abstract class Base {
 
+    /**
+     * id of model.
+     */
     private String id;
 
+    /**
+     * Constructor of class.
+     * @param id id.
+     */
     public Base(String id) {
         this.id = id;
     }
 
+    /**
+     * Getter of id.
+     * @return id id.
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Setter of id.
+     * @param id id.
+     */
     public void setId(String id) {
         this.id = id;
     }

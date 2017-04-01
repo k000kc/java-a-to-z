@@ -39,5 +39,22 @@ public class SimpleSetArrayTest {
         assertThat(iterator.next(), is(3));
     }
 
+    @Test
+    public void whenAddElementsThenCheckSortingArray() {
+        SimpleSet<Integer> set = new SimpleSetArray<>(5);
+
+        set.add(7);
+        set.add(5);
+        set.add(4);
+        set.add(3);
+        set.add(1);
+
+        Iterator<Integer> iterator = set.iterator();
+
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+
 
 }

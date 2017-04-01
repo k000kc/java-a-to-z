@@ -7,10 +7,20 @@ import java.util.Iterator;
  */
 public class CheckPrimeNumbers implements Iterator {
 
+    /**
+     * Array of numbers.
+     */
     private final int[] values;
 
+    /**
+     * index of number.
+     */
     private int index = 0;
 
+    /**
+     * Constructor of class.
+     * @param values array of numbers.
+     */
     public CheckPrimeNumbers(int[] values) {
         this.values = values;
     }
@@ -35,6 +45,11 @@ public class CheckPrimeNumbers implements Iterator {
         return result;
     }
 
+    /**
+     * Check numbers is prime.
+     * @param number number.
+     * @return true - if number if prime.
+     */
     private boolean isPrime(int number) {
         boolean result = true;
         for (int i = 2; i < number; i++) {

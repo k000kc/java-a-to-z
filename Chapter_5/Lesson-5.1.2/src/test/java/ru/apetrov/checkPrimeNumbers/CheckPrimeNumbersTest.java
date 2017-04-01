@@ -3,13 +3,16 @@ package ru.apetrov.checkPrimeNumbers;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Andrey on 25.02.2017.
  */
 public class CheckPrimeNumbersTest {
 
+    /**
+     * Check method next().
+     */
     @Test
     public void whenGetNextCallShouldPointerForward() {
         CheckPrimeNumbers it = new CheckPrimeNumbers(new int[]{1, 2, 3, 5, 7});
@@ -21,6 +24,9 @@ public class CheckPrimeNumbersTest {
         assertThat(result, is(3));
     }
 
+    /**
+     * Check method hasNext().
+     */
     @Test
     public void whenCheckNextPositionShoultReturnContantValue() {
         CheckPrimeNumbers it = new CheckPrimeNumbers(new int[]{1, 4});

@@ -7,9 +7,20 @@ import java.util.Iterator;
  */
 public class IteratorOfNumbers implements Iterator<Integer> {
 
+    /**
+     * array of integers.
+     */
     private final int[] values;
+
+    /**
+     * index of array.
+     */
     private int index = 0;
 
+    /**
+     * Constructor of class.
+     * @param values array integers.
+     */
     public IteratorOfNumbers(int[] values) {
         this.values = values;
     }

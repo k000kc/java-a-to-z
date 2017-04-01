@@ -19,7 +19,7 @@ public class FastSetArrayTest {
     }
 
     @Test
-    public void when() {
+    public void whenAddElementsThenGetSortedArray() {
         FastSetArray<String> set = new FastSetArray<>(5);
         set.add("4");
         set.add("8");

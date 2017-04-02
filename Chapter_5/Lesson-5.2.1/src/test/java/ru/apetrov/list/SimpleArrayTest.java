@@ -5,13 +5,16 @@ import org.junit.Test;
 import java.util.Iterator;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Andrey on 11.03.2017.
  */
 public class SimpleArrayTest {
 
+    /**
+     * check method add().
+     */
     @Test
     public void whenAddElementThenCheckElement() {
         SimpleArray<String> array = new SimpleArray<>();
@@ -30,6 +33,9 @@ public class SimpleArrayTest {
         assertThat(array.get(11), is("Test11"));
     }
 
+    /**
+     * check method hasNext().
+     */
     @Test
     public void whenThereAreNoNextElementThenHasNextGetFalse() {
         SimpleArray<Integer> array = new SimpleArray<>(2);
@@ -42,6 +48,9 @@ public class SimpleArrayTest {
         assertThat(result, is(false));
     }
 
+    /**
+     * check method hasNext().
+     */
     @Test
     public void whenThereAreNextElementThenHasNextGetTrue() {
         SimpleArray<Integer> array = new SimpleArray<>(2);

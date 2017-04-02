@@ -29,6 +29,14 @@ public class Node<T> {
     }
 
     /**
+     * setter.
+     * @param next next element.
+     */
+    public void setNext(Node<T> next) {
+        this.next = next;
+    }
+
+    /**
      * getter.
      * @return flag.
      */

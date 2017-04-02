@@ -4,16 +4,24 @@ import java.util.Iterator;
 
 /**
  * Created by Andrey on 28.03.2017.
+ * @param <E> type.
  */
 public class SimpleSetLinkedlist<E> implements SimpleSet<E> {
 
+    /**
+     * size of set.
+     */
     private int size;
-    private Node<E> first;
-    private Node<E> last;
 
-    public int getSize() {
-        return size;
-    }
+    /**
+     * first element of set.
+     */
+    private Node<E> first;
+
+    /**
+     * last element of set.
+     */
+    private Node<E> last;
 
     @Override
     public boolean add(E e) {
@@ -33,6 +41,11 @@ public class SimpleSetLinkedlist<E> implements SimpleSet<E> {
         return result;
     }
 
+    /**
+     * search duplicate elements.
+     * @param e element.
+     * @return true - if not duplicate element.
+     */
     private boolean isNotDuplicate(E e) {
         boolean result = true;
         Node<E> node = first;
@@ -50,10 +63,20 @@ public class SimpleSetLinkedlist<E> implements SimpleSet<E> {
         return new Itr();
     }
 
+    /**
+     * class of iterator.
+     */
     private class Itr implements Iterator<E> {
 
-        int cursor = 0;
-        Node<E> node;
+        /**
+         * current position.
+         */
+        private int cursor = 0;
+
+        /**
+         * next element.
+         */
+        private Node<E> node;
 
         @Override
         public boolean hasNext() {
@@ -70,13 +93,32 @@ public class SimpleSetLinkedlist<E> implements SimpleSet<E> {
         }
     }
 
+    /**
+     * class of node.
+     * @param <E> type.
+     */
     private class Node<E> {
 
-        E item;
-        Node<E> next;
-        Node<E> prev;
+        /**
+         * element.
+         */
+        private E item;
 
-        public Node(E item) {
+        /**
+         * next element.
+         */
+        private Node<E> next;
+
+        /**
+         * previous element.
+         */
+        private Node<E> prev;
+
+        /**
+         * constructor of class.
+         * @param item element.
+         */
+        private Node(E item) {
             this.item = item;
         }
     }

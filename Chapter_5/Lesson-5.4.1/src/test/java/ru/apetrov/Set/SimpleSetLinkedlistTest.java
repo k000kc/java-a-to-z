@@ -5,13 +5,16 @@ import org.junit.Test;
 import java.util.Iterator;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Andrey on 28.03.2017.
  */
 public class SimpleSetLinkedlistTest {
 
+    /**
+     * check method add().
+     */
     @Test
     public void whenAddNewElementThenCheckGetTrue() {
         SimpleSetLinkedlist<String> set = new SimpleSetLinkedlist<>();
@@ -19,6 +22,9 @@ public class SimpleSetLinkedlistTest {
         assertThat(res, is(true));
     }
 
+    /**
+     * check method add().
+     */
     @Test
     public void whenAddDuplicateElementThenCheckGetFalse() {
         SimpleSetLinkedlist<String> set = new SimpleSetLinkedlist<>();
@@ -27,6 +33,9 @@ public class SimpleSetLinkedlistTest {
         assertThat(res, is(false));
     }
 
+    /**
+     * check method hasNext().
+     */
     @Test
     public void whenHasNextElementThenCheckGetTrue() {
         SimpleSetLinkedlist<String> set = new SimpleSetLinkedlist<>();
@@ -41,6 +50,9 @@ public class SimpleSetLinkedlistTest {
         assertThat(iterator.hasNext(), is(true));
     }
 
+    /**
+     * check method  hasNext().
+     */
     @Test
     public void whenHasNextNotElementThenCheckGrtFalse() {
         SimpleSetLinkedlist<String> set = new SimpleSetLinkedlist<>();

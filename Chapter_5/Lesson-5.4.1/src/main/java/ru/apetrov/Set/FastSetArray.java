@@ -5,15 +5,29 @@ import java.util.Iterator;
 
 /**
  * Created by Andrey on 01.04.2017.
+ * @param <E> type.
  */
 public class FastSetArray<E> implements SimpleSet<E> {
 
+    /**
+     * default capacity.
+     */
     private static final int DEFAULT_CAPACITY = 10;
 
+    /**
+     * array of elements.
+     */
     private Object[] value;
 
+    /**
+     * size of array.
+     */
     private int size = 0;
 
+    /**
+     * Constructor of class.
+     * @param initialCapacity init capacity of array.
+     */
     public FastSetArray(int initialCapacity) {
         if (initialCapacity > 0) {
             this.value = new Object[initialCapacity];
@@ -22,6 +36,10 @@ public class FastSetArray<E> implements SimpleSet<E> {
         }
     }
 
+    /**
+     * getter of value.
+     * @return array.
+     */
     public Object[] getValue() {
         return value;
     }
@@ -40,6 +58,14 @@ public class FastSetArray<E> implements SimpleSet<E> {
         return result;
     }
 
+    /**
+     * Binary search for a position for inserting an element.
+     * @param array array.
+     * @param first position.
+     * @param last position.
+     * @param e element.
+     * @return position for inserting.
+     */
     private int binarySearchPosition(Object[] array, int first, int last, E e) {
         int mid = first + (last - first) / 2;
         if (first > last) {
@@ -47,13 +73,16 @@ public class FastSetArray<E> implements SimpleSet<E> {
         }
         if (e.hashCode() < array[mid].hashCode()) {
             return binarySearchPosition(array, first, mid - 1, e);
-        } else if (e.hashCode() > array[mid].hashCode()){
+        } else if (e.hashCode() > array[mid].hashCode()) {
             return binarySearchPosition(array, mid + 1, last, e);
         } else {
             return -1;
         }
     }
 
+    /**
+     * Increase capacity.
+     */
     private void enlargeCapacity() {
         if (this.size == this.value.length) {
             this.value = Arrays.copyOf(this.value, this.value.length * 2);
@@ -65,8 +94,14 @@ public class FastSetArray<E> implements SimpleSet<E> {
         return new Itr();
     }
 
+    /**
+     * class iterator.
+     */
     private class Itr implements Iterator<E> {
 
+        /**
+         * current position.
+         */
         private int cursor = 0;
 
         @Override

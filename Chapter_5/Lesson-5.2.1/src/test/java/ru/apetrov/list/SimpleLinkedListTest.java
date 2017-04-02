@@ -4,14 +4,19 @@ import org.junit.Test;
 
 import java.util.Iterator;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Andrey on 13.03.2017.
  */
 public class SimpleLinkedListTest {
 
+    /**
+     * check method add().
+     */
     @Test
     public void whenAddNewElementThenChekThisElement() {
         SimpleLinkedList<String> list = new SimpleLinkedList<>();
@@ -21,6 +26,9 @@ public class SimpleLinkedListTest {
         assertThat(list.get(1), is("test2"));
     }
 
+    /**
+     * check method hasNext().
+     */
     @Test
     public void whenNotHasNextThenGetFalse() {
         SimpleLinkedList<String> list = new SimpleLinkedList<>();
@@ -31,7 +39,12 @@ public class SimpleLinkedListTest {
         iterator.next();
         assertFalse(iterator.hasNext());
 
-    }    @Test
+    }
+
+    /**
+     * check method hasNext().
+     */
+    @Test
     public void whenHasNextThenGetTrue() {
         SimpleLinkedList<String> list = new SimpleLinkedList<>();
         list.add("test");
@@ -41,6 +54,9 @@ public class SimpleLinkedListTest {
         assertTrue(iterator.hasNext());
     }
 
+    /**
+     * check method remove().
+     */
     @Test
     public void whenRemoveElementByIndexThenCheckElements() {
         SimpleLinkedList<String> list = new SimpleLinkedList<>();

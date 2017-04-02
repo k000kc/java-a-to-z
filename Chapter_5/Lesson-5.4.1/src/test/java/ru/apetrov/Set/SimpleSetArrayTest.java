@@ -5,19 +5,28 @@ import org.junit.Test;
 import java.util.Iterator;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 
 /**
  * Created by Andrey on 27.03.2017.
  */
 public class SimpleSetArrayTest {
 
+    /**
+     * check method add().
+     */
     @Test
     public void whenAddNewElementThenAddGetTrue() {
         SimpleSet<Integer> set = new SimpleSetArray<>(4);
         assertTrue(set.add(2));
     }
 
+    /**
+     * check method add().
+     */
     @Test
     public void whenAddDuplicateElementThenAddGetFalse() {
         SimpleSet<Integer> set = new SimpleSetArray<>(4);
@@ -25,6 +34,9 @@ public class SimpleSetArrayTest {
         assertFalse(set.add(1));
     }
 
+    /**
+     * check method next().
+     */
     @Test
     public void whenNextElementThenCheckThisElenent() {
         SimpleSet<Integer> set = new SimpleSetArray<>(4);
@@ -39,22 +51,20 @@ public class SimpleSetArrayTest {
         assertThat(iterator.next(), is(3));
     }
 
-    @Test
-    public void whenAddElementsThenCheckSortingArray() {
-        SimpleSet<Integer> set = new SimpleSetArray<>(5);
-
-        set.add(7);
-        set.add(5);
-        set.add(4);
-        set.add(3);
-        set.add(1);
-
-        Iterator<Integer> iterator = set.iterator();
-
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next());
-        }
-    }
-
-
+//    @Test
+//    public void whenAddElementsThenCheckSortingArray() {
+//        SimpleSet<Integer> set = new SimpleSetArray<>(5);
+//
+//        set.add(7);
+//        set.add(5);
+//        set.add(4);
+//        set.add(3);
+//        set.add(1);
+//
+//        Iterator<Integer> iterator = set.iterator();
+//
+//        while (iterator.hasNext()) {
+//            System.out.println(iterator.next());
+//        }
+//    }
 }

@@ -4,15 +4,29 @@ import java.util.Iterator;
 
 /**
  * Created by Andrey on 12.03.2017.
+ * @param <E> type.
  */
 public class SimpleLinkedList<E> implements SimpleContainer<E> {
 
+    /**
+     * size of list.
+     */
     private int size;
 
+    /**
+     * first element of list.
+     */
     private Node<E> first;
 
+    /**
+     * last element of list.
+     */
     private Node<E> last;
 
+    /**
+     * getter of size.
+     * @return size.
+     */
     public int getSize() {
         return size;
     }
@@ -39,6 +53,10 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
         return result.item;
     }
 
+    /**
+     * remove element by index.
+     * @param index index of ekement.
+     */
     public void remove(int index) {
         //удаление в начале
         if (index == 0) {
@@ -68,10 +86,20 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
         return new Itr();
     }
 
+    /**
+     * Class of iterator.
+     */
     private class Itr implements Iterator<E> {
 
-        int cursor = 0;
-        Node<E> next;
+        /**
+         * current position.
+         */
+        private int cursor = 0;
+
+        /**
+         * next element.
+         */
+        private Node<E> next;
 
         @Override
         public boolean hasNext() {
@@ -89,13 +117,32 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
     }
 
 
+    /**
+     * class of node.
+     * @param <E> type.
+     */
     private class Node<E> {
 
-        E item;
-        Node<E> next;
-        Node<E> prev;
+        /**
+         * element.
+         */
+        private E item;
 
-        public Node(E item) {
+        /**
+         * next element.
+         */
+        private Node<E> next;
+
+        /**
+         * previous element.
+         */
+        private Node<E> prev;
+
+        /**
+         * Constructor of class.
+         * @param item element.
+         */
+        private Node(E item) {
             this.item = item;
         }
     }

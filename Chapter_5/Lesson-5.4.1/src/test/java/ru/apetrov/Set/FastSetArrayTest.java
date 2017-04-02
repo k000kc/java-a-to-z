@@ -3,13 +3,16 @@ package ru.apetrov.Set;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Andrey on 01.04.2017.
  */
 public class FastSetArrayTest {
 
+    /**
+     * check method enlargeCapacity().
+     */
     @Test
     public void whenArrayLengthFullThenCreateNewArray() {
         FastSetArray<Integer> set = new FastSetArray<>(1);
@@ -18,6 +21,9 @@ public class FastSetArrayTest {
         assertThat(set.getValue().length, is(2));
     }
 
+    /**
+     * Automatic sorting checking, when adding new items.
+     */
     @Test
     public void whenAddElementsThenGetSortedArray() {
         FastSetArray<String> set = new FastSetArray<>(5);

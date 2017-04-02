@@ -3,13 +3,16 @@ package ru.apetrov.list;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Andrey on 16.03.2017.
  */
 public class SimpleStackTest {
 
+    /**
+     * check method push().
+     */
     @Test
     public void whenPushNewElementThenCheckElement() {
         SimpleStack<String> list = new SimpleStack<>();
@@ -17,6 +20,9 @@ public class SimpleStackTest {
         assertThat(result, is("test"));
     }
 
+    /**
+     * check method pop().
+     */
     @Test
     public void whenPopElementThenCheckThisElement() {
         SimpleStack<String> list = new SimpleStack<>();

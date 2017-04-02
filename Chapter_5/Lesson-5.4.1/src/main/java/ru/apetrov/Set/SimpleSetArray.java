@@ -4,14 +4,29 @@ import java.util.Iterator;
 
 /**
  * Created by Andrey on 27.03.2017.
+ * @param <E> type.
  */
 public class SimpleSetArray<E> implements SimpleSet<E> {
 
+    /**
+     * default capacity of array.
+     */
     private static final int DEFAULT_CAPACITY = 10;
+
+    /**
+     * array.
+     */
     private Object[] value;
 
+    /**
+     * current index.
+     */
     private int index = 0;
 
+    /**
+     * Constructor of class.
+     * @param initialCapacity of array.
+     */
     public SimpleSetArray(int initialCapacity) {
         if (initialCapacity > 0) {
             this.value = new Object[initialCapacity];
@@ -30,6 +45,11 @@ public class SimpleSetArray<E> implements SimpleSet<E> {
         return result;
     }
 
+    /**
+     * search duplicate elements.
+     * @param e element.
+     * @return true - if not duplicate element.
+     */
     public boolean isNotDuplicate(E e) {
         boolean result = true;
         for (Object element : this.value) {
@@ -45,8 +65,14 @@ public class SimpleSetArray<E> implements SimpleSet<E> {
         return new Itr();
     }
 
+    /**
+     * class of iterator.
+     */
     private class Itr implements Iterator<E> {
 
+        /**
+         * current position.
+         */
         private int cursor = 0;
 
         @Override

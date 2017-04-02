@@ -30,16 +30,20 @@ public class FastSetArrayTest {
         set.add("4");
         set.add("8");
         set.add("5");
+        set.add("4");
         set.add("2");
         set.add("7");
+        set.add("6");
+        set.add("5");
 
-        String[] result = new String[5];
+        String[] result = new String[6];
         int index = 0;
         for (Object i: set.getValue()) {
+            if (i != null)
             result[index++] = (String) i;
         }
 
-        assertThat(result, is(new String[]{"2", "4", "5", "7", "8"}));
+        assertThat(result, is(new String[]{"2", "4", "5", "6", "7", "8"}));
 
     }
 }

@@ -64,13 +64,7 @@ public class FastSetArrayTest {
         System.out.println(stop - start);
         System.out.println();
 
-        Integer[] result = new Integer[100000];
-        int index = 0;
         for (Object i : set.getValue()) {
-            result[index++] = (Integer) i;
-        }
-
-        for (Object i : result) {
             System.out.println(i);
         }
     }

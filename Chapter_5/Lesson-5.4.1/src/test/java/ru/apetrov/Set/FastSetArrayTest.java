@@ -2,6 +2,7 @@ package ru.apetrov.Set;
 
 import org.junit.Test;
 
+import static java.lang.System.currentTimeMillis;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -45,5 +46,32 @@ public class FastSetArrayTest {
 
         assertThat(result, is(new String[]{"2", "4", "5", "6", "7", "8"}));
 
+    }
+
+    /**
+     * Insert speed test.
+     */
+    @Test
+    public void test() {
+        FastSetArray<Integer> set = new FastSetArray<>(100000);
+
+        long start = currentTimeMillis();
+
+        for (int i = 99999; i >= 0; i--) {
+            set.add((int) Math.round(Math.random()*100000));
+        }
+        long stop = currentTimeMillis();
+        System.out.println(stop - start);
+        System.out.println();
+
+        Integer[] result = new Integer[100000];
+        int index = 0;
+        for (Object i : set.getValue()) {
+            result[index++] = (Integer) i;
+        }
+
+        for (Object i : result) {
+            System.out.println(i);
+        }
     }
 }

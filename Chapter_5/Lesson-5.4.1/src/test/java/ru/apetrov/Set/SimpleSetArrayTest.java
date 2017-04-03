@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.Iterator;
 
+import static java.lang.System.currentTimeMillis;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -67,4 +68,31 @@ public class SimpleSetArrayTest {
 //            System.out.println(iterator.next());
 //        }
 //    }
+
+    /**
+     * Insert speed test.
+     */
+    @Test
+    public void test() {
+        SimpleSetArray<Integer> set = new SimpleSetArray<>(100000);
+
+        long start = currentTimeMillis();
+
+        for (int i = 99999; i >= 0; i--) {
+            set.add((int) Math.round(Math.random()*100000));
+        }
+        long stop = currentTimeMillis();
+        System.out.println(stop - start);
+        System.out.println();
+
+        Integer[] result = new Integer[100000];
+        int index = 0;
+        for (Object i : set.getValue()) {
+            result[index++] = (Integer) i;
+        }
+
+        for (Object i : result) {
+            System.out.println(i);
+        }
+    }
 }

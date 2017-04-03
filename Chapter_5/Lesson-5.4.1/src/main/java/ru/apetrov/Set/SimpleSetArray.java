@@ -24,6 +24,14 @@ public class SimpleSetArray<E> implements SimpleSet<E> {
     private int index = 0;
 
     /**
+     * Getter array.
+     * @return array.
+     */
+    public Object[] getValue() {
+        return value;
+    }
+
+    /**
      * Constructor of class.
      * @param initialCapacity of array.
      */

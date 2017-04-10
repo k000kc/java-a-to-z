@@ -24,5 +24,8 @@ public class Main {
         map.put(user2, "second");
 
         System.out.println(map.toString());
+        System.out.printf("%s %s", "equals = ", user1.equals(user2));
+        System.out.printf("%n%s %s", "user1 = ", user1.hashCode());
+        System.out.printf("%n%s %s", "user2 = ", user2.hashCode());
     }
 }

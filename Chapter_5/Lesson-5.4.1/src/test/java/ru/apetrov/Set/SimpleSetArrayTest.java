@@ -52,7 +52,7 @@ public class SimpleSetArrayTest {
         assertThat(iterator.next(), is(3));
     }
 
-//    @Test
+//    @test
 //    public void whenAddElementsThenCheckSortingArray() {
 //        SimpleSet<Integer> set = new SimpleSetArray<>(5);
 //
@@ -79,7 +79,7 @@ public class SimpleSetArrayTest {
         long start = currentTimeMillis();
 
         for (int i = 99999; i >= 0; i--) {
-            set.add((int) Math.round(Math.random()*100000));
+            set.add((int) Math.round(Math.random() * 100000));
         }
         long stop = currentTimeMillis();
         System.out.println(stop - start);

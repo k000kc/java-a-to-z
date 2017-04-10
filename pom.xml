@@ -38,6 +38,7 @@
 		<module>Chapter_5/Lesson-5.1.3</module>
 		<module>Chapter_5/Lesson-5.2.1</module>
 		<module>Chapter_5/Lesson-5.4.1</module>
+		<module>Chapter_5/Lesson-5.5.1</module>
 	</modules>
 
 	<dependencies>

@@ -40,8 +40,9 @@ public class FastSetArrayTest {
         String[] result = new String[6];
         int index = 0;
         for (Object i: set.getValue()) {
-            if (i != null)
-            result[index++] = (String) i;
+            if (i != null) {
+                result[index++] = (String) i;
+            }
         }
 
         assertThat(result, is(new String[]{"2", "4", "5", "6", "7", "8"}));
@@ -58,7 +59,7 @@ public class FastSetArrayTest {
         long start = currentTimeMillis();
 
         for (int i = 99999; i >= 0; i--) {
-            set.add((int) Math.round(Math.random()*100000));
+            set.add((int) Math.round(Math.random() * 100000));
         }
         long stop = currentTimeMillis();
         System.out.println(stop - start);

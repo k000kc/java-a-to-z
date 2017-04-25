@@ -170,7 +170,7 @@ public class MyMap<T, V> implements SimpleContainer<T, V> {
 
         @Override
         public boolean hasNext() {
-            return this.position < size;
+            return this.position != size;
         }
 
         @Override

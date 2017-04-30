@@ -2,6 +2,7 @@ package ru.apetrov.MyTreeSet;
 
 import org.junit.Test;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 /**
@@ -10,7 +11,7 @@ import static org.junit.Assert.*;
 public class MyTreeSetTest {
 
     @Test
-    public void whenAddNewElementThenCheckThisElement() {
+    public void test() {
         SimpleTree<Integer> tree = new MyTreeSet<>();
         tree.addChild(8);
         tree.addChild(5);
@@ -19,6 +20,12 @@ public class MyTreeSetTest {
 
         System.out.println(tree);
         System.out.println(tree.getSize());
+    }
+
+    @Test
+    public void whenAddNewElementThenTrue() {
+        SimpleTree<Integer> tree = new MyTreeSet<>();
+        assertThat(tree.addChild(2), is(true));
     }
 
 }

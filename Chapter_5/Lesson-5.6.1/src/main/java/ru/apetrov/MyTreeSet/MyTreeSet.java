@@ -39,9 +39,11 @@ public class MyTreeSet<E> implements SimpleTree<E> {
         } else if (e.hashCode() < oldRoot.item.hashCode()) {
             oldRoot.left = new Leaf<>(e, oldRoot.item);
             this.size++;
+            result = true;
         } else {
             oldRoot.right = new Leaf<>(e, oldRoot.item);
             this.size++;
+            result = true;
         }
 
         return result;

@@ -71,12 +71,6 @@ public class MyTreeSet<E> implements SimpleTree<E> {
             this.parent = parent;
         }
 
-//        @Override
-//        public int compareTo(E e) {
-//            return this.hashCode() - e.hashCode();
-//        }
-
-
         @Override
         public String toString() {
             return "Leaf{" +

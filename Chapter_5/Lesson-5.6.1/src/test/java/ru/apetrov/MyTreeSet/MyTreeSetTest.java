@@ -23,9 +23,16 @@ public class MyTreeSetTest {
     }
 
     @Test
-    public void whenAddNewElementThenTrue() {
+    public void whenAddNewElementThenGetTrue() {
         SimpleTree<Integer> tree = new MyTreeSet<>();
         assertThat(tree.addChild(2), is(true));
+    }
+
+    @Test
+    public void whenAddDuplicateElementThenGetFalse() {
+        SimpleTree<Integer> tree = new MyTreeSet<>();
+        tree.addChild(2);
+        assertThat(tree.addChild(2), is(false));
     }
 
 }

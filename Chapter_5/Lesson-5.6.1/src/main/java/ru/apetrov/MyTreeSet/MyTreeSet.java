@@ -40,7 +40,7 @@ public class MyTreeSet<E> implements SimpleTree<E> {
             currRoot.left = new Leaf<>(e, currRoot.item);
             this.size++;
             result = true;
-        } else {
+        } else if (e.hashCode() > currRoot.item.hashCode()){
             currRoot.right = new Leaf<>(e, currRoot.item);
             this.size++;
             result = true;

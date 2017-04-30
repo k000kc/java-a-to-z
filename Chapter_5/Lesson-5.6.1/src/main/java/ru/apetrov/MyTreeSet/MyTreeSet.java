@@ -20,28 +20,28 @@ public class MyTreeSet<E> implements SimpleTree<E> {
     public boolean addChild(E e) {
         boolean result = false;
 
-        Leaf<E> oldRoot = null;
-        Leaf<E> currRoot = this.root;
+        Leaf<E> currRoot = null;
+        Leaf<E> oldRoot = this.root;
 
-        while (currRoot != null) {
-            oldRoot = currRoot;
-            if (e.hashCode() < currRoot.item.hashCode()) {
-                currRoot = currRoot.left;
+        while (oldRoot != null) {
+            currRoot = oldRoot;
+            if (e.hashCode() < oldRoot.item.hashCode()) {
+                oldRoot = oldRoot.left;
             } else {
-                currRoot = currRoot.right;
+                oldRoot = oldRoot.right;
             }
         }
 
-        if (oldRoot == null) {
+        if (currRoot == null) {
             this.root = new Leaf<>(e, null);
             this.size++;
             result = true;
-        } else if (e.hashCode() < oldRoot.item.hashCode()) {
-            oldRoot.left = new Leaf<>(e, oldRoot.item);
+        } else if (e.hashCode() < currRoot.item.hashCode()) {
+            currRoot.left = new Leaf<>(e, currRoot.item);
             this.size++;
             result = true;
         } else {
-            oldRoot.right = new Leaf<>(e, oldRoot.item);
+            currRoot.right = new Leaf<>(e, currRoot.item);
             this.size++;
             result = true;
         }

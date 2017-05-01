@@ -1,21 +1,38 @@
 package ru.apetrov.MyTreeSet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Andrey on 30.04.2017.
+ * @param <E> element type.
  */
 public class MyTreeSet<E> implements SimpleTree<E> {
 
+    /**
+     * root.
+     */
     private Leaf<E> root;
 
+    /**
+     * size.
+     */
     private int size = 0;
 
+    /**
+     * get size.
+     * @return size.
+     */
     @Override
     public int getSize() {
         return size;
     }
 
+    /**
+     * add element.
+     * @param e element.
+     * @return true - If you can add an element.
+     */
     @Override
     public boolean addChild(E e) {
         boolean result = false;
@@ -40,7 +57,7 @@ public class MyTreeSet<E> implements SimpleTree<E> {
             currRoot.left = new Leaf<>(e, currRoot.item);
             this.size++;
             result = true;
-        } else if (e.hashCode() > currRoot.item.hashCode()){
+        } else if (e.hashCode() > currRoot.item.hashCode()) {
             currRoot.right = new Leaf<>(e, currRoot.item);
             this.size++;
             result = true;
@@ -49,38 +66,73 @@ public class MyTreeSet<E> implements SimpleTree<E> {
         return result;
     }
 
+    /**
+     * get list elements.
+     * @return list.
+     */
     @Override
-    public List<E> getChildren(E e) {
-        return null;
+    public List<E> getChildren() {
+        List<E> result = new ArrayList<E>();
+        Leaf<E> curRoot = this.root;
+        while (curRoot != null && !result.contains(curRoot.item)) {
+            if (curRoot.left != null && !result.contains(curRoot.left.item)) {
+                curRoot = curRoot.left;
+            } else {
+                result.add(curRoot.item);
+                if (curRoot.right != null && !result.contains(curRoot.right.item)) {
+                    curRoot = curRoot.right;
+                } else {
+                    curRoot = this.root;
+                }
+            }
+        }
+        return result;
     }
 
     @Override
     public String toString() {
-        return "MyTreeSet{" +
-                "root=" + root +
-                '}';
+        return "MyTreeSet{" + "root=" + root + '}';
     }
 
+    /**
+     * Leaf.
+     * @param <E> type of leaf.
+     */
     private class Leaf<E> {
 
+        /**
+         * element.
+         */
         private E item;
+
+        /**
+         * left leaf.
+         */
         private Leaf<E> left;
+
+        /**
+         * right leaf.
+         */
         private Leaf<E> right;
+
+        /**
+         * parent element.
+         */
         private E parent;
 
-        public Leaf(E item, E parent) {
+        /**
+         * Constructor.
+         * @param item element.
+         * @param parent parent element.
+         */
+        private Leaf(E item, E parent) {
             this.item = item;
             this.parent = parent;
         }
 
         @Override
         public String toString() {
-            return "Leaf{" +
-                    "item=" + item +
-                    ", left=" + left +
-                    ", right=" + right +
-                    ", parent=" + parent +
-                    '}';
+            return "Leaf{" + "item=" + item + ", left=" + left + ", right=" + right + ", parent=" + parent + '}';
         }
     }
 }

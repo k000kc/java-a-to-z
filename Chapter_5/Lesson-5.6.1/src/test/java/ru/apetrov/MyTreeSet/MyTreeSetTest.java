@@ -1,9 +1,12 @@
 package ru.apetrov.MyTreeSet;
 
 import org.junit.Test;
+import org.junit.internal.runners.statements.ExpectException;
+
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -63,5 +66,37 @@ public class MyTreeSetTest {
         result = tree.getChildren();
 
         assertThat(result.toArray(), is(new int[]{5, 7, 8, 10}));
+    }
+
+    /**
+     * check method search().
+     */
+    @Test
+    public void whenInputElementToSearchThenGetThisElement() {
+        SimpleTree<Integer> tree = new MyTreeSet<>();
+        tree.addChild(8);
+        tree.addChild(5);
+        tree.addChild(10);
+        tree.addChild(7);
+
+        Integer result = tree.search(7);
+
+        assertThat(result, is(7));
+    }
+
+    /**
+     * check method search().
+     */
+    @Test
+    public void whenNotFoundetElementThenGetNull() {
+        SimpleTree<Integer> tree = new MyTreeSet<>();
+        tree.addChild(8);
+        tree.addChild(5);
+        tree.addChild(10);
+        tree.addChild(7);
+
+        Integer result = tree.search(2);
+
+        assertNull(result);
     }
 }

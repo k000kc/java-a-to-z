@@ -89,6 +89,27 @@ public class MyTreeSet<E> implements SimpleTree<E> {
         return result;
     }
 
+    /**
+     * search to element.
+     * @param e element.
+     * @return
+     */
+    public E search(E e) {
+        E result = null;
+        Leaf<E> curRoot = this.root;
+        while (curRoot != null && e.hashCode() != curRoot.item.hashCode()) {
+            if (e.hashCode() < curRoot.item.hashCode()) {
+                curRoot = curRoot.left;
+            } else {
+                curRoot = curRoot.right;
+            }
+        }
+        if (curRoot != null) {
+            result = curRoot.item;
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         return "MyTreeSet{" + "root=" + root + '}';
@@ -118,7 +139,7 @@ public class MyTreeSet<E> implements SimpleTree<E> {
         /**
          * parent element.
          */
-        private E parent;
+        private  E parent;
 
         /**
          * Constructor.

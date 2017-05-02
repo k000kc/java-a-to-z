@@ -26,4 +26,11 @@ public interface SimpleTree<E> {
      * @return size.
      */
     int getSize();
+
+    /**
+     * search to element.
+     * @param e element.
+     * @return element.
+     */
+    E search(E e);
 }

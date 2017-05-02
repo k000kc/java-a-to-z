@@ -1,8 +1,6 @@
 package ru.apetrov.MyTreeSet;
 
 import org.junit.Test;
-import org.junit.internal.runners.statements.ExpectException;
-
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;

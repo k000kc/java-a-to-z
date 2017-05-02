@@ -92,7 +92,7 @@ public class MyTreeSet<E> implements SimpleTree<E> {
     /**
      * search to element.
      * @param e element.
-     * @return
+     * @return element.
      */
     public E search(E e) {
         E result = null;

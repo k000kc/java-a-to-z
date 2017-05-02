@@ -94,6 +94,7 @@ public class MyTreeSet<E> implements SimpleTree<E> {
      * @param e element.
      * @return element.
      */
+    @Override
     public E search(E e) {
         E result = null;
         Leaf<E> curRoot = this.root;

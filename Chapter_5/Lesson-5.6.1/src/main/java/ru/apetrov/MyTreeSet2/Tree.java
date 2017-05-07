@@ -20,7 +20,6 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         } else {
             for (Node<E> child : node.childen) {
                 result = this.search(child, parent);
-                break;
             }
         }
         return result;

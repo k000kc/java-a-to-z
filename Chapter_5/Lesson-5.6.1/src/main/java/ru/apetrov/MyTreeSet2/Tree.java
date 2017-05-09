@@ -25,6 +25,10 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     private int size;
 
+    public Node<E> getRoot() {
+        return root;
+    }
+
     /**
      * search for a node to insert.
      * @param node node.
@@ -78,6 +82,23 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         for (Node<E> node : parent.childen) {
             this.writeToChildren(node);
         }
+    }
+
+    /**
+     * is binary check.
+     * @param parent parent.
+     * @return true - if binary tree.
+     */
+    public boolean isBinary(Node<E> parent) {
+        boolean result = true;
+        if (parent.childen.size() > 2) {
+            result = false;
+        } else {
+            for (Node<E> node : parent.childen) {
+                result = isBinary(node);
+            }
+        }
+        return  result;
     }
 
     /**

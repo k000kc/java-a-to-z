@@ -48,4 +48,45 @@ public class TreeTest {
 
         assertThat(result, is(4));
     }
+
+    /**
+     * check method isBinary().
+     */
+    @Test
+    public void whenBinaryThenGetTrue() {
+        Tree<Integer> tree = new Tree<>();
+        tree.add(1, 1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        tree.add(2, 5);
+        tree.add(3, 6);
+        tree.add(3, 7);
+
+        System.out.println(tree);
+        System.out.println(tree.isBinary(tree.getRoot()));
+
+        assertThat(tree.isBinary(tree.getRoot()), is(true));
+    }
+
+    /**
+     * check method isBinary().
+     */
+    @Test
+    public void whenNotBinaryThenGetFalse() {
+        Tree<Integer> tree = new Tree<>();
+        tree.add(1, 1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        tree.add(2, 5);
+        tree.add(3, 6);
+        tree.add(3, 7);
+        tree.add(3, 8);
+
+        System.out.println(tree);
+        System.out.println(tree.isBinary(tree.getRoot()));
+
+        assertThat(tree.isBinary(tree.getRoot()), is(false));
+    }
 }

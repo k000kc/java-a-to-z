@@ -7,7 +7,7 @@ import java.util.Map;
  */
 public class Main {
     public static void main(String[] args) {
-        ParserStAX parserStAX = new ParserStAX("H:\\petr arsentev\\Часть 005. Коллекции\\Часть 005. Коллекции\\7. Контрольные вопросы\\orders.xml");
+        ParserStAX parserStAX = new ParserStAX("H:\\projects\\orders.xml");
         parserStAX.startParser();
 
         for (Map.Entry<Double, Order> s : parserStAX.getBuyStorege().getData().entrySet()) {

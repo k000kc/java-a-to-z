@@ -25,6 +25,10 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     private int size;
 
+    /**
+     * getter root.
+     * @return node root.
+     */
     public Node<E> getRoot() {
         return root;
     }

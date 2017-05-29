@@ -1,9 +1,8 @@
-package main.java.ru.apetrov.OrderBook.Storege;
+package ru.apetrov.OrderBook.Storege;
 
-import main.java.ru.apetrov.OrderBook.Order;
+import ru.apetrov.OrderBook.Order;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Andrey on 24.05.2017.

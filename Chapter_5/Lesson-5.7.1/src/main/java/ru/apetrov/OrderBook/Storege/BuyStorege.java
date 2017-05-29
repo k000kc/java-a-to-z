@@ -1,6 +1,6 @@
-package main.java.ru.apetrov.OrderBook.Storege;
+package ru.apetrov.OrderBook.Storege;
 
-import main.java.ru.apetrov.OrderBook.Order;
+import ru.apetrov.OrderBook.Order;
 
 import java.util.*;
 

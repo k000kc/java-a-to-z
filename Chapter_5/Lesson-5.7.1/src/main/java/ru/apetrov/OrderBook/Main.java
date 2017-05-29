@@ -1,4 +1,4 @@
-package main.java.ru.apetrov.OrderBook;
+package ru.apetrov.OrderBook;
 
 import java.util.Map;
 

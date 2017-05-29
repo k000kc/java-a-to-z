@@ -1,4 +1,4 @@
-package main.java.ru.apetrov.OrderBook;
+package ru.apetrov.OrderBook;
 
 /**
  * Created by Andrey on 23.05.2017.

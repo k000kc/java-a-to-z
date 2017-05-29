@@ -1,8 +1,8 @@
-package main.java.ru.apetrov.OrderBook;
+package ru.apetrov.OrderBook;
 
-import main.java.ru.apetrov.OrderBook.Storege.BuyStorege;
-import main.java.ru.apetrov.OrderBook.Storege.SellStorege;
-import main.java.ru.apetrov.OrderBook.Storege.Storege;
+import ru.apetrov.OrderBook.Storege.BuyStorege;
+import ru.apetrov.OrderBook.Storege.SellStorege;
+import ru.apetrov.OrderBook.Storege.Storege;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;

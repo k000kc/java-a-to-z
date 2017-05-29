@@ -10,7 +10,7 @@ public class Main {
         ParserStAX parserStAX = new ParserStAX("H:\\projects\\orders.xml");
         parserStAX.startParser();
 
-        for (Map.Entry<Double, Order> s : parserStAX.getBuyStorege().getData().entrySet()) {
+        for (Map.Entry<Double, Order> s : parserStAX.getBuyStorage().getData().entrySet()) {
             System.out.println(s.getValue().getBookName() + " " + s.getValue().getOperation() +
                     " " + s.getValue().getVolume() + " " + s.getValue().getPrice());
         }

@@ -17,28 +17,28 @@ import java.io.FileNotFoundException;
 public class ParserStAX {
 
     private String file;
-    Storage sellStorege;
-    Storage buyStorege;
+    Storage sellStorage;
+    Storage buyStorage;
 
-    public Storage getSellStorege() {
-        return sellStorege;
+    public Storage getSellStorage() {
+        return sellStorage;
     }
 
-    public Storage getBuyStorege() {
-        return buyStorege;
+    public Storage getBuyStorage() {
+        return buyStorage;
     }
 
     public ParserStAX(String file) {
         this.file = file;
-        this.sellStorege = new SellStorage();
-        this.buyStorege = new BuyStorage();
+        this.sellStorage = new SellStorage();
+        this.buyStorage = new BuyStorage();
     }
 
     public void add(Order order) {
         if (order.getOperation().equals("SELL")) {
-            this.sellStorege.addOrder(order);
+            this.sellStorage.addOrder(order);
         } else {
-            this.buyStorege.addOrder(order);
+            this.buyStorage.addOrder(order);
         }
     }
 

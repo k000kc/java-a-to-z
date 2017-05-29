@@ -1,8 +1,8 @@
 package ru.apetrov.OrderBook;
 
-import ru.apetrov.OrderBook.Storege.BuyStorege;
-import ru.apetrov.OrderBook.Storege.SellStorege;
-import ru.apetrov.OrderBook.Storege.Storege;
+import ru.apetrov.OrderBook.Storage.BuyStorage;
+import ru.apetrov.OrderBook.Storage.SellStorage;
+import ru.apetrov.OrderBook.Storage.Storage;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -17,21 +17,21 @@ import java.io.FileNotFoundException;
 public class ParserStAX {
 
     private String file;
-    Storege sellStorege;
-    Storege buyStorege;
+    Storage sellStorege;
+    Storage buyStorege;
 
-    public Storege getSellStorege() {
+    public Storage getSellStorege() {
         return sellStorege;
     }
 
-    public Storege getBuyStorege() {
+    public Storage getBuyStorege() {
         return buyStorege;
     }
 
     public ParserStAX(String file) {
         this.file = file;
-        this.sellStorege = new SellStorege();
-        this.buyStorege = new BuyStorege();
+        this.sellStorege = new SellStorage();
+        this.buyStorege = new BuyStorage();
     }
 
     public void add(Order order) {

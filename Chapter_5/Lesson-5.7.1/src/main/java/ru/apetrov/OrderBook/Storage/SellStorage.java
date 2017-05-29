@@ -1,4 +1,4 @@
-package ru.apetrov.OrderBook.Storege;
+package ru.apetrov.OrderBook.Storage;
 
 import ru.apetrov.OrderBook.Order;
 
@@ -7,11 +7,11 @@ import java.util.*;
 /**
  * Created by Andrey on 24.05.2017.
  */
-public class SellStorege implements Storege  {
+public class SellStorage implements Storage {
 
     private Map<Double, Order> data;
 
-    public SellStorege() {
+    public SellStorage() {
         this.data = new TreeMap<>(new Comparator<Double>() {
             @Override
             public int compare(Double o1, Double o2) {

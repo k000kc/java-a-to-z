@@ -29,7 +29,7 @@ public class SellStorage implements Storage {
     public void addOrder(Order order) {
         Order tmpOrder = this.data.get(order.getPrice());
         if (tmpOrder != null) {
-            this.data.put(tmpOrder.getPrice(), new Order(tmpOrder.getBookName(), tmpOrder.getOperation(), tmpOrder.getPrice(), tmpOrder.getVolume(), tmpOrder.getOrderId()));
+            this.data.put(tmpOrder.getPrice(), new Order(tmpOrder.getBookName(), tmpOrder.getOperation(), tmpOrder.getPrice(), tmpOrder.getVolume() + order.getVolume(), tmpOrder.getOrderId()));
         } else {
             this.data.put(order.getPrice(), order);
         }

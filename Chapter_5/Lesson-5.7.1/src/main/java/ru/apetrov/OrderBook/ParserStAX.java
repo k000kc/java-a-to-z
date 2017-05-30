@@ -54,7 +54,7 @@ public class ParserStAX {
                         String bookName = parser.getAttributeValue(0);
                         String operation = parser.getAttributeValue(1);
                         double price = Double.parseDouble(parser.getAttributeValue(2));
-                        String volume = parser.getAttributeValue(3);
+                        double volume = Double.parseDouble(parser.getAttributeValue(3));
                         int orderId = Integer.parseInt(parser.getAttributeValue(4));
                         add(new Order(bookName, operation, price, volume, orderId));
 

@@ -1,48 +1,38 @@
 package ru.apetrov.OrderBook;
 
-import ru.apetrov.OrderBook.Storage.BuyStorage;
-import ru.apetrov.OrderBook.Storage.SellStorage;
-import ru.apetrov.OrderBook.Storage.Storage;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Andrey on 23.05.2017.
  */
 public class ParserStAX {
 
+    /**
+     * file of XML.
+     */
     private String file;
-    Storage sellStorage;
-    Storage buyStorage;
 
-    public Storage getSellStorage() {
-        return sellStorage;
-    }
-
-    public Storage getBuyStorage() {
-        return buyStorage;
-    }
-
+    /**
+     * Constructor.
+     * @param file file of XML.
+     */
     public ParserStAX(String file) {
         this.file = file;
-        this.sellStorage = new SellStorage();
-        this.buyStorage = new BuyStorage();
     }
 
-    public void add(Order order) {
-        if (order.getOperation().equals("SELL")) {
-            this.sellStorage.addOrder(order);
-        } else {
-            this.buyStorage.addOrder(order);
-        }
-    }
-
-    public void startParser() {
+    /**
+     * start parsing.
+     * @return Map of parsing.
+     */
+    public Map<Integer, Order> startParser() {
+        Map<Integer, Order> result = new HashMap<>();
         XMLInputFactory factory = XMLInputFactory.newInstance();
         try {
             XMLStreamReader parser = factory.createXMLStreamReader(new FileInputStream(this.file));
@@ -55,13 +45,14 @@ public class ParserStAX {
                         String operation = parser.getAttributeValue(1);
                         double price = Double.parseDouble(parser.getAttributeValue(2));
                         int volume = Integer.parseInt(parser.getAttributeValue(3));
-                        int orderId = Integer.parseInt(parser.getAttributeValue(4));
-                        add(new Order(bookName, operation, price, volume, orderId));
-
-                    } else if (parser.getLocalName().equals("DeleteOrder")) {
+                        Integer orderId = Integer.parseInt(parser.getAttributeValue(4));
+                        Order order = new Order(bookName, operation, price, volume, orderId);
+                        result.put(orderId, order);
+                    }
+                    if (parser.getLocalName().equals("DeleteOrder")) {
                         String bookName = parser.getAttributeValue(0);
-                        int orderId = Integer.parseInt(parser.getAttributeValue(1));
-
+                        Integer orderId = Integer.parseInt(parser.getAttributeValue(1));
+                        result.remove(orderId);
                     }
                 }
             }
@@ -70,6 +61,6 @@ public class ParserStAX {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
+        return  result;
     }
 }

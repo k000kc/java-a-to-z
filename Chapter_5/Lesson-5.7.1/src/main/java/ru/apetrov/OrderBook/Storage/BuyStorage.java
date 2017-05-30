@@ -2,15 +2,25 @@ package ru.apetrov.OrderBook.Storage;
 
 import ru.apetrov.OrderBook.Order;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.TreeMap;
+
 
 /**
  * Created by Andrey on 24.05.2017.
+ * Buy Storage class.
  */
 public class BuyStorage implements Storage {
 
+    /**
+     * Storage Map of sorted buy orders.
+     */
     private Map<Double, Order> data;
 
+    /**
+     * Constructor.
+     */
     public BuyStorage() {
         this.data = new TreeMap<>(new Comparator<Double>() {
             @Override
@@ -20,11 +30,19 @@ public class BuyStorage implements Storage {
         });
     }
 
+    /**
+     * Getter.
+     * @return Storage Map.
+     */
     @Override
     public Map<Double, Order> getData() {
         return data;
     }
 
+    /**
+     * Add in Storage buy orders.
+     * @param order order.
+     */
     @Override
     public void addOrder(Order order) {
         Order tmpOrder = this.data.get(order.getPrice());
@@ -33,12 +51,6 @@ public class BuyStorage implements Storage {
         } else {
             this.data.put(order.getPrice(), order);
         }
-    }
-
-    @Override
-    public boolean removeOrder(Order order) {
-//        this.data.remove(order);
-        return false;
     }
 
 }

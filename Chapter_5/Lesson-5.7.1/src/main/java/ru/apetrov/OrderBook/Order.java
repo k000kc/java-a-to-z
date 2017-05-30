@@ -8,10 +8,10 @@ public class Order {
     private String bookName;
     private String operation;
     private double price;
-    private double volume;
+    private int volume;
     private int orderId;
 
-    public Order(String bookName, String operation, double price, double volume, int orderId) {
+    public Order(String bookName, String operation, double price, int volume, int orderId) {
         this.bookName = bookName;
         this.operation = operation;
         this.price = price;
@@ -31,7 +31,7 @@ public class Order {
         return price;
     }
 
-    public double getVolume() {
+    public int getVolume() {
         return volume;
     }
 

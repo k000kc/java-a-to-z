@@ -38,6 +38,9 @@ public class SpaceThreads implements Runnable {
                 System.out.printf("Error in %s: Exceeded waiting time!\n", Thread.currentThread().getName());
                 break;
             }
+            if (text.charAt(i) == ' ') {
+                result++;
+            }
         }
         return result;
     }

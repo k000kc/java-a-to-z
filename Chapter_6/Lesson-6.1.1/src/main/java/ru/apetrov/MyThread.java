@@ -1,5 +1,7 @@
 package ru.apetrov;
 
+import java.util.Scanner;
+
 /**
  * Created by Andrey on 16.06.2017.
  */
@@ -30,7 +32,17 @@ public class MyThread {
         System.out.println("Finish of the program!");
     }
 
+    private static String inputText() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input text:");
+        return scanner.nextLine();
+    }
+
     public static void main(String[] args) {
-        new MyThread("String for checking the execution of the program").startThreads();
+        String text = MyThread.inputText();
+        long start = System.currentTimeMillis();
+        new MyThread(text).startThreads();
+        long finish = System.currentTimeMillis() - start;
+        System.out.println(finish + "ms");
     }
 }

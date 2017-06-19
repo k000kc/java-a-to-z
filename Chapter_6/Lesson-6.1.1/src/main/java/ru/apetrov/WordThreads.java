@@ -13,7 +13,7 @@ public class WordThreads implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(this.numberOfWord(this.text));
+        System.out.printf("%s%s\n", "Number of word = " ,this.numberOfWord(this.text));
     }
 
     private int numberOfWord(String text) {

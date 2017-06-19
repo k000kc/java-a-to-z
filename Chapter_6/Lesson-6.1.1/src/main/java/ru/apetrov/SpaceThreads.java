@@ -13,7 +13,7 @@ public class SpaceThreads implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(this.numberOfSpace(this.text));
+        System.out.printf("%s%s\n", "Number of spaces = " ,this.numberOfSpace(this.text));
     }
 
     private int numberOfSpace(String text) {

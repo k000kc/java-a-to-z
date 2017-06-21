@@ -1,5 +1,7 @@
 package ru.apetrov;
 
+import java.util.StringTokenizer;
+
 /**
  * Created by Andrey on 16.06.2017.
  */
@@ -18,8 +20,16 @@ public class WordThreads implements Runnable {
 
     private int numberOfWord(String text) {
         int result = 0;
-        String[] word = text.split(" +");
-        result = word.length;
+        long start = System.currentTimeMillis();
+        StringTokenizer tokenizer = new StringTokenizer(text);
+        while (tokenizer.hasMoreTokens()) {
+            if (Thread.interrupted()) {
+                System.out.printf("Error in %s: Exceeded waiting time!", Thread.currentThread().getName());
+                break;
+            }
+            tokenizer.nextToken();
+            result++;
+        }
         return result;
     }
 }

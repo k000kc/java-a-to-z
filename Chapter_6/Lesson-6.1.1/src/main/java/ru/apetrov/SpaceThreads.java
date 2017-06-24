@@ -18,10 +18,14 @@ public class SpaceThreads implements Runnable {
 
     private int numberOfSpace(String text) {
         int result = 0;
-        long start = System.currentTimeMillis();
         for (int i = 0; i < text.length(); i++) {
-            if (Thread.interrupted()) {
-                System.out.printf("Error in %s: Exceeded waiting time!", Thread.currentThread().getName());
+            if (Thread.currentThread().isInterrupted()) {
+//                try {
+//                    throw new InterruptedException(String.format("Error in %s: Exceeded waiting time!" , Thread.currentThread().getName()));
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                System.out.printf("Error in %s: Exceeded waiting time!\n", Thread.currentThread().getName());
                 break;
             }
             if (text.charAt(i) == ' ') {

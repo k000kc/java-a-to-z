@@ -7,27 +7,24 @@ import java.util.Scanner;
  */
 public class MyThread {
 
-    private SpaceThreads spaceThreads;
-    private WordThreads wordThreads;
-    private String text;
-
-    public MyThread(String text) {
-        this.text = text;
-        this.spaceThreads = new SpaceThreads(text);
-        this.wordThreads = new WordThreads(text);
+    private static String inputText() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input text:");
+        return scanner.nextLine();
     }
 
-    private void startThreads() throws InterruptedException {
-        System.out.printf("%s\n%s%s\n", "Start the program:", "Text to check: - ", this.text);
-        Thread thread1 = new Thread(this.spaceThreads);
-        Thread thread2 = new Thread(this.wordThreads);
+    public static void main(String[] args) throws InterruptedException {
+        String text = MyThread.inputText();
+        System.out.printf("%s\n%s%s\n", "Start the program:", "Text to check: - ", text);
+        Thread thread1 = new Thread(new SpaceThreads(text));
+        Thread thread2 = new Thread(new WordThreads(text));
         long start = System.currentTimeMillis();
         thread1.start();
         thread2.start();
         while (thread1.isAlive() && thread2.isAlive()) {
-            thread1.join(5);
-            thread2.join(5);
-            if ((System.currentTimeMillis() - start > 10)) {
+            thread1.join(1);
+            thread2.join(1);
+            if ((System.currentTimeMillis() - start > 1)) {
                 if (thread1.isAlive()) {
                     thread1.interrupt();
                     thread1.join();
@@ -37,25 +34,6 @@ public class MyThread {
                     thread2.join();
                 }
             }
-        }
-
-        System.out.println("Finish of the program!");
-    }
-
-    private static String inputText() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Input text:");
-        return scanner.nextLine();
-    }
-
-    public static void main(String[] args) {
-        String text = MyThread.inputText();
-        long start = System.currentTimeMillis();
-
-        try {
-            new MyThread(text).startThreads();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
         long finish = System.currentTimeMillis() - start;

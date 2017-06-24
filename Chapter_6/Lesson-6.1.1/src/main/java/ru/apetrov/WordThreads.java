@@ -20,11 +20,15 @@ public class WordThreads implements Runnable {
 
     private int numberOfWord(String text) {
         int result = 0;
-        long start = System.currentTimeMillis();
         StringTokenizer tokenizer = new StringTokenizer(text);
         while (tokenizer.hasMoreTokens()) {
-            if (Thread.interrupted()) {
-                System.out.printf("Error in %s: Exceeded waiting time!", Thread.currentThread().getName());
+            if (Thread.currentThread().isInterrupted()) {
+//                try {
+//                    throw new InterruptedException(String.format("Error in %s: Exceeded waiting time!", Thread.currentThread().getName()));
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                System.out.printf("Error in %s: Exceeded waiting time!\n", Thread.currentThread().getName());
                 break;
             }
             tokenizer.nextToken();

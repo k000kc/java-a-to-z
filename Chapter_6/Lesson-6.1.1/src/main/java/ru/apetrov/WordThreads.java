@@ -14,7 +14,7 @@ public class WordThreads implements Runnable {
 
     /**
      * Constructor.
-     * @param text
+     * @param text text.
      */
     public WordThreads(String text) {
         this.text = text;

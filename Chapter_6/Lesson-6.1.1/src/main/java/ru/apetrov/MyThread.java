@@ -7,12 +7,21 @@ import java.util.Scanner;
  */
 public class MyThread {
 
+    /**
+     * Input text.
+     * @return text.
+     */
     private static String inputText() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input text:");
         return scanner.nextLine();
     }
 
+    /**
+     * main.
+     * @param args args.
+     * @throws InterruptedException exeption.
+     */
     public static void main(String[] args) throws InterruptedException {
         String text = MyThread.inputText();
         System.out.printf("%s\n%s%s\n", "Start the program:", "Text to check: - ", text);

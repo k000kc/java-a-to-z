@@ -7,27 +7,37 @@ import java.util.StringTokenizer;
  */
 public class WordThreads implements Runnable {
 
+    /**
+     * text.
+     */
     private final String text;
 
+    /**
+     * Constructor.
+     * @param text
+     */
     public WordThreads(String text) {
         this.text = text;
     }
 
+    /**
+     * run.
+     */
     @Override
     public void run() {
         System.out.printf("%s%s\n", "Number of word = " ,this.numberOfWord(this.text));
     }
 
+    /**
+     * get numbers of word in text.
+     * @param text text.
+     * @return numbers of word.
+     */
     private int numberOfWord(String text) {
         int result = 0;
         StringTokenizer tokenizer = new StringTokenizer(text);
         while (tokenizer.hasMoreTokens()) {
             if (Thread.currentThread().isInterrupted()) {
-//                try {
-//                    throw new InterruptedException(String.format("Error in %s: Exceeded waiting time!", Thread.currentThread().getName()));
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
                 System.out.printf("Error in %s: Exceeded waiting time!\n", Thread.currentThread().getName());
                 break;
             }

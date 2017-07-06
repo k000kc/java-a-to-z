@@ -16,7 +16,11 @@ public class Count {
         this.count = 0;
     }
 
-    private void increment() {
+    public int getCount() {
+        return count;
+    }
+
+    public synchronized void increment() {
         this.count++;
     }
 }

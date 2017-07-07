@@ -1,5 +1,6 @@
 package ru.apetrov.Storage;
 
+import net.jcip.annotations.ThreadSafe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +8,8 @@ import java.util.Map;
 /**
  * Created by Andrey on 05.07.2017.
  */
-public class UserStorage implements BaseStorage{
+@ThreadSafe
+public class UserStorage implements BaseStorage {
 
     /**
      * map of users.

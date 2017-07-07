@@ -5,26 +5,63 @@ package ru.apetrov.Storage;
  */
 public class User {
 
+    /**
+     * name.
+     */
     private String name;
+
+    /**
+     * id.
+     */
     private int id;
+
+    /**
+     * amount.
+     */
     private int amount;
 
+    /**
+     * Constructor.
+     * @param name name.
+     * @param id id.
+     * @param amount amount.
+     */
     public User(String name, int id, int amount) {
         this.name = name;
         this.id = id;
         this.amount = amount;
     }
 
+    /**
+     * getter.
+     * @return name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * getter.
+     * @return id.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * amount.
+     * @return amount.
+     */
     public int getAmount() {
         return amount;
+    }
+
+    /**
+     * setter.
+     * @param amount amount.
+     */
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     @Override

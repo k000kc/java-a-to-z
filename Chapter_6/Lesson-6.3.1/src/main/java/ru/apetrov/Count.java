@@ -16,7 +16,7 @@ public class Count {
         this.count = 0;
     }
 
-    public int getCount() {
+    public synchronized int getCount() {
         return count;
     }
 

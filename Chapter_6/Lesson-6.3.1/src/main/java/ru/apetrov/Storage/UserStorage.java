@@ -14,7 +14,7 @@ public class UserStorage implements BaseStorage {
     /**
      * map of users.
      */
-    private Map<Integer, User> users;
+    private final Map<Integer, User> users;
 
     /**
      * Constructor.
@@ -94,7 +94,7 @@ public class UserStorage implements BaseStorage {
      * @param userId user id.
      * @return user.
      */
-    private User getUserById(int userId) {
+    private synchronized User getUserById(int userId) {
         return this.users.get(userId);
     }
 }

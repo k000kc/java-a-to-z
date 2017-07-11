@@ -18,6 +18,11 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
+        <dependency>
+            <groupId>ru.apetrov</groupId>
+            <artifactId>Lesson-5.2.1</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
 

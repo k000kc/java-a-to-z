@@ -56,6 +56,11 @@ public class Searcher {
      */
     public void start() {
         this.findOfFiles(this.dir);
+        try {
+            Thread.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         this.findOfLine();
     }
 
@@ -70,11 +75,6 @@ public class Searcher {
             if (currentDir.isDirectory()) {
                 this.findOfFiles(currentDir);
             }
-        }
-        try {
-            Thread.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 

@@ -33,7 +33,7 @@ public class ThreadOfDirectory implements Runnable {
     private void addFindFile() {
         for (File file : this.dir.listFiles()) {
             if (file.isFile()) {
-                Searcher.files.add(file);
+                Searcher.getFiles().add(file);
             }
         }
     }

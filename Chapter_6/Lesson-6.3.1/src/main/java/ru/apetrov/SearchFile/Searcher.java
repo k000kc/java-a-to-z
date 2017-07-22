@@ -2,8 +2,8 @@ package ru.apetrov.SearchFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by Andrey on 17.07.2017.
@@ -13,7 +13,7 @@ public class Searcher {
     /**
      * Список всех файлов в заданной директории.
      */
-    public static final List<File> files = new ArrayList();
+    private static final BlockingQueue<File> files = new LinkedBlockingQueue<File>();
 
     /**
      * входные параметры поиска (<директроия поиска> / <искомая строка>).
@@ -39,6 +39,14 @@ public class Searcher {
         File file = new File(args[0]);
         this.dir = file;
         this.line = args[1];
+    }
+
+    /**
+     * Геттер.
+     * @return files.
+     */
+    public static BlockingQueue<File> getFiles() {
+        return files;
     }
 
     /**
@@ -69,7 +77,7 @@ public class Searcher {
     private void findOfLine() {
         for (int i = 0; i < Searcher.files.size(); i++) {
             try {
-                new Thread(new ThreadOfFile(Searcher.files.get(i), this.line)).start();
+                new Thread(new ThreadOfFile(Searcher.files.poll(), this.line)).start();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

@@ -5,20 +5,35 @@ import java.util.Queue;
 
 /**
  * Created by Andrey on 26.07.2017.
+ * @param <E> type
  */
 public class ProducerCustomer<E> {
 
-    private Queue<E> queue;
+    /**
+     * Очередь которую будем блокировать.
+     */
+    private final Queue<E> queue;
 
-    private boolean isLock = false;
+    /**
+     * переключатель выполнения потоков.
+     */
+    private boolean switcher;
 
+    /**
+     * Конструктор.
+     */
     public ProducerCustomer() {
         this.queue = new LinkedList<E>();
+        this.switcher = false;
     }
 
+    /**
+     * Добавление элемента в очередь.
+     * @param element елемент
+     */
     public void add(E element) {
         synchronized (this.queue) {
-            while (this.isLock) {
+            while (this.switcher) {
                 try {
                     this.queue.wait();
                 } catch (InterruptedException e) {
@@ -31,13 +46,16 @@ public class ProducerCustomer<E> {
 
         synchronized (this.queue) {
             this.queue.notify();
-            this.isLock = true;
+            this.switcher = true;
         }
     }
 
+    /**
+     * Вывод елемента из очереди.
+     */
     public void get() {
         synchronized (this.queue) {
-            while (!this.isLock || this.queue.peek() == null) {
+            while (!this.switcher || this.queue.peek() == null) {
                 try {
                     this.queue.wait();
                 } catch (InterruptedException e) {
@@ -49,10 +67,14 @@ public class ProducerCustomer<E> {
 
         synchronized (this.queue) {
             this.queue.notify();
-            this.isLock = false;
+            this.switcher = false;
         }
     }
 
+    /**
+     * Main.
+     * @param args args
+     */
     public static void main(String[] args) {
         ProducerCustomer<Integer> prodCust = new ProducerCustomer<>();
         Thread producer = new Thread(new Runnable() {

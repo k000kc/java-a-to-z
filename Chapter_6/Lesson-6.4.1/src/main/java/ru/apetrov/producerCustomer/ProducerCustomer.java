@@ -17,40 +17,38 @@ public class ProducerCustomer<E> {
     }
 
     public void add(E element) {
-        synchronized (this) {
+        synchronized (this.queue) {
             while (this.isLock) {
                 try {
-                    wait();
+                    this.queue.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
-        this.isLock = true;
         this.queue.add(element);
         System.out.printf("%s add in queue \n", element);
 
-        synchronized (this) {
-            notify();
-            this.isLock = false;
+        synchronized (this.queue) {
+            this.queue.notify();
+            this.isLock = true;
         }
     }
 
     public void get() {
-        synchronized (this) {
-            while (this.isLock || this.queue.peek() == null) {
+        synchronized (this.queue) {
+            while (!this.isLock || this.queue.peek() == null) {
                 try {
-                    wait();
+                    this.queue.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
-        this.isLock = true;
         System.out.printf("get element %s in queue\n", this.queue.poll());
 
-        synchronized (this) {
-            notify();
+        synchronized (this.queue) {
+            this.queue.notify();
             this.isLock = false;
         }
     }
@@ -60,7 +58,7 @@ public class ProducerCustomer<E> {
         Thread producer = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 1000; i++) {
+                for (int i = 0; i < 10; i++) {
                     prodCust.add(i);
                 }
             }
@@ -69,7 +67,7 @@ public class ProducerCustomer<E> {
         Thread customer = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 1000; i++) {
+                for (int i = 0; i < 10; i++) {
                     prodCust.get();
                 }
             }

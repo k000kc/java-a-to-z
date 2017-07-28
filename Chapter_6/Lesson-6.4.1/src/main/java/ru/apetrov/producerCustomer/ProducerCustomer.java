@@ -40,8 +40,16 @@ public class ProducerCustomer<E> {
                     e.printStackTrace();
                 }
             }
+<<<<<<< HEAD
             this.queue.add(element);
             System.out.printf("add element %s\n", element);
+=======
+        }
+        this.queue.add(element);
+        System.out.printf("add element %s\n", element);
+
+        synchronized (this.queue) {
+>>>>>>> f8ba17873297ab614cfd50019999138caddd09f2
             this.queue.notify();
             this.switcher = true;
         }
@@ -59,7 +67,14 @@ public class ProducerCustomer<E> {
                     e.printStackTrace();
                 }
             }
+<<<<<<< HEAD
             System.out.printf("get %s\n", this.queue.poll());
+=======
+        }
+        System.out.printf("get %s\n", this.queue.poll());
+
+        synchronized (this.queue) {
+>>>>>>> f8ba17873297ab614cfd50019999138caddd09f2
             this.queue.notify();
             this.switcher = false;
         }

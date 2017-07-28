@@ -40,9 +40,9 @@ public class ProducerCustomer<E> {
                     e.printStackTrace();
                 }
             }
+            this.queue.add(element);
+            System.out.printf("add element %s\n", element);
         }
-        this.queue.add(element);
-        System.out.printf("add element %s\n", element);
 
         synchronized (this.queue) {
             this.queue.notify();
@@ -62,8 +62,8 @@ public class ProducerCustomer<E> {
                     e.printStackTrace();
                 }
             }
+            System.out.printf("get %s\n", this.queue.poll());
         }
-        System.out.printf("get %s\n", this.queue.poll());
 
         synchronized (this.queue) {
             this.queue.notify();

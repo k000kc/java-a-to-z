@@ -42,9 +42,6 @@ public class ProducerCustomer<E> {
             }
             this.queue.add(element);
             System.out.printf("add element %s\n", element);
-        }
-
-        synchronized (this.queue) {
             this.queue.notify();
             this.switcher = true;
         }
@@ -63,9 +60,6 @@ public class ProducerCustomer<E> {
                 }
             }
             System.out.printf("get %s\n", this.queue.poll());
-        }
-
-        synchronized (this.queue) {
             this.queue.notify();
             this.switcher = false;
         }

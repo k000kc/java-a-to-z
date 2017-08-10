@@ -8,7 +8,7 @@ public class Main {
     /**
      * Класс замка.
      */
-    private Lock lock = new Lock();
+    private final Lock lock = new Lock();
 
     /**
      * Цикл.

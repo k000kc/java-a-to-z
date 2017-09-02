@@ -8,6 +8,12 @@ import ru.apetrov.Bombermen.Position;
  */
 public class Bombermen extends Players {
 
+    /**
+     * Конструктор.
+     * @param board игровое поле.
+     * @param position позиция бомбермена.
+     * @param name имя игрока.
+     */
     public Bombermen(Board board, Position position, String name) {
         super(board, position, name);
     }

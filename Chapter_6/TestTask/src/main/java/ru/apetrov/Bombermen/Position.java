@@ -5,27 +5,39 @@ package ru.apetrov.Bombermen;
  */
 public class Position {
 
-    private int x;
-    private int y;
+    /**
+     * координата по X.
+     */
+    private final int x;
 
+    /**
+     * координата по Y.
+     */
+    private final int y;
+
+    /**
+     * Конструктор.
+     * @param x x
+     * @param y y
+     */
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Геттер.
+     * @return X.
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Геттер.
+     * @return Y.
+     */
     public int getY() {
         return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 }

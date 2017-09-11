@@ -42,6 +42,9 @@ public class Board {
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
                 this.board[i][j] = new ReentrantLock();
+                if (i % 2 != 0 && j % 2 != 0) {
+                    this.board[i][j].lock();
+                }
             }
         }
     }

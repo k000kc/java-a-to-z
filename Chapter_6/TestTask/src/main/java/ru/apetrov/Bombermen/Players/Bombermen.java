@@ -1,6 +1,4 @@
 package ru.apetrov.Bombermen.Players;
-
-import ru.apetrov.Bombermen.Board;
 import ru.apetrov.Bombermen.Position;
 
 /**
@@ -8,18 +6,24 @@ import ru.apetrov.Bombermen.Position;
  */
 public class Bombermen extends Players {
 
-    /**
-     * Конструктор.
-     * @param board игровое поле.
-     * @param position позиция бомбермена.
-     * @param name имя игрока.
-     */
-    public Bombermen(Board board, Position position, String name) {
-        super(board, position, name);
+
+    @Override
+    public void move() {
+
+    }
+
+    @Override
+    public Position getNewPosition() {
+        return null;
+    }
+
+    @Override
+    public boolean isValidate(Position position) {
+        return false;
     }
 
     @Override
     public void run() {
-        super.move();
+
     }
 }

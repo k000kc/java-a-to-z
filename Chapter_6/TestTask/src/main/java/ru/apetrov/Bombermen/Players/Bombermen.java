@@ -12,15 +12,15 @@ public class Bombermen extends Players {
 
     }
 
-    @Override
-    public Position getNewPosition() {
-        return null;
-    }
-
-    @Override
-    public boolean isValidate(Position position) {
-        return false;
-    }
+//    @Override
+//    public Position getNewPosition() {
+//        return null;
+//    }
+//
+//    @Override
+//    public boolean isValidate(Position position) {
+//        return false;
+//    }
 
     @Override
     public void run() {

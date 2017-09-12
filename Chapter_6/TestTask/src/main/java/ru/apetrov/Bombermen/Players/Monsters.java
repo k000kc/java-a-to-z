@@ -53,8 +53,8 @@ public class Monsters extends Players {
     public void move() {
         this.lock.lock();
         do {
-            Position newPosition = this.getNewPosition();
-            if (this.isValidate(newPosition)) {
+            Position newPosition = this.getNewPosition(this.position);
+            if (this.isValidate(newPosition, this.board)) {
                 Lock newLock = this.board.getBoard()[newPosition.getX()][newPosition.getY()];
                 try {
                     if (newLock.tryLock(500, TimeUnit.MILLISECONDS)) {
@@ -70,34 +70,6 @@ public class Monsters extends Players {
                 }
             }
         } while (true);
-    }
-
-    /**
-     * Вычисляется новая позицию для движения игрока.
-     * @return новая позиция.
-     */
-    public Position getNewPosition() {
-        Position result = null;
-        Movement movement = Movement.getRandomMovment();
-        if (movement == Movement.UP) {
-            result = new Position(position.getX(), position.getY() - 1);
-        } else if (movement == Movement.DOWN) {
-            result = new Position(position.getX(), position.getY() + 1);
-        } else if (movement == Movement.LEFT) {
-            result = new Position(position.getX() - 1, position.getY());
-        } else if (movement == Movement.RIGHT) {
-            result = new Position(position.getX() + 1, position.getY());
-        }
-        return result;
-    }
-
-    /**
-     * Проверяем не выходит ли позиция за границы игрового поля.
-     * @param position позиция игрока.
-     * @return true если позиция не вышла за границы игрового поля.
-     */
-    public boolean isValidate(Position position) {
-        return (position.getX() >= 0 && position.getX() < board.getWidth() && position.getY() >= 0 && position.getY() < board.getHeight());
     }
 
     @Override

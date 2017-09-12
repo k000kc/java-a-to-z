@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by Andrey on 11.09.2017.
  */
-public class Monsters extends Players {
+public class Monster extends Players {
 
     /**
      * позиция игрока.
@@ -38,7 +38,7 @@ public class Monsters extends Players {
      * @param position позиция игрока.
      * @param name имя игрока.
      */
-    public Monsters(Board board, Position position, String name) {
+    public Monster(Board board, Position position, String name) {
         this.position = position;
         this.name = name;
         this.board = board;

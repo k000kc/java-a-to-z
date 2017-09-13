@@ -3,6 +3,7 @@ package ru.apetrov.Bombermen.Players;
 import ru.apetrov.Bombermen.Board;
 import ru.apetrov.Bombermen.Position;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -70,6 +71,13 @@ public class Monster extends Players {
                 }
             }
         } while (true);
+    }
+
+    @Override
+    public Movement getMovement() {
+        Random random = new Random();
+        int result = random.nextInt(Movement.values().length);
+        return Movement.values()[result];
     }
 
     @Override

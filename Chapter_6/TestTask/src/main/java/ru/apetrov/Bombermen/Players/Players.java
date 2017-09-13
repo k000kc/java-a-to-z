@@ -15,13 +15,15 @@ public abstract class Players implements Runnable, Unit {
      */
     public abstract void move();
 
+    public abstract Movement getMovement();
+
     /**
      * Вычисляется новая позицию для движения игрока.
      * @return новая позиция.
      */
     protected Position getNewPosition(Position position) {
         Position result = null;
-        Movement movement = Movement.getRandomMovment();
+        Movement movement = this.getMovement();
         if (movement == Movement.UP) {
             result = new Position(position.getX(), position.getY() - 1);
         } else if (movement == Movement.DOWN) {

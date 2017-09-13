@@ -2,6 +2,8 @@ package ru.apetrov.Bombermen.Players;
 import ru.apetrov.Bombermen.Board;
 import ru.apetrov.Bombermen.Position;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -45,15 +47,33 @@ public class Bombermen extends Players {
 
     @Override
     public void move() {
-
+        this.lock.lock();
+        do {
+            Position newPosition = this.getNewPosition(this.position);
+            if (this.isValidate(newPosition, this.board)) {
+                Lock newLock = this.board.getBoard()[newPosition.getX()][newPosition.getY()];
+                try {
+                    if (newLock.tryLock(500, TimeUnit.MILLISECONDS)) {
+                        this.lock.unlock();
+                        this.lock = newLock;
+                        this.position = newPosition;
+                        this.board.getBoard()[this.position.getX()][this.position.getY()].lock();
+                        System.out.println(this.name + " " + this.position.getX() + " " + position.getY());
+                        Thread.sleep(1000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } while (true);
     }
 
     @Override
     public Movement getMovement() {
-        return null;
+        Random random = new Random();
+        int result = random.nextInt(Movement.values().length);
+        return Movement.values()[result];
     }
-
-
 
     @Override
     public void run() {

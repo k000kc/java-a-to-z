@@ -73,6 +73,10 @@ public class Monster extends Players {
         } while (true);
     }
 
+    /**
+     * Случайным образом выбираем движение игрока.
+     * @return направлние движения игрока.
+     */
     @Override
     public Movement getMovement() {
         Random random = new Random();

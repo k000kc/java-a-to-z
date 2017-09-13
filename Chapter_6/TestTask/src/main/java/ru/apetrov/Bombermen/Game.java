@@ -1,5 +1,6 @@
 package ru.apetrov.Bombermen;
 
+import ru.apetrov.Bombermen.Players.Bombermen;
 import ru.apetrov.Bombermen.Players.Monster;
 
 import java.util.ArrayList;
@@ -18,11 +19,14 @@ public class Game {
 
     private Board board;
 
+    private Bombermen bombermen;
+
     public Game(int height, int width, int numberOfMonsters) {
         this.numberOfMonsters = numberOfMonsters;
         this.monsters = new ArrayList<>(this.numberOfMonsters);
         this.board = new Board(height, width);
         this.addMonsters();
+        this.addBomberman();
     }
 
     private void addMonsters() {
@@ -44,10 +48,28 @@ public class Game {
         }
     }
 
+    private void addBomberman() {
+        Random random = new Random();
+        while (true) {
+            int x = random.nextInt(this.board.getHeight());
+            int y = random.nextInt(this.board.getWidth());
+            try {
+                if (this.board.getBoard()[x][y].tryLock(1, TimeUnit.MILLISECONDS)) {
+                    this.bombermen = new Bombermen(this.board, new Position(x, y), "BOMBERMAN");
+                    break;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     private void startGame() {
         for (Monster monster : this.monsters) {
             new Thread(monster).start();
         }
+        new Thread(this.bombermen).start();
     }
 
     /**

@@ -36,7 +36,7 @@ public class DopTask {
 
     /**
      * Переводим строки в массивы.
-     * Добавляем первую строку в HashMap<Character, Integer></>, если Character повторяется увеличиваем Integer + 1.
+     * Добавляем первую строку в HashMap<Character, Integer>, если Character повторяется увеличиваем Integer + 1.
      * Проходим второй строкой по HashMap, если Character повторяется, уменьшаем Integer - 1, и если Integer = 0 удаляем соответствующий Character.
      * Если в конце HashMap isEmpty = true значит все буквы повторились.
      * @param first первое слово.

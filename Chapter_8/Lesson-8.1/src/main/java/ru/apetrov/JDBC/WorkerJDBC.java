@@ -8,8 +8,6 @@ import java.sql.*;
 public class WorkerJDBC {
 
     private Connection connection;
-    private Statement statement;
-    private PreparedStatement preparedStatement;
     private long n;
 
     public WorkerJDBC(long n) {
@@ -19,12 +17,11 @@ public class WorkerJDBC {
     public void run() {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:H:\\java\\sqlite\\numbers.db");
-            this.statement = connection.createStatement();
-            this.statement.executeUpdate("CREATE TABLE IF NOT EXISTS test(field integer NOT NULL)");
-            this.statement.executeUpdate("DELETE FROM test");
-            connection.close();
-            this.insertToTable(this.n);
-            ResultSet res = this.statement.executeQuery("select field from test");
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS test(field INTEGER NOT NULL)");
+            statement.executeUpdate("DELETE FROM test");
+            this.insertToTable(connection, this.n);
+            ResultSet res = statement.executeQuery("SELECT field FROM test");
             while (res.next()) {
                 System.out.println(res.getInt("field"));
             }
@@ -39,10 +36,11 @@ public class WorkerJDBC {
         }
     }
 
-    private void insertToTable(long n) throws SQLException {
-        preparedStatement = this.connection.prepareStatement("INSERT INTO test(field) VALUES (?)");
+    private void insertToTable(Connection connection, long n) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO test(field) VALUES (?)");
         for (int i = 1; i <= n; i++){
-            preparedStatement.setInt(1, i);
+            statement.setInt(1, i);
+            statement.executeUpdate();
         }
     }
 

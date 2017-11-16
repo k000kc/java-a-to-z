@@ -1,5 +1,7 @@
 package ru.apetrov.JDBC;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.sql.*;
 
 /**
@@ -8,10 +10,12 @@ import java.sql.*;
 public class WorkerJDBC {
 
     private Connection connection;
+    private DOMParser parser;
     private long n;
 
     public WorkerJDBC(long n) {
         this.n = n;
+        parser = new DOMParser();
     }
 
     public void run() {
@@ -24,6 +28,11 @@ public class WorkerJDBC {
             ResultSet res = statement.executeQuery("SELECT field FROM test");
             while (res.next()) {
                 System.out.println(res.getInt("field"));
+                try {
+                    this.parser.parsing(res.getInt("field"));
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

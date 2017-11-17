@@ -1,7 +1,6 @@
 package ru.apetrov.JDBC;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
+import java.io.IOException;
 import java.sql.*;
 
 /**
@@ -9,52 +8,46 @@ import java.sql.*;
  */
 public class WorkerJDBC {
 
-    private Connection connection;
-    private DOMParser parser;
+    private StAXParser parser;
     private long n;
 
     public WorkerJDBC(long n) {
         this.n = n;
-        parser = new DOMParser();
+        parser = new StAXParser();
     }
 
     public void run() {
-        try {
-            connection = DriverManager.getConnection("jdbc:sqlite:H:\\java\\sqlite\\numbers.db");
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:H:\\java\\sqlite\\numbers.db")) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS test(field INTEGER NOT NULL)");
             statement.executeUpdate("DELETE FROM test");
             this.insertToTable(connection, this.n);
             ResultSet res = statement.executeQuery("SELECT field FROM test");
+            this.parser.initParser();
             while (res.next()) {
-                System.out.println(res.getInt("field"));
-                try {
-                    this.parser.parsing(res.getInt("field"));
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                }
+                this.parser.createXML(res.getInt("field"));
             }
+            this.parser.closeXMLParser();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void insertToTable(Connection connection, long n) throws SQLException {
+        connection.setAutoCommit(false);
         PreparedStatement statement = connection.prepareStatement("INSERT INTO test(field) VALUES (?)");
         for (int i = 1; i <= n; i++){
             statement.setInt(1, i);
-            statement.executeUpdate();
+            statement.addBatch();
         }
+        statement.executeBatch();
+        connection.commit();
     }
 
     public static void main(String[] args) {
-        WorkerJDBC workerJDBC = new WorkerJDBC(10);
+        WorkerJDBC workerJDBC = new WorkerJDBC(100);
         workerJDBC.run();
     }
 }

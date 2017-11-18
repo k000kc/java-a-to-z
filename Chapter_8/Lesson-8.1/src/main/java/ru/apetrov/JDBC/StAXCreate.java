@@ -10,12 +10,16 @@ import java.io.IOException;
 /**
  * Created by Andrey on 16.11.2017.
  */
-public class StAXParser {
+public class StAXCreate {
 
     private XMLOutputFactory factory;
     private XMLStreamWriter writer;
     private FileWriter fileWriter;
     private File file;
+
+    public File getFile() {
+        return file;
+    }
 
     public void initParser() throws IOException {
         try {
@@ -51,7 +55,7 @@ public class StAXParser {
         } finally {
             try {
                 this.fileWriter.close();
-                System.out.printf("Файл %s создан", this.file.getName());
+                System.out.printf("Файл %s создан\n", this.file.getName());
             } catch (IOException e) {
                 e.printStackTrace();
             }

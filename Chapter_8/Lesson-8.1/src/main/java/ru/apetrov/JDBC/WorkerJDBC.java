@@ -8,12 +8,14 @@ import java.sql.*;
  */
 public class WorkerJDBC {
 
-    private StAXParser parser;
+    private StAXCreate parser;
+    private XSLTTransformation transformation;
     private long n;
 
     public WorkerJDBC(long n) {
         this.n = n;
-        parser = new StAXParser();
+        parser = new StAXCreate();
+        this.transformation = new XSLTTransformation();
     }
 
     public void run() {
@@ -28,6 +30,7 @@ public class WorkerJDBC {
                 this.parser.createXML(res.getInt("field"));
             }
             this.parser.closeXMLParser();
+            this.transformation.runTransformation(this.parser.getFile().toString());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {

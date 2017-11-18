@@ -8,14 +8,16 @@ import java.sql.*;
  */
 public class WorkerJDBC {
 
-    private StAXCreate parser;
+    private StAXCreate creater;
     private XSLTTransformation transformation;
+    private StaXPerser parser;
     private long n;
 
     public WorkerJDBC(long n) {
         this.n = n;
-        parser = new StAXCreate();
+        creater = new StAXCreate();
         this.transformation = new XSLTTransformation();
+        this.parser = new StaXPerser();
     }
 
     public void run() {
@@ -25,12 +27,13 @@ public class WorkerJDBC {
             statement.executeUpdate("DELETE FROM test");
             this.insertToTable(connection, this.n);
             ResultSet res = statement.executeQuery("SELECT field FROM test");
-            this.parser.initParser();
+            this.creater.initParser();
             while (res.next()) {
-                this.parser.createXML(res.getInt("field"));
+                this.creater.createXML(res.getInt("field"));
             }
-            this.parser.closeXMLParser();
-            this.transformation.runTransformation(this.parser.getFile().toString());
+            this.creater.closeXMLParser();
+            this.transformation.runTransformation(this.creater.getFile().toString());
+            this.parser.persing(this.transformation.getNewXMLFile());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -50,7 +53,7 @@ public class WorkerJDBC {
     }
 
     public static void main(String[] args) {
-        WorkerJDBC workerJDBC = new WorkerJDBC(100);
+        WorkerJDBC workerJDBC = new WorkerJDBC(10);
         workerJDBC.run();
     }
 }

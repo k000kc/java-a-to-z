@@ -21,6 +21,10 @@ public class XSLTTransformation {
         this.newXMLFile = new File("Chapter_8\\Lesson-8.1\\src\\main\\resources\\2.xml");
     }
 
+    public File getNewXMLFile() {
+        return newXMLFile;
+    }
+
     public void runTransformation(String xmlFile) {
         try {
             StreamSource xmlSource = new StreamSource(new File(xmlFile));
@@ -34,7 +38,7 @@ public class XSLTTransformation {
         } catch (TransformerException e) {
             e.printStackTrace();
         } finally {
-            System.out.printf("Файл %s создан", this.newXMLFile.getName());
+            System.out.printf("Файл %s создан\n", this.newXMLFile.getName());
         }
     }
 }

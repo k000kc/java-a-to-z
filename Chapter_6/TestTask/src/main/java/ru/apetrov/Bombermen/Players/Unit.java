@@ -5,5 +5,8 @@ package ru.apetrov.Bombermen.Players;
  */
 public interface Unit {
 
+    /**
+     * Движение.
+     */
     void move();
 }

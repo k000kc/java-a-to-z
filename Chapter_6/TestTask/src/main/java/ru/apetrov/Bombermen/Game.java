@@ -13,14 +13,32 @@ import java.util.concurrent.TimeUnit;
  */
 public class Game {
 
+    /**
+     * Монстры.
+     */
     private List<Monster> monsters;
 
+    /**
+     * число монстров.
+     */
     private int numberOfMonsters;
 
+    /**
+     * игровое поле.
+     */
     private Board board;
 
+    /**
+     * Игрок.
+     */
     private Bombermen bombermen;
 
+    /**
+     * Конструктор.
+     * @param height высота поля.
+     * @param width ширина поля.
+     * @param numberOfMonsters число монстров.
+     */
     public Game(int height, int width, int numberOfMonsters) {
         this.numberOfMonsters = numberOfMonsters;
         this.monsters = new ArrayList<>(this.numberOfMonsters);
@@ -29,6 +47,9 @@ public class Game {
         this.addBomberman();
     }
 
+    /**
+     * Добавить монстра на поле.
+     */
     private void addMonsters() {
         Random random = new Random();
         for (int i = 0; i < this.numberOfMonsters; i++) {
@@ -48,6 +69,9 @@ public class Game {
         }
     }
 
+    /**
+     * Добавить игрока на поле.
+     */
     private void addBomberman() {
         Random random = new Random();
         while (true) {
@@ -65,6 +89,9 @@ public class Game {
 
     }
 
+    /**
+     * Запуск игры.
+     */
     private void startGame() {
         for (Monster monster : this.monsters) {
             new Thread(monster).start();

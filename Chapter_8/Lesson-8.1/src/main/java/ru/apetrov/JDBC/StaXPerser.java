@@ -13,6 +13,10 @@ import java.io.FileNotFoundException;
  */
 public class StaXPerser {
 
+    /**
+     * Запуск парсера.
+     * @param xmlFile файл который будим парсить.
+     */
     public void persing(File xmlFile) {
         try {
             FileInputStream stream = new FileInputStream(xmlFile);

@@ -3,13 +3,16 @@ package ru.apetrov.Query;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by Andrey on 31.10.2017.
  */
 public class QueryFiltersTest {
 
+    /**
+     * запрос с фильтром равно.
+     */
     @Test
     public void testEquallyFilter() {
         QueryFilters queryFilters = new QueryFilters("*", "user");
@@ -19,6 +22,9 @@ public class QueryFiltersTest {
         assertThat(expected, is(result));
     }
 
+    /**
+     * запрос с фильтром больше.
+     */
     @Test
     public void testLargerFilter() {
         QueryFilters queryFilters1 = new QueryFilters("*", "user");
@@ -28,6 +34,9 @@ public class QueryFiltersTest {
         assertThat(expected, is(result));
     }
 
+    /**
+     * запрос с фильтром меньше.
+     */
     @Test
     public void testSmallerFilter() {
         QueryFilters queryFilters2 = new QueryFilters("*", "user");
@@ -37,6 +46,9 @@ public class QueryFiltersTest {
         assertThat(expected, is(result));
     }
 
+    /**
+     * запрос с фильтром содержит.
+     */
     @Test
     public void testContainsFilter() {
         QueryFilters queryFilters3 = new QueryFilters("*", "user");

@@ -8,12 +8,32 @@ import java.util.List;
  */
 public class QueryFilters {
 
+    /**
+     * Фильтры.
+     */
     private final List<Filter> filters;
+
+    /**
+     * Билдер.
+     */
     private StringBuilder builder;
+
+    /**
+     * поля.
+     */
     private String fields;
+
+    /**
+     * таблицы.
+     */
     private String table;
 
 
+    /**
+     * Конструктор.
+     * @param fields поля.
+     * @param table таблицы.
+     */
     public QueryFilters(String fields, String table) {
         this.filters = new ArrayList<>();
         this.fillFilters();
@@ -23,6 +43,9 @@ public class QueryFilters {
         this.builder.append(String.format("SELECT %s FROM %s AS %s ", fields, table, table.charAt(0)));
     }
 
+    /**
+     * заполнение фильтров.
+     */
     private void fillFilters() {
         filters.add(new Equally());
         filters.add(new Larger());
@@ -30,10 +53,18 @@ public class QueryFilters {
         filters.add(new Contains());
     }
 
+    /**
+     * выбор фильтра.
+     * @param key ключ фильтра.
+     * @return фильтр.
+     */
     public Filter select(int key) {
         return filters.get(key);
     }
 
+    /**
+     * Фильтр "Равно".
+     */
     private class Equally implements Filter {
 
         @Override
@@ -48,6 +79,9 @@ public class QueryFilters {
         }
     }
 
+    /**
+     * Фильтр "Больше".
+     */
     private class Larger implements Filter {
 
         @Override
@@ -63,6 +97,9 @@ public class QueryFilters {
 
     }
 
+    /**
+     * Фильтр "Меньше".
+     */
     private class Smaller implements Filter {
 
         @Override
@@ -78,6 +115,9 @@ public class QueryFilters {
 
     }
 
+    /**
+     * Фильтр "Содержит".
+     */
     private class Contains implements Filter {
 
         @Override

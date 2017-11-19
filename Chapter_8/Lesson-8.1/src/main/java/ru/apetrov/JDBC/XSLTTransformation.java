@@ -13,18 +13,36 @@ import java.io.File;
  */
 public class XSLTTransformation {
 
+    /**
+     * файл шаблонов transformer.xsl.
+     */
     private String xsltFile;
+
+    /**
+     * файл для записи результата.
+     */
     private File newXMLFile;
 
+    /**
+     * Конструктор.
+     */
     public XSLTTransformation() {
         this.xsltFile = "Chapter_8\\Lesson-8.1\\src\\main\\resources\\transformer.xsl";
         this.newXMLFile = new File("Chapter_8\\Lesson-8.1\\src\\main\\resources\\2.xml");
     }
 
+    /**
+     * Геттер.
+     * @return файл для записи результата.
+     */
     public File getNewXMLFile() {
         return newXMLFile;
     }
 
+    /**
+     * Запуск трансформации.
+     * @param xmlFile файл над которым будет проводится трансформация.
+     */
     public void runTransformation(String xmlFile) {
         try {
             StreamSource xmlSource = new StreamSource(new File(xmlFile));

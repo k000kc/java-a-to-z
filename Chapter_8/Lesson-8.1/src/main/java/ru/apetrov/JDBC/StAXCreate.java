@@ -12,15 +12,39 @@ import java.io.IOException;
  */
 public class StAXCreate {
 
+    /**
+     * фабрика.
+     */
     private XMLOutputFactory factory;
+
+    /**
+     * поток записи.
+     */
     private XMLStreamWriter writer;
+
+    /**
+     * поток записи в файл.
+     */
     private FileWriter fileWriter;
+
+    /**
+     * файл.
+     */
     private File file;
 
+
+    /**
+     * геттер.
+     * @return файл.
+     */
     public File getFile() {
         return file;
     }
 
+    /**
+     * Инициализация парсера.
+     * @throws IOException exeption.
+     */
     public void initParser() throws IOException {
         try {
             this.file = new File("Chapter_8\\Lesson-8.1\\src\\main\\resources\\1.xml");
@@ -34,6 +58,10 @@ public class StAXCreate {
         }
     }
 
+    /**
+     * создание 1.xml файла.
+     * @param count значение поля field.
+     */
     public void createXML(Integer count) {
         try {
             this.writer.writeStartElement("entry");
@@ -46,6 +74,9 @@ public class StAXCreate {
         }
     }
 
+    /**
+     * закрытие парсера.
+     */
     public void closeXMLParser() {
         try {
             this.writer.writeEndElement();

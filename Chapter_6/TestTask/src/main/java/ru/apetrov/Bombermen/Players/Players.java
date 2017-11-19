@@ -15,10 +15,15 @@ public abstract class Players implements Runnable, Unit {
      */
     public abstract void move();
 
+    /**
+     * Геттер.
+     * @return координаты нового положения.
+     */
     public abstract Movement getMovement();
 
     /**
      * Вычисляется новая позицию для движения игрока.
+     * @param position текущая позиция.
      * @return новая позиция.
      */
     protected Position getNewPosition(Position position) {
@@ -39,6 +44,7 @@ public abstract class Players implements Runnable, Unit {
     /**
      * Проверяем не выходит ли позиция за границы игрового поля.
      * @param position позиция игрока.
+     * @param board игровое поле.
      * @return true если позиция не вышла за границы игрового поля.
      */
     protected boolean isValidate(Position position, Board board) {

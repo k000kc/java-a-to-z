@@ -1,18 +1,42 @@
 package ru.apetrov.JDBC;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 /**
  * Created by Andrey on 14.11.2017.
  */
 public class WorkerJDBC {
 
+    /**
+     * Создает XML файл из данных базы.
+     */
     private StAXCreate creater;
+
+    /**
+     * файл 1.xml трансформирует в файл 2.xml (при помощи transformer.xsl).
+     */
     private XSLTTransformation transformation;
+
+    /**
+     * парсер для 2.xml файла.
+     */
     private StaXPerser parser;
+
+    /**
+     * число значений для записи в базу и обработки.
+     */
     private long n;
 
+    /**
+     * Конструктор.
+     * @param n число значений для записи в базу и обработки.
+     */
     public WorkerJDBC(long n) {
         this.n = n;
         creater = new StAXCreate();
@@ -20,6 +44,9 @@ public class WorkerJDBC {
         this.parser = new StaXPerser();
     }
 
+    /**
+     * Запуск программы.
+     */
     public void run() {
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:H:\\java\\sqlite\\numbers.db")) {
             Statement statement = connection.createStatement();
@@ -41,10 +68,16 @@ public class WorkerJDBC {
         }
     }
 
+    /**
+     * Вставка значений в таблицу.
+     * @param connection коннект с базой.
+     * @param n число значений для записи в базу и обработки.
+     * @throws SQLException exeption.
+     */
     private void insertToTable(Connection connection, long n) throws SQLException {
         connection.setAutoCommit(false);
         PreparedStatement statement = connection.prepareStatement("INSERT INTO test(field) VALUES (?)");
-        for (int i = 1; i <= n; i++){
+        for (int i = 1; i <= n; i++) {
             statement.setInt(1, i);
             statement.addBatch();
         }
@@ -52,8 +85,12 @@ public class WorkerJDBC {
         connection.commit();
     }
 
+    /**
+     * Main.
+     * @param args args.
+     */
     public static void main(String[] args) {
-        WorkerJDBC workerJDBC = new WorkerJDBC(10);
+        WorkerJDBC workerJDBC = new WorkerJDBC(1000000);
         workerJDBC.run();
     }
 }

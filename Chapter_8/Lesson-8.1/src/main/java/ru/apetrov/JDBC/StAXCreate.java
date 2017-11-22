@@ -47,7 +47,7 @@ public class StAXCreate {
      */
     public void initParser() throws IOException {
         try {
-            this.file = new File("Chapter_8\\Lesson-8.1\\src\\main\\resources\\1.xml");
+            this.file = new File("1.xml");
             this.fileWriter = new FileWriter(file);
             this.factory = XMLOutputFactory.newInstance();
             this.writer = this.factory.createXMLStreamWriter(fileWriter);

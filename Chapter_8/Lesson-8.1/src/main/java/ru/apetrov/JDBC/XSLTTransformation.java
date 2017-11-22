@@ -27,8 +27,8 @@ public class XSLTTransformation {
      * Конструктор.
      */
     public XSLTTransformation() {
-        this.xsltFile = "Chapter_8\\Lesson-8.1\\src\\main\\resources\\transformer.xsl";
-        this.newXMLFile = new File("Chapter_8\\Lesson-8.1\\src\\main\\resources\\2.xml");
+        this.xsltFile = "transformer.xsl";
+        this.newXMLFile = new File("2.xml");
     }
 
     /**

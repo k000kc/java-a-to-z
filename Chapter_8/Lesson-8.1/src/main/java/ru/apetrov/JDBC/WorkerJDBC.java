@@ -48,7 +48,7 @@ public class WorkerJDBC {
      * Запуск программы.
      */
     public void run() {
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:H:\\java\\sqlite\\numbers.db")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:sqlite\\numbers.db")) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS test(field INTEGER NOT NULL)");
             statement.executeUpdate("DELETE FROM test");
@@ -76,13 +76,19 @@ public class WorkerJDBC {
      */
     private void insertToTable(Connection connection, long n) throws SQLException {
         connection.setAutoCommit(false);
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO test(field) VALUES (?)");
-        for (int i = 1; i <= n; i++) {
-            statement.setInt(1, i);
-            statement.addBatch();
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO test(field) VALUES (?)")) {
+            for (int i = 1; i <= n; i++) {
+                statement.setInt(1, i);
+                statement.addBatch();
+            }
+            statement.executeBatch();
+            connection.commit();
+        } catch (SQLException e) {
+            connection.rollback();
+            e.printStackTrace();
+        } finally {
+            connection.setAutoCommit(true);
         }
-        statement.executeBatch();
-        connection.commit();
     }
 
     /**

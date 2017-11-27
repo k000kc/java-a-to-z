@@ -3,12 +3,44 @@ package ru.apetrov.Tracker.start;
 import ru.apetrov.Tracker.models.Comment;
 import ru.apetrov.Tracker.models.Item;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
 import java.util.Random;
 
 /**
  * Трекер.
  */
-public class Tracker{
+public class Tracker {
+
+	private Connection connection;
+
+	private void initConnection() {
+		Properties properties = new Properties();
+		ClassLoader loader = Tracker.class.getClassLoader();
+		try	(InputStream in = loader.getResourceAsStream("config.properties")) {
+			properties.load(in);
+			String url = properties.getProperty("jdbc.url");
+			String username = properties.getProperty("jdbc.username");
+			String password = properties.getProperty("jdbc.password");
+			this.connection = DriverManager.getConnection(url, username, password);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Tracker() {
+		initConnection();
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
 
 	/**
 	 * Заявки.

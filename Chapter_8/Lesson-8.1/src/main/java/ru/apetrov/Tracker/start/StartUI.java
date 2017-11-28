@@ -37,9 +37,7 @@ public class StartUI{
 	 */
 	public static void main(String[] args){
 		Tracker tracker = new Tracker();
-//		Input input = new ValidateInput();
-//		new StartUI(input).init(tracker);
-
-		System.out.println(tracker.getConnection());
+		Input input = new ValidateInput();
+		new StartUI(input).init(tracker);
 	}
 }

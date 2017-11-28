@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ import java.util.Random;
 public class Tracker {
 
 	private Connection connection;
+	private Statement statement;
 
 	private void initConnection() {
 		Properties properties = new Properties();
@@ -36,6 +38,12 @@ public class Tracker {
 
 	public Tracker() {
 		initConnection();
+		try {
+			this.statement = this.connection.createStatement();
+			this.statement.executeUpdate("CREATE TABLE IF NOT EXISTS items(id serial PRIMARY KEY, name CHARACTER VARYING(20) NOT NULL, description CHARACTER VARYING(20) NOT NULL, create_date TIMESTAMP, comment TEXT);");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Connection getConnection() {

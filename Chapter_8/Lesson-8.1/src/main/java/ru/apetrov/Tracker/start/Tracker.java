@@ -5,10 +5,7 @@ import ru.apetrov.Tracker.models.Item;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 import java.util.Random;
 
@@ -70,10 +67,16 @@ public class Tracker {
 	 * @param item заявка.
 	 * @return заявка.
 	 */
-	public Item add(Item item){
-		item.setId(this.generateId());
-		this.items[position++] = item;
-		return item;
+	public boolean add(Item item){
+		boolean result = false;
+		try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO items(name, description, create_date) VALUES(?, ?, CURRENT_TIMESTAMP(0))")) {
+			statement.setString(1, item.getName());
+			statement.setString(2, item.getDescription());
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	/**

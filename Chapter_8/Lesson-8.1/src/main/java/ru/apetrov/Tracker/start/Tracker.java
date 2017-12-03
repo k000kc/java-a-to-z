@@ -6,6 +6,8 @@ import ru.apetrov.Tracker.models.Item;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -15,7 +17,6 @@ import java.util.Random;
 public class Tracker {
 
 	private Connection connection;
-	private Statement statement;
 
 	private void initConnection() {
 		Properties properties = new Properties();
@@ -36,8 +37,8 @@ public class Tracker {
 	public Tracker() {
 		initConnection();
 		try {
-			this.statement = this.connection.createStatement();
-			this.statement.executeUpdate("CREATE TABLE IF NOT EXISTS items(id serial PRIMARY KEY, name CHARACTER VARYING(20) NOT NULL, description CHARACTER VARYING(20) NOT NULL, create_date TIMESTAMP, comment TEXT);");
+			Statement statement = this.connection.createStatement();
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS items(id serial PRIMARY KEY, name CHARACTER VARYING(20) NOT NULL, description CHARACTER VARYING(20) NOT NULL, create_date TIMESTAMP, comment TEXT);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -85,6 +86,7 @@ public class Tracker {
 	 * @param comment коментарий.
 	 */
 	public void addComment(Item item, Comment comment){
+
 		if(item != null){
 			item.setComment(comment);
 		}
@@ -95,13 +97,18 @@ public class Tracker {
 	 * @param item заявка.
 	 */
 	public void edit(Item item){
-		for (Item index : items){
-			if (item != null && index.getId().equals(item.getId())){
-				index.setName(item.getName());
-				index.setDescription(item.getDescription());
-				index.setComment(item.getComment());
-				break;
+		try	(PreparedStatement statement = this.connection.prepareStatement("UPDATE items SET name = ?, description = ?, comment = ?, create_date = CURRENT_TIMESTAMP(0) WHERE id = ?")){
+			statement.setString(1, item.getName());
+			statement.setString(2, item.getDescription());
+			if (item.getComment() != null) {
+				statement.setString(3, item.getComment().getValue());
+			} else {
+				statement.setString(3, "not text");
 			}
+			statement.setInt(4, Integer.parseInt(item.getId()));
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -138,11 +145,14 @@ public class Tracker {
 	 */
 	public Item findById(String id){
 		Item result = null;
-		for (Item item : items){
-			if(item != null && item.getId().equals(id)){
-				result = item;
-				break;
+		try (PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM items WHERE id = ?")) {
+			statement.setInt(1, Integer.parseInt(id));
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				result = new Item(resultSet.getString("name"), resultSet.getString("description"), resultSet.getTimestamp("create_date"));
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -207,10 +217,18 @@ public class Tracker {
 	 * показать все заявки.
 	 * @return заявки.
 	 */
-	public Item[] getAll(){
-		Item[] result = new Item[position];
-		for(int index = 0; index != this.position; index++){
-			result[index] = this.items[index];
+	public List<Item> getAll(){
+		List<Item> result = new ArrayList<>();
+		try (Statement statement = this.connection.createStatement()) {
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM items");
+			while (resultSet.next()) {
+				Item item = new Item(resultSet.getString("name"), resultSet.getString("description"), resultSet.getTimestamp("create_date"));
+				item.setId(String.valueOf(resultSet.getInt("id")));
+				item.setComment(new Comment(resultSet.getString("comment")));
+				result.add(item);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return result;
 	}

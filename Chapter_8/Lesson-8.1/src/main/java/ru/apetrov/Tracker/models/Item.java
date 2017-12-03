@@ -1,5 +1,7 @@
 package ru.apetrov.Tracker.models;
 
+import java.sql.Timestamp;
+
 /**
  * Заявка.
  */
@@ -23,7 +25,7 @@ public class Item{
 	/**
 	 * Время создания заявки.
 	 */
-	public long create;
+	public Timestamp create;
 
 	/**
 	 * Комментарий к заявке.
@@ -42,7 +44,7 @@ public class Item{
 	 * @param description описание.
 	 * @param create время создания.
 	 */
-	public Item(String name, String description, long create){
+	public Item(String name, String description, Timestamp create){
 		this.name = name;
 		this.description = description;
 		this.create = create;
@@ -84,7 +86,7 @@ public class Item{
 	 * геттер.
 	 * @return время создания.
 	 */
-	public long getCreate(){
+	public Timestamp getCreate(){
 		return this.create;
 	}
 
@@ -92,7 +94,7 @@ public class Item{
 	 * сеттер.
 	 * @param create время создания.
 	 */
-	public void setCreate(long create) {
+	public void setCreate(Timestamp create) {
 		this.create = create;
 	}
 

@@ -235,7 +235,7 @@ public class MenuTracker {
 
 		public void execute(Input input, Tracker tracker){
 			for(Item item : tracker.getAll()){
-				System.out.println(String.format("%s. %s. %s. %s", item.getId(), item.getName(), item.getDescription(), item.getComment()));
+				System.out.println(String.format("%s. %s. %s. %s. %s", item.getId(), item.getName(), item.getDescription(), item.getCreate(), item.getComment()));
 			}
 		}
 	}

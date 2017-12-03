@@ -9,7 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
 
 /**
  * Трекер.
@@ -44,25 +43,6 @@ public class Tracker {
 		}
 	}
 
-	public Connection getConnection() {
-		return connection;
-	}
-
-	/**
-	 * Заявки.
-	 */
-	private Item[] items = new Item[10];
-
-	/**
-	 * позиция.
-	 */
-	private int position = 0;
-
-	/**
-	 * случайный id для заявки.
-	 */
-	private static final Random RN = new Random();
-
 	/**
 	 * добавить заявку.
 	 * @param item заявка.
@@ -86,9 +66,12 @@ public class Tracker {
 	 * @param comment коментарий.
 	 */
 	public void addComment(Item item, Comment comment){
-
-		if(item != null){
-			item.setComment(comment);
+		try(PreparedStatement statement = this.connection.prepareStatement("UPDATE items SET comment = ? WHERE id = ?")) {
+			statement.setString(1, comment.getValue());
+			statement.setInt(2, Integer.parseInt(item.getId()));
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -117,25 +100,12 @@ public class Tracker {
 	 * @param item заявка.
 	 */
 	public  void remove(Item item){
-		for (int index = 0; index < this.items.length; index++){
-			if (this.items[index].equals(item)){
-				this.items[index] = null;
-				break;
-			}
+		try (PreparedStatement statement = this.connection.prepareStatement("DELETE FROM items WHERE id = ?")) {
+			statement.setInt(1, Integer.parseInt(item.getId()));
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
-		for (int i = 0; i < this.items.length-1; i++){
-			if (this.items[i] == null){
-				for (int j = i + 1; j < this.items.length; j++){
-					if (items[j] != null){
-						items[i] = items[j];
-						items[j] = null;
-						break;
-					}
-				}
-			}
-		}
-		position--;
 	}
 
 	/**
@@ -150,6 +120,8 @@ public class Tracker {
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				result = new Item(resultSet.getString("name"), resultSet.getString("description"), resultSet.getTimestamp("create_date"));
+				result.setId(String.valueOf(resultSet.getInt("id")));
+				result.setComment(new Comment(resultSet.getString("comment")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -162,21 +134,19 @@ public class Tracker {
 	 * @param name имя.
 	 * @return заявки.
 	 */
-	public Item[] findByName(String name){
-		int numbDuplicateName = 0;
-		for(Item item : items){
-			if (item != null && item.getName().equals(name)){
-				numbDuplicateName++;
+	public List<Item> findByName(String name){
+		List<Item> result = new ArrayList<>();
+		try	(PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM items WHERE name = ?")) {
+			statement.setString(1, name);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Item item = new Item(resultSet.getString("name"), resultSet.getString("description"), resultSet.getTimestamp("create_date"));
+				item.setId(String.valueOf(resultSet.getInt("id")));
+				item.setComment(new Comment(resultSet.getString("comment")));
+				result.add(item);
 			}
-		}
-
-		Item[] result = new Item[numbDuplicateName];
-		int namePosition = 0;
-		for (int index = 0; index < items.length; index++){
-			if (items[index] != null && items[index].getName().equals(name)){
-				result[namePosition] = items[index];
-				namePosition++;
-			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -186,31 +156,21 @@ public class Tracker {
 	 * @param desc описание.
 	 * @return заявка.
 	 */
-	public Item[] findByDesc(String desc){
-		int numbDuplicateDesc = 0;
-		for(Item item : this.items){
-			if (item != null && item.getDescription().equals(desc)){
-				numbDuplicateDesc++;
+	public List<Item> findByDesc(String desc){
+		List<Item> result = new ArrayList<>();
+		try	(PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM items WHERE description LIKE ?")) {
+			statement.setString(1, "%" + desc + "%");
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Item item = new Item(resultSet.getString("name"), resultSet.getString("description"), resultSet.getTimestamp("create_date"));
+				item.setId(String.valueOf(resultSet.getInt("id")));
+				item.setComment(new Comment(resultSet.getString("comment")));
+				result.add(item);
 			}
-		}
-
-		Item[] result = new Item[numbDuplicateDesc];
-		int descPosition = 0;
-		for (int index = 0; index < this.items.length; index++){
-			if (this.items[index] != null && this.items[index].getDescription().equals(desc)){
-				result[descPosition] = this.items[index];
-				descPosition++;
-			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return result;
-	}
-
-	/**
-	 * генерация случайного id.
-	 * @return
-	 */
-	String generateId(){
-		return String.valueOf(System.currentTimeMillis() + RN.nextInt());
 	}
 
 	/**

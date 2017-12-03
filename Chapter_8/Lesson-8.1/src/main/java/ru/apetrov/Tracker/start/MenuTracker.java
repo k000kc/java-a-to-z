@@ -168,7 +168,7 @@ public class MenuTracker {
 		public void execute(Input input, Tracker tracker){
 			String name = input.ask("Enter the name of the Item:");
         		for (Item item : tracker.findByName(name)) {
-	        		System.out.println(item.getName());
+	        		System.out.println(String.format("%s. %s. %s. %s. %s", item.getId(), item.getName(), item.getDescription(), item.getCreate(), item.getComment()));
         		}
 		}
 	}
@@ -189,7 +189,7 @@ public class MenuTracker {
 		public void execute(Input input, Tracker tracker){
 			String desc = input.ask("Enter the description of the Item:");
         		for (Item item : tracker.findByDesc(desc)) {
-        			System.out.println(item.getName() + " - " + item.getDescription());
+        			System.out.println(String.format("%s. %s. %s. %s. %s", item.getId(), item.getName(), item.getDescription(), item.getCreate(), item.getComment()));
         		}
 		}
 	}

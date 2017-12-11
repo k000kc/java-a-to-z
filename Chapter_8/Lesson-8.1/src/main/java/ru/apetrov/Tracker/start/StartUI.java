@@ -29,6 +29,7 @@ public class StartUI{
 			menu.show();
 			menu.select(input.ask("Select:", menu.getRanges()));
 		}while(!"y".equals(this.input.ask("Exit?(y/n): ")));
+		tracker.closeConnection();
 	}
 
 	/**

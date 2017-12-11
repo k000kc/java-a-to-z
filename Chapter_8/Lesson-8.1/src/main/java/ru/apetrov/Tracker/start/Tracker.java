@@ -192,4 +192,12 @@ public class Tracker {
 		}
 		return result;
 	}
+
+	public void closeConnection() {
+		try {
+			this.connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

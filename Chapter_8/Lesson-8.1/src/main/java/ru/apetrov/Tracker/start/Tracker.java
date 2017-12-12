@@ -48,8 +48,7 @@ public class Tracker {
 	 * @param item заявка.
 	 * @return заявка.
 	 */
-	public boolean add(Item item){
-		boolean result = false;
+	public void add(Item item){
 		try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO items(name, description, create_date) VALUES(?, ?, CURRENT_TIMESTAMP(0))")) {
 			statement.setString(1, item.getName());
 			statement.setString(2, item.getDescription());
@@ -57,7 +56,6 @@ public class Tracker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return result;
 	}
 
 	/**

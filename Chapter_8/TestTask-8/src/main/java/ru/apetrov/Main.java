@@ -6,6 +6,6 @@ package ru.apetrov;
 public class Main {
     public static void main(String[] args) {
         JDBCStorege storege = new JDBCStorege();
-        System.out.println(storege.getConnection());
+        storege.add("123", "456", "789");
     }
 }

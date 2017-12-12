@@ -2,10 +2,7 @@ package ru.apetrov;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 /**
@@ -19,7 +16,7 @@ public class JDBCStorege {
         this.initConnection();
         try {
             Statement statement = this.connection.createStatement();
-            statement.executeUpdate("");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS forumTable(id serial PRIMARY KEY, vacancy CHARACTER VARYING(50), author CHARACTER VARYING(30), createDate CHARACTER VARYING(20))");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,8 +38,34 @@ public class JDBCStorege {
         }
     }
 
-    public Connection getConnection() {
-        return connection;
+    public void add(String vacancy, String author, String createDate) {
+        if (!this.isDuplicate(vacancy, author)) {
+            try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO forumTable(vacancy, author, createDate) VALUES(?, ?, ?)")) {
+                statement.setString(1, vacancy);
+                statement.setString(2, author);
+                statement.setString(3, createDate);
+                statement.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("duplicate");
+        }
+    }
+
+    private boolean isDuplicate(String vacancy, String author) {
+        boolean result = false;
+        try(PreparedStatement statement = this.connection.prepareStatement("SELECT ft.id FROM forumTable AS ft WHERE ft.vacancy = ? AND ft.author = ?")) {
+            statement.setString(1, vacancy);
+            statement.setString(2, author);
+            ResultSet set = statement.executeQuery();
+            if (set.next()) {
+                result = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public void closeConnection() {

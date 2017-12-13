@@ -6,6 +6,8 @@ package ru.apetrov;
 public class Main {
     public static void main(String[] args) {
         JDBCStorege storege = new JDBCStorege();
-        storege.add("123", "456", "789");
+        JsoupParser parser = new JsoupParser();
+        parser.parse("http://www.sql.ru/forum/job-offers");
+
     }
 }

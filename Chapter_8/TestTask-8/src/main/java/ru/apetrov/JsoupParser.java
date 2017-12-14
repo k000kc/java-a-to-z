@@ -7,27 +7,16 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Andrey on 13.12.2017.
  */
 public class JsoupParser {
 
-    private final Pattern datePattern = Pattern.compile("([а-я]{5,7}[\\,]{1})|([\\d]{1,2}[\\s]{1}[а-я]{3}[\\s]{1}17[\\,])");
-    private final Pattern vacancyPattern = Pattern.compile("Java|java");
-    private final Pattern notVacancyPattern = Pattern.compile("Script|script");
+    private final FilterPaterrn filter;
 
-    private boolean isCorrectDate(String str) {
-        Matcher matcher = datePattern.matcher(str);
-        return matcher.find();
-    }
-
-    private boolean isCorrectVacancy(String str) {
-        Matcher matcher = this.vacancyPattern.matcher(str);
-        Matcher matcher1 = this.notVacancyPattern.matcher(str);
-        return matcher.find() && (!matcher1.find());
+    public JsoupParser() {
+        this.filter = new FilterPaterrn();
     }
 
     private Document getPage(String url) {
@@ -50,11 +39,11 @@ public class JsoupParser {
             Element altCol = value.select("td[class=altCol]").first();
             Element altColCreateDate = value.select("td[class=altCol]").last();
             if (postslisttopic != null) {
-                String theme = postslisttopic.child(0).text();
+                String vacancy = postslisttopic.child(0).text();
                 String author = altCol.text();
                 String createDate = altColCreateDate.text();
-                if (this.isCorrectDate(createDate) && this.isCorrectVacancy(theme)) {
-                    System.out.println(theme);
+                if (this.filter.isCorrect(vacancy, createDate)) {
+                    System.out.println(vacancy);
                     System.out.println(author);
                     System.out.println(createDate + "\n");
                 }

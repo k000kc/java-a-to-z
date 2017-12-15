@@ -1,5 +1,7 @@
 package ru.apetrov.Tracker.start;
 
+import java.sql.SQLException;
+
 /**
  * Запускаем треккер.
  */
@@ -29,7 +31,6 @@ public class StartUI{
 			menu.show();
 			menu.select(input.ask("Select:", menu.getRanges()));
 		}while(!"y".equals(this.input.ask("Exit?(y/n): ")));
-		tracker.closeConnection();
 	}
 
 	/**
@@ -37,8 +38,11 @@ public class StartUI{
 	 * @param args args.
 	 */
 	public static void main(String[] args){
-		Tracker tracker = new Tracker();
-		Input input = new ValidateInput();
-		new StartUI(input).init(tracker);
+		try (Tracker tracker = new Tracker()) {
+			Input input = new ValidateInput();
+			new StartUI(input).init(tracker);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

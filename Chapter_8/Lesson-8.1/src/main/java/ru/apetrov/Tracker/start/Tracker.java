@@ -13,7 +13,7 @@ import java.util.Properties;
 /**
  * Трекер.
  */
-public class Tracker {
+public class Tracker implements AutoCloseable {
 
 	private Connection connection;
 
@@ -191,11 +191,8 @@ public class Tracker {
 		return result;
 	}
 
-	public void closeConnection() {
-		try {
-			this.connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	@Override
+	public void close() throws SQLException {
+		this.connection.close();
 	}
 }

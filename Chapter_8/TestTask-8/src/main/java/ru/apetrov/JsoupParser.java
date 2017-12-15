@@ -14,9 +14,22 @@ import java.net.URL;
 public class JsoupParser {
 
     private final FilterPaterrn filter;
+    private boolean endLoop;
+
 
     public JsoupParser() {
         this.filter = new FilterPaterrn();
+        this.endLoop = false;
+
+    }
+
+    public void loop(String url) throws IOException {
+        Document document = this.getPage(url);
+        do {
+            this.parse(document);
+            url = this.next(url);
+            document = this.getPage(url);
+        } while (!this.endLoop);
     }
 
     private Document getPage(String url) {
@@ -29,8 +42,7 @@ public class JsoupParser {
         return document;
     }
 
-    public void parse(String url) {
-        Document document = this.getPage(url);
+    public void parse(Document document) throws IOException {
         Element forumTable = document.select("table[class=forumTable]").first();
         Elements values = forumTable.select("tr");
 
@@ -49,5 +61,20 @@ public class JsoupParser {
                 }
             }
         }
+    }
+
+    public String next(String url) {
+        String result = url;
+        Document document = this.getPage(url);
+        Element sortOptions = document.select("table[class=sort_options]").last();
+        Element tr = sortOptions.getElementsByTag("td").first();
+        for(int i = 0; i < 10; i++) {
+            if (tr.child(i).text().equals(tr.select("b").text())) {
+                Element element = tr.child(++i);
+                result = element.attr("href");
+                break;
+            }
+        }
+        return result;
     }
 }

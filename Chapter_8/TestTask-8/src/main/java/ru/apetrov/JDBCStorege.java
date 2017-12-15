@@ -8,7 +8,7 @@ import java.util.Properties;
 /**
  * Created by Andrey on 11.12.2017.
  */
-public class JDBCStorege {
+public class JDBCStorege implements AutoCloseable {
 
     private Connection connection;
 
@@ -68,11 +68,8 @@ public class JDBCStorege {
         return result;
     }
 
-    public void closeConnection() {
-        try {
-            this.connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void close() throws SQLException {
+        this.connection.close();
     }
 }

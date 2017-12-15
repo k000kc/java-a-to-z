@@ -1,5 +1,7 @@
 package ru.apetrov;
 
+import java.io.IOException;
+
 /**
  * Created by Andrey on 11.12.2017.
  */
@@ -7,7 +9,11 @@ public class Main {
     public static void main(String[] args) {
         JDBCStorege storege = new JDBCStorege();
         JsoupParser parser = new JsoupParser();
-        parser.parse("http://www.sql.ru/forum/job-offers/2");
+        try {
+            parser.loop("http://www.sql.ru/forum/job-offers");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

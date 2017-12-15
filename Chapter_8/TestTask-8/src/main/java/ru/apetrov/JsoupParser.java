@@ -7,6 +7,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 
 /**
  * Created by Andrey on 13.12.2017.
@@ -15,23 +16,24 @@ public class JsoupParser {
 
     private final FilterPaterrn filter;
     private boolean endLoop;
-    private JDBCStorege storege;
-
 
     public JsoupParser() {
         this.filter = new FilterPaterrn();
         this.endLoop = false;
-        this.storege = new JDBCStorege();
 
     }
 
     public void loop(String url) throws IOException {
-        Document document = this.getPage(url);
-        do {
-            this.parse(document);
-            url = this.next(url);
-            document = this.getPage(url);
-        } while (!this.endLoop);
+        try(JDBCStorege storege = new JDBCStorege()) {
+            Document document = this.getPage(url);
+            do {
+                this.parse(document, storege);
+                url = this.next(url);
+                document = this.getPage(url);
+            } while (!this.endLoop);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private Document getPage(String url) {
@@ -44,7 +46,7 @@ public class JsoupParser {
         return document;
     }
 
-    public void parse(Document document) throws IOException {
+    public void parse(Document document, JDBCStorege storege) throws IOException {
         Element forumTable = document.select("table[class=forumTable]").first();
         Elements values = forumTable.select("tr");
 
@@ -57,7 +59,7 @@ public class JsoupParser {
                 String author = altCol.text();
                 String createDate = altColCreateDate.text();
                 if (this.filter.isCorrect(vacancy, createDate)) {
-                    this.storege.add(vacancy,author,createDate);
+                    storege.add(vacancy,author,createDate);
                     System.out.println(vacancy);
                     System.out.println(author);
                     System.out.println(createDate + "\n");
@@ -72,7 +74,7 @@ public class JsoupParser {
         Element sortOptions = document.select("table[class=sort_options]").last();
         Element tr = sortOptions.getElementsByTag("td").first();
         for(int i = 0; i < 10; i++) {
-            if (tr.select("b").text().equals(tr.child(9).text())){
+            if (tr.select("b").text().equals(tr.child(10).text())){
                 this.endLoop=true;
                 break;
             }

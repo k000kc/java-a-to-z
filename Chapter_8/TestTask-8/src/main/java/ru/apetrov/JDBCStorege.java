@@ -16,7 +16,7 @@ public class JDBCStorege implements AutoCloseable {
         this.initConnection();
         try {
             Statement statement = this.connection.createStatement();
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS forumTable(id serial PRIMARY KEY, vacancy CHARACTER VARYING(50), author CHARACTER VARYING(30), createDate CHARACTER VARYING(20))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS forumTable(id serial PRIMARY KEY, vacancy CHARACTER VARYING(200), author CHARACTER VARYING(50), createDate CHARACTER VARYING(20))");
         } catch (SQLException e) {
             e.printStackTrace();
         }

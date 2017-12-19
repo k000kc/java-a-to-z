@@ -16,11 +16,12 @@ public class JsoupParser {
 
     private final FilterPaterrn filter;
     private boolean endLoop;
+    private DateManager dateManager;
 
     public JsoupParser() {
         this.filter = new FilterPaterrn();
         this.endLoop = false;
-
+        this.dateManager = new DateManager();
     }
 
     public void loop(String url) throws IOException {
@@ -55,12 +56,17 @@ public class JsoupParser {
             Element altCol = value.select("td[class=altCol]").first();
             Element altColCreateDate = value.select("td[class=altCol]").last();
             if (postslisttopic != null) {
-                String vacancy = postslisttopic.child(0).text();
+                String name = postslisttopic.child(0).text();
                 String author = altCol.text();
                 String createDate = altColCreateDate.text();
-                if (this.filter.isCorrect(vacancy, createDate)) {
-                    storege.add(vacancy,author,createDate);
-                    System.out.println(vacancy);
+                if (this.filter.isCorrect(name, createDate)) {
+                    Vacancy vacancy = new Vacancy(name,author,this.dateManager.getCreateDate(createDate));
+                    if (vacancy.equals(storege.getLastVacancy())) {
+                        this.endLoop = true;
+                        break;
+                    }
+                    storege.add(vacancy);
+                    System.out.println(name);
                     System.out.println(author);
                     System.out.println(createDate + "\n");
                 }
@@ -74,7 +80,7 @@ public class JsoupParser {
         Element sortOptions = document.select("table[class=sort_options]").last();
         Element tr = sortOptions.getElementsByTag("td").first();
         for(int i = 0; i < 10; i++) {
-            if (tr.select("b").text().equals(tr.child(10).text())){
+            if (tr.select("b").text().equals(tr.child(10).text())) {
                 this.endLoop=true;
                 break;
             }

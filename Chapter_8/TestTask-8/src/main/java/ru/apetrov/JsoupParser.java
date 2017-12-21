@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 /**
  * Created by Andrey on 13.12.2017.
@@ -59,12 +60,13 @@ public class JsoupParser {
                 String name = postslisttopic.child(0).text();
                 String author = altCol.text();
                 String createDate = altColCreateDate.text();
+                Timestamp tsCreateDate = this.dateManager.getCreateDate(createDate);
                 if (this.filter.isCorrect(name, createDate)) {
-                    Vacancy vacancy = new Vacancy(name,author,this.dateManager.getCreateDate(createDate));
-                    if (vacancy.equals(storege.getLastVacancy())) {
+                    if (tsCreateDate.getTime() <= storege.getLastDateForVacancy().getTime()) {
                         this.endLoop = true;
                         break;
                     }
+                    Vacancy vacancy = new Vacancy(name,author,tsCreateDate);
                     storege.add(vacancy);
                     System.out.println(name);
                     System.out.println(author);

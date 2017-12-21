@@ -3,6 +3,8 @@ package ru.apetrov;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -12,6 +14,7 @@ public class JDBCStorege implements AutoCloseable {
 
     private Connection connection;
     private DateManager manager;
+    private String defaultLastDate;
 
     public JDBCStorege() {
         this.initConnection();
@@ -33,6 +36,7 @@ public class JDBCStorege implements AutoCloseable {
             String username = properties.getProperty("jdbc.username");
             String password = properties.getProperty("jdbc.password");
             this.connection = DriverManager.getConnection(url, username, password);
+            this.defaultLastDate = properties.getProperty("last_date");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -70,20 +74,27 @@ public class JDBCStorege implements AutoCloseable {
         return result;
     }
 
-    public Vacancy getLastVacancy() {
-        Vacancy vacancy = null;
-        try (Statement statement = this.connection.createStatement()) {
-            ResultSet result = statement.executeQuery("SELECT ft.vacancy, ft.author, ft.createDate FROM forumTable AS ft WHERE ft.createDate = (SELECT max(createDate) FROM forumTable)");
-            if (result.next()) {
-                String name = result.getString("vacancy");
-                String author = result.getString("author");
-                Timestamp createDate = result.getTimestamp("createDate");
-                vacancy = new Vacancy(name, author, createDate);
+    public Timestamp getLastDateForVacancy() {
+        Timestamp createLastDate = null;
+        if (this.manager.isFirstStart()) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+            try {
+                java.util.Date date = dateFormat.parse(this.defaultLastDate);
+                createLastDate = new Timestamp(date.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
+            try (Statement statement = this.connection.createStatement()) {
+                ResultSet result = statement.executeQuery("SELECT ft.createDate FROM forumTable AS ft WHERE ft.createDate = (SELECT max(createDate) FROM forumTable)");
+                if (result.next()) {
+                    createLastDate = result.getTimestamp("createDate");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return vacancy;
+        return createLastDate;
     }
 
     @Override

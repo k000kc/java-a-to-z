@@ -12,10 +12,10 @@ public class FilterPaterrn {
     private final Pattern vacancyPattern = Pattern.compile("Java|java");
     private final Pattern notVacancyPattern = Pattern.compile("Script|script");
 
-    private boolean isCorrectDate(String str) {
-        Matcher matcher = datePattern.matcher(str);
-        return matcher.find();
-    }
+//    private boolean isCorrectDate(String str) {
+//        Matcher matcher = datePattern.matcher(str);
+//        return matcher.find();
+//    }
 
     private boolean isCorrectVacancy(String str) {
         Matcher matcher = this.vacancyPattern.matcher(str);
@@ -24,6 +24,6 @@ public class FilterPaterrn {
     }
 
     public boolean isCorrect(String vacancy, String createDate) {
-        return this.isCorrectVacancy(vacancy) && this.isCorrectDate(createDate);
+        return this.isCorrectVacancy(vacancy);// && this.isCorrectDate(createDate);
     }
 }

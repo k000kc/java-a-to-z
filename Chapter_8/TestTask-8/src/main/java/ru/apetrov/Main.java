@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
         JDBCStorege storege = new JDBCStorege();
         JsoupParser parser = new JsoupParser();
+        DateManager manager = new DateManager();
         try {
             parser.loop("http://www.sql.ru/forum/job-offers");
         } catch (IOException e) {

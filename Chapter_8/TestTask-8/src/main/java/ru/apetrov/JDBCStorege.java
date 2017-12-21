@@ -3,8 +3,6 @@ package ru.apetrov;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -13,9 +11,11 @@ import java.util.*;
 public class JDBCStorege implements AutoCloseable {
 
     private Connection connection;
+    private DateManager manager;
 
     public JDBCStorege() {
         this.initConnection();
+        this.manager = new DateManager();
         try {
             Statement statement = this.connection.createStatement();
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS forumTable(id serial PRIMARY KEY, vacancy CHARACTER VARYING(200), author CHARACTER VARYING(50), createDate TIMESTAMP)");
@@ -33,7 +33,6 @@ public class JDBCStorege implements AutoCloseable {
             String username = properties.getProperty("jdbc.username");
             String password = properties.getProperty("jdbc.password");
             this.connection = DriverManager.getConnection(url, username, password);
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -73,7 +72,7 @@ public class JDBCStorege implements AutoCloseable {
 
     public Vacancy getLastVacancy() {
         Vacancy vacancy = null;
-        try(Statement statement = this.connection.createStatement()) {
+        try (Statement statement = this.connection.createStatement()) {
             ResultSet result = statement.executeQuery("SELECT ft.vacancy, ft.author, ft.createDate FROM forumTable AS ft WHERE ft.createDate = (SELECT max(createDate) FROM forumTable)");
             if (result.next()) {
                 String name = result.getString("vacancy");
@@ -82,7 +81,7 @@ public class JDBCStorege implements AutoCloseable {
                 vacancy = new Vacancy(name, author, createDate);
             }
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
         return vacancy;
     }

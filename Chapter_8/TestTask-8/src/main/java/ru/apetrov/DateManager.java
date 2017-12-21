@@ -1,11 +1,13 @@
 package ru.apetrov;
 
+import java.io.*;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by Andrey on 19.12.2017.
@@ -14,10 +16,39 @@ public class DateManager {
 
     private final Map<String, Integer> months;
     private final long DAY = 1000 * 60 * 60 * 24;
+    private boolean isFirstStart;
 
     public DateManager() {
+        this.initConnection();
         this.months = new HashMap<>();
         this.initMonths();
+    }
+
+    public boolean isFirstStart() {
+        return isFirstStart;
+    }
+
+    private void initConnection() {
+        Properties properties = new Properties();
+        ClassLoader loader = DateManager.class.getClassLoader();
+        try (InputStream in = loader.getResourceAsStream("config.properties")) {
+            properties.load(in);
+            this.isFirstStart = Boolean.valueOf(properties.getProperty("first_start"));
+            if (this.isFirstStart) {
+                this.savePropertiesForSecondStart(properties);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void savePropertiesForSecondStart(Properties properties) {
+        try (FileWriter out = new FileWriter("Chapter_8\\TestTask-8\\src\\main\\resources\\config.properties")) {
+            properties.setProperty("first_start", "false");
+            properties.store(out, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initMonths() {

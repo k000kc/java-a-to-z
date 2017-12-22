@@ -7,10 +7,27 @@ import java.sql.Timestamp;
  */
 public class Vacancy {
 
+    /**
+     * вакансия.
+     */
     private String name;
+
+    /**
+     * автор разместивший вакансию.
+     */
     private String author;
+
+    /**
+     * дата публикации вакансии.
+     */
     private Timestamp createDate;
 
+    /**
+     * Конструктор.
+     * @param name вакансия.
+     * @param author автор разместивший вакансию.
+     * @param createDate дата публикации вакансии.
+     */
     public Vacancy(String name, String author, Timestamp createDate) {
         this.name = name;
         this.author = author;

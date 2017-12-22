@@ -6,26 +6,68 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Properties;
 
 /**
  * Created by Andrey on 13.12.2017.
  */
-public class JsoupParser {
+public class JsoupParser implements Runnable {
 
+    /**
+     * Класс с шаблонами.
+     */
     private final FilterPaterrn filter;
+
+    /**
+     * Вспомогательная переменная, чтобы определить когда нужно перестать переходить на следующую страницу.
+     */
     private boolean endLoop;
+
+    /**
+     * Класс для работы с датой.
+     */
     private DateManager dateManager;
 
+    /**
+     * сайт для парсинга.
+     */
+    private String urlForParsing;
+
+    /**
+     * Конструктор.
+     */
     public JsoupParser() {
         this.filter = new FilterPaterrn();
         this.endLoop = false;
         this.dateManager = new DateManager();
+        this.initConnection();
     }
 
-    public void loop(String url) throws IOException {
+    /**
+     * читаем из конфигурационного файла значение по ключу url_for_parsing,
+     * достаем страницу которую будем парсить.
+     */
+    private void initConnection() {
+        Properties properties = new Properties();
+        ClassLoader loader = JsoupParser.class.getClassLoader();
+        try (InputStream in = loader.getResourceAsStream("config.properties")) {
+            properties.load(in);
+            this.urlForParsing = properties.getProperty("url_for_parsing");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Цикл программы.
+     * @param url страница которую будем парсить.
+     * @throws IOException exception.
+     */
+    private void loop(String url) throws IOException {
         try(JDBCStorege storege = new JDBCStorege()) {
             Document document = this.getPage(url);
             do {
@@ -38,6 +80,11 @@ public class JsoupParser {
         }
     }
 
+    /**
+     * Получить страницу по URL.
+     * @param url адрс.
+     * @return страница html.
+     */
     private Document getPage(String url) {
         Document document = null;
         try {
@@ -48,7 +95,14 @@ public class JsoupParser {
         return document;
     }
 
-    public void parse(Document document, JDBCStorege storege) throws IOException {
+    /**
+     * Парсим страницу, если в теге есть слово java, нет слова script и время публикации вакансии больше заданной даты,
+     * тогда добавляем данную вакансию в базу.
+     * @param document страница html.
+     * @param storege хранилище (sql).
+     * @throws IOException exception.
+     */
+    private void parse(Document document, JDBCStorege storege) throws IOException {
         Element forumTable = document.select("table[class=forumTable]").first();
         Elements values = forumTable.select("tr");
 
@@ -61,9 +115,10 @@ public class JsoupParser {
                 String author = altCol.text();
                 String createDate = altColCreateDate.text();
                 Timestamp tsCreateDate = this.dateManager.getCreateDate(createDate);
-                if (this.filter.isCorrect(name, createDate)) {
+                if (this.filter.isCorrect(name)) {
                     if (tsCreateDate.getTime() <= storege.getLastDateForVacancy().getTime()) {
                         this.endLoop = true;
+                        this.dateManager.savePropertiesForSecondStart("last_date", tsCreateDate.toString());
                         break;
                     }
                     Vacancy vacancy = new Vacancy(name,author,tsCreateDate);
@@ -76,7 +131,12 @@ public class JsoupParser {
         }
     }
 
-    public String next(String url) {
+    /**
+     * получаем адресс следующей страницы.
+     * @param url адресс текущей страницы.
+     * @return следующая страница.
+     */
+    private String next(String url) {
         String result = url;
         Document document = this.getPage(url);
         Element sortOptions = document.select("table[class=sort_options]").last();
@@ -93,5 +153,18 @@ public class JsoupParser {
             }
         }
         return result;
+    }
+
+    /**
+     * Запуск потока.
+     */
+    @Override
+    public void run() {
+        try {
+            this.loop(this.urlForParsing);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

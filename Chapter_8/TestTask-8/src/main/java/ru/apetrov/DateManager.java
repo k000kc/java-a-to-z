@@ -14,43 +14,78 @@ import java.util.Properties;
  */
 public class DateManager {
 
+    /**
+     * карта месяцев, для преобразования строки (имя месяца) в число(номер месяца).
+     */
     private final Map<String, Integer> months;
+
+    /**
+     * один день в мс.
+     */
     private final long DAY = 1000 * 60 * 60 * 24;
+
+    /**
+     * Проверка в первый ли раз запускается программа.
+     */
     private boolean isFirstStart;
 
+    /**
+     * для работы с конфигурацией.
+     */
+    private Properties properties;
+
+    /**
+     * Конструктор.
+     */
     public DateManager() {
+        this.properties = new Properties();
         this.initConnection();
         this.months = new HashMap<>();
         this.initMonths();
     }
 
+    /**
+     * Проверка в первый ли раз запускается программа.
+     * @return true - если программа запущенна впервые.
+     */
     public boolean isFirstStart() {
         return isFirstStart;
     }
 
+    /**
+     * читаем из конфигурационного файла значение по ключу first_start,
+     * если true - значит программа запускается впервые. После изменяем значение по кючу first_start на false.
+     */
     private void initConnection() {
-        Properties properties = new Properties();
         ClassLoader loader = DateManager.class.getClassLoader();
         try (InputStream in = loader.getResourceAsStream("config.properties")) {
-            properties.load(in);
-            this.isFirstStart = Boolean.valueOf(properties.getProperty("first_start"));
+            this.properties.load(in);
+            this.isFirstStart = Boolean.valueOf(this.properties.getProperty("first_start"));
             if (this.isFirstStart) {
-                this.savePropertiesForSecondStart(properties);
+                this.savePropertiesForSecondStart("first_start","false");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void savePropertiesForSecondStart(Properties properties) {
+    /**
+     * Изменение значения newValue, по ключу key.
+     * @param key ключ.
+     * @param newValue значение.
+     */
+    public void savePropertiesForSecondStart(String key, String newValue) {
         try (FileWriter out = new FileWriter("Chapter_8\\TestTask-8\\src\\main\\resources\\config.properties")) {
-            properties.setProperty("first_start", "false");
-            properties.store(out, null);
+            this.properties.setProperty(key, newValue);
+            this.properties.store(out, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * инициализируем карту месяцев.
+     */
     private void initMonths() {
         this.months.put("янв", 1);
         this.months.put("фев", 2);
@@ -66,28 +101,38 @@ public class DateManager {
         this.months.put("дек", 12);
     }
 
+    /**
+     * выбираем месяц по ключу.
+     * @param month месяц.
+     * @return число месяца.
+     */
     private int selectMonth(String month) {
         return this.months.get(month);
     }
 
+    /**
+     * Из строчного представления даты, получаем дату типа Timestamp.
+     * @param string дата формата (сегодня, 18:46, вчера, 21:13, 20 дек 17, 12:16).
+     * @return дата типа Timestamp.
+     */
     public Timestamp getCreateDate(String string) {
         String[] date = string.split("\\s|\\,");
         StringBuilder builder = new StringBuilder();
         Date parseDate = null;
-        SimpleDateFormat result = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (date[0].equals("сегодня")){
             parseDate = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String str = dateFormat.format(parseDate);
-            builder.append(String.format("%s %s:00", str, date[2]));
+            builder.append(String.format("%s %s:00.0", str, date[2]));
         } else if (date[0].equals("вчера")){
             parseDate = new Date();
             parseDate.setTime(parseDate.getTime() - DAY);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String str = dateFormat.format(parseDate);
-            builder.append(String.format("%s %s:00", str, date[2]));
+            builder.append(String.format("%s %s:00.0", str, date[2]));
         } else {
-            builder.append(String.format("20%s.%s.%s %s:00", date[2], this.selectMonth(date[1]), date[0], date[4]));
+            builder.append(String.format("20%s-%s-%s %s:00.0", date[2], this.selectMonth(date[1]), date[0], date[4]));
         }
         try {
             parseDate = result.parse(builder.toString());

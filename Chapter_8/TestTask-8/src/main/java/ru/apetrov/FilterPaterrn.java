@@ -8,22 +8,33 @@ import java.util.regex.Pattern;
  */
 public class FilterPaterrn {
 
-    private final Pattern datePattern = Pattern.compile("([а-я]{5,7}[\\,]{1})|([\\d]{1,2}[\\s]{1}[а-я]{3}[\\s]{1}17[\\,])");
+    /**
+     * шаблон поиска слова java.
+     */
     private final Pattern vacancyPattern = Pattern.compile("Java|java");
+
+    /**
+     * шаблон по которому будет игнорироваться слово script.
+     */
     private final Pattern notVacancyPattern = Pattern.compile("Script|script");
 
-//    private boolean isCorrectDate(String str) {
-//        Matcher matcher = datePattern.matcher(str);
-//        return matcher.find();
-//    }
-
+    /**
+     * Проверим существует ли слово java, и отсутствует ли слово script в переменной str.
+     * @param str нзвание вакансии.
+     * @return true если название корректно.
+     */
     private boolean isCorrectVacancy(String str) {
         Matcher matcher = this.vacancyPattern.matcher(str);
         Matcher matcher1 = this.notVacancyPattern.matcher(str);
         return matcher.find() && (!matcher1.find());
     }
 
-    public boolean isCorrect(String vacancy, String createDate) {
-        return this.isCorrectVacancy(vacancy);// && this.isCorrectDate(createDate);
+    /**
+     * проверка на корректность.
+     * @param vacancy вакансия.
+     * @return true если название корректно.
+     */
+    public boolean isCorrect(String vacancy) {
+        return this.isCorrectVacancy(vacancy);
     }
 }

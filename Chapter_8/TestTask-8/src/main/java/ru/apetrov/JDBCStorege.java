@@ -12,10 +12,26 @@ import java.util.*;
  */
 public class JDBCStorege implements AutoCloseable {
 
+    /**
+     * Коннект к бзе данных.
+     */
     private Connection connection;
+
+    /**
+     * Класс: !. Для преобразования даты(String) в Timestamp.
+     *        2. Для выявления когда в последний раз была запущенна программа.
+     */
     private DateManager manager;
+
+    /**
+     *  по умолчанию программа собирает сведения за 2017-01-01 00\:00\:00.0.
+     */
     private String defaultLastDate;
 
+    /**
+     * Конструктор. Инициализирует коннект с базой, загружая конфигурацию из файла config.properties.
+     * и создает базу с необходимыми полями, если такой таблицы ещё не существует.
+     */
     public JDBCStorege() {
         this.initConnection();
         this.manager = new DateManager();
@@ -27,6 +43,9 @@ public class JDBCStorege implements AutoCloseable {
         }
     }
 
+    /**
+     * Инициализирует коннект с базой, загружая конфигурацию из файла config.properties.
+     */
     private void initConnection() {
         Properties properties = new Properties();
         ClassLoader loader = JDBCStorege.class.getClassLoader();
@@ -44,6 +63,10 @@ public class JDBCStorege implements AutoCloseable {
         }
     }
 
+    /**
+     * Добавление вакансии в базу.
+     * @param vacancy вакансия.
+     */
     public void add(Vacancy vacancy) {
         if (!this.isDuplicate(vacancy)) {
             try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO forumTable(vacancy, author, createDate) VALUES(?, ?, ?)")) {
@@ -59,6 +82,11 @@ public class JDBCStorege implements AutoCloseable {
         }
     }
 
+    /**
+     * Проверка на дубликаты по названию вакансии и автору.
+     * @param vacancy выкансия.
+     * @return true - если такая вакансия уже есть в базе.
+     */
     private boolean isDuplicate(Vacancy vacancy) {
         boolean result = false;
         try(PreparedStatement statement = this.connection.prepareStatement("SELECT ft.id FROM forumTable AS ft WHERE ft.vacancy = ? AND ft.author = ?")) {
@@ -74,10 +102,14 @@ public class JDBCStorege implements AutoCloseable {
         return result;
     }
 
+    /**
+     * Достанет последнюю дату размещенной вакансии из базы.
+     * @return дата размещения вакансии.
+     */
     public Timestamp getLastDateForVacancy() {
         Timestamp createLastDate = null;
         if (this.manager.isFirstStart()) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 java.util.Date date = dateFormat.parse(this.defaultLastDate);
                 createLastDate = new Timestamp(date.getTime());
@@ -97,6 +129,10 @@ public class JDBCStorege implements AutoCloseable {
         return createLastDate;
     }
 
+    /**
+     * Закрываем коннект с базой.
+     * @throws SQLException exception.
+     */
     @Override
     public void close() throws SQLException {
         this.connection.close();

@@ -1,17 +1,27 @@
 package ru.apetrov;
-
-import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Andrey on 11.12.2017.
  */
 public class Main {
+
+    /**
+     * Стартуем программу при помощи исполнителя (запускается на выполнение каждые 10 секунд по умолчанию)
+     */
+    private void start() {
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(new JsoupParser(), 0, 10, TimeUnit.SECONDS);
+    }
+
+    /**
+     * main
+     * @param args args.
+     */
     public static void main(String[] args) {
-        JsoupParser parser = new JsoupParser();
-        try {
-            parser.loop("http://www.sql.ru/forum/job-offers");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Main main = new Main();
+        main.start();
     }
 }

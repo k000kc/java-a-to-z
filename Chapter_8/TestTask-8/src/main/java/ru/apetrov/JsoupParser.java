@@ -6,11 +6,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Properties;
 
 /**
  * Created by Andrey on 13.12.2017.

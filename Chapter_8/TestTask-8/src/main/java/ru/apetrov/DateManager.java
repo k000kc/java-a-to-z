@@ -1,13 +1,11 @@
 package ru.apetrov;
 
-import java.io.*;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * Created by Andrey on 19.12.2017.
@@ -30,11 +28,6 @@ public class DateManager {
     private boolean isFirstStart;
 
     /**
-     * для работы с конфигурацией.
-     */
-    private Properties properties;
-
-    /**
      * Класс настроек.
      */
     private Settings settings;
@@ -44,7 +37,6 @@ public class DateManager {
      */
     public DateManager() {
         this.settings = new Settings();
-        this.properties = new Properties();
         this.initConnection();
         this.months = new HashMap<>();
         this.initMonths();

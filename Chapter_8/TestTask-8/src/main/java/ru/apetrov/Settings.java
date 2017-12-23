@@ -42,6 +42,7 @@ public class Settings {
         try (FileWriter out = new FileWriter("Chapter_8\\TestTask-8\\src\\main\\resources\\config.properties")) {
             this.properties.setProperty(key, newValue);
             this.properties.store(out, null);
+            out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

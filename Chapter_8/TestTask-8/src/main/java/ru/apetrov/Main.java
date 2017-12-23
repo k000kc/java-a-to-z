@@ -13,7 +13,7 @@ public class Main {
      */
     private void start() {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-        executor.scheduleAtFixedRate(new JsoupParser(), 0, 10, TimeUnit.SECONDS);
+        executor.scheduleWithFixedDelay(new JsoupParser(), 0, 10, TimeUnit.SECONDS);
     }
 
     /**

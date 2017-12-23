@@ -28,6 +28,9 @@ public class JDBCStorege implements AutoCloseable {
      */
     private String defaultLastDate;
 
+    /**
+     * Класс настроек.
+     */
     private Settings settings;
 
     /**

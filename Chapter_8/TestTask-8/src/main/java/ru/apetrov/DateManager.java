@@ -34,6 +34,9 @@ public class DateManager {
      */
     private Properties properties;
 
+    /**
+     * Класс настроек.
+     */
     private Settings settings;
 
     /**

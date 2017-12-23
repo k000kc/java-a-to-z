@@ -37,6 +37,9 @@ public class JsoupParser implements Runnable {
      */
     private String urlForParsing;
 
+    /**
+     * Класс настроек.
+     */
     private Settings settings;
 
     /**
@@ -116,12 +119,13 @@ public class JsoupParser implements Runnable {
                         this.endLoop = true;
                         this.settings.savePropertiesForSecondStart("last_date", tsCreateDate.toString());
                         break;
+                    } else {
+                        Vacancy vacancy = new Vacancy(name, author, tsCreateDate);
+                        storege.add(vacancy);
+                        System.out.println(name);
+                        System.out.println(author);
+                        System.out.println(createDate + "\n");
                     }
-                    Vacancy vacancy = new Vacancy(name,author,tsCreateDate);
-                    storege.add(vacancy);
-                    System.out.println(name);
-                    System.out.println(author);
-                    System.out.println(createDate + "\n");
                 }
             }
         }

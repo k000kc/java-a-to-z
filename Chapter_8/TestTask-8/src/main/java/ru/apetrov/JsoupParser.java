@@ -37,10 +37,13 @@ public class JsoupParser implements Runnable {
      */
     private String urlForParsing;
 
+    private Settings settings;
+
     /**
      * Конструктор.
      */
     public JsoupParser() {
+        this.settings = new Settings();
         this.filter = new FilterPaterrn();
         this.endLoop = false;
         this.dateManager = new DateManager();
@@ -52,14 +55,7 @@ public class JsoupParser implements Runnable {
      * достаем страницу которую будем парсить.
      */
     private void initConnection() {
-        Properties properties = new Properties();
-        ClassLoader loader = JsoupParser.class.getClassLoader();
-        try (InputStream in = loader.getResourceAsStream("config.properties")) {
-            properties.load(in);
-            this.urlForParsing = properties.getProperty("url_for_parsing");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.urlForParsing = this.settings.getValue("url_for_parsing");
     }
 
     /**
@@ -118,7 +114,7 @@ public class JsoupParser implements Runnable {
                 if (this.filter.isCorrect(name)) {
                     if (tsCreateDate.getTime() <= storege.getLastDateForVacancy().getTime()) {
                         this.endLoop = true;
-                        this.dateManager.savePropertiesForSecondStart("last_date", tsCreateDate.toString());
+                        this.settings.savePropertiesForSecondStart("last_date", tsCreateDate.toString());
                         break;
                     }
                     Vacancy vacancy = new Vacancy(name,author,tsCreateDate);

@@ -28,11 +28,14 @@ public class JDBCStorege implements AutoCloseable {
      */
     private String defaultLastDate;
 
+    private Settings settings;
+
     /**
      * Конструктор. Инициализирует коннект с базой, загружая конфигурацию из файла config.properties.
      * и создает базу с необходимыми полями, если такой таблицы ещё не существует.
      */
     public JDBCStorege() {
+        this.settings = new Settings();
         this.initConnection();
         this.manager = new DateManager();
         try {
@@ -47,17 +50,12 @@ public class JDBCStorege implements AutoCloseable {
      * Инициализирует коннект с базой, загружая конфигурацию из файла config.properties.
      */
     private void initConnection() {
-        Properties properties = new Properties();
-        ClassLoader loader = JDBCStorege.class.getClassLoader();
-        try (InputStream in = loader.getResourceAsStream("config.properties")){
-            properties.load(in);
-            String url = properties.getProperty("jdbc.url");
-            String username = properties.getProperty("jdbc.username");
-            String password = properties.getProperty("jdbc.password");
+        try {
+            String url = this.settings.getValue("jdbc.url");
+            String username = this.settings.getValue("jdbc.username");
+            String password = this.settings.getValue("jdbc.password");
             this.connection = DriverManager.getConnection(url, username, password);
-            this.defaultLastDate = properties.getProperty("last_date");
-        } catch (IOException e) {
-            e.printStackTrace();
+            this.defaultLastDate = this.settings.getValue("last_date");
         } catch (SQLException e) {
             e.printStackTrace();
         }

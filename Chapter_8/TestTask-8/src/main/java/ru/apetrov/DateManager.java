@@ -34,10 +34,13 @@ public class DateManager {
      */
     private Properties properties;
 
+    private Settings settings;
+
     /**
      * Конструктор.
      */
     public DateManager() {
+        this.settings = new Settings();
         this.properties = new Properties();
         this.initConnection();
         this.months = new HashMap<>();
@@ -57,29 +60,9 @@ public class DateManager {
      * если true - значит программа запускается впервые. После изменяем значение по кючу first_start на false.
      */
     private void initConnection() {
-        ClassLoader loader = DateManager.class.getClassLoader();
-        try (InputStream in = loader.getResourceAsStream("config.properties")) {
-            this.properties.load(in);
-            this.isFirstStart = Boolean.valueOf(this.properties.getProperty("first_start"));
-            if (this.isFirstStart) {
-                this.savePropertiesForSecondStart("first_start","false");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Изменение значения newValue, по ключу key.
-     * @param key ключ.
-     * @param newValue значение.
-     */
-    public void savePropertiesForSecondStart(String key, String newValue) {
-        try (FileWriter out = new FileWriter("Chapter_8\\TestTask-8\\src\\main\\resources\\config.properties")) {
-            this.properties.setProperty(key, newValue);
-            this.properties.store(out, null);
-        } catch (IOException e) {
-            e.printStackTrace();
+        this.isFirstStart = Boolean.valueOf(this.settings.getValue("first_start"));
+        if (this.isFirstStart) {
+            this.settings.savePropertiesForSecondStart("first_start","false");
         }
     }
 

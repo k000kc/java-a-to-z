@@ -1,7 +1,7 @@
 <web-app>
     <servlet>
         <servlet-name>EchoServlet</servlet-name>
-        <servlet-class>ru.apetrv.servlets.EchpServlet</servlet-class>
+        <servlet-class>ru.apetrv.servlets.EchoServlet</servlet-class>
     </servlet>
 
     <ervlet-mapping>

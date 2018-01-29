@@ -1,0 +1,11 @@
+<web-app>
+    <servlet>
+        <servlet-name>EchoServlet</servlet-name>
+        <servlet-class>ru.apetrv.servlets.EchpServlet</servlet-class>
+    </servlet>
+
+    <ervlet-mapping>
+        <servlet-name>EchoServlet</servlet-name>
+        <url-pattern>/echo</url-pattern>
+    </ervlet-mapping>
+</web-app>

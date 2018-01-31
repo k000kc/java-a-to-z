@@ -1,11 +1,10 @@
-<web-app>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
     <servlet>
         <servlet-name>EchoServlet</servlet-name>
-        <servlet-class>ru.apetrv.servlets.EchoServlet</servlet-class>
+        <servlet-class>ru.apetrov.servlets.EchoServlet</servlet-class>
     </servlet>
-
-    <ervlet-mapping>
+    <servlet-mapping>
         <servlet-name>EchoServlet</servlet-name>
         <url-pattern>/echo</url-pattern>
-    </ervlet-mapping>
+    </servlet-mapping>
 </web-app>

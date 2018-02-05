@@ -1,0 +1,10 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+    <servlet>
+        <servlet-name>UsersServlet</servlet-name>
+        <servlet-class>ru.apetrov.servlets.UsersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsersServlet</servlet-name>
+        <url-pattern>/echo</url-pattern>
+    </servlet-mapping>
+</web-app>

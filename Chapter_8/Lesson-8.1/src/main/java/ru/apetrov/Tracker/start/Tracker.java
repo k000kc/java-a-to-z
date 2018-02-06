@@ -37,7 +37,7 @@ public class Tracker implements AutoCloseable {
 		initConnection();
 		try {
 			Statement statement = this.connection.createStatement();
-			statement.executeUpdate("CREATE TABLE IF NOT EXISTS items(id serial PRIMARY KEY, name CHARACTER VARYING(20) NOT NULL, description CHARACTER VARYING(20) NOT NULL, create_date TIMESTAMP, comment TEXT);");
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS items(id serial PRIMARY KEY, name CHARACTER VARYING(20) NOT NULL, description CHARACTER VARYING(20) NOT NULL, create_date TIMESTAMP(0), comment TEXT);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

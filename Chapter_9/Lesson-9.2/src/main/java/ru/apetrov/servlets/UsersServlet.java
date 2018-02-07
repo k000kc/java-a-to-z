@@ -1,5 +1,7 @@
 package ru.apetrov.servlets;
 
+import ru.apetrov.storage.UserStore;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,10 +14,13 @@ import java.io.PrintWriter;
  */
 public class UsersServlet extends HttpServlet {
 
+    private final UserStore userStore = UserStore.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
-        writer.print("hi");
+        writer.print(this.userStore.getUsers());
     }
 
     @Override

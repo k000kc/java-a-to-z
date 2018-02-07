@@ -11,9 +11,9 @@ public class User {
     private String email;
     private Timestamp createDate;
 
-    public User(String name, String login, String email, Timestamp createDate) {
-        this.name = name;
+    public User(String login, String name, String email, Timestamp createDate) {
         this.login = login;
+        this.name = name;
         this.email = email;
         this.createDate = createDate;
     }
@@ -32,5 +32,10 @@ public class User {
 
     public Timestamp getCreateDate() {
         return createDate;
+    }
+
+    @Override
+    public String toString() {
+        return  String.format("{User - %s, Login - %s, email - %s, create date - %s}", login, name, email, createDate);
     }
 }

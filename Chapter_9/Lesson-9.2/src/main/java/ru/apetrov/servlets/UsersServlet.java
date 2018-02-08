@@ -1,5 +1,9 @@
 package ru.apetrov.servlets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.apetrov.Settings;
+import ru.apetrov.model.User;
 import ru.apetrov.storage.UserStore;
 
 import javax.servlet.ServletException;
@@ -14,13 +18,23 @@ import java.io.PrintWriter;
  */
 public class UsersServlet extends HttpServlet {
 
-    private final UserStore userStore = UserStore.getInstance();
+    private UserStore userStore;
+    private static final Logger log = LoggerFactory.getLogger(Settings.class);
+
+    @Override
+    public void init() throws ServletException {
+        this.userStore = UserStore.getInstance();
+        this.userStore.initConnection();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
-        writer.print(this.userStore.getUsers());
+        for (User user : this.userStore.getAll()) {
+            writer.append(user.toString());
+            writer.flush();
+        }
     }
 
     @Override
@@ -36,5 +50,14 @@ public class UsersServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doDelete(req, resp);
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            this.userStore.close();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
     }
 }

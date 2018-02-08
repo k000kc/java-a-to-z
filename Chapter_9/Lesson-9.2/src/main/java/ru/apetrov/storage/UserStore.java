@@ -14,32 +14,30 @@ import java.util.List;
  */
 public class UserStore implements AutoCloseable {
 
-    private static final UserStore instance = new UserStore();
+    private static UserStore instance;
     private Settings settings;
     private Connection connection;
     private static final Logger log = LoggerFactory.getLogger(Settings.class);
 
     private UserStore() {
-        this.settings = new Settings();
-        this.initConnection();
-        try {
-            Statement statement = this.connection.createStatement();
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS users(login CHARACTER VARYING(30) UNIQUE PRIMARY KEY, user_name CHARACTER VARYING(50), email CHARACTER VARYING(50), create_date TIMESTAMP)");
-        } catch (SQLException e) {
-            log.error(e.getMessage(), e);
-        }
     }
 
     public static UserStore getInstance() {
+        if (instance == null) {
+            instance = new UserStore();
+        }
        return instance;
     }
 
-    private void initConnection() {
+    public void initConnection() {
         try {
+            this.settings = new Settings();
             String url = this.settings.getValue("jdbc.url");
             String username = this.settings.getValue("jdbc.username");
             String password = this.settings.getValue("jdbc.password");
             this.connection = DriverManager.getConnection(url, username, password);
+            Statement statement = this.connection.createStatement();
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS users(login CHARACTER VARYING(30) UNIQUE PRIMARY KEY, user_name CHARACTER VARYING(50), email CHARACTER VARYING(50), create_date TIMESTAMP)");
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }
@@ -78,7 +76,7 @@ public class UserStore implements AutoCloseable {
         }
     }
 
-    public List<User> getUsers() {
+    public List<User> getAll() {
         List<User> result = new ArrayList<>();
         try (Statement statement = this.connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
@@ -89,7 +87,6 @@ public class UserStore implements AutoCloseable {
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }
-
         return result;
     }
 

@@ -36,6 +36,11 @@ public class User {
 
     @Override
     public String toString() {
-        return  String.format("{User - %s, Login - %s, email - %s, create date - %s}", login, name, email, createDate);
+        return "User{" +
+                "login='" + login + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", createDate=" + createDate +
+                '}';
     }
 }

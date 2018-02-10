@@ -2,7 +2,7 @@
     <servlet>
         <servlet-name>UsersServlet</servlet-name>
         <servlet-class>ru.apetrov.servlets.UsersServlet</servlet-class>
-        <description>This servlet is an example servlet</description>
+        <description>Lesson-9.2</description>
         <init-param>
             <param-name>debug</param-name>
             <param-value>true</param-value>

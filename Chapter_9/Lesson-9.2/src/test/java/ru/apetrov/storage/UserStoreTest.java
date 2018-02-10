@@ -10,10 +10,13 @@ import java.sql.Timestamp;
  */
 public class UserStoreTest {
 
+    /**
+     * tests db.
+     */
     @Test
     public void testConnection() {
         UserStore store = UserStore.getInstance();
-        store.initConnection();
+
         store.put(new User("B", "C", "b@C", new Timestamp(System.currentTimeMillis())));
         store.put(new User("A", "S", "A@S", new Timestamp(System.currentTimeMillis())));
         store.put(new User("D", "F", "d@F", new Timestamp(System.currentTimeMillis())));

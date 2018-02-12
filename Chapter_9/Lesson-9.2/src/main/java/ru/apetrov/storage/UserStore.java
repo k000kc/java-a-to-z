@@ -44,7 +44,7 @@ public class UserStore implements AutoCloseable {
      * singleton instance UserStore.
      * @return UserStore.
      */
-    public static UserStore getInstance() {
+    public synchronized static UserStore getInstance() {
         if (instance == null) {
             instance = new UserStore();
             instance.initConnection();
@@ -55,7 +55,7 @@ public class UserStore implements AutoCloseable {
     /**
      * initial database connection.
      */
-    private void initConnection() {
+    private synchronized void initConnection() {
         try {
             this.connection = ConnectionDB.getConnection();
             Statement statement = this.connection.createStatement();
@@ -69,7 +69,7 @@ public class UserStore implements AutoCloseable {
      * add User from datebase.
      * @param user user.
      */
-    public void put(User user) {
+    public synchronized void put(User user) {
         try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO users(login, user_name, email, create_date) VALUES(?, ?, ?, ?)")) {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getName());
@@ -85,7 +85,7 @@ public class UserStore implements AutoCloseable {
      * delete User from datebase.
      * @param login user.
      */
-    public void delete(String login) {
+    public synchronized void delete(String login) {
         try (PreparedStatement statement = this.connection.prepareStatement("DELETE FROM users WHERE login = ?")) {
             statement.setString(1, login);
             statement.execute();
@@ -98,7 +98,7 @@ public class UserStore implements AutoCloseable {
      * update User from datebase.
      * @param user user.
      */
-    public void update(User user) {
+    public synchronized void update(User user) {
         try (PreparedStatement statement = this.connection.prepareStatement("UPDATE users SET user_name = ?, email = ?, create_date = ? WHERE login = ?")) {
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
@@ -114,7 +114,7 @@ public class UserStore implements AutoCloseable {
      * list all users from datebase.
      * @return list users.
      */
-    public List<User> getAll() {
+    public synchronized List<User> getAll() {
         List<User> result = new ArrayList<>();
         try (Statement statement = this.connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
@@ -133,7 +133,7 @@ public class UserStore implements AutoCloseable {
      * @throws SQLException exeption.
      */
     @Override
-    public void close() throws SQLException {
+    public synchronized void close() throws SQLException {
         this.connection.close();
     }
 }

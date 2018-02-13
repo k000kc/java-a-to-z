@@ -1,5 +1,7 @@
 package ru.apetrov.storage;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.apetrov.ConnectionDB;
@@ -17,16 +19,19 @@ import java.util.List;
 /**
  * Created by Andrey on 05.02.2018.
  */
+@ThreadSafe
 public class UserStore implements AutoCloseable {
 
     /**
      * Storege by users.
      */
+    @GuardedBy("this")
     private static UserStore instance;
 
     /**
      * database connection.
      */
+    @GuardedBy("this")
     private Connection connection;
 
     /**

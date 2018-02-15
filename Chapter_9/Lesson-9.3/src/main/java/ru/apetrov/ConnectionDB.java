@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Created by Andrey on 09.02.2018.
+ * Created by Andrey on 15.02.2018.
  */
 public class ConnectionDB {
 

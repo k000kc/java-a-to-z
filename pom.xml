@@ -52,6 +52,7 @@
         <module>Chapter_8/TestTask-8.1</module>
         <module>Chapter_9/Lesson-9.1</module>
         <module>Chapter_9/Lesson-9.2</module>
+        <module>Chapter_9/Lesson-9.3</module>
     </modules>
 
 	<dependencies>

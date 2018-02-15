@@ -28,7 +28,7 @@ public class UsersServlet extends HttpServlet {
     /**
      * logger.
      */
-    private static final Logger log = LoggerFactory.getLogger(Settings.class);
+    private static final Logger log = LoggerFactory.getLogger(UsersServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

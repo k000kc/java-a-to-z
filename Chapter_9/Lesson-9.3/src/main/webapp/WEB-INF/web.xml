@@ -1,0 +1,11 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+    <servlet>
+        <servlet-name>GetAllUsers</servlet-name>
+        <servlet-class>ru.apetrov.servlets.GetAllUsers</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetAllUsers</servlet-name>
+        <url-pattern>/allusers</url-pattern>
+    </servlet-mapping>
+</web-app>

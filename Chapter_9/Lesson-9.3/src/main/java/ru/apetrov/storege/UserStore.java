@@ -1,25 +1,19 @@
-package ru.apetrov.storage;
+package ru.apetrov.storege;
 
 import net.jcip.annotations.GuardedBy;
-import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.apetrov.ConnectionDB;
 import ru.apetrov.Settings;
 import ru.apetrov.model.User;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Andrey on 05.02.2018.
+ * Created by Andrey on 15.02.2018.
  */
-@ThreadSafe
 public class UserStore implements AutoCloseable {
 
     /**
@@ -37,7 +31,7 @@ public class UserStore implements AutoCloseable {
     /**
      * logger.
      */
-    private static final Logger log = LoggerFactory.getLogger(UserStore.class);
+    private static final Logger log = LoggerFactory.getLogger(Settings.class);
 
     /**
      * constructor.
@@ -54,7 +48,7 @@ public class UserStore implements AutoCloseable {
             instance = new UserStore();
             instance.initConnection();
         }
-       return instance;
+        return instance;
     }
 
     /**

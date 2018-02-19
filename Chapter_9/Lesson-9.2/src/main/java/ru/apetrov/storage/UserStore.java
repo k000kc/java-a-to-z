@@ -62,7 +62,7 @@ public class UserStore implements AutoCloseable {
      */
     private synchronized void initConnection() {
         try {
-            this.connection = ConnectionDB.getConnection();
+            this.connection = ConnectionDB.INSTANCE.getConnection();
             Statement statement = this.connection.createStatement();
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS users(login CHARACTER VARYING(30) UNIQUE PRIMARY KEY, user_name CHARACTER VARYING(50), email CHARACTER VARYING(50), create_date TIMESTAMP)");
         } catch (SQLException e) {

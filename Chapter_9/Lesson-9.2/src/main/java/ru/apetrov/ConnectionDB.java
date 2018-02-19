@@ -10,12 +10,14 @@ import java.sql.SQLException;
 /**
  * Created by Andrey on 09.02.2018.
  */
-public class ConnectionDB {
+public enum  ConnectionDB {
+
+    INSTANCE;
 
     /**
      * datebase connection.
      */
-    private static Connection connection;
+    private Connection connection;
 
     /**
      * logger.
@@ -23,16 +25,10 @@ public class ConnectionDB {
     private static final Logger log = LoggerFactory.getLogger(ConnectionDB.class);
 
     /**
-     * constructod.
-     */
-    private ConnectionDB() {
-    }
-
-    /**
      * get singleton connection instance.
      * @return connection.
      */
-    public static Connection getConnection() {
+    public Connection getConnection() {
         if (connection == null) {
             Settings settings = new Settings();
             try {

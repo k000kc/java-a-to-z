@@ -15,29 +15,43 @@ import java.io.PrintWriter;
 /**
  * Created by Andrey on 15.02.2018.
  */
-public class GetAllUsers extends HttpServlet {
+public class ShowUsers extends HttpServlet {
 
     private UserStore userStore = UserStore.getInstance();
 
-    private static final Logger log = LoggerFactory.getLogger(GetAllUsers.class);
+    private static final Logger log = LoggerFactory.getLogger(ShowUsers.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<table border='2'>");
+        sb.append("<caption>Users List</caption>");
+        for (User user : this.userStore.getAll()) {
+            sb.append("<tr>");
+            sb.append(String.format("<td>%s</td>", user.getLogin()));
+            sb.append(String.format("<td>%s</td>", user.getName()));
+            sb.append(String.format("<td>%s</td>", user.getEmail()));
+            sb.append(String.format("<td>%s</td>", user.getCreateDate()));
+            sb.append(String.format("<td><form action='%s/update' method='get'><input type='submit' value='update'></form></td>", req.getContextPath()));
+            sb.append(String.format("<td><form action='%s/delete' method='get'><input type='submit' value='delete'></form></td>", req.getContextPath()));
+            sb.append("</tr>");
+        }
+        sb.append("</table>");
+
         writer.append("<!DOCTYPE html>" +
-                "<html lang=\"en\">" +
                 "<head>" +
-                "    <meta charset=\"UTF-8\">" +
                 "    <title>Title</title>" +
                 "</head>" +
                 "<body>" +
-                "<form action='" + req.getContextPath() + "/allusers' method='post'>" +
+                "<form action='" + req.getContextPath() + "/delete' method='post'>" +
                 "Name: <input type='text' name='login'/>" +
                 "<input type='submit'/>" +
                 "</form>" +
                 "<br/>" +
-                this.userStore.getAll().toString() +
+                sb.toString() +
                 "</body>" +
                 "</html>");
         writer.flush();

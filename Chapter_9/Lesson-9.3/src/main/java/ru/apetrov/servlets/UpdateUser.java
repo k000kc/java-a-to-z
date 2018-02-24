@@ -26,7 +26,25 @@ public class UpdateUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
-        writer.append("Hi");
+        writer.append("<!DOCTYPE html>" +
+                "<head>" +
+                "    <title>Title</title>" +
+                "</head>" +
+                "<body>" +
+                "<form action='" + req.getContextPath() + "/update' method='post'>" +
+                "Login: <input type='text' name='login'/>" +
+                "Name: <input type='text' name='name'/>" +
+                "email: <input type='text' name='email'/>" +
+                "<input type='submit' value='update'/>" +
+                "</form>" +
+                "<br>" +
+                "<form action='" + req.getContextPath() + "/show' method='get'>" +
+                "<input type='submit' value='show users'/>" +
+                "</form>" +
+                "<br>" +
+                "</body>" +
+                "</html>");
+        writer.flush();
     }
 
     @Override
@@ -36,5 +54,6 @@ public class UpdateUser extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         this.userStore.update(new User(login, name, email, new Timestamp(System.currentTimeMillis())));
+        this.doGet(req, resp);
     }
 }

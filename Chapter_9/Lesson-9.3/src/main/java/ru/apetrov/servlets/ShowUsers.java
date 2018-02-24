@@ -35,21 +35,18 @@ public class ShowUsers extends HttpServlet {
             sb.append(String.format("<td>%s</td>", user.getName()));
             sb.append(String.format("<td>%s</td>", user.getEmail()));
             sb.append(String.format("<td>%s</td>", user.getCreateDate()));
-            sb.append(String.format("<td><form action='%s/update' method='get'><input type='submit' value='update'></form></td>", req.getContextPath()));
-            sb.append(String.format("<td><form action='%s/delete' method='get'><input type='submit' value='delete'></form></td>", req.getContextPath()));
             sb.append("</tr>");
         }
         sb.append("</table>");
+        sb.append(String.format("<form action='%s/update' method='get'><input type='submit' value='update'></form>", req.getContextPath()));
+        sb.append(String.format("<form action='%s/delete' method='get'><input type='submit' value='delete'></form>", req.getContextPath()));
+        sb.append(String.format("<form action='%s/add' method='get'><input type='submit' value='add'></form>", req.getContextPath()));
 
         writer.append("<!DOCTYPE html>" +
                 "<head>" +
                 "    <title>Title</title>" +
                 "</head>" +
                 "<body>" +
-                "<form action='" + req.getContextPath() + "/delete' method='post'>" +
-                "Name: <input type='text' name='login'/>" +
-                "<input type='submit'/>" +
-                "</form>" +
                 "<br/>" +
                 sb.toString() +
                 "</body>" +

@@ -47,7 +47,7 @@ public class ShowUsers extends HttpServlet {
                 "    <title>Title</title>" +
                 "</head>" +
                 "<body>" +
-                "<br/>" +
+                "<br>" +
                 sb.toString() +
                 "</body>" +
                 "</html>");

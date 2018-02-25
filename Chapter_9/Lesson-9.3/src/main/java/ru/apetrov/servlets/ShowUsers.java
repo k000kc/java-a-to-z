@@ -35,11 +35,20 @@ public class ShowUsers extends HttpServlet {
             sb.append(String.format("<td>%s</td>", user.getName()));
             sb.append(String.format("<td>%s</td>", user.getEmail()));
             sb.append(String.format("<td>%s</td>", user.getCreateDate()));
+
+            sb.append(String.format("<td><form action='%s/update' method='get'>", req.getContextPath()));
+            sb.append("<input type='submit' value='update'>");
+            sb.append(String.format("<input type='text' hidden name='login' value='%s'>", user.getLogin()));
+            sb.append("</form></td>");
+
+            sb.append(String.format("<td><form action='%s/delete' method='post'>", req.getContextPath()));
+            sb.append("<input type='submit' value='delete'>");
+            sb.append(String.format("<input type='text' hidden name='login' value='%s'>", user.getLogin()));
+            sb.append("</form></td>");
+
             sb.append("</tr>");
         }
         sb.append("</table>");
-        sb.append(String.format("<form action='%s/update' method='get'><input type='submit' value='update'></form>", req.getContextPath()));
-        sb.append(String.format("<form action='%s/delete' method='get'><input type='submit' value='delete'></form>", req.getContextPath()));
         sb.append(String.format("<form action='%s/add' method='get'><input type='submit' value='add'></form>", req.getContextPath()));
 
         writer.append("<!DOCTYPE html>" +

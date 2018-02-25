@@ -25,14 +25,21 @@ public class UpdateUser extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
+        String login = req.getParameter("login");
         writer.append("<!DOCTYPE html>" +
                 "<head>" +
                 "    <title>Title</title>" +
                 "</head>" +
                 "<body>" +
                 "<form action='" + req.getContextPath() + "/update' method='post'>" +
-                "Login: <input type='text' name='login'/>" +
+                "Login: " +
+                login +
+                "<br>" +
+                "<input type='text' hidden name='login' value='" +
+                login +
+                "'/>" +
                 "Name: <input type='text' name='name'/>" +
                 "email: <input type='text' name='email'/>" +
                 "<input type='submit' value='update'/>" +

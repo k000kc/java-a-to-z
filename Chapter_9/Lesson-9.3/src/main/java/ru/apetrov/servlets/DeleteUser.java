@@ -22,16 +22,16 @@ public class DeleteUser extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
         writer.append("<!DOCTYPE html>" +
                 "<head>" +
                 "    <title>Title</title>" +
                 "</head>" +
                 "<body>" +
-                "<form action='" + req.getContextPath() + "/delete' method='post'>" +
-                "Name: <input type='text' name='login'/>" +
-                "<input type='submit' value='delete'/>" +
-                "</form>" +
+                "User " +
+                req.getParameter("login") +
+                " delete" +
                 "<br>" +
                 "<form action='" + req.getContextPath() + "/show' method='get'>" +
                 "<input type='submit' value='show users'/>" +

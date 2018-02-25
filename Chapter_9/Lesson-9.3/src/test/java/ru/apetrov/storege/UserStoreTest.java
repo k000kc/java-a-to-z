@@ -20,7 +20,7 @@ public class UserStoreTest {
     public void testConnection() {
         UserStore store = UserStore.getInstance();
 
-        store.put(new User("Андрей", "Андрей", "папарпар@авапав", new Timestamp(System.currentTimeMillis())));
+        store.put(new User("123", "Andrey", "fgdl@mail.ru", new Timestamp(System.currentTimeMillis())));
 
     }
 

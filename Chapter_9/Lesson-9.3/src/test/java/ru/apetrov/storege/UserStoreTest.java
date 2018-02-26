@@ -16,37 +16,39 @@ import java.sql.Timestamp;
  */
 public class UserStoreTest {
 
-//    private int count;
-//
-//    @Before
-//    public void init() {
-//        ConnectionDB connectionDB = new ConnectionDB();
-//        Connection connection = connectionDB.getConnection();
-//        try {
-//            Statement statement = connection.createStatement();
-//            statement.executeUpdate("DELETE FROM users");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * tests db.
-//     */
-//    @Test
-//    public void testConnection() {
-//        while (count < 20) {
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    UserStore store = UserStore.getInstance();
-//                    String login = String.format("login-%s", count);
-//                    String name = String.format("name-%s", count);
-//                    String email = String.format("email@-%s", count);
-//                    count++;
-//                    store.put(new User(login, name, email, new Timestamp(System.currentTimeMillis())));
-//                }
-//            }).start();
-//        }
-//    }
+    private int count;
+
+    @Before
+    public void init() {
+        ConnectionDB connectionDB = new ConnectionDB();
+        Connection connection = connectionDB.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM users");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * tests db.
+     */
+    @Test
+    public void testConnection() {
+        while (count < 20) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    synchronized (UserStoreTest.class) {
+                        UserStore store = UserStore.getInstance();
+                        String login = String.format("login-%s", count);
+                        String name = String.format("name-%s", count);
+                        String email = String.format("email@-%s", count);
+                        store.put(new User(login, name, email, new Timestamp(System.currentTimeMillis())));
+                        count++;
+                    }
+                }
+            }).start();
+        }
+    }
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 /**
  * Created by Andrey on 20.02.2018.
@@ -48,5 +49,14 @@ public class DeleteUser extends HttpServlet {
         String login = req.getParameter("login");
         this.userStore.delete(login);
         this.doGet(req, resp);
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            this.userStore.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

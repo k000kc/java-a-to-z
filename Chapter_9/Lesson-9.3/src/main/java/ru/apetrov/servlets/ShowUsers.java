@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 /**
  * Created by Andrey on 15.02.2018.
@@ -60,5 +61,14 @@ public class ShowUsers extends HttpServlet {
                 "</body>" +
                 "</html>");
         writer.flush();
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            this.userStore.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

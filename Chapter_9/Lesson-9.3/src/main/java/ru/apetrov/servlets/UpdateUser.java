@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 /**
@@ -62,5 +63,14 @@ public class UpdateUser extends HttpServlet {
         String email = req.getParameter("email");
         this.userStore.update(new User(login, name, email, new Timestamp(System.currentTimeMillis())));
         this.doGet(req, resp);
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            this.userStore.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

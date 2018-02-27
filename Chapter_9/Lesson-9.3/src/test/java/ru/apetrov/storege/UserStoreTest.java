@@ -27,6 +27,12 @@ public class UserStoreTest {
             statement.executeUpdate("DELETE FROM users");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

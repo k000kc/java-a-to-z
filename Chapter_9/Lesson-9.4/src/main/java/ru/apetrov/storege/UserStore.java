@@ -11,6 +11,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * user storege.
+ */
 public class UserStore implements AutoCloseable {
 
     /**

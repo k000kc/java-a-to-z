@@ -1,7 +1,7 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
     <servlet>
         <servlet-name>EchoServlet</servlet-name>
-        <servlet-class>ru.apetrov.servlets.EchoServlet</servlet-class>
+        <servlet-class>ru.apetrov.controller.EchoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EchoServlet</servlet-name>

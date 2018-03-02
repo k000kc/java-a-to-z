@@ -31,7 +31,7 @@ public class UserStore implements AutoCloseable {
     /**
      * logger.
      */
-    private static final Logger log = LoggerFactory.getLogger(Settings.class);
+    private static final Logger log = LoggerFactory.getLogger(UserStore.class);
 
     /**
      * constructor.

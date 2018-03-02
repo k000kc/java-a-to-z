@@ -1,4 +1,4 @@
-package ru.apetrov.servlets;
+package ru.apetrov.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 /**
  * Created by Andrey on 20.02.2018.
  */
-public class AddUser extends HttpServlet {
+public class UpdateUser extends HttpServlet {
 
 
     private UserStore userStore = UserStore.getInstance();
@@ -28,16 +28,22 @@ public class AddUser extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
+        String login = req.getParameter("login");
         writer.append("<!DOCTYPE html>" +
                 "<head>" +
                 "    <title>Title</title>" +
                 "</head>" +
                 "<body>" +
-                "<form action='" + req.getContextPath() + "/add' method='post'>" +
-                "Login: <input type='text' name='login'/>" +
+                "<form action='" + req.getContextPath() + "/update' method='post'>" +
+                "Login: " +
+                login +
+                "<br>" +
+                "<input type='text' hidden name='login' value='" +
+                login +
+                "'/>" +
                 "Name: <input type='text' name='name'/>" +
                 "email: <input type='text' name='email'/>" +
-                "<input type='submit' value='add'/>" +
+                "<input type='submit' value='update'/>" +
                 "</form>" +
                 "<br>" +
                 "<form action='" + req.getContextPath() + "/show' method='get'>" +
@@ -55,7 +61,7 @@ public class AddUser extends HttpServlet {
         String login = req.getParameter("login");
         String name = req.getParameter("name");
         String email = req.getParameter("email");
-        this.userStore.put(new User(login, name, email, new Timestamp(System.currentTimeMillis())));
+        this.userStore.update(new User(login, name, email, new Timestamp(System.currentTimeMillis())));
         this.doGet(req, resp);
     }
 

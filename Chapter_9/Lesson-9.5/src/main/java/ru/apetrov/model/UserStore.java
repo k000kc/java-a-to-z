@@ -1,19 +1,14 @@
-package ru.apetrov.storege;
+package ru.apetrov.model;
 
 import net.jcip.annotations.GuardedBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.apetrov.ConnectionDB;
-import ru.apetrov.Settings;
-import ru.apetrov.model.User;
+import ru.apetrov.settings.ConnectionDB;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * user storege.
- */
 public class UserStore implements AutoCloseable {
 
     /**

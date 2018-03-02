@@ -1,4 +1,4 @@
-package ru.apetrov.servlets;
+package ru.apetrov.controller;
 
 import ru.apetrov.model.User;
 import ru.apetrov.storege.UserStore;

@@ -1,4 +1,4 @@
-package ru.apetrov.servlets;
+package ru.apetrov.controller;
 
 import org.apache.log4j.Logger;
 

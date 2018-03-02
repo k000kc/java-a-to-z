@@ -1,8 +1,7 @@
-package ru.apetrov.servlets;
+package ru.apetrov.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.apetrov.Settings;
 import ru.apetrov.model.User;
 import ru.apetrov.storage.UserStore;
 

@@ -1,4 +1,15 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+
+    <servlet>
+        <servlet-name>ShowUser</servlet-name>
+        <servlet-class>ru.apetrov.controller.ShowUser</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowUser</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>AddUser</servlet-name>
         <servlet-class>ru.apetrov.controller.AddUser</servlet-class>

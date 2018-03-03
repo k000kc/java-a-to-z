@@ -9,6 +9,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * user store.
+ */
 public class UserStore implements AutoCloseable {
 
     /**

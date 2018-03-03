@@ -2,6 +2,9 @@ package ru.apetrov.model;
 
 import java.sql.Timestamp;
 
+/**
+ * user.
+ */
 public class User {
 
         /**

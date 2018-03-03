@@ -1,5 +1,6 @@
 <%@ page import="ru.apetrov.model.User" %>
-<%@ page import="ru.apetrov.storege.UserStore" %><%--
+<%@ page import="ru.apetrov.storege.UserStore" %>
+<%--
   Created by IntelliJ IDEA.
   User: Andrey
   Date: 27.02.2018

@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Settings to db.
+ */
 public class Settings {
     /**
      * logger.

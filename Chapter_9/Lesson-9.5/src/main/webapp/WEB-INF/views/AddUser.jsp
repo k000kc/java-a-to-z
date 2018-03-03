@@ -8,9 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>AddUser</title>
 </head>
 <body>
-
+<form action="${pageContext.servletContext.contextPath}/add" method="post">
+    Login: <input type="text" name="login">
+    Name: <input type="text" name="name">
+    Email: <input type="text" name="email">
+    <input type="submit" value="add">
+</form>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Andrey
@@ -8,9 +9,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>UpdateUser</title>
 </head>
 <body>
-
+Login: <c:out value="${login}"></c:out>
+<form action="${pageContext.servletContext.contextPath}/update" method="post">
+    <input type="hidden" name="login" value="${login}">
+    Name: <input type="text" name="name">
+    Email: <input type="text" name="email">
+    <input type="submit" value="update">
+</form>
 </body>
 </html>

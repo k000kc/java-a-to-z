@@ -11,6 +11,7 @@ import java.util.Properties;
  * Settings to db.
  */
 public class Settings {
+
     /**
      * logger.
      */

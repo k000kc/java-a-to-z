@@ -17,8 +17,14 @@ import java.sql.SQLException;
  */
 public class DeleteUser extends HttpServlet {
 
+    /**
+     * logger.
+     */
     private static final Logger log = LoggerFactory.getLogger(ShowUsers.class);
 
+    /**
+     * user store.
+     */
     private UserStore userStore = UserStore.getInstance();
 
 

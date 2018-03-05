@@ -15,6 +15,11 @@ import java.util.List;
 public class UserStore implements AutoCloseable {
 
     /**
+     * logger.
+     */
+    private static final Logger log = LoggerFactory.getLogger(UserStore.class);
+
+    /**
      * Storege by users.
      */
     @GuardedBy("this")
@@ -26,10 +31,6 @@ public class UserStore implements AutoCloseable {
     @GuardedBy("this")
     private Connection connection;
 
-    /**
-     * logger.
-     */
-    private static final Logger log = LoggerFactory.getLogger(UserStore.class);
 
     /**
      * constructor.

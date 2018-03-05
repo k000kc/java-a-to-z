@@ -14,14 +14,15 @@ import java.sql.SQLException;
 public class ConnectionDB {
 
     /**
+     * logger.
+     */
+    private static final Logger log = LoggerFactory.getLogger(ConnectionDB.class);
+
+    /**
      * datebase connection.
      */
     private Connection connection;
 
-    /**
-     * logger.
-     */
-    private static final Logger log = LoggerFactory.getLogger(ConnectionDB.class);
 
     /**
      * get singleton connection instance.

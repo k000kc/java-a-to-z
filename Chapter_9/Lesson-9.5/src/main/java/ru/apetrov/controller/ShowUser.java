@@ -18,6 +18,9 @@ public class ShowUser extends HttpServlet {
      */
     private static final Logger log = LoggerFactory.getLogger(UserStore.class);
 
+    /**
+     * user store.
+     */
     private final UserStore userStore = UserStore.getInstance();
 
     @Override

@@ -18,9 +18,9 @@ import java.sql.SQLException;
  */
 public class ShowUsers extends HttpServlet {
 
-    private UserStore userStore = UserStore.getInstance();
-
     private static final Logger log = LoggerFactory.getLogger(ShowUsers.class);
+
+    private UserStore userStore = UserStore.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -68,7 +68,7 @@ public class ShowUsers extends HttpServlet {
         try {
             this.userStore.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 }

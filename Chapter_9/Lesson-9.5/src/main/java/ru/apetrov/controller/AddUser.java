@@ -1,5 +1,7 @@
 package ru.apetrov.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.apetrov.model.User;
 import ru.apetrov.model.UserStore;
 
@@ -8,12 +10,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 /**
  * add user.
  */
 public class AddUser extends HttpServlet {
+
+    /**
+     * logger.
+     */
+    private static final Logger log = LoggerFactory.getLogger(UserStore.class);
 
     /**
      * User store.
@@ -33,5 +41,14 @@ public class AddUser extends HttpServlet {
         String email = req.getParameter("email");
         this.userStore.put(new User(login, name, email, new Timestamp(System.currentTimeMillis())));
         resp.sendRedirect(req.getContextPath());
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            this.userStore.close();
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
     }
 }

@@ -17,9 +17,10 @@ import java.sql.SQLException;
  */
 public class DeleteUser extends HttpServlet {
 
+    private static final Logger log = LoggerFactory.getLogger(ShowUsers.class);
+
     private UserStore userStore = UserStore.getInstance();
 
-    private static final Logger log = LoggerFactory.getLogger(ShowUsers.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,7 +57,7 @@ public class DeleteUser extends HttpServlet {
         try {
             this.userStore.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 }

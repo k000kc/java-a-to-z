@@ -19,11 +19,6 @@ public class ConnectionDB {
     private static final Logger log = LoggerFactory.getLogger(ConnectionDB.class);
 
     /**
-     * datebase connection.
-     */
-    private Connection connection;
-
-    /**
      * get singleton connection instance.
      * @return connection.
      */
@@ -36,8 +31,9 @@ public class ConnectionDB {
         poolProperties.setUsername(settings.getValue("jdbc.username"));
         poolProperties.setPassword(settings.getValue("jdbc.password"));
         source.setPoolProperties(poolProperties);
+        Connection connection = null;
         try {
-            this.connection = source.getConnection();
+            connection = source.getConnection();
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }

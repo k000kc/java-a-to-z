@@ -47,7 +47,13 @@ public class UserStoreTest {
                         String password = String.format("password=%s", count);
                         String name = String.format("name-%s", count);
                         String email = String.format("email@-%s", count);
-                        store.put(new User(login, password, name, email, new Timestamp(System.currentTimeMillis())));
+                        User user = new User(login, password, name, email, new Timestamp(System.currentTimeMillis()), "emploee");
+                        System.out.println(user.getPassword());
+                        try {
+                            store.put(user);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                         count++;
                     }
                 }

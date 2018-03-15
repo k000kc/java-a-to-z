@@ -87,25 +87,22 @@ public class UserStore implements AutoCloseable {
             statement.setTimestamp(5, user.getCreateDate());
             statement.addBatch();
             statement.executeBatch();
-            this.connection.commit();
             this.putRole(user);
-        } catch (SQLException e) {
-            this.connection.rollback();
-            log.error(e.getMessage(), e);
-        }
-    }
-
-    private void putRole(User user) throws SQLException {
-        try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO users_roles(login, role_id) VALUES(?, (SELECT id FROM roles WHERE role = ?))")){
-            statement.setString(1, user.getLogin());
-            statement.setString(2, user.getRole());
-            statement.addBatch();
-            statement.executeBatch();
+            this.connection.commit();
         } catch (SQLException e) {
             this.connection.rollback();
             log.error(e.getMessage(), e);
         } finally {
             this.connection.setAutoCommit(true);
+        }
+    }
+
+    private synchronized void putRole(User user) throws SQLException {
+        try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO users_roles(login, role_id) VALUES(?, (SELECT id FROM roles WHERE role = ?))")){
+            statement.setString(1, user.getLogin());
+            statement.setString(2, user.getRole());
+            statement.addBatch();
+            statement.executeBatch();
         }
     }
 
@@ -115,6 +112,7 @@ public class UserStore implements AutoCloseable {
      */
     public synchronized void delete(String login) throws SQLException {
         this.connection.setAutoCommit(false);
+        this.deleteRole(login);
         try (PreparedStatement statement = this.connection.prepareStatement("DELETE FROM users WHERE login = ?")) {
             statement.setString(1, login);
             statement.addBatch();
@@ -125,6 +123,14 @@ public class UserStore implements AutoCloseable {
             log.error(e.getMessage(), e);
         } finally {
             this.connection.setAutoCommit(true);
+        }
+    }
+
+    private synchronized void deleteRole(String login) throws SQLException {
+        try (PreparedStatement statement = this.connection.prepareStatement("DELETE FROM users_roles WHERE login = ?")) {
+            statement.setString(1, login);
+            statement.addBatch();
+            statement.executeBatch();
         }
     }
 
@@ -142,12 +148,22 @@ public class UserStore implements AutoCloseable {
             statement.setString(5, user.getLogin());
             statement.addBatch();
             statement.executeBatch();
+            this.updateRole(user);
             this.connection.commit();
         } catch (SQLException e) {
             this.connection.rollback();
             log.error(e.getMessage(), e);
         } finally {
             this.connection.setAutoCommit(true);
+        }
+    }
+
+    private synchronized void updateRole(User user) throws SQLException {
+        try (PreparedStatement statement = this.connection.prepareStatement("UPDATE users_roles SET role_id = (SELECT id FROM roles WHERE role = ?) WHERE login = ?")) {
+            statement.setString(1, user.getRole());
+            statement.setString(2, user.getLogin());
+            statement.addBatch();
+            statement.executeBatch();
         }
     }
 

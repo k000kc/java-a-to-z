@@ -39,4 +39,14 @@
         <servlet-name>DeleteUser</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Signin</servlet-name>
+        <servlet-class>ru.apetrov.controller.SigninController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Signin</servlet-name>
+        <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
 </web-app>

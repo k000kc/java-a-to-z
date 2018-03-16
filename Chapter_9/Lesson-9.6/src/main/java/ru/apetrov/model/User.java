@@ -96,7 +96,7 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("User: login - %s, name - %s, email - %s, create date - %s", login, name, email, createDate);
+        return String.format("User: login - %s, name - %s, email - %s, create date - %s role - %s", login, name, email, createDate, role);
     }
 
     @Override

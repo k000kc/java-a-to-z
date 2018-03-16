@@ -28,6 +28,44 @@ public class UserStoreTest {
     @Test
     public void testConnection() {
         this.delDB();
+        this.addingDB();
+    }
+
+    @Test
+    public void testDelete() {
+        UserStore store = UserStore.getInstance();
+        try {
+            store.delete("login-5");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testUpdate() {
+        UserStore store = UserStore.getInstance();
+        try {
+            store.update(new User("login-2", "123", "Andrey", "ham2188@mail.ru", new Timestamp(System.currentTimeMillis()),"user"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testShowUsers() {
+        this.delDB();
+        this.addingDB();
+        UserStore store = UserStore.getInstance();
+        try {
+            for (User user : store.getAll()) {
+                System.out.println(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void addingDB() {
         while (count < 10) {
             new Thread(new Runnable() {
                 @Override
@@ -52,30 +90,9 @@ public class UserStoreTest {
         }
     }
 
-    @Test
-    public void testDelete() {
-        UserStore store = UserStore.getInstance();
-        try {
-            store.delete("login-5");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testUpdate() {
-        UserStore store = UserStore.getInstance();
-        try {
-            store.update(new User("login-2", "123", "Andrey", "ham2188@mail.ru", new Timestamp(System.currentTimeMillis()),"admin"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public synchronized void delDB() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("DELETE FROM  users_roles");
             statement.executeUpdate("DELETE FROM users");
         } catch (SQLException e) {
             e.printStackTrace();

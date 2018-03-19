@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 
 public class UserStoreTest {
@@ -63,6 +64,12 @@ public class UserStoreTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testIsCredentional() {
+        UserStore store = UserStore.getInstance();
+        System.out.println(store.isCredentional("login-2", "123"));
     }
 
     public synchronized void addingDB() {

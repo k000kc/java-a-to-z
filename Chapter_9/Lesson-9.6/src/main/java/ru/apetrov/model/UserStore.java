@@ -8,6 +8,7 @@ import ru.apetrov.settings.ConnectionDB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserStore implements AutoCloseable {
 
@@ -60,7 +61,7 @@ public class UserStore implements AutoCloseable {
             this.connection.setAutoCommit(false);
             Statement statement = this.connection.createStatement();
             statement.addBatch("CREATE TABLE IF NOT EXISTS roles(id INTEGER PRIMARY KEY UNIQUE , role CHARACTER VARYING(30) UNIQUE)");
-            statement.addBatch("CREATE TABLE IF NOT EXISTS users(login CHARACTER VARYING(30) UNIQUE PRIMARY KEY, password CHARACTER VARYING(30), user_name CHARACTER VARYING(50), email CHARACTER VARYING(50), create_date TIMESTAMP, role_id INTEGER REFERENCES roles(id))");
+            statement.addBatch("CREATE TABLE IF NOT EXISTS users(login CHARACTER VARYING(30) UNIQUE PRIMARY KEY, password CHARACTER VARYING(30), user_name CHARACTER VARYING(50), email CHARACTER VARYING(50), create_date TIMESTAMP, role_id INTEGER DEFAULT 2 REFERENCES roles(id))");
             statement.addBatch("INSERT INTO roles(id, role) VALUES(1, 'admin'),(2, 'user')");
             statement.executeBatch();
             this.connection.commit();
@@ -150,6 +151,23 @@ public class UserStore implements AutoCloseable {
             while (resultSet.next()) {
                 User user = new User(resultSet.getString("login"), resultSet.getString("password"), resultSet.getString("user_name"), resultSet.getString("email"), resultSet.getTimestamp("create_date"), resultSet.getString("role"));
                 result.add(user);
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        return result;
+    }
+
+    public boolean isCredentional(String login, String password) {
+        boolean result = false;
+        String passwordHash = String.valueOf(Objects.hash(login, password));
+        System.out.println(passwordHash);
+        try (PreparedStatement statement = this.connection.prepareStatement("SELECT login FROM users AS u WHERE u.login = ? AND u.password = ?")) {
+            statement.setString(1, login);
+            statement.setString(2, passwordHash);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                result = true;
             }
         } catch (SQLException e) {
             log.error(e.getMessage(), e);

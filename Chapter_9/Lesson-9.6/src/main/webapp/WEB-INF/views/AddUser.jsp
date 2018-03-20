@@ -16,7 +16,10 @@
     Password: <input type="password" name="password"></br>
     Name: <input type="text" name="name"></br>
     Email: <input type="text" name="email"></br>
-    Role: <input type="text" name="role"></br>
+    Role: <select name="role">
+        <option selected>user</option>
+        <option>admin</option>
+    </select>
     <input type="submit" value="add">
 </form>
 </body>

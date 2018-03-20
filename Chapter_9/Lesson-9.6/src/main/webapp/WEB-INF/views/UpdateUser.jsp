@@ -13,14 +13,13 @@
 <body>
 <form action="${pageContext.servletContext.contextPath}/update" method="post">
     <input type="hidden" name="login" value="${login}">
-    Name: <input type="text" name="name">
-    </br>
-    Email: <input type="text" name="email">
-    </br>
-    New password: <input type="password" name="password">
-    </br>
-    Role: <input type="text" name="role">
-    </br>
+    Name: <input type="text" name="name"><br>
+    Email: <input type="text" name="email"><br>
+    New password: <input type="password" name="password"><br>
+    Role: <select name="role">
+        <option selected>user</option>
+        <option>admin</option>
+    </select><br>
     <input type="submit" value="update">
 </form>
 </body>

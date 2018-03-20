@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Andrey
@@ -11,8 +12,12 @@
     <title>Login</title>
 </head>
 <body>
+<c:if test="${error != ''}">
+    <div style="background-color: red">
+        <c:out value="${error}"/>
+    </div>
+</c:if>
 <form action="${pageContext.servletContext.contextPath}/signin" method="post">
-    <input type="hidden" name="login" value="${login}">
     Login: <input type="text" name="login">
     Password: <input type="password" name="password">
     <input type="submit" value="update">

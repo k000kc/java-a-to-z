@@ -166,13 +166,27 @@ public class UserStore implements AutoCloseable {
             statement.setString(1, login);
             statement.setString(2, passwordHash);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 result = true;
             }
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }
         return result;
+    }
+
+    public String getRoleByLogin(String login) {
+        String role = null;
+        try (PreparedStatement statement = this.connection.prepareStatement("SELECT role FROM roles AS r INNER JOIN users AS u ON u.login = ? AND u.role_id = r.id")) {
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                role = resultSet.getString("role");
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        return role;
     }
 
     /**

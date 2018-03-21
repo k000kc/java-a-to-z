@@ -72,6 +72,12 @@ public class UserStoreTest {
         System.out.println(store.isCredentional("login-2", "123"));
     }
 
+    @Test
+    public synchronized void testGetRolebyLogin() {
+        UserStore store = UserStore.getInstance();
+        System.out.println(store.getRoleByLogin("root"));
+    }
+
     public synchronized void addingDB() {
         while (count < 10) {
             new Thread(new Runnable() {

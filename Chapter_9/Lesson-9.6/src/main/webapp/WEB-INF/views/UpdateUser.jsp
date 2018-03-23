@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Andrey
@@ -18,7 +19,9 @@
     New password: <input type="password" name="password"><br>
     Role: <select name="role">
         <option selected>user</option>
+        <c:if test="${role == 'admin'}">
         <option>admin</option>
+        </c:if>
     </select><br>
     <input type="submit" value="update">
 </form>

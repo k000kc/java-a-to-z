@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * login and password check servlret.
+ */
 public class SigninController extends HttpServlet {
 
     /**

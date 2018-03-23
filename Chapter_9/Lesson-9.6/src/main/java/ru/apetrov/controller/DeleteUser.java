@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Delete user servlet.
+ */
 public class DeleteUser extends HttpServlet {
 
     /**

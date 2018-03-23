@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * user store.
+ */
 public class UserStore implements AutoCloseable {
 
     /**
@@ -70,7 +73,17 @@ public class UserStore implements AutoCloseable {
             log.error(e.getMessage(), e);
         } finally {
             this.connection.setAutoCommit(true);
+            this.addAdmin();
         }
+    }
+
+    /**
+     * adding admin account.
+     * @throws SQLException
+     */
+    private synchronized void addAdmin() throws SQLException {
+        User user = new User("root", "root", "root", "root@root.ru", new Timestamp(System.currentTimeMillis()),"admin");
+        this.put(user);
     }
 
     /**
@@ -158,6 +171,12 @@ public class UserStore implements AutoCloseable {
         return result;
     }
 
+    /**
+     * account existence check.
+     * @param login login.
+     * @param password password.
+     * @return true if account exist.
+     */
     public boolean isCredentional(String login, String password) {
         boolean result = false;
         String passwordHash = String.valueOf(Objects.hash(login, password));
@@ -175,6 +194,11 @@ public class UserStore implements AutoCloseable {
         return result;
     }
 
+    /**
+     * return the role by login.
+     * @param login login.
+     * @return role.
+     */
     public String getRoleByLogin(String login) {
         String role = null;
         try (PreparedStatement statement = this.connection.prepareStatement("SELECT role FROM roles AS r INNER JOIN users AS u ON u.login = ? AND u.role_id = r.id")) {

@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * add user servlert.
+ */
 public class AddUser extends HttpServlet {
 
     /**

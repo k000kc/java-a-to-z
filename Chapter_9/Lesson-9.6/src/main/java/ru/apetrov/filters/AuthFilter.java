@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * filter to create a session.
+ */
 public class AuthFilter implements Filter {
 
     /**

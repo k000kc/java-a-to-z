@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Edit user servlet.
+ */
 public class UpdateUser extends HttpServlet {
 
     /**

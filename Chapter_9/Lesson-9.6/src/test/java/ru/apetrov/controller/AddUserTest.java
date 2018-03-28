@@ -35,8 +35,14 @@ public class AddUserTest {
         addUser.doPost(request, response);
 
         UserStore store = UserStore.getInstance();
-        List<User> list = store.getAll();
+        boolean res = false;
 
-        assertThat(list.get(0).getLogin(), is("test"));
+        for (User user : store.getAll()) {
+            if (user.getLogin().equals("test")) {
+                res = true;
+            }
+        }
+
+        assertThat(res, is(true));
     }
 }

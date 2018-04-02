@@ -4,13 +4,11 @@ import org.junit.Test;
 import ru.apetrov.model.User;
 import ru.apetrov.model.UserStore;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -44,5 +42,6 @@ public class AddUserTest {
         }
 
         assertThat(res, is(true));
+
     }
 }

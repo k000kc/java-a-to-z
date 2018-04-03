@@ -29,6 +29,11 @@ public class User {
 
     private String role;
 
+    private String city;
+
+    private String country;
+
+
     /**
      * Constructor.
      * @param login      login
@@ -87,6 +92,22 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override

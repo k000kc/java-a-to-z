@@ -61,7 +61,9 @@ public class UserStore implements AutoCloseable {
             this.connection.setAutoCommit(false);
             Statement statement = this.connection.createStatement();
             statement.addBatch("CREATE TABLE IF NOT EXISTS roles(id INTEGER PRIMARY KEY UNIQUE , role CHARACTER VARYING(30) UNIQUE)");
-            statement.addBatch("CREATE TABLE IF NOT EXISTS users(login CHARACTER VARYING(30) UNIQUE PRIMARY KEY, password CHARACTER VARYING(30), user_name CHARACTER VARYING(50), email CHARACTER VARYING(50), create_date TIMESTAMP, role_id INTEGER DEFAULT 2 REFERENCES roles(id))");
+            statement.addBatch("CREATE TABLE IF NOT EXISTS countries(id SERIAL PRIMARY KEY, country CHARACTER VARYING(50) UNIQUE)");
+            statement.addBatch("CREATE TABLE IF NOT EXISTS cities(city CHARACTER VARYING(50) UNIQUE PRIMARY KEY, country_id INTEGER REFERENCES countries(id))");
+            statement.addBatch("CREATE TABLE IF NOT EXISTS users(login CHARACTER VARYING(30) UNIQUE PRIMARY KEY, password CHARACTER VARYING(30), user_name CHARACTER VARYING(50), email CHARACTER VARYING(50), create_date TIMESTAMP, role_id INTEGER DEFAULT 2 REFERENCES roles(id), city CHARACTER  VARYING(50) REFERENCES cities(city))");
             statement.addBatch("INSERT INTO roles(id, role) VALUES(1, 'admin'),(2, 'user')");
             statement.executeBatch();
             this.connection.commit();
@@ -71,6 +73,7 @@ public class UserStore implements AutoCloseable {
         } finally {
             this.connection.setAutoCommit(true);
             this.addAdmin();
+            this.addBaseCountrys();
         }
     }
 
@@ -81,6 +84,41 @@ public class UserStore implements AutoCloseable {
     private synchronized void addAdmin() throws SQLException {
         User user = new User("root", "root", "root", "root@root.ru", new Timestamp(System.currentTimeMillis()),"admin");
         this.put(user);
+    }
+
+    private synchronized  void addBaseCountrys() throws SQLException {
+        this.putCountry("Россия");
+        this.putCountry("США");
+        this.putCities("Россия", "Москва");
+        this.putCities("Россия", "Санкт-Петербург");
+        this.putCities("Россия", "Чебоксары");
+        this.putCities("США", "Нью-Йорк");
+        this.putCities("США", "Вашингтон");
+        this.putCities("США", "Детройт");
+    }
+
+    public synchronized void putCountry(String country) {
+        try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO countries(country) VALUES(?)")) {
+            statement.setString(1, country);
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    public synchronized void putCities(String country, String city) throws SQLException {
+        this.connection.setAutoCommit(false);
+        try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO cities(city, country_id) VALUES(?, (SELECT id FROM countries WHERE country = ?))")) {
+            statement.setString(1, city);
+            statement.setString(2, country);
+            statement.addBatch();
+            statement.executeBatch();
+            this.connection.commit();
+        } catch (SQLException e) {
+            this.connection.rollback();
+            log.error(e.getMessage(), e);
+        } finally {
+            this.connection.setAutoCommit(true);
+        }
     }
 
     /**

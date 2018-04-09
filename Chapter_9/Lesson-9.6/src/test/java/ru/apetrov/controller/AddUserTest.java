@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -33,15 +34,16 @@ public class AddUserTest {
         addUser.doPost(request, response);
 
         UserStore store = UserStore.getInstance();
-        boolean res = false;
+        User expected = new User("test", "test", "test", "test@test", new Timestamp(System.currentTimeMillis()), "admin");
+        User result = null;
 
         for (User user : store.getAll()) {
             if (user.getLogin().equals("test")) {
-                res = true;
+                result = user;
             }
         }
 
-        assertThat(res, is(true));
+        assertThat(expected, is(result));
 
     }
 }

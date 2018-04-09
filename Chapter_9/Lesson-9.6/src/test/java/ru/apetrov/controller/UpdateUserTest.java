@@ -23,17 +23,17 @@ public class UpdateUserTest {
     private UserStore store;
     private HttpServletRequest request;
     private HttpServletResponse response;
-    private boolean res;
+    private User expected;
 
     @Before
     public void init() throws SQLException {
         this.updateUser = new UpdateUser();
         this.store = UserStore.getInstance();
+        this.expected = new User("test2", "test2", "test2-update", "test2@test", new Timestamp(System.currentTimeMillis()), "user");
         this.store.put(new User("test2", "test2", "test2", "test2@test", new Timestamp(System.currentTimeMillis()), "user"));
 
         this.request = mock(HttpServletRequest.class);
         this.response = mock(HttpServletResponse.class);
-        this.res = false;
     }
 
     @Test
@@ -46,12 +46,12 @@ public class UpdateUserTest {
 
         this.updateUser.doPost(this.request, this.response);
 
+        User result = null;
         for (User user : this.store.getAll()) {
             if (user.getName().equals("test2-update")) {
-                this.res = true;
+                result = user;
             }
         }
-        assertThat(this.res, is(true));
+        assertThat(result, is(this.expected));
     }
-
 }

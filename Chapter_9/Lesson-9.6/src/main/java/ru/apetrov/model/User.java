@@ -43,7 +43,7 @@ public class User {
      */
     public User(String login, String password, String name, String email, Timestamp createDate, String role) {
         this.login = login;
-        this.password = password;
+        this.password = String.valueOf(this.hashCode());
         this.name = name;
         this.email = email;
         this.createDate = createDate;
@@ -71,7 +71,7 @@ public class User {
      * @return password.
      */
     public String getPassword() {
-        return String.valueOf(this.hashCode());
+        return this.password;
     }
 
     /**

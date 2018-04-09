@@ -39,13 +39,13 @@ public class DeleteUserTest {
     public void checkPutUser() throws SQLException {
         this.user = new User("test3", "test3", "test3", "test3@test", new Timestamp(System.currentTimeMillis()), "user");
         this.store.put(user);
-        boolean res = false;
+        User result = null;
         for (User user : this.store.getAll()) {
             if (user.getLogin().equals("test3")) {
-                res = true;
+                result = user;
             }
         }
-        assertThat(res, is(true));
+        assertThat(result, is(this.user));
     }
 
     @Test

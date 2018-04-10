@@ -44,7 +44,7 @@ public class UserStore implements AutoCloseable {
         if (instance == null) {
             instance = new UserStore();
             try {
-                instance.initConnection();
+                instance.initDB();
             } catch (SQLException e) {
                 log.error(e.getMessage(), e);
             }
@@ -55,7 +55,7 @@ public class UserStore implements AutoCloseable {
     /**
      * initial database connection.
      */
-    private synchronized void initConnection() throws SQLException {
+    private synchronized void initDB() throws SQLException {
         try {
             this.connection = new ConnectionDB().getConnection();
             this.connection.setAutoCommit(false);
@@ -65,6 +65,7 @@ public class UserStore implements AutoCloseable {
             statement.addBatch("CREATE TABLE IF NOT EXISTS cities(city CHARACTER VARYING(50) UNIQUE PRIMARY KEY, country_id INTEGER REFERENCES countries(id))");
             statement.addBatch("CREATE TABLE IF NOT EXISTS users(login CHARACTER VARYING(30) UNIQUE PRIMARY KEY, password CHARACTER VARYING(30), user_name CHARACTER VARYING(50), email CHARACTER VARYING(50), create_date TIMESTAMP, role_id INTEGER DEFAULT 2 REFERENCES roles(id), city CHARACTER  VARYING(50) REFERENCES cities(city))");
             statement.addBatch("INSERT INTO roles(id, role) VALUES(1, 'admin'),(2, 'user')");
+            statement.addBatch("INSERT INTO countries(country) VALUES('Россия'), ('США')");
             statement.executeBatch();
             this.connection.commit();
         } catch (SQLException e) {
@@ -73,7 +74,7 @@ public class UserStore implements AutoCloseable {
         } finally {
             this.connection.setAutoCommit(true);
             this.addAdmin();
-            this.addBaseCountrys();
+            this.addBaseCities();
         }
     }
 
@@ -86,9 +87,7 @@ public class UserStore implements AutoCloseable {
         this.put(user);
     }
 
-    private synchronized  void addBaseCountrys() throws SQLException {
-        this.putCountry("Россия");
-        this.putCountry("США");
+    private synchronized  void addBaseCities() throws SQLException {
         this.putCities("Россия", "Москва");
         this.putCities("Россия", "Санкт-Петербург");
         this.putCities("Россия", "Чебоксары");
@@ -177,6 +176,23 @@ public class UserStore implements AutoCloseable {
             statement.setTimestamp(4, user.getCreateDate());
             statement.setString(5, user.getRole());
             statement.setString(6, user.getLogin());
+            statement.addBatch();
+            statement.executeBatch();
+            this.connection.commit();
+        } catch (SQLException e) {
+            this.connection.rollback();
+            log.error(e.getMessage(), e);
+        } finally {
+            this.connection.setAutoCommit(true);
+        }
+    }
+
+    public void assignCityOnUser(User user, String city) throws SQLException {
+        user.setCity(city);
+        this.connection.setAutoCommit(false);
+        try (PreparedStatement statement = this.connection.prepareStatement("UPDATE users SET city = (SELECT city FROM cities WHERE city = ?) WHERE login = ?")) {
+            statement.setString(1, user.getCity());
+            statement.setString(2, user.getLogin());
             statement.addBatch();
             statement.executeBatch();
             this.connection.commit();

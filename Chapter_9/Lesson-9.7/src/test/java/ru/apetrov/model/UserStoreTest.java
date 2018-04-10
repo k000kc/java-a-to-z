@@ -32,51 +32,61 @@ public class UserStoreTest {
         this.addingDB();
     }
 
+//    @Test
+//    public void testDelete() {
+//        UserStore store = UserStore.getInstance();
+//        try {
+//            store.delete("login-5");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+//    @Test
+//    public void testUpdate() {
+//        UserStore store = UserStore.getInstance();
+//        try {
+//            store.update(new User("login-2", "123", "Andrey", "ham2188@mail.ru", new Timestamp(System.currentTimeMillis()),"user"));
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     @Test
-    public void testDelete() {
+    public void testAssignCityOnUser() {
         UserStore store = UserStore.getInstance();
         try {
-            store.delete("login-5");
+            store.assignCityOnUser(new User("login-9", "password-9", "name-9", "email@-9", new Timestamp(System.currentTimeMillis()),"admin"), "Чебоксары");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @Test
-    public void testUpdate() {
-        UserStore store = UserStore.getInstance();
-        try {
-            store.update(new User("login-2", "123", "Andrey", "ham2188@mail.ru", new Timestamp(System.currentTimeMillis()),"user"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void testShowUsers() {
+//        this.delDB();
+//        this.addingDB();
+//        UserStore store = UserStore.getInstance();
+//        try {
+//            for (User user : store.getAll()) {
+//                System.out.println(user);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+//    @Test
+//    public void testIsCredentional() {
+//        UserStore store = UserStore.getInstance();
+//        System.out.println(store.isCredentional("login-2", "123"));
+//    }
 
     @Test
-    public void testShowUsers() {
-        this.delDB();
-        this.addingDB();
-        UserStore store = UserStore.getInstance();
-        try {
-            for (User user : store.getAll()) {
-                System.out.println(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testIsCredentional() {
-        UserStore store = UserStore.getInstance();
-        System.out.println(store.isCredentional("login-2", "123"));
-    }
-
-    @Test
-    public synchronized void testGetRolebyLogin() {
-        UserStore store = UserStore.getInstance();
-        System.out.println(store.getRoleByLogin("root"));
-    }
+//    public synchronized void testGetRolebyLogin() {
+//        UserStore store = UserStore.getInstance();
+//        System.out.println(store.getRoleByLogin("root"));
+//    }
 
     public synchronized void addingDB() {
         while (count < 10) {
@@ -86,7 +96,7 @@ public class UserStoreTest {
                     synchronized (UserStoreTest.class) {
                         UserStore store = UserStore.getInstance();
                         String login = String.format("login-%s", count);
-                        String password = String.format("password=%s", count);
+                        String password = String.format("password-%s", count);
                         String name = String.format("name-%s", count);
                         String email = String.format("email@-%s", count);
                         User user = new User(login, password, name, email, new Timestamp(System.currentTimeMillis()), "admin");

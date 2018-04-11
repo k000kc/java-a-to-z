@@ -204,6 +204,19 @@ public class UserStore implements AutoCloseable {
         }
     }
 
+    public List<String> showCities() {
+        List<String> cities = new ArrayList<>();
+        try (Statement statement = this.connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT city FROM cities");
+            while (resultSet.next()) {
+                cities.add(resultSet.getString("city"));
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        return cities;
+    }
+
     /**
      * list all users from datebase.
      * @return list users.

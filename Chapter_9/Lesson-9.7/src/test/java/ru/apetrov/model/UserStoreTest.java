@@ -62,6 +62,14 @@ public class UserStoreTest {
         }
     }
 
+    @Test
+    public void testShowCities() {
+        UserStore store = UserStore.getInstance();
+        for (String city : store.showCities()) {
+            System.out.println(city);
+        }
+    }
+
 //    @Test
 //    public void testShowUsers() {
 //        this.delDB();

@@ -70,19 +70,19 @@ public class UserStoreTest {
         }
     }
 
-//    @Test
-//    public void testShowUsers() {
-//        this.delDB();
-//        this.addingDB();
-//        UserStore store = UserStore.getInstance();
-//        try {
-//            for (User user : store.getAll()) {
-//                System.out.println(user);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Test
+    public void testShowUsers() {
+        this.delDB();
+        this.addingDB();
+        UserStore store = UserStore.getInstance();
+        try {
+            for (User user : store.getAll()) {
+                System.out.println(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 //    @Test
 //    public void testIsCredentional() {

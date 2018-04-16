@@ -61,11 +61,11 @@ public class UserStore implements AutoCloseable {
             this.connection.setAutoCommit(false);
             Statement statement = this.connection.createStatement();
             statement.addBatch("CREATE TABLE IF NOT EXISTS roles(id INTEGER PRIMARY KEY UNIQUE , role CHARACTER VARYING(30) UNIQUE)");
+            statement.addBatch("INSERT INTO roles(id, role) VALUES(1, 'admin'),(2, 'user')");
             statement.addBatch("CREATE TABLE IF NOT EXISTS countries(id SERIAL PRIMARY KEY, country CHARACTER VARYING(50) UNIQUE)");
+            statement.addBatch("INSERT INTO countries(country) VALUES('Russia'), ('USA')");
             statement.addBatch("CREATE TABLE IF NOT EXISTS cities(city CHARACTER VARYING(50) UNIQUE PRIMARY KEY, country_id INTEGER REFERENCES countries(id))");
             statement.addBatch("CREATE TABLE IF NOT EXISTS users(login CHARACTER VARYING(30) UNIQUE PRIMARY KEY, password CHARACTER VARYING(30), user_name CHARACTER VARYING(50), email CHARACTER VARYING(50), create_date TIMESTAMP, role_id INTEGER DEFAULT 2 REFERENCES roles(id), city CHARACTER  VARYING(50) REFERENCES cities(city))");
-            statement.addBatch("INSERT INTO roles(id, role) VALUES(1, 'admin'),(2, 'user')");
-            statement.addBatch("INSERT INTO countries(country) VALUES('Россия'), ('США')");
             statement.executeBatch();
             this.connection.commit();
         } catch (SQLException e) {
@@ -73,8 +73,8 @@ public class UserStore implements AutoCloseable {
             log.error(e.getMessage(), e);
         } finally {
             this.connection.setAutoCommit(true);
-            this.addAdmin();
             this.addBaseCities();
+            this.addAdmin();
         }
     }
 
@@ -84,16 +84,17 @@ public class UserStore implements AutoCloseable {
      */
     private synchronized void addAdmin() throws SQLException {
         User user = new User("root", "root", "root", "root@root.ru", new Timestamp(System.currentTimeMillis()),"admin");
+        user.setCity("Cheboksary");
         this.put(user);
     }
 
     private synchronized  void addBaseCities() throws SQLException {
-        this.putCities("Россия", "Москва");
-        this.putCities("Россия", "Санкт-Петербург");
-        this.putCities("Россия", "Чебоксары");
-        this.putCities("США", "Нью-Йорк");
-        this.putCities("США", "Вашингтон");
-        this.putCities("США", "Детройт");
+        this.putCities("Russia", "Moscow");
+        this.putCities("Russia", "Petersburg");
+        this.putCities("Russia", "Cheboksary");
+        this.putCities("USA", "New York");
+        this.putCities("USA", "Washington");
+        this.putCities("USA", "Detroit");
     }
 
     public synchronized void putCountry(String country) {
@@ -126,13 +127,14 @@ public class UserStore implements AutoCloseable {
      */
     public synchronized void put(User user) throws SQLException {
         this.connection.setAutoCommit(false);
-        try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO users(login, password, user_name, email, create_date, role_id) VALUES(?, ?, ?, ?, ?, (SELECT id FROM roles WHERE role = ?))")) {
+        try (PreparedStatement statement = this.connection.prepareStatement("INSERT INTO users(login, password, user_name, email, create_date, role_id, city) VALUES(?, ?, ?, ?, ?, (SELECT id FROM roles WHERE role = ?), ?)")) {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());
             statement.setString(4, user.getEmail());
             statement.setTimestamp(5, user.getCreateDate());
             statement.setString(6, user.getRole());
+            statement.setString(7, user.getCity());
             statement.addBatch();
             statement.executeBatch();
             this.connection.commit();
@@ -167,15 +169,16 @@ public class UserStore implements AutoCloseable {
      * update User from datebase.
      * @param user user.
      */
-    public synchronized void update(User user) throws SQLException {
+    public synchronized void update(User user, String city) throws SQLException {
         this.connection.setAutoCommit(false);
-        try (PreparedStatement statement = this.connection.prepareStatement("UPDATE users SET user_name = ?, password = ?, email = ?, create_date = ?, role_id = (SELECT id FROM roles WHERE role = ?) WHERE login = ?")) {
+        try (PreparedStatement statement = this.connection.prepareStatement("UPDATE users SET user_name = ?, password = ?, email = ?, create_date = ?, role_id = (SELECT id FROM roles WHERE role = ?), city = ? WHERE login = ?")) {
             statement.setString(1, user.getName());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getEmail());
             statement.setTimestamp(4, user.getCreateDate());
             statement.setString(5, user.getRole());
-            statement.setString(6, user.getLogin());
+            statement.setString(6, city);
+            statement.setString(7, user.getLogin());
             statement.addBatch();
             statement.executeBatch();
             this.connection.commit();
@@ -224,9 +227,14 @@ public class UserStore implements AutoCloseable {
     public synchronized List<User> getAll() throws SQLException {
         List<User> result = new ArrayList<>();
         try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT login, password, user_name, email, create_date, role FROM users AS u INNER JOIN roles AS r ON u.role_id = r.id;");
+            ResultSet resultSet = statement.executeQuery("SELECT u.login, u.password, u.user_name, u.email, u.create_date, r.role, u.city, co.country FROM users AS u " +
+                    "INNER JOIN roles AS r ON u.role_id = r.id " +
+                    "LEFT JOIN cities AS c ON u.city = c.city " +
+                    "LEFT JOIN countries AS co ON c.country_id = co.id");
             while (resultSet.next()) {
                 User user = new User(resultSet.getString("login"), resultSet.getString("password"), resultSet.getString("user_name"), resultSet.getString("email"), resultSet.getTimestamp("create_date"), resultSet.getString("role"));
+                user.setCity(resultSet.getString("city"));
+                user.setCountry(resultSet.getString("country"));
                 result.add(user);
             }
         } catch (SQLException e) {

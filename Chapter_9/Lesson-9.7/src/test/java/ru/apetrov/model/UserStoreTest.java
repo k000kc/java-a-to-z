@@ -65,8 +65,16 @@ public class UserStoreTest {
     @Test
     public void testShowCities() {
         UserStore store = UserStore.getInstance();
-        for (String city : store.showCities()) {
+        for (String city : store.showCities("USA")) {
             System.out.println(city);
+        }
+    }
+
+    @Test
+    public void testShowCountries() {
+        UserStore store = UserStore.getInstance();
+        for (String countries : store.showCountries()) {
+            System.out.println(countries);
         }
     }
 

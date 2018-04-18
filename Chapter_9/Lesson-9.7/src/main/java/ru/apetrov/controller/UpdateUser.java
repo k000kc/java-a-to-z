@@ -33,6 +33,7 @@ public class UpdateUser extends HttpServlet {
         HttpSession session = req.getSession();
         String role = this.userStore.getRoleByLogin((String) session.getAttribute("login"));
         req.setAttribute("role", role);
+        req.setAttribute("countries", this.userStore.showCountries());
         req.getRequestDispatcher("/WEB-INF/views/UpdateUser.jsp").forward(req, resp);
     }
 

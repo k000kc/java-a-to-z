@@ -20,7 +20,17 @@
         <option selected>user</option>
         <option>admin</option>
     </select></br>
-    City: <input type="text" name="city"></br>
+    <form action="" id="location">
+        <label>Country:</label>
+        <select id="countrylist">
+            <option value="">Choose the country</option>
+        </select></br>
+
+        <label>City:</label>
+        <select id="citylist" disabled="disabled">
+            <option value="">Choose the city</option>
+        </select></br>
+    </form>
     <input type="submit" value="add">
 </form>
 </body>

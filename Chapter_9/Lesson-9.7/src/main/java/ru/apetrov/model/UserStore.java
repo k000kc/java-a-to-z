@@ -207,10 +207,11 @@ public class UserStore implements AutoCloseable {
         }
     }
 
-    public List<String> showCities() {
+    public List<String> showCities(String country) {
         List<String> cities = new ArrayList<>();
-        try (Statement statement = this.connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT city FROM cities");
+        try (PreparedStatement statement = this.connection.prepareStatement("SELECT city FROM cities WHERE country_id = (SELECT id FROM countries WHERE country = ?)")) {
+            statement.setString(1, country);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 cities.add(resultSet.getString("city"));
             }
@@ -218,6 +219,19 @@ public class UserStore implements AutoCloseable {
             log.error(e.getMessage(), e);
         }
         return cities;
+    }
+
+    public List<String> showCountries() {
+        List<String> countries = new ArrayList<>();
+        try (Statement statement = this.connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT country FROM countries");
+            while (resultSet.next()) {
+                countries.add(resultSet.getString("country"));
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        return  countries;
     }
 
     /**

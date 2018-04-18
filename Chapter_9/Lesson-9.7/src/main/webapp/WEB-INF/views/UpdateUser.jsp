@@ -10,6 +10,8 @@
 <html>
 <head>
     <title>UpdateUser</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="WEB-INF/js/citieslistajax.js"></script>
 </head>
 <body>
 <form action="${pageContext.servletContext.contextPath}/update" method="post">
@@ -23,7 +25,20 @@
         <option>admin</option>
     </c:if>
     </select><br>
-    City: <input type="text" name="city"><br>
+    <form action="" id="location">
+        <label>Country:</label>
+        <select id="countrylist">
+            <option value="">Choose the country</option>
+            <c:forEach items="${countries}" var="country">
+                <option>${country}</option>>
+            </c:forEach>
+        </select></br>
+
+        <label>City:</label>
+        <select id="citylist" disabled="disabled">
+            <option value="">Choose the city</option>
+        </select></br>
+    </form>
     <input type="submit" value="update">
 </form>
 </body>

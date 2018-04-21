@@ -30,7 +30,8 @@ public class AjaxServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         String country = req.getParameter("country");
         String gson = new Gson().toJson(this.userStore.showCities(country));
-        writer.append(gson);
+        writer.write(gson);
         writer.flush();
+        writer.close();
     }
 }

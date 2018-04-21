@@ -45,10 +45,6 @@
     <form action="${pageContext.servletContext.contextPath}/add" method="get">
         <input type="submit" value="add">
     </form>
-
-    <form action="${pageContext.servletContext.contextPath}/ajax" method="get">
-        <input type="submit" value="ajax">
-    </form>
 </c:if>
 </body>
 </html>

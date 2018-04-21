@@ -10,11 +10,32 @@
 <html>
 <head>
     <title>UpdateUser</title>
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/citieslistajax.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#countrylist").change(function () {
+                $("#citylist").empty();
+                var country = $("#countrylist option:selected").val();
+
+                $.ajax({
+                    url : 'ajax',
+                    type : 'get',
+                    data: {country : country},
+                    complete: function (data) {
+                        var result = "<option>Choose the city</option>";
+                        var cities = JSON.parse(data.responseText);
+                        for (var i = 0; i != cities.length; i++) {
+                            result += "<option>" + cities[i] + "</option>"
+                        }
+                        var selectOptions = $("#citylist");
+                        selectOptions.attr("disabled", false);
+                        $(result).appendTo(selectOptions);
+                    }
+                })
+            })
+        })
+    </script>
+
 </head>
 <body>
 <form action="${pageContext.servletContext.contextPath}/update" method="post">
@@ -28,20 +49,20 @@
         <option>admin</option>
     </c:if>
     </select><br>
-    <form action="" id="location">
+
         <label>Country:</label>
         <select id="countrylist">
             <option value="">Choose the country</option>
             <c:forEach items="${countries}" var="country">
-                <option>${country}</option>>
+                <option>${country}</option>
             </c:forEach>
         </select></br>
 
         <label>City:</label>
-        <select id="citylist" disabled="disabled">
-            <option value="">Choose the city</option>
+        <select id="citylist" name="city" disabled="disabled">
+
         </select></br>
-    </form>
+
     <input type="submit" value="update">
 </form>
 </body>

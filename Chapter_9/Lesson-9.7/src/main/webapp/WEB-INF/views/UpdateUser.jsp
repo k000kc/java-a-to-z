@@ -11,31 +11,31 @@
 <head>
     <title>UpdateUser</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#countrylist").change(function () {
-                $("#citylist").empty();
-                var country = $("#countrylist option:selected").val();
+    <script type="text/javascript" src="loadcities.js"></script>
+    <%--<script>--%>
+        <%--$(document).ready(function () {--%>
+            <%--$("#countrylist").change(function () {--%>
+                <%--$("#citylist").empty();--%>
+                <%--var country = $("#countrylist option:selected").val();--%>
 
-                $.ajax({
-                    url : 'ajax',
-                    type : 'get',
-                    data: {country : country},
-                    complete: function (data) {
-                        var result = "<option>Choose the city</option>";
-                        var cities = JSON.parse(data.responseText);
-                        for (var i = 0; i != cities.length; i++) {
-                            result += "<option>" + cities[i] + "</option>"
-                        }
-                        var selectOptions = $("#citylist");
-                        selectOptions.attr("disabled", false);
-                        $(result).appendTo(selectOptions);
-                    }
-                })
-            })
-        })
-    </script>
-
+                <%--$.ajax({--%>
+                    <%--url : 'ajax',--%>
+                    <%--type : 'get',--%>
+                    <%--data: {country : country},--%>
+                    <%--complete: function (data) {--%>
+                        <%--var result = "<option>Choose the city</option>";--%>
+                        <%--var cities = JSON.parse(data.responseText);--%>
+                        <%--for (var i = 0; i != cities.length; i++) {--%>
+                            <%--result += "<option>" + cities[i] + "</option>"--%>
+                        <%--}--%>
+                        <%--var selectOptions = $("#citylist");--%>
+                        <%--selectOptions.attr("disabled", false);--%>
+                        <%--$(result).appendTo(selectOptions);--%>
+                    <%--}--%>
+                <%--});--%>
+            <%--});--%>
+        <%--});--%>
+    <%--</script>--%>
 </head>
 <body>
 <form action="${pageContext.servletContext.contextPath}/update" method="post">

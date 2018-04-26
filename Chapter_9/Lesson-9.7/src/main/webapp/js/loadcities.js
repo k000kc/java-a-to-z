@@ -1,17 +1,17 @@
 $(document).ready(function () {
     $("#countrylist").change(function () {
-        $("#citylist").empty();
-
-        var country = $("#countrylist option:selected").val();
+        clearcity();
+        var country = $("#countrylist").val();
         $.ajax({
             url : 'ajax',
             type : 'get',
-            data: {country : country},
+            dataType : 'json',
+            data : {country : country},
             complete: function (data) {
                 var result = "<option>Choose the city</option>";
                 var cities = JSON.parse(data.responseText);
                 for (var i = 0; i != cities.length; i++) {
-                    result += "<option>" + cities[i] + "</option>"
+                    result += "<option>" + cities[i] + "</option></br>";
                 }
                 var selectOptions = $("#citylist");
                 selectOptions.attr("disabled", false);
@@ -20,3 +20,7 @@ $(document).ready(function () {
         });
     });
 });
+
+function clearcity() {
+    $("#citylist").empty();
+}

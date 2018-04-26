@@ -62,10 +62,17 @@
     <servlet>
         <servlet-name>Ajax</servlet-name>
         <servlet-class>ru.apetrov.controller.AjaxServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>Ajax</servlet-name>
         <url-pattern>/ajax</url-pattern>
     </servlet-mapping>
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.js</url-pattern>
+            <scripting-invalid>true</scripting-invalid>
+        </jsp-property-group>
+    </jsp-config>
+
 </web-app>

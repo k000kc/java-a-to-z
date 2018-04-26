@@ -71,7 +71,6 @@
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.js</url-pattern>
-            <scripting-invalid>true</scripting-invalid>
         </jsp-property-group>
     </jsp-config>
 

@@ -92,17 +92,17 @@ public class UserStoreTest {
         }
     }
 
-//    @Test
-//    public void testIsCredentional() {
-//        UserStore store = UserStore.getInstance();
-//        System.out.println(store.isCredentional("login-2", "123"));
-//    }
+    @Test
+    public void testIsCredentional() {
+        UserStore store = UserStore.getInstance();
+        System.out.println(store.isCredentional("login-2", "123"));
+    }
 
     @Test
-//    public synchronized void testGetRolebyLogin() {
-//        UserStore store = UserStore.getInstance();
-//        System.out.println(store.getRoleByLogin("root"));
-//    }
+    public synchronized void testGetRolebyLogin() {
+        UserStore store = UserStore.getInstance();
+        System.out.println(store.getRoleByLogin("root"));
+    }
 
     public synchronized void addingDB() {
         while (count < 10) {
@@ -116,7 +116,7 @@ public class UserStoreTest {
                         String name = String.format("name-%s", count);
                         String email = String.format("email@-%s", count);
                         User user = new User(login, password, name, email, new Timestamp(System.currentTimeMillis()), "admin");
-                        System.out.println(user.getPassword());
+                        user.setCity("Moscow");
                         try {
                             store.put(user);
                         } catch (SQLException e) {

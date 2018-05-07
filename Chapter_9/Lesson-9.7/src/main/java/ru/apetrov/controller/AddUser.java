@@ -27,13 +27,14 @@ public class AddUser extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("countries", this.userStore.showCountries());
         req.getRequestDispatcher("/WEB-INF/views/AddUser.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            resp.setContentType("text/html");
+            resp.setContentType("text/html;charset=UTF-8");
             String login = req.getParameter("login");
             String password = req.getParameter("password");
             String name = req.getParameter("name");

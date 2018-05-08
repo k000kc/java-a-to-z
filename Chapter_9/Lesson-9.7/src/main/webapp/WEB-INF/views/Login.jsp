@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/style.css">
 </head>
 <body>
 <c:if test="${error != ''}">

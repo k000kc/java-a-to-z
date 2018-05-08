@@ -16,7 +16,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ShowUser</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/show</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -67,11 +67,4 @@
         <servlet-name>Ajax</servlet-name>
         <url-pattern>/ajax</url-pattern>
     </servlet-mapping>
-
-    <jsp-config>
-        <jsp-property-group>
-            <url-pattern>*.js</url-pattern>
-        </jsp-property-group>
-    </jsp-config>
-
 </web-app>

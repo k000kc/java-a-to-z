@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>ShowUsers</title>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/style.css">
 </head>
 <body>
 <table border="2">

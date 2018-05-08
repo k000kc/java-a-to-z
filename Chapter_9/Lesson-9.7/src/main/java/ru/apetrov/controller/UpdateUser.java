@@ -38,9 +38,8 @@ public class UpdateUser extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html;charset=UTF-8");
-
         try {
 
             String login = req.getParameter("login");
@@ -51,7 +50,7 @@ public class UpdateUser extends HttpServlet {
             String city = req.getParameter("city");
             User user = new User(login, password, name, email, new Timestamp(System.currentTimeMillis()), role);
             this.userStore.update(user, city);
-            resp.sendRedirect(req.getContextPath());
+            resp.sendRedirect(String.format("%s/show", req.getContextPath()));
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }

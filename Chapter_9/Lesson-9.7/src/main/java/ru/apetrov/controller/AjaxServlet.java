@@ -27,7 +27,7 @@ public class AjaxServlet extends HttpServlet {
     private UserStore userStore = UserStore.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/json");
         PrintWriter writer = resp.getWriter();
         String country = req.getParameter("country");

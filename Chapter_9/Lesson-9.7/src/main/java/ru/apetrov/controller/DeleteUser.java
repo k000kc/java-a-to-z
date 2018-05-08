@@ -29,7 +29,7 @@ public class DeleteUser extends HttpServlet {
         try {
             String login = req.getParameter("login");
             this.userStore.delete(login);
-            resp.sendRedirect(req.getContextPath());
+            resp.sendRedirect(String.format("%s/show", req.getContextPath()));
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }

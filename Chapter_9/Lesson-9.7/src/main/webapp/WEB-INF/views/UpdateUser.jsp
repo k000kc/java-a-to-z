@@ -7,6 +7,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/loadcities.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/check-validate.js"></script>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/style.css">
 </head>
 <body>
 <form action="${pageContext.servletContext.contextPath}/update" method="post">

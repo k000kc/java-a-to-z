@@ -44,7 +44,7 @@ public class AddUser extends HttpServlet {
             User user = new User(login, password, name, email, new Timestamp(System.currentTimeMillis()), role);
             user.setCity(city);
             this.userStore.put(user);
-            resp.sendRedirect(req.getContextPath());
+            resp.sendRedirect(String.format("%s/show", req.getContextPath()));
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }

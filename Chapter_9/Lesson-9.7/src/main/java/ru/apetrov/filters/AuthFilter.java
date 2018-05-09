@@ -25,7 +25,7 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        if (!request.getRequestURI().contains("/signin")) {
+        if (!request.getRequestURI().contains("/signin") && !request.getRequestURI().contains(".css")) {
             HttpSession session = request.getSession();
             synchronized (session) {
                 if (session.getAttribute("login") == null) {

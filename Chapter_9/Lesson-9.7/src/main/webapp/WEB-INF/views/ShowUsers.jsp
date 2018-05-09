@@ -15,6 +15,17 @@
 <body>
 <table border="2">
     <caption>Users List</caption>
+
+    <tr>
+        <th>Login</th>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Create date</th>
+        <th>Role</th>
+        <th>City</th>
+        <th>Country</th>
+    </tr>
+
     <c:forEach items="${users}" var="user">
         <td><c:out value="${user.login}"/></td>
         <td><c:out value="${user.name}"/></td>
@@ -26,7 +37,7 @@
         <c:if test="${role == 'admin' || login == user.login}">
             <td>
                 <form action="${pageContext.servletContext.contextPath}/update" method="get">
-                    <input type="submit" value="update">
+                    <input type="submit" value="update" class="submit">
                     <input type="hidden" name="login" value="${user.login}">
                 </form>
             </td>
@@ -34,7 +45,7 @@
         <c:if test="${role == 'admin'}">
             <td>
                 <form action="${pageContext.servletContext.contextPath}/delete" method="post">
-                    <input type="submit" value="delete">
+                    <input type="submit" value="delete" class="submit">
                     <input type="hidden" name="login" value="${user.login}">
                 </form>
             </td>
@@ -42,9 +53,10 @@
         </tr>
     </c:forEach>
 </table>
+<br>
 <c:if test="${role == 'admin'}">
     <form action="${pageContext.servletContext.contextPath}/add" method="get">
-        <input type="submit" value="add">
+        <input type="submit" value="add" class="submit">
     </form>
 </c:if>
 </body>

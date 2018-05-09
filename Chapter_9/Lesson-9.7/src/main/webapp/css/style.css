@@ -1,6 +1,69 @@
 body {
-    font-family: Arial, Verdana,  sans-serif; /* Семейство шрифтов */
-    font-size: 11pt; /* Размер основного шрифта в пунктах  */
-    background-color: #f0f0f0; /* Цвет фона веб-страницы */
-    color: #333; /* Цвет основного текста */
+    font-family: URW Chancery L, cursive;
+    font-size: 14pt;
+    background-color: #f0fff0;
+    color: #333;
+}
+
+.text{
+    background-color: #f6f6f6;
+    border-radius: 5px 5px 5px 5px;
+}
+
+select {
+    background: transparent;
+    width: 175px;
+    padding: 2px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    height: 25px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+/* ------- Выравнивание полей -------- */
+.field {
+    clear:both;
+    text-align:right;
+    line-height:25px;
+}
+
+label {
+    float:left;
+    padding-right:20px;
+    line-height: 1.5;
+}
+
+.main {
+    float:left
+}
+
+/* ------ Стили таблицы ------------ */
+table {
+    border-radius: 10px;
+    border-spacing: 0;
+    text-align: center;
+}
+
+th {
+    background: #BCEBDD;
+    padding: 10px 10px;
+}
+
+th, td {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+}
+
+td {
+    padding: 10px 10px;
+    background: #F8E391;
+}
+/* -------------------------------- */
+.submit {
+    background:#eee;
+    width:90px;
+    text-align:center;
+    padding:4px 4px;
+    border-radius: 10px 10px 10px 10px;
 }

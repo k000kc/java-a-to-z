@@ -18,10 +18,21 @@
         <c:out value="${error}"/>
     </div>
 </c:if>
+
 <form action="${pageContext.servletContext.contextPath}/signin" method="post">
-    Login: <input type="text" name="login">
-    Password: <input type="password" name="password">
-    <input type="submit" value="Submit">
+    <div class="main">
+    <div class="field">
+        <label>Login:</label>
+        <input type="text" name="login" class="text">
+    </div>
+    <div class="field">
+        <label>Password:</label>
+        <input type="password" name="password" class="text">
+    </div>
+        <div class="field">
+            <input type="submit" value="Submit" class="submit">
+        </div>
+    </div>
 </form>
 </body>
 </html>

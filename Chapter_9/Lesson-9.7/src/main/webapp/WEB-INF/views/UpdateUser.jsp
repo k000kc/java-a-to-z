@@ -27,9 +27,9 @@
         </div>
         <div class="field">
             <label>Role:</label>
-            <select name="role">
+            <select name="roleId">
                 <option selected>user</option>
-                <c:if test="${role == 'admin'}">
+                <c:if test="${roleId == 'admin'}">
                     <option>admin</option>
                 </c:if>
             </select>

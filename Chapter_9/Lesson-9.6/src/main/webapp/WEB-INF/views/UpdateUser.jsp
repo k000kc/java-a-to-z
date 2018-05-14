@@ -17,9 +17,9 @@
     Name: <input type="text" name="name"><br>
     Email: <input type="text" name="email"><br>
     New password: <input type="password" name="password"><br>
-    Role: <select name="role">
+    Role: <select name="roleId">
         <option selected>user</option>
-        <c:if test="${role == 'admin'}">
+        <c:if test="${roleId == 'admin'}">
         <option>admin</option>
         </c:if>
     </select><br>

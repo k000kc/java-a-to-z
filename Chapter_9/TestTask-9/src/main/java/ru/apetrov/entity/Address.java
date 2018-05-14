@@ -4,22 +4,22 @@ import java.util.Objects;
 
 public class Address {
 
-    private long id;
+    private Long id;
     private String country;
     private String city;
     private String street;
     private int house;
     private int apartment;
-    private long userId;
+    private Long userId;
 
     public Address() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,11 +63,11 @@ public class Address {
         this.apartment = apartment;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -76,7 +76,7 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return id == address.id;
+        return Objects.equals(id, address.id);
     }
 
     @Override

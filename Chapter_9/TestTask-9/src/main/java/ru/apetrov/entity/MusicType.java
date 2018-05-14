@@ -4,17 +4,17 @@ import java.util.Objects;
 
 public class MusicType {
 
-    private long id;
+    private Long id;
     private String type;
 
     public MusicType() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,12 +31,11 @@ public class MusicType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MusicType musicType = (MusicType) o;
-        return id == musicType.id;
+        return Objects.equals(id, musicType.id);
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
     }
 

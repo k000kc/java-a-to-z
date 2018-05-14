@@ -4,25 +4,25 @@ import java.util.Objects;
 
 public class UserIdMusicTypeId {
 
-    private long userId;
-    private long musicTypeId;
+    private Long userId;
+    private Long musicTypeId;
 
     public UserIdMusicTypeId() {
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public long getMusicTypeId() {
+    public Long getMusicTypeId() {
         return musicTypeId;
     }
 
-    public void setMusicTypeId(long musicTypeId) {
+    public void setMusicTypeId(Long musicTypeId) {
         this.musicTypeId = musicTypeId;
     }
 
@@ -31,8 +31,8 @@ public class UserIdMusicTypeId {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserIdMusicTypeId that = (UserIdMusicTypeId) o;
-        return userId == that.userId &&
-                musicTypeId == that.musicTypeId;
+        return Objects.equals(userId, that.userId) &&
+                Objects.equals(musicTypeId, that.musicTypeId);
     }
 
     @Override

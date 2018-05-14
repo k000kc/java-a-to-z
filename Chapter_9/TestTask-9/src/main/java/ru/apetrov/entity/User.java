@@ -4,21 +4,21 @@ import java.util.Objects;
 
 public class User {
 
-    private long id;
+    private Long id;
     private String firstName;
     private String seconfName;
-    private long addressId;
-    private long roleId;
-    private long musicTypeId;
+    private Long addressId;
+    private Long roleId;
+    private Long musicTypeId;
 
     public User() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -38,27 +38,27 @@ public class User {
         this.seconfName = seconfName;
     }
 
-    public long getAddressId() {
+    public Long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(long addressId) {
+    public void setAddressId(Long addressId) {
         this.addressId = addressId;
     }
 
-    public long getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public long getMusicTypeId() {
+    public Long getMusicTypeId() {
         return musicTypeId;
     }
 
-    public void setMusicTypeId(long musicTypeId) {
+    public void setMusicTypeId(Long musicTypeId) {
         this.musicTypeId = musicTypeId;
     }
 
@@ -67,7 +67,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id;
+        return Objects.equals(id, user.id);
     }
 
     @Override

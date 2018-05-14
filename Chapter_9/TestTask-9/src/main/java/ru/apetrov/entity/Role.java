@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Role {
 
-    private long id;
+    private Long id;
     private String type;
 
     public Role() {
@@ -18,11 +18,11 @@ public class Role {
         this.type = type;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,7 +31,7 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return id == role.id;
+        return Objects.equals(id, role.id);
     }
 
     @Override

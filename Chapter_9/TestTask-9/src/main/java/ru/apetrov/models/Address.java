@@ -1,4 +1,4 @@
-package ru.apetrov.entity;
+package ru.apetrov.models;
 
 import java.util.Objects;
 
@@ -8,12 +8,7 @@ public class Address {
     private String country;
     private String city;
     private String street;
-    private int house;
-    private int apartment;
-    private Long userId;
-
-    public Address() {
-    }
+    private String house;
 
     public Long getId() {
         return id;
@@ -47,28 +42,12 @@ public class Address {
         this.street = street;
     }
 
-    public int getHouse() {
+    public String getHouse() {
         return house;
     }
 
-    public void setHouse(int house) {
+    public void setHouse(String house) {
         this.house = house;
-    }
-
-    public int getApartment() {
-        return apartment;
-    }
-
-    public void setApartment(int apartment) {
-        this.apartment = apartment;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     @Override
@@ -82,18 +61,5 @@ public class Address {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", house=" + house +
-                ", apartment=" + apartment +
-                ", userId=" + userId +
-                '}';
     }
 }

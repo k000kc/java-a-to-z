@@ -1,14 +1,11 @@
-package ru.apetrov.entity;
+package ru.apetrov.models;
 
 import java.util.Objects;
 
 public class MusicType {
 
     private Long id;
-    private String type;
-
-    public MusicType() {
-    }
+    private String musicType;
 
     public Long getId() {
         return id;
@@ -18,12 +15,12 @@ public class MusicType {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getMusicType() {
+        return musicType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setMusicType(String musicType) {
+        this.musicType = musicType;
     }
 
     @Override
@@ -37,13 +34,5 @@ public class MusicType {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "MusicType{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                '}';
     }
 }

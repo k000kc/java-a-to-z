@@ -1,22 +1,11 @@
-package ru.apetrov.entity;
+package ru.apetrov.models;
 
 import java.util.Objects;
 
 public class Role {
 
     private Long id;
-    private String type;
-
-    public Role() {
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    private String roleType;
 
     public Long getId() {
         return id;
@@ -24,6 +13,14 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(String roleType) {
+        this.roleType = roleType;
     }
 
     @Override
@@ -37,13 +34,5 @@ public class Role {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                '}';
     }
 }

@@ -4,17 +4,17 @@ import java.util.Objects;
 
 public class Address {
 
-    private Long id;
+    private Integer id;
     private String country;
     private String city;
     private String street;
     private String house;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

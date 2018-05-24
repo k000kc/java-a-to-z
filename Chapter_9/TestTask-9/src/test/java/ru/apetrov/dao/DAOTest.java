@@ -15,22 +15,21 @@ public class DAOTest {
         ModelBaseDAO<User, String> userDao = new UserImpl();
 
         Address address = new Address();
-        address.setId(2);
-        address.setCountry("Russia");
-        address.setCity("Moscow");
-        address.setStreet("Nikolaeva");
-        address.setHouse("55");
+        address.setCountry("dsfsdfsdf");
+        address.setCity("fsdfs");
+        address.setStreet("sdfsdf");
+        address.setHouse("sdfsdf");
         addressDao.create(address);
 
         Role role = new Role();
-        role.setId(1);
+        role.setId(2);
         role.setRoleType("user");
 
         User user = new User();
-        user.setLogin("apetrov");
-        user.setPassword("123");
-        user.setName("Andrey");
-        user.setEmail("ham2188@mail.ru");
+        user.setLogin("ssdf");
+        user.setPassword("sdfsdf");
+        user.setName("sdfdsf");
+        user.setEmail("sdfdsf");
         user.setAddress(address);
         user.setRole(role);
         userDao.create(user);

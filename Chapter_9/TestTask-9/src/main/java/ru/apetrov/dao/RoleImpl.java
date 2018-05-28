@@ -11,8 +11,10 @@ public class RoleImpl extends ModelBaseDAO<Role,Long> {
 
     @Override
     public void create(Role role) {
-        Connection connection = super.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO roles(id, role) VALUES(?, ?)")) {
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO roles(id, role) VALUES(?, ?)")
+        ) {
             statement.setInt(1, role.getId());
             statement.setString(2, role.getRoleType());
             statement.execute();

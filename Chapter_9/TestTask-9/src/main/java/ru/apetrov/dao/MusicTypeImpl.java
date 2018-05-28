@@ -2,13 +2,25 @@ package ru.apetrov.dao;
 
 import ru.apetrov.models.MusicType;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Set;
 
 public class MusicTypeImpl extends ModelBaseDAO<MusicType,Long> {
 
     @Override
     public void create(MusicType musicType) {
-
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO musics(id, music_type) VALUES(?, ?)")
+        ) {
+            statement.setInt(1, musicType.getId());
+            statement.setString(2, musicType.getMusicType());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

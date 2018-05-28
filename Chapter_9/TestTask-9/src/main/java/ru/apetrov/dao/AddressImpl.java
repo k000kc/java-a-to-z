@@ -9,8 +9,10 @@ public class AddressImpl extends ModelBaseDAO<Address,Long> {
 
     @Override
     public void create(Address address) {
-        Connection connection = super.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO address(country, city, street, house) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO address(country, city, street, house) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)
+        ) {
             statement.setString(1, address.getCountry());
             statement.setString(2, address.getCity());
             statement.setString(3, address.getStreet());

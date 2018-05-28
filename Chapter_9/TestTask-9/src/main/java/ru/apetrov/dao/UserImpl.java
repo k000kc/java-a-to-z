@@ -11,8 +11,10 @@ public class UserImpl extends ModelBaseDAO<User,String> {
 
     @Override
     public void create(User user) {
-        Connection connection = super.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO users(login, password, user_name, email, address_id, role_id) VALUES(?, ?, ?, ?, ?, ?)")) {
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO users(login, password, user_name, email, address_id, role_id) VALUES(?, ?, ?, ?, ?, ?)")
+        ) {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());

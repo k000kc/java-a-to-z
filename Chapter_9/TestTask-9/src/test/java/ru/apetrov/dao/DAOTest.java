@@ -11,7 +11,7 @@ public class DAOTest {
 
     @Test
     public void createEntityTest() {
-        ModelBaseDAO<Address,Long> addressDao = new AddressImpl();
+        ModelBaseDAO<Address,Integer> addressDao = new AddressImpl();
         ModelBaseDAO<User, String> userDao = new UserImpl();
 
         Address address = new Address();
@@ -33,5 +33,12 @@ public class DAOTest {
         user.setAddress(address);
         user.setRole(role);
         userDao.create(user);
+    }
+
+
+    @Test
+    public void getByIdTest() {
+        ModelBaseDAO<User, String> userDao = new UserImpl();
+        System.out.println(userDao.getById("apetrov").getName());
     }
 }

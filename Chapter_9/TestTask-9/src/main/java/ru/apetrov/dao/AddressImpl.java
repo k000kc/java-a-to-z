@@ -5,7 +5,7 @@ import ru.apetrov.models.Address;
 import java.sql.*;
 import java.util.Set;
 
-public class AddressImpl extends ModelBaseDAO<Address,Long> {
+public class AddressImpl extends ModelBaseDAO<Address,Integer> {
 
     @Override
     public void create(Address address) {
@@ -31,8 +31,25 @@ public class AddressImpl extends ModelBaseDAO<Address,Long> {
     }
 
     @Override
-    public Address getById(Long id) {
-        return null;
+    public Address getById(Integer id) {
+        Address address = new Address();
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM address WHERE id = ?")
+        ) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                address.setId(resultSet.getInt("id"));
+                address.setCountry(resultSet.getString("country"));
+                address.setCity(resultSet.getString("city"));
+                address.setStreet(resultSet.getString("street"));
+                address.setStreet(resultSet.getString("house"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return address;
     }
 
     @Override
@@ -46,7 +63,7 @@ public class AddressImpl extends ModelBaseDAO<Address,Long> {
     }
 
     @Override
-    public void remove(Long id) {
+    public void remove(Integer id) {
 
     }
 }

@@ -4,6 +4,7 @@ import ru.apetrov.models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
 
@@ -29,7 +30,28 @@ public class UserImpl extends ModelBaseDAO<User,String> {
 
     @Override
     public User getById(String login) {
-        return null;
+        User user = new User();
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE login = ?")
+        ){
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user.setLogin(resultSet.getString("login"));
+                user.setPassword(resultSet.getString("password"));
+                user.setName(resultSet.getString("user_name"));
+                user.setEmail(resultSet.getString("email"));
+                Integer addressId = resultSet.getInt("address_id");
+                user.setAddress(new AddressImpl().getById(addressId));
+                Integer roleId = resultSet.getInt("role_id");
+                user.setRole(new RoleImpl().getById(roleId));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
 
     @Override

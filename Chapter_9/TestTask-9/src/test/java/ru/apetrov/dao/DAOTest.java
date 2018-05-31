@@ -2,6 +2,7 @@ package ru.apetrov.dao;
 
 import org.junit.Test;
 import ru.apetrov.models.Address;
+import ru.apetrov.models.MusicType;
 import ru.apetrov.models.Role;
 import ru.apetrov.models.User;
 
@@ -40,5 +41,13 @@ public class DAOTest {
     public void getByIdTest() {
         ModelBaseDAO<User, String> userDao = new UserImpl();
         System.out.println(userDao.getById("apetrov").getName());
+    }
+
+    @Test
+    public void getAllMusikType() {
+        ModelBaseDAO<MusicType, Integer> dao = new MusicTypeImpl();
+        for (MusicType s : dao.getAll()) {
+            System.out.println(s.getMusicType());
+        }
     }
 }

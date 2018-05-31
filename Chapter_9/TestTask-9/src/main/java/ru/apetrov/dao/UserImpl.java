@@ -2,10 +2,8 @@ package ru.apetrov.dao;
 
 import ru.apetrov.models.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class UserImpl extends ModelBaseDAO<User,String> {
@@ -56,7 +54,28 @@ public class UserImpl extends ModelBaseDAO<User,String> {
 
     @Override
     public Set<User> getAll() {
-        return null;
+        Set<User> result = new HashSet<>();
+        try (
+                Connection connection = super.getConnection();
+                Statement statement = connection.createStatement();
+        ) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
+            while (resultSet.next()) {
+                User user = new User();
+                user.setLogin(resultSet.getString("login"));
+                user.setPassword(resultSet.getString("password"));
+                user.setName(resultSet.getString("user_name"));
+                user.setEmail(resultSet.getString("email"));
+                Integer addressId = resultSet.getInt("address_id");
+                user.setAddress(new AddressImpl().getById(addressId));
+                Integer roleId = resultSet.getInt("role_id");
+                user.setRole(new RoleImpl().getById(roleId));
+                result.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

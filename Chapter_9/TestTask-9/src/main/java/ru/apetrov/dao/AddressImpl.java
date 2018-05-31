@@ -3,6 +3,7 @@ package ru.apetrov.dao;
 import ru.apetrov.models.Address;
 
 import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class AddressImpl extends ModelBaseDAO<Address,Integer> {
@@ -54,7 +55,25 @@ public class AddressImpl extends ModelBaseDAO<Address,Integer> {
 
     @Override
     public Set<Address> getAll() {
-        return null;
+        Set<Address> result = new HashSet<>();
+        try (
+                Connection connection = super.getConnection();
+                Statement statement = connection.createStatement()
+        ) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM address");
+            while (resultSet.next()) {
+                Address address = new Address();
+                address.setId(resultSet.getInt("id"));
+                address.setCountry(resultSet.getString("country"));
+                address.setCity(resultSet.getString("city"));
+                address.setStreet(resultSet.getString("street"));
+                address.setHouse(resultSet.getNString("house"));
+                result.add(address);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

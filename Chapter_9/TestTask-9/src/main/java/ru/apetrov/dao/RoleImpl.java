@@ -2,10 +2,8 @@ package ru.apetrov.dao;
 
 import ru.apetrov.models.Role;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class RoleImpl extends ModelBaseDAO<Role, Integer> {
@@ -45,7 +43,22 @@ public class RoleImpl extends ModelBaseDAO<Role, Integer> {
 
     @Override
     public Set<Role> getAll() {
-        return null;
+        Set<Role> result = new HashSet<>();
+        try (
+                Connection connection = super.getConnection();
+                Statement statement = connection.createStatement()
+        ) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM roles");
+            while (resultSet.next()) {
+                Role role = new Role();
+                role.setId(resultSet.getInt("id"));
+                role.setRoleType(resultSet.getString("role"));
+                result.add(role);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

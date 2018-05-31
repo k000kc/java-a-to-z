@@ -2,10 +2,9 @@ package ru.apetrov.dao;
 
 import ru.apetrov.models.MusicType;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.xml.transform.Result;
+import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class MusicTypeImpl extends ModelBaseDAO<MusicType, Integer> {
@@ -45,7 +44,22 @@ public class MusicTypeImpl extends ModelBaseDAO<MusicType, Integer> {
 
     @Override
     public Set<MusicType> getAll() {
-        return null;
+        Set<MusicType> result = new HashSet<>();
+        try (
+                Connection connection = super.getConnection();
+                Statement statement = connection.createStatement();
+        ) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM musics");
+            while (resultSet.next()) {
+                MusicType musicType = new MusicType();
+                musicType.setId(resultSet.getInt("id"));
+                musicType.setMusicType(resultSet.getString("music_type"));
+                result.add(musicType);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

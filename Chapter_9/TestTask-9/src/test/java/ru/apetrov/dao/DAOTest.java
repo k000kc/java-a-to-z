@@ -1,10 +1,7 @@
 package ru.apetrov.dao;
 
 import org.junit.Test;
-import ru.apetrov.models.Address;
-import ru.apetrov.models.MusicType;
-import ru.apetrov.models.Role;
-import ru.apetrov.models.User;
+import ru.apetrov.models.*;
 
 import static org.junit.Assert.*;
 

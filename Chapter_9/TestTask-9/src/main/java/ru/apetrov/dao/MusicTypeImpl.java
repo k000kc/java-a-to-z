@@ -64,11 +64,28 @@ public class MusicTypeImpl extends ModelBaseDAO<MusicType, Integer> {
 
     @Override
     public void update(MusicType musicType) {
-
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("UPDATE musics SET music_type = ? WHERE id = ?")
+        ) {
+            statement.setString(1, musicType.getMusicType());
+            statement.setInt(2, musicType.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void remove(Integer id) {
-
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM musics WHERE id = ?");
+        ) {
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -27,7 +27,7 @@ public class MergeUserAndMusicTables {
         }
     }
 
-    public Set<String> getByMusicTypeId(Integer musicTypeId) {
+    public Set<String> getLoginByMusicTypeId(Integer musicTypeId) {
         Set<String> result = new HashSet<>();
         try (
                 Connection connection = this.connectionDB.getConnection();
@@ -38,6 +38,24 @@ public class MergeUserAndMusicTables {
             while (resultSet.next()) {
                 String login = resultSet.getString("user_login");
                 result.add(login);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public Set<Integer> getMusicTypeIdByLogin(String login) {
+        Set<Integer> result = new HashSet<>();
+        try (
+                Connection connection =this.connectionDB.getConnection();
+                PreparedStatement statement = connection.prepareStatement("SELECT user_login, music_id FROM login_music_id WHERE user_login = ?")
+        ) {
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Integer musicTupeId = resultSet.getInt("music_id");
+                result.add(musicTupeId);
             }
         } catch (SQLException e) {
             e.printStackTrace();

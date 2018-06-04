@@ -80,11 +80,31 @@ public class UserImpl extends ModelBaseDAO<User,String> {
 
     @Override
     public void update(User user) {
-
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("UPDATE users SET password = ?, user_name = ?, email = ?, role_id = ? WHERE login = ?");
+        ) {
+            statement.setString(1, user.getPassword());
+            statement.setString(2, user.getName());
+            statement.setString(3, user.getEmail());
+            statement.setInt(4, user.getRole().getId());
+            statement.setString(5, user.getLogin());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void remove(String login) {
-
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE login = ?");
+        ) {
+            statement.setString(1, login);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

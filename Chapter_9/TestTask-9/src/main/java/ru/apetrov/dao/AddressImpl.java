@@ -67,7 +67,7 @@ public class AddressImpl extends ModelBaseDAO<Address,Integer> {
                 address.setCountry(resultSet.getString("country"));
                 address.setCity(resultSet.getString("city"));
                 address.setStreet(resultSet.getString("street"));
-                address.setHouse(resultSet.getNString("house"));
+                address.setHouse(resultSet.getString("house"));
                 result.add(address);
             }
         } catch (SQLException e) {
@@ -78,11 +78,31 @@ public class AddressImpl extends ModelBaseDAO<Address,Integer> {
 
     @Override
     public void update(Address address) {
-
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("UPDATE address SET country = ?, city = ?, street = ?, house = ? WHERE id = ?")
+        ) {
+            statement.setString(1, address.getCountry());
+            statement.setString(2, address.getCity());
+            statement.setString(3, address.getStreet());
+            statement.setString(4, address.getHouse());
+            statement.setInt(5, address.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void remove(Integer id) {
-
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM address WHERE id = ?");
+        ) {
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

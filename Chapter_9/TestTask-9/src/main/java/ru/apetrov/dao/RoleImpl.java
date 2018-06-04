@@ -63,11 +63,28 @@ public class RoleImpl extends ModelBaseDAO<Role, Integer> {
 
     @Override
     public void update(Role role) {
-
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("UPDATE roles SET role = ? WHERE id = ?");
+        ) {
+            statement.setString(1, role.getRoleType());
+            statement.setInt(2, role.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void remove(Integer id) {
-
+        try (
+                Connection connection = super.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM roles WHERE id = ?");
+        ) {
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

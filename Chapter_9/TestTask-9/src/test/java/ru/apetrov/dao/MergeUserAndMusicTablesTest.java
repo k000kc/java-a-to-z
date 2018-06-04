@@ -13,7 +13,7 @@ public class MergeUserAndMusicTablesTest {
         MergeUserAndMusicTables mergeUserAndMusicTables = new MergeUserAndMusicTables();
         mergeUserAndMusicTables.addMusicTypeToTheUser(userLoginMusicTypeId);
 
-        for (String s : mergeUserAndMusicTables.getByMusicTypeId(2)) {
+        for (String s : mergeUserAndMusicTables.getLoginByMusicTypeId(2)) {
             System.out.println(s);
         }
     }

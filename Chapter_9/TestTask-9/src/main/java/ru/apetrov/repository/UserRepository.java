@@ -40,9 +40,12 @@ public class UserRepository {
     public User getUser(String login) {
         User user = this.userDAO.getById(login);
         Set<Integer> musicIds = this.mergeUserMusic.getMusicTypeIdByLogin(login);
-
-        //todo
-
+        Set<MusicType> musicTypes = new HashSet<>();
+        for (Integer id : musicIds) {
+            MusicType musicType = this.musicTypeDAO.getById(id);
+            musicTypes.add(musicType);
+        }
+        user.setMusicTypes(musicTypes);
         return user;
     }
 }

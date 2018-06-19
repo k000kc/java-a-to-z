@@ -43,7 +43,11 @@ public class UserRepositoryTest {
         repository.putMusicTypeToUser(user, musicType);
         repository.putMusicTypeToUser(user, musicType1);
 
-        repository.getUser("test");
+        User user1 = repository.getUser("test");
+        for (MusicType m : user1.getMusicTypes()) {
+
+            System.out.println(m.getMusicType());
+        }
 
     }
 }

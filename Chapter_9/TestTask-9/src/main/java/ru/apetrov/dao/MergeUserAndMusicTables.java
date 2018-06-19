@@ -54,9 +54,10 @@ public class MergeUserAndMusicTables {
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Integer musicTupeId = resultSet.getInt("music_id");
-                result.add(musicTupeId);
+                Integer musicTypeId = resultSet.getInt("music_id");
+                result.add(musicTypeId);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

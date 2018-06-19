@@ -10,11 +10,11 @@ public abstract class ModelBaseDAO<T, K> {
 
     private Connection connection;
 
-    abstract void create(T t);
-    abstract T getById(K k);
-    abstract Set<T> getAll();
-    abstract void update(T t);
-    abstract void remove(K k);
+    public abstract void create(T t);
+    public abstract T getById(K k);
+    public abstract Set<T> getAll();
+    public abstract void update(T t);
+    public abstract void remove(K k);
 
     protected Connection getConnection() {
         this.connection = new ConnectionDB().getConnection();

@@ -2,6 +2,7 @@ package ru.apetrov.dao;
 
 import org.junit.Test;
 import ru.apetrov.models.*;
+import ru.apetrov.repository.UserRepository;
 
 import static org.junit.Assert.*;
 
@@ -33,7 +34,6 @@ public class DAOTest {
         userDao.create(user);
     }
 
-
     @Test
     public void getByIdTest() {
         ModelBaseDAO<User, String> userDao = new UserImpl();
@@ -47,4 +47,11 @@ public class DAOTest {
             System.out.println(s.getMusicType());
         }
     }
+
+//    @Test
+//    public void testRepositoryGetUser() {
+//        for (MusicType m : new UserRepository().getUser("ssdf").getMusicTypes()) {
+//            System.out.println(m.getMusicType());
+//        }
+//    }
 }

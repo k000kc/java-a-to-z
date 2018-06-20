@@ -6,6 +6,8 @@ import ru.apetrov.models.MusicType;
 import ru.apetrov.models.Role;
 import ru.apetrov.models.User;
 
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 public class UserRepositoryTest {
@@ -48,6 +50,49 @@ public class UserRepositoryTest {
 
             System.out.println(m.getMusicType());
         }
+    }
 
+    @Test
+    public void testGetUserByAdress() {
+        UserRepository repository = new UserRepository();
+
+        Address address = new Address();
+        address.setCountry("Ru");
+        address.setCity("Mc");
+        address.setStreet("Nl");
+        address.setHouse("6767");
+
+        Set<User> users = repository.findUserByAddress(address);
+        for (User user : users) {
+            System.out.println(user.getName());
+        }
+    }
+
+    @Test
+    public void testGetUserByRole() {
+        UserRepository repository = new UserRepository();
+
+        Role role = new Role();
+        role.setId(2);
+        role.setRoleType("user");
+
+        Set<User> users = repository.getUserByRole(role);
+        for (User user : users) {
+            System.out.println(user.getName());
+        }
+    }
+
+    @Test
+    public void testUserByMusicType() {
+        UserRepository repository = new UserRepository();
+
+        MusicType musicType = new MusicType();
+        musicType.setId(1);
+        musicType.setMusicType("rap");
+
+        Set<User> users = repository.getUserByMusicType(musicType);
+        for (User user : users) {
+            System.out.println(user.getName());
+        }
     }
 }

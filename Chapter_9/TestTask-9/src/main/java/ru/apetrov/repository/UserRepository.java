@@ -14,6 +14,8 @@ import java.util.Set;
 
 public class UserRepository {
 
+    private static UserRepository instance;
+
     private ModelBaseDAO<User,String> userDAO;
     private ModelBaseDAO<Address,Integer> addressDAO;
     private ModelBaseDAO<Role,Integer> roleDAO;
@@ -21,7 +23,18 @@ public class UserRepository {
     private MergeUserAndMusicTables mergeUserMusic;
     private ConnectionDB connectionDB;
 
-    public UserRepository() {
+    private UserRepository() {
+    }
+
+    public synchronized static UserRepository getInstance() {
+        if (instance == null) {
+            instance = new UserRepository();
+            instance.init();
+        }
+        return instance;
+    }
+
+    private void init() {
         this.userDAO = new UserImpl();
         this.addressDAO = new AddressImpl();
         this.roleDAO = new RoleImpl();
@@ -147,5 +160,14 @@ public class UserRepository {
             e.printStackTrace();
         }
         return users;
+    }
+
+    public boolean isCredentional(String login, String password) {
+        boolean result = false;
+        User user = this.userDAO.getById(login);
+        if (user.getPassword().equals(password)) {
+            result = true;
+        }
+        return result;
     }
 }

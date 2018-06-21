@@ -14,7 +14,7 @@ public class UserRepositoryTest {
 
     @Test
     public void testCreatemethodFromRepository() {
-        UserRepository repository = new UserRepository();
+        UserRepository repository = UserRepository.getInstance();
 
         Address address = new Address();
         address.setCountry("test");
@@ -54,7 +54,7 @@ public class UserRepositoryTest {
 
     @Test
     public void testGetUserByAdress() {
-        UserRepository repository = new UserRepository();
+        UserRepository repository = UserRepository.getInstance();
 
         Address address = new Address();
         address.setCountry("Ru");
@@ -70,7 +70,7 @@ public class UserRepositoryTest {
 
     @Test
     public void testGetUserByRole() {
-        UserRepository repository = new UserRepository();
+        UserRepository repository = UserRepository.getInstance();
 
         Role role = new Role();
         role.setId(2);
@@ -84,7 +84,7 @@ public class UserRepositoryTest {
 
     @Test
     public void testUserByMusicType() {
-        UserRepository repository = new UserRepository();
+        UserRepository repository = UserRepository.getInstance();
 
         MusicType musicType = new MusicType();
         musicType.setId(1);

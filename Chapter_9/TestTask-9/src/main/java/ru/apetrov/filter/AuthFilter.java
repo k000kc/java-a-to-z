@@ -1,4 +1,4 @@
-package ru.apetrov.filters;
+package ru.apetrov.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +10,13 @@ public class AuthFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        System.out.println("init filter");
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        if (!request.getRequestURI().contains("/signin")) {
+        if (!request.getRequestURI().contains("/signin") && !request.getRequestURI().contains(".js")) {
             HttpSession session = request.getSession();
             synchronized (session) {
                 if (session.getAttribute("login") == null) {

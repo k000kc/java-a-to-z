@@ -1,7 +1,7 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
     <filter>
         <filter-name>AuthFilter</filter-name>
-        <filter-class>ru.apetrov.filters.AuthFilter</filter-class>
+        <filter-class>ru.apetrov.filter.AuthFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
@@ -10,11 +10,20 @@
 
     <servlet>
         <servlet-name>Signin</servlet-name>
-        <servlet-class>ru.apetrov.controller.SigninController</servlet-class>
-        <load-on-startup>1</load-on-startup>
+        <servlet-class>ru.apetrov.controller.SigninServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Signin</servlet-name>
         <url-pattern>/signin</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowUsers</servlet-name>
+        <servlet-class>ru.apetrov.controller.ShowUsers</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowUsers</servlet-name>
+        <url-pattern>/show</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -19,8 +19,8 @@
             <td><c:out value="${user.name}"/></td>
             <td><c:out value="${user.email}"/></td>
             <td><c:out value="${user.createDate}"/></td>
-            <td><c:out value="${user.roleId}"/></td>
-            <c:if test="${roleId == 'admin' || login == user.login}">
+            <td><c:out value="${user.role}"/></td>
+            <c:if test="${role == 'admin' || login == user.login}">
             <td>
                 <form action="${pageContext.servletContext.contextPath}/update" method="get">
                     <input type="submit" value="update">
@@ -28,7 +28,7 @@
                 </form>
             </td>
             </c:if>
-            <c:if test="${roleId == 'admin'}">
+            <c:if test="${role == 'admin'}">
             <td>
                 <form action="${pageContext.servletContext.contextPath}/delete" method="post">
                     <input type="submit" value="delete">
@@ -39,7 +39,7 @@
         </tr>
     </c:forEach>
 </table>
-<c:if test="${roleId == 'admin'}">
+<c:if test="${role == 'admin'}">
 <form action="${pageContext.servletContext.contextPath}/add" method="get">
     <input type="submit" value="add">
 </form>

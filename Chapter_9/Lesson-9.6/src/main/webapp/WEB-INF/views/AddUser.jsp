@@ -16,7 +16,7 @@
     Password: <input type="password" name="password"></br>
     Name: <input type="text" name="name"></br>
     Email: <input type="text" name="email"></br>
-    Role: <select name="roleId">
+    Role: <select name="role">
         <option selected>user</option>
         <option>admin</option>
     </select>

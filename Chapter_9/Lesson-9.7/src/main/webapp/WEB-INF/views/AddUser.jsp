@@ -36,7 +36,7 @@
         </div>
         <div class="field">
             <label>Role:</label>
-            <select name="roleId">
+            <select name="role">
                 <option selected>user</option>
                 <option>admin</option>
             </select>

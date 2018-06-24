@@ -1,5 +1,6 @@
 package ru.apetrov.controller;
 
+import ru.apetrov.models.User;
 import ru.apetrov.repository.UserRepository;
 
 import javax.servlet.ServletException;
@@ -15,18 +16,18 @@ public class SigninServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/view/login.html").forward(req, resp);
+        req.getRequestDispatcher(String.format("%s/view/login.html", req.getContextPath())).forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        if (this.repository.isCredentional(login, password)) {
-            System.out.println(login);
+        User user = this.repository.getUser(login);
+        if (user.getPassword().equals(password)) {
             HttpSession session = req.getSession();
             synchronized (session) {
-                session.setAttribute("login", login);
+                session.setAttribute("user", user);
             }
             resp.sendRedirect(String.format("%s/show", req.getContextPath()));
         } else {

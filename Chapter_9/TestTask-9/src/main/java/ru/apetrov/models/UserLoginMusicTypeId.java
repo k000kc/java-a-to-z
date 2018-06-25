@@ -37,4 +37,12 @@ public class UserLoginMusicTypeId {
 
         return Objects.hash(userLogin, musicTypeId);
     }
+
+    @Override
+    public String toString() {
+        return "UserLoginMusicTypeId{" +
+                "userLogin='" + userLogin + '\'' +
+                ", musicTypeId=" + musicTypeId +
+                '}';
+    }
 }

@@ -95,4 +95,10 @@ public class UserRepositoryTest {
             System.out.println(user.getName());
         }
     }
+
+    @Test
+    public void testFindAll() {
+        UserRepository repository = UserRepository.getInstance();
+        System.out.println(repository.findAll().toString());
+    }
 }

@@ -61,22 +61,27 @@ public class UserRepository {
 
     public Set<User> findAll() {
         Set<User> users = new HashSet<>();
+        Set<MusicType> musicTypes = new HashSet<>();
         try (
                 Connection connection = this.connectionDB.getConnection();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT u.login, u.password, u.user_name, u.email, u.address_id, a.country, a.city, a.street, a.house, u.role_id, adr.role FROM users AS u \n" +
+                        "SELECT u.login, u.password, u.user_name, u.email, u.address_id, a.country, a.city, a.street, a.house, u.role_id, adr.role, m.id, m.music_type FROM users AS u \n" +
                                 "LEFT OUTER JOIN address AS a ON u.address_id = a.id \n" +
-                                "LEFT OUTER JOIN roles AS adr ON u.role_id = adr.id\n")
+                                "LEFT OUTER JOIN roles AS adr ON u.role_id = adr.id\n" +
+                                "LEFT OUTER JOIN login_music_id AS lm ON u.login = lm.user_login\n" +
+                                "LEFT OUTER JOIN musics AS m ON lm.music_id = m.id;")
         ) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
                 Address address = new Address();
                 Role role = new Role();
+                MusicType musicType = new MusicType();
 
                 user.setLogin(resultSet.getString("login"));
                 user.setName(resultSet.getString("user_name"));
                 user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
 
                 address.setId(resultSet.getInt("address_id"));
                 address.setCountry(resultSet.getString("country"));
@@ -87,9 +92,21 @@ public class UserRepository {
                 role.setId(resultSet.getInt("role_id"));
                 role.setRoleType(resultSet.getString("role"));
 
+                musicType.setId(resultSet.getInt("id"));
+                musicType.setMusicType(resultSet.getString("music_type"));
+                System.out.println(musicType.getId() + " " + musicType.getMusicType());
                 user.setAddress(address);
                 user.setRole(role);
-                users.add(user);
+
+                if (users.contains(user)) {
+                    musicTypes.add(musicType);
+                    user.setMusicTypes(musicTypes);
+                } else {
+                    musicTypes = new HashSet<>();
+                    musicTypes.add(musicType);
+                    user.setMusicTypes(musicTypes);
+                    users.add(user);
+                }
             }
 
         } catch (SQLException e) {

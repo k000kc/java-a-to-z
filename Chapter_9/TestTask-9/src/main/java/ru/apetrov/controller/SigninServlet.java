@@ -29,7 +29,7 @@ public class SigninServlet extends HttpServlet {
             synchronized (session) {
                 session.setAttribute("user", user);
             }
-            resp.sendRedirect(String.format("%s/show", req.getContextPath()));
+            resp.sendRedirect(String.format("%s/index", req.getContextPath()));
         } else {
             doGet(req, resp);
         }

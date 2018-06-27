@@ -1,7 +1,7 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
     <servlet>
         <servlet-name>ShowUsers</servlet-name>
-        <servlet-class>ru.apetrov.controller.ShowUsers</servlet-class>
+        <servlet-class>ru.apetrov.controller.IndexPage</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>

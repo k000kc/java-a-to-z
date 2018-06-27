@@ -18,12 +18,21 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>ShowUsers</servlet-name>
-        <servlet-class>ru.apetrov.controller.ShowUsers</servlet-class>
+        <servlet-name>IndexPage</servlet-name>
+        <servlet-class>ru.apetrov.controller.IndexPage</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ShowUsers</servlet-name>
-        <url-pattern>/show</url-pattern>
+        <servlet-name>IndexPage</servlet-name>
+        <url-pattern>/index</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AjaxFindUsers</servlet-name>
+        <servlet-class>ru.apetrov.controller.AjaxFindUsers</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AjaxFindUsers</servlet-name>
+        <url-pattern>/show</url-pattern>
+    </servlet-mapping>
 </web-app>

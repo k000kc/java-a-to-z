@@ -47,4 +47,4 @@ function returnbutton(login) {
                     "<input type='hidden' name='login' value='" + login + "'>" +
                 "</form></td>";
     return buttons;
-}
+};

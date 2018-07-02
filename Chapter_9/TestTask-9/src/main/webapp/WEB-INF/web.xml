@@ -35,4 +35,31 @@
         <servlet-name>AjaxFindUsers</servlet-name>
         <url-pattern>/show</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AjsxAddUser</servlet-name>
+        <servlet-class>ru.apetrov.controller.AjaxAddUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjsxAddUser</servlet-name>
+        <url-pattern>/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoadRolesr</servlet-name>
+        <servlet-class>ru.apetrov.controller.LoadRoles</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoadRolesr</servlet-name>
+        <url-pattern>/loadroles</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoadMusics</servlet-name>
+        <servlet-class>ru.apetrov.controller.LoadMusics</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoadMusics</servlet-name>
+        <url-pattern>/loadmusics</url-pattern>
+    </servlet-mapping>
 </web-app>

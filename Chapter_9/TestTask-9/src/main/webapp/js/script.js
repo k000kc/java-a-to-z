@@ -48,3 +48,27 @@ function returnbutton(login) {
                 "</form></td>";
     return buttons;
 };
+
+function setUser() {
+    // $('#button').click(function () {
+        var login = $("#login").val();
+        var password = $('#password').val();
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var country = $('#country').val();
+        var city = $('#city').val();
+        var street = $('#street').val();
+        var house = $('#house').val();
+        var role = $('#roleslist').val();
+        var musics = $('input:checkbox:checked').val();
+        var data = {"login" : login, "password": password, "name": name, "email": email, "country": country, "city": city, "street": street, "house": house, "role": role, "musics": musics};
+        $.ajax({
+            type: "GET",
+            data: data,
+            url: "add",
+            success: function () {
+                getall();
+            }
+        })
+    // })
+}

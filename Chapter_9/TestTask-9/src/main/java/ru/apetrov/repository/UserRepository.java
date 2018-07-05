@@ -94,7 +94,6 @@ public class UserRepository {
 
                 musicType.setId(resultSet.getInt("id"));
                 musicType.setMusicType(resultSet.getString("music_type"));
-                System.out.println(musicType.getId() + " " + musicType.getMusicType());
                 user.setAddress(address);
                 user.setRole(role);
 

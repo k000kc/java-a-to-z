@@ -17,7 +17,6 @@ public class LoadMusics extends HttpServlet {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
         String gson = new Gson().toJson(new MusicTypeImpl().getAll());
-        System.out.println(gson);
         writer.write(gson);
         writer.flush();
         writer.close();

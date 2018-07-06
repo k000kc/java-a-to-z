@@ -60,8 +60,13 @@ function setUser() {
         var street = $('#street').val();
         var house = $('#house').val();
         var role = $('#roleslist').val();
-        var musics = $('input:checkbox:checked').val();
-        var data = {"login" : login, "password": password, "name": name, "email": email, "country": country, "city": city, "street": street, "house": house, "role": role, "musics": musics};
+        var musics = [];
+        $('input:checkbox:checked').each(function () {
+            musics.push($(this).val());
+            console.log($(this).val());
+        })
+        var arr = JSON.stringify(musics);
+        var data = {"login" : login, "password": password, "name": name, "email": email, "country": country, "city": city, "street": street, "house": house, "role": role, "musics": arr};
         $.ajax({
             type: "GET",
             data: data,

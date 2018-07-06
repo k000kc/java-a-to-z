@@ -1,5 +1,11 @@
 package ru.apetrov.controller;
 
+import ru.apetrov.dao.MusicTypeImpl;
+import ru.apetrov.dao.RoleImpl;
+import ru.apetrov.models.Address;
+import ru.apetrov.models.MusicType;
+import ru.apetrov.models.Role;
+import ru.apetrov.models.User;
 import ru.apetrov.repository.UserRepository;
 
 import javax.servlet.ServletException;
@@ -15,32 +21,39 @@ import java.util.regex.Pattern;
 
 public class AjaxAddUser extends HttpServlet {
 
-    UserRepository repository = UserRepository.getInstance();
+    private UserRepository repository = UserRepository.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
         addUser(req, resp);
+
     }
 
     private void addUser(HttpServletRequest req, HttpServletResponse resp) {
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-        String name = req.getParameter("name");
-        String email = req.getParameter("email");
-        String country = req.getParameter("country");
-        String city = req.getParameter("city");
-        String street = req.getParameter("street");
-        String house = req.getParameter("house");
-        String role = req.getParameter("role");
+        User user = new User();
+        user.setLogin(req.getParameter("login"));
+        user.setPassword(req.getParameter("password"));
+        user.setName(req.getParameter("name"));
+        user.setEmail(req.getParameter("email"));
+
+        Address address = new Address();
+        address.setCountry(req.getParameter("country"));
+        address.setCity(req.getParameter("city"));
+        address.setStreet(req.getParameter("street"));
+        address.setHouse(req.getParameter("house"));
+        Integer roleId = Integer.valueOf(req.getParameter("role"));
+        Role role = new RoleImpl().getById(roleId);
+
+        this.repository.createUser(user, address, role);
+
         String musics = req.getParameter("musics");
-        List<Integer> musicId = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(musics);
         while (matcher.find()) {
-            musicId.add(Integer.valueOf(matcher.group()));
+            Integer musicTypeId = Integer.valueOf(matcher.group());
+            this.repository.putMusicTypeToUser(user, new MusicTypeImpl().getById(musicTypeId));
         }
-        System.out.println(musicId.get(2));
     }
 }

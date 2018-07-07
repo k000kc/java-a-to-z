@@ -1,5 +1,6 @@
 package ru.apetrov.controller;
 
+import com.google.gson.Gson;
 import ru.apetrov.dao.MusicTypeImpl;
 import ru.apetrov.dao.RoleImpl;
 import ru.apetrov.models.Address;
@@ -28,7 +29,10 @@ public class AjaxAddUser extends HttpServlet {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
         addUser(req, resp);
-
+        String gson = new Gson().toJson(this.repository.findAll());
+        writer.write(gson);
+        writer.flush();
+        writer.close();
     }
 
     private void addUser(HttpServletRequest req, HttpServletResponse resp) {
@@ -49,6 +53,7 @@ public class AjaxAddUser extends HttpServlet {
         this.repository.createUser(user, address, role);
 
         String musics = req.getParameter("musics");
+        System.out.println(musics);
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(musics);
         while (matcher.find()) {

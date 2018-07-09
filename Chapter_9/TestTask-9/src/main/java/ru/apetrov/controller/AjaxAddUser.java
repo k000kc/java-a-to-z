@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import ru.apetrov.dao.MusicTypeImpl;
 import ru.apetrov.dao.RoleImpl;
 import ru.apetrov.models.Address;
-import ru.apetrov.models.MusicType;
 import ru.apetrov.models.Role;
 import ru.apetrov.models.User;
 import ru.apetrov.repository.UserRepository;
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +22,7 @@ public class AjaxAddUser extends HttpServlet {
     private UserRepository repository = UserRepository.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
         addUser(req, resp);
@@ -49,10 +46,10 @@ public class AjaxAddUser extends HttpServlet {
         address.setHouse(req.getParameter("house"));
         Integer roleId = Integer.valueOf(req.getParameter("role"));
         Role role = new RoleImpl().getById(roleId);
+        String musics = req.getParameter("musics");
 
         this.repository.createUser(user, address, role);
 
-        String musics = req.getParameter("musics");
         System.out.println(musics);
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(musics);

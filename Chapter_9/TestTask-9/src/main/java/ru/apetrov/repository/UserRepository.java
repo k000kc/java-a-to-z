@@ -69,9 +69,10 @@ public class UserRepository {
                                 "LEFT OUTER JOIN address AS a ON u.address_id = a.id \n" +
                                 "LEFT OUTER JOIN roles AS adr ON u.role_id = adr.id\n" +
                                 "LEFT OUTER JOIN login_music_id AS lm ON u.login = lm.user_login\n" +
-                                "LEFT OUTER JOIN musics AS m ON lm.music_id = m.id;")
+                                "LEFT OUTER JOIN musics AS m ON lm.music_id = m.id;");
+                ResultSet resultSet = statement.executeQuery();
         ) {
-            ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
                 User user = new User();
                 Address address = new Address();
@@ -129,6 +130,7 @@ public class UserRepository {
     public Set<User> findUserByAddress(Address address) {
         Set<User> users = new HashSet<>();
         User user = null;
+        ResultSet resultSet = null;
         try (
                 Connection connection = this.connectionDB.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT id FROM address WHERE country = ? AND city = ? AND street = ? AND house = ?")
@@ -137,7 +139,7 @@ public class UserRepository {
             statement.setString(2, address.getCity());
             statement.setString(3, address.getStreet());
             statement.setString(4, address.getHouse());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Integer addressId = resultSet.getInt("id");
                 user = this.getUserByAddressId(addressId);
@@ -145,18 +147,25 @@ public class UserRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return users;
     }
 
     private User getUserByAddressId(Integer addressId) {
         User user = null;
+        ResultSet resultSet = null;
         try (
                 Connection connection = this.connectionDB.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE address_id = ?")
         ) {
             statement.setInt(1, addressId);
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
                 user.setLogin(resultSet.getString("login"));
@@ -169,6 +178,12 @@ public class UserRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return user;
     }
@@ -176,12 +191,13 @@ public class UserRepository {
     public Set<User> getUserByRole(Role role) {
         Set<User> users = new HashSet<>();
         User user = null;
+        ResultSet resultSet = null;
         try (
                 Connection connection = this.connectionDB.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE role_id = ?")
         ) {
             statement.setInt(1, role.getId());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 user = new User();
                 user.setLogin(resultSet.getString("login"));
@@ -196,6 +212,12 @@ public class UserRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return users;
     }
@@ -203,18 +225,25 @@ public class UserRepository {
     public Set<User> getUserByMusicType(MusicType musicType) {
         Set<User> users = new HashSet<>();
         User user = null;
+        ResultSet resultSet = null;
         try (
                 Connection connection = this.connectionDB.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT user_login FROM login_music_id WHERE music_id = ?");
         ) {
             statement.setInt(1, musicType.getId());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 user = this.userDAO.getById(resultSet.getString("user_login"));
                 users.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return users;
     }

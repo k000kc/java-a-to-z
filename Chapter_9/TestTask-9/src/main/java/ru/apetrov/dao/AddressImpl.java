@@ -34,12 +34,13 @@ public class AddressImpl extends ModelBaseDAO<Address,Integer> {
     @Override
     public Address getById(Integer id) {
         Address address = new Address();
+        ResultSet resultSet = null;
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM address WHERE id = ?")
         ) {
             statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 address.setId(resultSet.getInt("id"));
                 address.setCountry(resultSet.getString("country"));
@@ -49,6 +50,12 @@ public class AddressImpl extends ModelBaseDAO<Address,Integer> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return address;
     }
@@ -58,9 +65,9 @@ public class AddressImpl extends ModelBaseDAO<Address,Integer> {
         Set<Address> result = new HashSet<>();
         try (
                 Connection connection = super.getConnection();
-                Statement statement = connection.createStatement()
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM address");
         ) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM address");
             while (resultSet.next()) {
                 Address address = new Address();
                 address.setId(resultSet.getInt("id"));

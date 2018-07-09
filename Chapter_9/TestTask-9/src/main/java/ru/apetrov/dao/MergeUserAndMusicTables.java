@@ -29,30 +29,38 @@ public class MergeUserAndMusicTables {
 
     public Set<String> getLoginByMusicTypeId(Integer musicTypeId) {
         Set<String> result = new HashSet<>();
+        ResultSet resultSet = null;
         try (
                 Connection connection = this.connectionDB.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT user_login, music_id FROM login_music_id WHERE music_id = ?")
         ) {
             statement.setInt(1, musicTypeId);
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String login = resultSet.getString("user_login");
                 result.add(login);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }
 
     public Set<Integer> getMusicTypeIdByLogin(String login) {
         Set<Integer> result = new HashSet<>();
+        ResultSet resultSet = null;
         try (
                 Connection connection =this.connectionDB.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT user_login, music_id FROM login_music_id WHERE user_login = ?")
         ) {
             statement.setString(1, login);
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Integer musicTypeId = resultSet.getInt("music_id");
                 result.add(musicTypeId);
@@ -60,6 +68,12 @@ public class MergeUserAndMusicTables {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }

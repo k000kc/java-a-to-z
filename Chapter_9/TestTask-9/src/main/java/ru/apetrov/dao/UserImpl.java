@@ -29,12 +29,13 @@ public class UserImpl extends ModelBaseDAO<User,String> {
     @Override
     public User getById(String login) {
         User user = new User();
+        ResultSet resultSet = null;
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE login = ?")
         ){
             statement.setString(1, login);
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 user.setLogin(resultSet.getString("login"));
                 user.setPassword(resultSet.getString("password"));
@@ -47,6 +48,12 @@ public class UserImpl extends ModelBaseDAO<User,String> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return user;
@@ -58,8 +65,8 @@ public class UserImpl extends ModelBaseDAO<User,String> {
         try (
                 Connection connection = super.getConnection();
                 Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
         ) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
             while (resultSet.next()) {
                 User user = new User();
                 user.setLogin(resultSet.getString("login"));

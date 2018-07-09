@@ -26,18 +26,25 @@ public class MusicTypeImpl extends ModelBaseDAO<MusicType, Integer> {
     @Override
     public MusicType getById(Integer id) {
         MusicType musicType = new MusicType();
+        ResultSet resultSet = null;
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM musics WHERE id = ?")
         ) {
             statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 musicType.setId(resultSet.getInt("id"));
                 musicType.setMusicType(resultSet.getString("music_type"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return musicType;
     }
@@ -48,8 +55,8 @@ public class MusicTypeImpl extends ModelBaseDAO<MusicType, Integer> {
         try (
                 Connection connection = super.getConnection();
                 Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM musics");
         ) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM musics");
             while (resultSet.next()) {
                 MusicType musicType = new MusicType();
                 musicType.setId(resultSet.getInt("id"));

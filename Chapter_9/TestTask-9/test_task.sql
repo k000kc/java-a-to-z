@@ -12,6 +12,8 @@ create table if not exists address(
 	house CHARACTER VARYING(50)
 );
 
+insert into address(id, country, city, street, house) values(1, 'Russia', 'Moscow', 'RRR', '1212');
+
 create table if not exists musics(
 	id integer primary key unique, 
 	music_type character varying(50)
@@ -27,8 +29,12 @@ CREATE TABLE IF NOT EXISTS users(
 	role_id INTEGER REFERENCES roles(id)
 );
 
+insert into users(login, password, user_name, email, address_id, role_id) values('root', 'root', 'root', 'root@mail.ru', 1, 3);
+
 create table login_music_id(
 	user_login CHARACTER VARYING(30) REFERENCES users(login),
 	music_id integer REFERENCES musics(id),
 	primary key (user_login, music_id)
 );
+
+insert into login_music_id(user_login, music_id) values('root', 2);

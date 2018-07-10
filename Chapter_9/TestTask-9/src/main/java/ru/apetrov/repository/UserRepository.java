@@ -4,14 +4,8 @@ import ru.apetrov.dao.*;
 import ru.apetrov.models.*;
 import ru.apetrov.util.ConnectionDB;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.sql.*;
+import java.util.*;
 
 
 public class UserRepository {
@@ -52,11 +46,28 @@ public class UserRepository {
         this.userDAO.create(user);
     }
 
-    public void putMusicTypeToUser(User user, MusicType musicType) {
-        UserLoginMusicTypeId loginMusic = new UserLoginMusicTypeId();
-        loginMusic.setUserLogin(user.getLogin());
-        loginMusic.setMusicTypeId(musicType.getId());
-        this.mergeUserMusic.addMusicTypeToTheUser(loginMusic);
+    public void putMusicTypeToUser(User user, List<Integer> musicTypesId) throws SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = this.connectionDB.getConnection();
+            statement = connection.prepareStatement("INSERT INTO login_music_id(user_login, music_id) VALUES(?, ?)");
+            connection.setAutoCommit(false);
+            for (Integer  musicTypeId : musicTypesId) {
+                statement.setString(1, user.getLogin());
+                statement.setInt(2, musicTypeId);
+                statement.addBatch();
+            }
+            statement.executeBatch();
+            connection.commit();
+        } catch (SQLException e) {
+            connection.rollback();
+            e.printStackTrace();
+        } finally {
+            connection.setAutoCommit(true);
+            statement.close();
+            connection.close();
+        }
     }
 
     public Set<User> findAll() {

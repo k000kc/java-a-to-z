@@ -1,7 +1,6 @@
 package ru.apetrov.controller;
 
 import com.google.gson.Gson;
-import ru.apetrov.dao.MusicTypeImpl;
 import ru.apetrov.dao.RoleImpl;
 import ru.apetrov.models.Address;
 import ru.apetrov.models.Role;
@@ -14,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,11 +53,16 @@ public class AjaxAddUser extends HttpServlet {
         this.repository.createUser(user, address, role);
 
         System.out.println(musics);
+        List<Integer> musicTypesId = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(musics);
         while (matcher.find()) {
-            Integer musicTypeId = Integer.valueOf(matcher.group());
-            this.repository.putMusicTypeToUser(user, new MusicTypeImpl().getById(musicTypeId));
+            musicTypesId.add(Integer.valueOf(matcher.group()));
+        }
+        try {
+            this.repository.putMusicTypeToUser(user, musicTypesId);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

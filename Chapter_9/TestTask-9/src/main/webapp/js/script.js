@@ -1,59 +1,15 @@
-// $(document).ready(function () {
-//     $('#button').click(function () {
-//         var data = {"login": $("#login").val(), "password": $("#password").val()}
-//         $.ajax({
-//             type: "POST",
-//             data: data,
-//             url: 'signin',
-//             success: function () {
-//             }
-//         })
-//     });
-// })
 $(document).ready(function () {
     getall();
     getroles();
     getmusics();
     $("#button").click(function () {
-        setTimeout(function () {
             setUser();
-        }, 100);
     });
 });
 
 function getall () {
     $.getJSON("show", function (data) {
-        var result = "<tr>" +
-            "<th>login</th>" +
-            "<th>user_name</th>" +
-            "<th>email</th>" +
-            "<th>country</th>" +
-            "<th>city</th>" +
-            "<th>street</th>" +
-            "<th>house</th>" +
-            "<th>role</th>" +
-            "<th>music_type</th>" +
-            "<th colspan='2'>actions</th>" +
-            "</tr>";
-        $.each(data, function (index, users) {
-            result += "<tr><td>" + users.login + "</td>";
-            result += "<td>" + users.name + "</td>";
-            result += "<td>" + users.email + "</td>";
-            result += "<td>" + users.address.country + "</td>";
-            result += "<td>" + users.address.city + "</td>";
-            result += "<td>" + users.address.street + "</td>";
-            result += "<td>" + users.address.house + "</td>";
-            result += "<td>" + users.role.roleType + "</td>";
-            result += "<td>";
-            for (var i = 0; i < users.musicTypes.length; i++) {
-                result += users.musicTypes[i].musicType + ", ";
-            }
-            result += "</td>";
-            result += returnbutton(users.login);
-            result += "</tr>";
-        });
-        var usertable = $("#userstable");
-        $(result).appendTo(usertable);
+        printTable(data);
     });
 };
 
@@ -93,6 +49,40 @@ function returnbutton(login) {
     return buttons;
 };
 
+function printTable(data) {
+    var result = "<tr>" +
+        "<th>login</th>" +
+        "<th>user_name</th>" +
+        "<th>email</th>" +
+        "<th>country</th>" +
+        "<th>city</th>" +
+        "<th>street</th>" +
+        "<th>house</th>" +
+        "<th>role</th>" +
+        "<th>music_type</th>" +
+        "<th colspan='2'>actions</th>" +
+        "</tr>";
+    $.each(data, function (index, users) {
+        result += "<tr><td>" + users.login + "</td>";
+        result += "<td>" + users.name + "</td>";
+        result += "<td>" + users.email + "</td>";
+        result += "<td>" + users.address.country + "</td>";
+        result += "<td>" + users.address.city + "</td>";
+        result += "<td>" + users.address.street + "</td>";
+        result += "<td>" + users.address.house + "</td>";
+        result += "<td>" + users.role.roleType + "</td>";
+        result += "<td>";
+        for (var i = 0; i < users.musicTypes.length; i++) {
+            result += users.musicTypes[i].musicType + ", ";
+        }
+        result += "</td>";
+        result += returnbutton(users.login);
+        result += "</tr>";
+    });
+    var usertable = $("#userstable");
+    $(result).appendTo(usertable);
+}
+
 function setUser() {
     $("#userstable").empty();
     var login = $("#login").val();
@@ -107,7 +97,7 @@ function setUser() {
     var musics = [];
     $('input:checkbox:checked').each(function () {
         musics.push($(this).val());
-        console.log($(this).val());
+        // console.log($(this).val());
     });
     var arr = JSON.stringify(musics);
     var json = {"login" : login, "password": password, "name": name, "email": email, "country": country, "city": city, "street": street, "house": house, "role": role, "musics": arr};
@@ -116,37 +106,7 @@ function setUser() {
     data: json,
     url: "add",
     success: function (data) {
-        var result = "<tr>" +
-            "<th>login</th>" +
-            "<th>user_name</th>" +
-            "<th>email</th>" +
-            "<th>country</th>" +
-            "<th>city</th>" +
-            "<th>street</th>" +
-            "<th>house</th>" +
-            "<th>role</th>" +
-            "<th>music_type</th>" +
-            "<th colspan='2'>actions</th>" +
-            "</tr>";
-        $.each(data, function (index, users) {
-            result += "<tr><td>" + users.login + "</td>";
-            result += "<td>" + users.name + "</td>";
-            result += "<td>" + users.email + "</td>";
-            result += "<td>" + users.address.country + "</td>";
-            result += "<td>" + users.address.city + "</td>";
-            result += "<td>" + users.address.street + "</td>";
-            result += "<td>" + users.address.house + "</td>";
-            result += "<td>" + users.role.roleType + "</td>";
-            result += "<td>";
-            for (var i = 0; i < users.musicTypes.length; i++) {
-                result += users.musicTypes[i].musicType + ", ";
-            }
-            result += "</td>";
-            result += returnbutton(users.login);
-            result += "</tr>";
-        });
-        var usertable = $("#userstable");
-        $(result).appendTo(usertable);
+        printTable(data);
     }
 });
 }

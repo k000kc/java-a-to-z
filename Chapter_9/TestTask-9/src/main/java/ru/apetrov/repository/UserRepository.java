@@ -39,14 +39,14 @@ public class UserRepository {
         this.connectionDB = new ConnectionDB();
     }
 
-    public void createUser(User user, Address address, Role role) {
+    public synchronized  void createUser(User user, Address address, Role role) {
         this.addressDAO.create(address);
         user.setAddress(address);
         user.setRole(role);
         this.userDAO.create(user);
     }
 
-    public void putMusicTypeToUser(User user, List<Integer> musicTypesId) throws SQLException {
+    public synchronized  void putMusicTypeToUser(User user, List<Integer> musicTypesId) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -70,7 +70,7 @@ public class UserRepository {
         }
     }
 
-    public Set<User> findAll() {
+    public synchronized  Set<User> findAll() {
         Set<User> users = new HashSet<>();
         Set<MusicType> musicTypes = new HashSet<>();
         try (
@@ -126,7 +126,7 @@ public class UserRepository {
         return users;
     }
 
-    public User getUser(String login) {
+    public synchronized  User getUser(String login) {
         User user = this.userDAO.getById(login);
         Set<Integer> musicIds = this.mergeUserMusic.getMusicTypeIdByLogin(login);
         Set<MusicType> musicTypes = new HashSet<>();
@@ -138,7 +138,7 @@ public class UserRepository {
         return user;
     }
 
-    public Set<User> findUserByAddress(Address address) {
+    public synchronized  Set<User> findUserByAddress(Address address) {
         Set<User> users = new HashSet<>();
         User user = null;
         ResultSet resultSet = null;
@@ -168,7 +168,7 @@ public class UserRepository {
         return users;
     }
 
-    private User getUserByAddressId(Integer addressId) {
+    private synchronized  User getUserByAddressId(Integer addressId) {
         User user = null;
         ResultSet resultSet = null;
         try (
@@ -199,7 +199,7 @@ public class UserRepository {
         return user;
     }
 
-    public Set<User> getUserByRole(Role role) {
+    public synchronized  Set<User> getUserByRole(Role role) {
         Set<User> users = new HashSet<>();
         User user = null;
         ResultSet resultSet = null;
@@ -233,7 +233,7 @@ public class UserRepository {
         return users;
     }
 
-    public Set<User> getUserByMusicType(MusicType musicType) {
+    public synchronized  Set<User> getUserByMusicType(MusicType musicType) {
         Set<User> users = new HashSet<>();
         User user = null;
         ResultSet resultSet = null;

@@ -10,7 +10,7 @@ import java.util.Set;
 public class MusicTypeImpl extends ModelBaseDAO<MusicType, Integer> {
 
     @Override
-    public void create(MusicType musicType) {
+    public synchronized void create(MusicType musicType) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO musics(id, music_type) VALUES(?, ?)")
@@ -24,7 +24,7 @@ public class MusicTypeImpl extends ModelBaseDAO<MusicType, Integer> {
     }
 
     @Override
-    public MusicType getById(Integer id) {
+    public synchronized MusicType getById(Integer id) {
         MusicType musicType = new MusicType();
         ResultSet resultSet = null;
         try (
@@ -50,7 +50,7 @@ public class MusicTypeImpl extends ModelBaseDAO<MusicType, Integer> {
     }
 
     @Override
-    public Set<MusicType> getAll() {
+    public synchronized Set<MusicType> getAll() {
         Set<MusicType> result = new HashSet<>();
         try (
                 Connection connection = super.getConnection();
@@ -70,7 +70,7 @@ public class MusicTypeImpl extends ModelBaseDAO<MusicType, Integer> {
     }
 
     @Override
-    public void update(MusicType musicType) {
+    public synchronized void update(MusicType musicType) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("UPDATE musics SET music_type = ? WHERE id = ?")
@@ -84,7 +84,7 @@ public class MusicTypeImpl extends ModelBaseDAO<MusicType, Integer> {
     }
 
     @Override
-    public void remove(Integer id) {
+    public synchronized void remove(Integer id) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("DELETE FROM musics WHERE id = ?");

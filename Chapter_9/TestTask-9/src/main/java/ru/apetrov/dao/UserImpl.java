@@ -9,7 +9,7 @@ import java.util.Set;
 public class UserImpl extends ModelBaseDAO<User,String> {
 
     @Override
-    public void create(User user) {
+    public synchronized void create(User user) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO users(login, password, user_name, email, address_id, role_id) VALUES(?, ?, ?, ?, ?, ?)")
@@ -27,7 +27,7 @@ public class UserImpl extends ModelBaseDAO<User,String> {
     }
 
     @Override
-    public User getById(String login) {
+    public synchronized User getById(String login) {
         User user = new User();
         ResultSet resultSet = null;
         try (
@@ -60,7 +60,7 @@ public class UserImpl extends ModelBaseDAO<User,String> {
     }
 
     @Override
-    public Set<User> getAll() {
+    public synchronized Set<User> getAll() {
         Set<User> result = new HashSet<>();
         try (
                 Connection connection = super.getConnection();
@@ -86,7 +86,7 @@ public class UserImpl extends ModelBaseDAO<User,String> {
     }
 
     @Override
-    public void update(User user) {
+    public synchronized void update(User user) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("UPDATE users SET password = ?, user_name = ?, email = ?, role_id = ? WHERE login = ?");
@@ -103,7 +103,7 @@ public class UserImpl extends ModelBaseDAO<User,String> {
     }
 
     @Override
-    public void remove(String login) {
+    public synchronized void remove(String login) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE login = ?");

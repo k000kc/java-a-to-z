@@ -32,7 +32,7 @@ public class UserRepositoryTest {
         user.setName("test");
         user.setEmail("test");
 
-        repository.createUser(user, address, role);
+//        repository.createUser(user, address, role);
 
         MusicType musicType = new MusicType();
         musicType.setId(1);
@@ -42,8 +42,8 @@ public class UserRepositoryTest {
         musicType1.setId(2);
         musicType1.setMusicType("rock");
 
-        repository.putMusicTypeToUser(user, musicType);
-        repository.putMusicTypeToUser(user, musicType1);
+//        repository.putMusicTypeToUser(user, musicType);
+//        repository.putMusicTypeToUser(user, musicType1);
 
         User user1 = repository.getUser("test");
         for (MusicType m : user1.getMusicTypes()) {

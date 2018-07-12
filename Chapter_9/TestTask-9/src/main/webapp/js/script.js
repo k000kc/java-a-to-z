@@ -3,7 +3,7 @@ $(document).ready(function () {
     getroles();
     getmusics();
     $("#button").click(function () {
-            setUser();
+        setUser();
     });
 });
 
@@ -37,19 +37,20 @@ function getmusics() {
 
 function returnbutton(login) {
     var buttons = "<td><form action='/update' method='get'>" +
-                    "<input type='button' value='update' class='button'>" +
-                    "<input type='hidden' name='login' value='" + login + "'>" +
-                "</form>" +
-                "</td>" +
-                "<td>" +
-                "<form action='/delete' method='get'>" +
-                    "<input type='button' value='delete' class='button'>" +
-                    "<input type='hidden' name='login' value='" + login + "'>" +
-                "</form></td>";
+        "<input type='button' value='update' class='button'>" +
+        "<input type='hidden' name='login' value='" + login + "'>" +
+        "</form>" +
+        "</td>" +
+        "<td>" +
+        "<form action='/delete' method='get'>" +
+        "<input type='button' value='delete' class='button'>" +
+        "<input type='hidden' name='login' value='" + login + "'>" +
+        "</form></td>";
     return buttons;
 };
 
 function printTable(data) {
+    $("#userstable").empty();
     var result = "<tr>" +
         "<th>login</th>" +
         "<th>user_name</th>" +
@@ -84,7 +85,6 @@ function printTable(data) {
 }
 
 function setUser() {
-    $("#userstable").empty();
     var login = $("#login").val();
     var password = $('#password').val();
     var name = $('#name').val();
@@ -97,16 +97,16 @@ function setUser() {
     var musics = [];
     $('input:checkbox:checked').each(function () {
         musics.push($(this).val());
-        // console.log($(this).val());
     });
     var arr = JSON.stringify(musics);
     var json = {"login" : login, "password": password, "name": name, "email": email, "country": country, "city": city, "street": street, "house": house, "role": role, "musics": arr};
     $.ajax({
-    type: "POST",
-    data: json,
-    url: "add",
-    success: function (data) {
-        printTable(data);
-    }
-});
+        type: "POST",
+        data: json,
+        url: "add",
+        success: function (data) {
+            printTable(data);
+            $('#userform')[0].reset();
+        }
+    });
 }

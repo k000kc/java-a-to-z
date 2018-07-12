@@ -16,7 +16,7 @@ public class MergeUserAndMusicTablesTest {
 
 
         MergeUserAndMusicTables mergeUserMusic = new MergeUserAndMusicTables();
-        mergeUserMusic.addMusicTypeToTheUser(userLoginMusicTypeId);
+//        mergeUserMusic.addMusicTypeToTheUser(userLoginMusicTypeId);
 
         for (String s : mergeUserMusic.getLoginByMusicTypeId(2)) {
             System.out.println(s);

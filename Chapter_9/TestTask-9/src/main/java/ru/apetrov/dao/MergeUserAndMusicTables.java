@@ -1,5 +1,6 @@
 package ru.apetrov.dao;
 
+import ru.apetrov.models.User;
 import ru.apetrov.models.UserLoginMusicTypeId;
 import ru.apetrov.util.ConnectionDB;
 
@@ -8,13 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MergeUserAndMusicTables {
 
     private ConnectionDB connectionDB = new ConnectionDB();
 
-    public void addMusicTypeToTheUser(UserLoginMusicTypeId loginAndMusicType) {
+    public synchronized void addMusicTypeToTheUser(UserLoginMusicTypeId loginAndMusicType) {
         try (
                 Connection connection = this.connectionDB.getConnection();
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO login_music_id(user_login, music_id) VALUES(?, ?)")
@@ -27,7 +29,7 @@ public class MergeUserAndMusicTables {
         }
     }
 
-    public Set<String> getLoginByMusicTypeId(Integer musicTypeId) {
+    public synchronized Set<String> getLoginByMusicTypeId(Integer musicTypeId) {
         Set<String> result = new HashSet<>();
         ResultSet resultSet = null;
         try (
@@ -52,7 +54,7 @@ public class MergeUserAndMusicTables {
         return result;
     }
 
-    public Set<Integer> getMusicTypeIdByLogin(String login) {
+    public synchronized Set<Integer> getMusicTypeIdByLogin(String login) {
         Set<Integer> result = new HashSet<>();
         ResultSet resultSet = null;
         try (

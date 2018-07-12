@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +35,7 @@ public class AjaxAddUser extends HttpServlet {
         writer.close();
     }
 
-    private void addUser(HttpServletRequest req, HttpServletResponse resp) {
+    private synchronized void addUser(HttpServletRequest req, HttpServletResponse resp) {
         User user = new User();
         user.setLogin(req.getParameter("login"));
         user.setPassword(req.getParameter("password"));
@@ -53,11 +54,13 @@ public class AjaxAddUser extends HttpServlet {
         this.repository.createUser(user, address, role);
 
         System.out.println(musics);
-        List<Integer> musicTypesId = new ArrayList<>();
+        List<Integer> musicTypesId = new CopyOnWriteArrayList<>();
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(musics);
         while (matcher.find()) {
-            musicTypesId.add(Integer.valueOf(matcher.group()));
+            Integer id = Integer.valueOf(matcher.group());
+            System.out.println(id);
+            musicTypesId.add(id);
         }
         try {
             this.repository.putMusicTypeToUser(user, musicTypesId);

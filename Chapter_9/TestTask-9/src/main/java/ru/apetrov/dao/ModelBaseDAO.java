@@ -17,7 +17,7 @@ public abstract class ModelBaseDAO<T, K> {
     public abstract void remove(K k);
 
     protected Connection getConnection() {
-        this.connection = new ConnectionDB().getConnection();
+        this.connection = ConnectionDB.getInstance().getConnection();
         return this.connection;
     }
 

@@ -9,7 +9,7 @@ import java.util.Set;
 public class RoleImpl extends ModelBaseDAO<Role, Integer> {
 
     @Override
-    public synchronized void create(Role role) {
+    public void create(Role role) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO roles(id, role) VALUES(?, ?)")
@@ -23,7 +23,7 @@ public class RoleImpl extends ModelBaseDAO<Role, Integer> {
     }
 
     @Override
-    public synchronized Role getById(Integer id) {
+    public Role getById(Integer id) {
         Role role = new Role();
         ResultSet resultSet = null;
         try (
@@ -49,7 +49,7 @@ public class RoleImpl extends ModelBaseDAO<Role, Integer> {
     }
 
     @Override
-    public synchronized Set<Role> getAll() {
+    public Set<Role> getAll() {
         Set<Role> result = new HashSet<>();
         try (
                 Connection connection = super.getConnection();
@@ -69,7 +69,7 @@ public class RoleImpl extends ModelBaseDAO<Role, Integer> {
     }
 
     @Override
-    public synchronized void update(Role role) {
+    public void update(Role role) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("UPDATE roles SET role = ? WHERE id = ?");
@@ -83,7 +83,7 @@ public class RoleImpl extends ModelBaseDAO<Role, Integer> {
     }
 
     @Override
-    public synchronized void remove(Integer id) {
+    public void remove(Integer id) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("DELETE FROM roles WHERE id = ?");

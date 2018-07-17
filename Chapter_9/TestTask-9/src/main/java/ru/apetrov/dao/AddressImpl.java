@@ -9,7 +9,7 @@ import java.util.Set;
 public class AddressImpl extends ModelBaseDAO<Address,Integer> {
 
     @Override
-    public synchronized void create(Address address) {
+    public void create(Address address) {
         ResultSet rs = null;
         try (
                 Connection connection = super.getConnection();
@@ -38,7 +38,7 @@ public class AddressImpl extends ModelBaseDAO<Address,Integer> {
     }
 
     @Override
-    public synchronized Address getById(Integer id) {
+    public Address getById(Integer id) {
         Address address = new Address();
         ResultSet resultSet = null;
         try (
@@ -67,7 +67,7 @@ public class AddressImpl extends ModelBaseDAO<Address,Integer> {
     }
 
     @Override
-    public synchronized Set<Address> getAll() {
+    public Set<Address> getAll() {
         Set<Address> result = new HashSet<>();
         try (
                 Connection connection = super.getConnection();
@@ -90,7 +90,7 @@ public class AddressImpl extends ModelBaseDAO<Address,Integer> {
     }
 
     @Override
-    public synchronized void update(Address address) {
+    public void update(Address address) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("UPDATE address SET country = ?, city = ?, street = ?, house = ? WHERE id = ?")
@@ -107,7 +107,7 @@ public class AddressImpl extends ModelBaseDAO<Address,Integer> {
     }
 
     @Override
-    public synchronized void remove(Integer id) {
+    public void remove(Integer id) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("DELETE FROM address WHERE id = ?");

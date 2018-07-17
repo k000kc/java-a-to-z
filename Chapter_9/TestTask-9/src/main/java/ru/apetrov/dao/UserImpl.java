@@ -5,11 +5,12 @@ import ru.apetrov.models.User;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class UserImpl extends ModelBaseDAO<User,String> {
 
     @Override
-    public synchronized void create(User user) {
+    public void create(User user) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO users(login, password, user_name, email, address_id, role_id) VALUES(?, ?, ?, ?, ?, ?)")
@@ -27,7 +28,7 @@ public class UserImpl extends ModelBaseDAO<User,String> {
     }
 
     @Override
-    public synchronized User getById(String login) {
+    public User getById(String login) {
         User user = new User();
         ResultSet resultSet = null;
         try (
@@ -60,8 +61,8 @@ public class UserImpl extends ModelBaseDAO<User,String> {
     }
 
     @Override
-    public synchronized Set<User> getAll() {
-        Set<User> result = new HashSet<>();
+    public Set<User> getAll() {
+        Set<User> result = new CopyOnWriteArraySet<>();
         try (
                 Connection connection = super.getConnection();
                 Statement statement = connection.createStatement();
@@ -86,7 +87,7 @@ public class UserImpl extends ModelBaseDAO<User,String> {
     }
 
     @Override
-    public synchronized void update(User user) {
+    public void update(User user) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("UPDATE users SET password = ?, user_name = ?, email = ?, role_id = ? WHERE login = ?");
@@ -103,7 +104,7 @@ public class UserImpl extends ModelBaseDAO<User,String> {
     }
 
     @Override
-    public synchronized void remove(String login) {
+    public void remove(String login) {
         try (
                 Connection connection = super.getConnection();
                 PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE login = ?");

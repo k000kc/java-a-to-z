@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class SigninServlet extends HttpServlet {
 
-    private UserRepository repository = UserRepository.getInstance();
+    private UserRepository repository = new UserRepository();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

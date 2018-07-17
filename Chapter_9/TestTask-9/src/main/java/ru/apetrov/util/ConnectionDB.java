@@ -15,6 +15,18 @@ public class ConnectionDB {
      */
     private static final Logger log = LoggerFactory.getLogger(ConnectionDB.class);
 
+    private static ConnectionDB instance = null;
+
+    private ConnectionDB() {
+    }
+
+    public static ConnectionDB getInstance() {
+        if (instance == null) {
+            instance = new ConnectionDB();
+        }
+        return instance;
+    }
+
     /**
      * get singleton connection instance.
      * @return connection.

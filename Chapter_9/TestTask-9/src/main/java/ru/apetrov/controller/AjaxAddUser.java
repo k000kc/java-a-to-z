@@ -22,7 +22,12 @@ import java.util.regex.Pattern;
 
 public class AjaxAddUser extends HttpServlet {
 
-    private UserRepository repository = UserRepository.getInstance();
+    private UserRepository repository;
+
+    @Override
+    public void init() throws ServletException {
+        this.repository = new UserRepository();
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,13 +53,9 @@ public class AjaxAddUser extends HttpServlet {
         address.setStreet(req.getParameter("street"));
         address.setHouse(req.getParameter("house"));
         Integer roleId = Integer.valueOf(req.getParameter("role"));
-        Role role = new RoleImpl().getById(roleId);
         String musics = req.getParameter("musics");
 
-        this.repository.createUser(user, address, role);
-
-        System.out.println(musics);
-        List<Integer> musicTypesId = new CopyOnWriteArrayList<>();
+        List<Integer> musicTypesId = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(musics);
         while (matcher.find()) {
@@ -63,9 +64,14 @@ public class AjaxAddUser extends HttpServlet {
             musicTypesId.add(id);
         }
         try {
-            this.repository.putMusicTypeToUser(user, musicTypesId);
+            this.repository.add(user, address, roleId, musicTypesId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void destroy() {
+        this.repository.closeConection();
     }
 }

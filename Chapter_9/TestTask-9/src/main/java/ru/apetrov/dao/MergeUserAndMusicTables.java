@@ -14,9 +14,9 @@ import java.util.Set;
 
 public class MergeUserAndMusicTables {
 
-    private ConnectionDB connectionDB = new ConnectionDB();
+    private ConnectionDB connectionDB = ConnectionDB.getInstance();
 
-    public synchronized void addMusicTypeToTheUser(UserLoginMusicTypeId loginAndMusicType) {
+    public void addMusicTypeToTheUser(UserLoginMusicTypeId loginAndMusicType) {
         try (
                 Connection connection = this.connectionDB.getConnection();
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO login_music_id(user_login, music_id) VALUES(?, ?)")
@@ -29,7 +29,7 @@ public class MergeUserAndMusicTables {
         }
     }
 
-    public synchronized Set<String> getLoginByMusicTypeId(Integer musicTypeId) {
+    public Set<String> getLoginByMusicTypeId(Integer musicTypeId) {
         Set<String> result = new HashSet<>();
         ResultSet resultSet = null;
         try (
@@ -54,7 +54,7 @@ public class MergeUserAndMusicTables {
         return result;
     }
 
-    public synchronized Set<Integer> getMusicTypeIdByLogin(String login) {
+    public Set<Integer> getMusicTypeIdByLogin(String login) {
         Set<Integer> result = new HashSet<>();
         ResultSet resultSet = null;
         try (

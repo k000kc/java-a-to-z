@@ -10,17 +10,28 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class AjaxFindUsers extends HttpServlet {
+public class AjaxUpdateUser extends HttpServlet {
 
-    UserRepository repository = new UserRepository();
+    private UserRepository repository = new UserRepository();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/view/update.html").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
+        this.update(req, resp);
         String gson = new Gson().toJson(this.repository.findAll());
         writer.write(gson);
         writer.flush();
         writer.close();
+    }
+
+    private void update(HttpServletRequest req, HttpServletResponse resp) {
+        String login = req.getParameter("login");
+        System.out.println(login);
     }
 }

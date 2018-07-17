@@ -6,28 +6,20 @@ import ru.apetrov.util.ConnectionDB;
 
 import java.sql.*;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 
 public class UserRepository {
-
-    private static UserRepository instance;
 
     private ModelBaseDAO<User,String> userDAO;
     private ModelBaseDAO<Address,Integer> addressDAO;
     private ModelBaseDAO<Role,Integer> roleDAO;
     private ModelBaseDAO<MusicType,Integer> musicTypeDAO;
     private MergeUserAndMusicTables mergeUserMusic;
-    private ConnectionDB connectionDB;
+    private Connection connection;
 
-    private UserRepository() {
-    }
-
-    public synchronized static UserRepository getInstance() {
-        if (instance == null) {
-            instance = new UserRepository();
-            instance.init();
-        }
-        return instance;
+    public UserRepository() {
+        this.init();
     }
 
     private void init() {
@@ -36,46 +28,95 @@ public class UserRepository {
         this.roleDAO = new RoleImpl();
         this.musicTypeDAO = new MusicTypeImpl();
         this.mergeUserMusic = new MergeUserAndMusicTables();
-        this.connectionDB = new ConnectionDB();
+        this.connection = ConnectionDB.getInstance().getConnection();
     }
 
-    public synchronized  void createUser(User user, Address address, Role role) {
-        this.addressDAO.create(address);
-        user.setAddress(address);
-        user.setRole(role);
-        this.userDAO.create(user);
-    }
-
-    public synchronized  void putMusicTypeToUser(User user, List<Integer> musicTypesId) throws SQLException {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    public void add(User user, Address address, Integer roleId, List<Integer> musicTypesId) throws SQLException {
+        PreparedStatement statementAddress = null;
+        PreparedStatement statementUser= null;
+        PreparedStatement statementMusic = null;
         try {
-            connection = this.connectionDB.getConnection();
-            statement = connection.prepareStatement("INSERT INTO login_music_id(user_login, music_id) VALUES(?, ?)");
-            connection.setAutoCommit(false);
-            for (Integer  musicTypeId : musicTypesId) {
-                statement.setString(1, user.getLogin());
-                statement.setInt(2, musicTypeId);
-                statement.addBatch();
+            this.connection.setAutoCommit(false);
+            statementAddress = this.connection.prepareStatement("INSERT INTO address(country, city, street, house) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statementAddress.setString(1, address.getCountry());
+            statementAddress.setString(2, address.getCity());
+            statementAddress.setString(3, address.getStreet());
+            statementAddress.setString(4, address.getHouse());
+            statementAddress.execute();
+            ResultSet set = statementAddress.getGeneratedKeys();
+
+            while (set.next()) {
+                int addressId = set.getInt(1);
+                address.setId(addressId);
             }
-            statement.executeBatch();
-            connection.commit();
+
+            statementUser = this.connection.prepareStatement("INSERT INTO users(login, password, user_name, email, address_id, role_id) VALUES(?, ?, ?, ?, ?, ?)");
+            statementUser.setString(1, user.getLogin());
+            statementUser.setString(2, user.getPassword());
+            statementUser.setString(3, user.getName());
+            statementUser.setString(4, user.getEmail());
+            statementUser.setInt(5, address.getId());
+            statementUser.setInt(6, roleId);
+            statementUser.execute();
+
+            statementMusic = this.connection.prepareStatement("INSERT INTO login_music_id(user_login, music_id) VALUES(?, ?)");
+            for (Integer  musicTypeId : musicTypesId) {
+                statementMusic.setString(1, user.getLogin());
+                statementMusic.setInt(2, musicTypeId);
+                statementMusic.addBatch();
+            }
+            statementMusic.executeBatch();
+            this.connection.commit();
         } catch (SQLException e) {
-            connection.rollback();
+            this.connection.rollback();
             e.printStackTrace();
         } finally {
-            connection.setAutoCommit(true);
-            statement.close();
-            connection.close();
+            if (statementAddress != null) statementAddress.close();
+            if (statementUser != null) statementUser.close();
+            if (statementMusic != null) statementMusic.close();
+            this.connection.setAutoCommit(true);
         }
     }
 
-    public synchronized  Set<User> findAll() {
-        Set<User> users = new HashSet<>();
-        Set<MusicType> musicTypes = new HashSet<>();
+    public void update(User user, Address address, Integer roleId, List<Integer> musicTypesId) {
+        try {
+            this.connection.setAutoCommit(false);
+            PreparedStatement statementUser = this.connection.prepareStatement("UPDATE users SET password = ?, user_name = ?, email = ?, role_id = ? WHERE login = ?");
+            statementUser.setString(1, user.getPassword());
+            statementUser.setString(2, user.getName());
+            statementUser.setString(3, user.getEmail());
+            statementUser.setInt(4, roleId);
+            statementUser.setString(5, user.getLogin());
+            statementUser.execute();
+
+            PreparedStatement statementGetAddressId = this.connection.prepareStatement("SELECT address_id FROM users WHERE login = ?");
+            statementGetAddressId.setString(1, user.getLogin());
+            ResultSet set = statementGetAddressId.executeQuery();
+            int addressId = -1;
+            if (set.next()) {
+                addressId = set.getInt(1);
+            }
+
+            PreparedStatement statementAddress = this.connection.prepareStatement("UPDATE address SET country = ?, city = ?, street = ?, house = ? WHERE id = ?");
+            statementAddress.setString(1, address.getCountry());
+            statementAddress.setString(2, address.getCity());
+            statementAddress.setString(3, address.getStreet());
+            statementAddress.setString(4, address.getHouse());
+            statementAddress.setInt(5, addressId);
+            statementAddress.execute();
+
+            //TODO music type
+//            PreparedStatement statementMusic = this.connection.prepareStatement("UPDATE musics SET music_type = ? WHERE id = ?");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Set<User> findAll() {
+        Set<User> users = new CopyOnWriteArraySet<>();
+        Set<MusicType> musicTypes = new CopyOnWriteArraySet<>();
         try (
-                Connection connection = this.connectionDB.getConnection();
-                PreparedStatement statement = connection.prepareStatement(
+                PreparedStatement statement = this.connection.prepareStatement(
                         "SELECT u.login, u.password, u.user_name, u.email, u.address_id, a.country, a.city, a.street, a.house, u.role_id, adr.role, m.id, m.music_type FROM users AS u \n" +
                                 "LEFT OUTER JOIN address AS a ON u.address_id = a.id \n" +
                                 "LEFT OUTER JOIN roles AS adr ON u.role_id = adr.id\n" +
@@ -113,7 +154,7 @@ public class UserRepository {
                     musicTypes.add(musicType);
                     user.setMusicTypes(musicTypes);
                 } else {
-                    musicTypes = new HashSet<>();
+                    musicTypes = new CopyOnWriteArraySet<>();
                     musicTypes.add(musicType);
                     user.setMusicTypes(musicTypes);
                     users.add(user);
@@ -126,7 +167,7 @@ public class UserRepository {
         return users;
     }
 
-    public synchronized  User getUser(String login) {
+    public User getUser(String login) {
         User user = this.userDAO.getById(login);
         Set<Integer> musicIds = this.mergeUserMusic.getMusicTypeIdByLogin(login);
         Set<MusicType> musicTypes = new HashSet<>();
@@ -138,13 +179,12 @@ public class UserRepository {
         return user;
     }
 
-    public synchronized  Set<User> findUserByAddress(Address address) {
+    public Set<User> findUserByAddress(Address address) {
         Set<User> users = new HashSet<>();
         User user = null;
         ResultSet resultSet = null;
         try (
-                Connection connection = this.connectionDB.getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT id FROM address WHERE country = ? AND city = ? AND street = ? AND house = ?")
+                PreparedStatement statement = this.connection.prepareStatement("SELECT id FROM address WHERE country = ? AND city = ? AND street = ? AND house = ?")
         ) {
             statement.setString(1, address.getCountry());
             statement.setString(2, address.getCity());
@@ -168,12 +208,11 @@ public class UserRepository {
         return users;
     }
 
-    private synchronized  User getUserByAddressId(Integer addressId) {
+    private User getUserByAddressId(Integer addressId) {
         User user = null;
         ResultSet resultSet = null;
         try (
-                Connection connection = this.connectionDB.getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE address_id = ?")
+                PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM users WHERE address_id = ?")
         ) {
             statement.setInt(1, addressId);
             resultSet = statement.executeQuery();
@@ -199,13 +238,12 @@ public class UserRepository {
         return user;
     }
 
-    public synchronized  Set<User> getUserByRole(Role role) {
+    public Set<User> getUserByRole(Role role) {
         Set<User> users = new HashSet<>();
         User user = null;
         ResultSet resultSet = null;
         try (
-                Connection connection = this.connectionDB.getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE role_id = ?")
+                PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM users WHERE role_id = ?")
         ) {
             statement.setInt(1, role.getId());
             resultSet = statement.executeQuery();
@@ -233,13 +271,12 @@ public class UserRepository {
         return users;
     }
 
-    public synchronized  Set<User> getUserByMusicType(MusicType musicType) {
+    public Set<User> getUserByMusicType(MusicType musicType) {
         Set<User> users = new HashSet<>();
         User user = null;
         ResultSet resultSet = null;
         try (
-                Connection connection = this.connectionDB.getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT user_login FROM login_music_id WHERE music_id = ?");
+                PreparedStatement statement = this.connection.prepareStatement("SELECT user_login FROM login_music_id WHERE music_id = ?");
         ) {
             statement.setInt(1, musicType.getId());
             resultSet = statement.executeQuery();
@@ -257,5 +294,13 @@ public class UserRepository {
             }
         }
         return users;
+    }
+
+    public void closeConection() {
+        try {
+            this.connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

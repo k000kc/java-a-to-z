@@ -78,10 +78,15 @@ public class UserRepository {
         }
     }
 
-    public void update(User user, Address address, Integer roleId, List<Integer> musicTypesId) {
+    public void update(User user, Address address, Integer roleId, List<Integer> musicTypesId) throws SQLException {
+        PreparedStatement statementAddress = null;
+        PreparedStatement statementGetAddressId = null;
+        PreparedStatement statementUser= null;
+        PreparedStatement statementDeleteMusic = null;
+        PreparedStatement statementMusic = null;
         try {
             this.connection.setAutoCommit(false);
-            PreparedStatement statementUser = this.connection.prepareStatement("UPDATE users SET password = ?, user_name = ?, email = ?, role_id = ? WHERE login = ?");
+            statementUser = this.connection.prepareStatement("UPDATE users SET password = ?, user_name = ?, email = ?, role_id = ? WHERE login = ?");
             statementUser.setString(1, user.getPassword());
             statementUser.setString(2, user.getName());
             statementUser.setString(3, user.getEmail());
@@ -89,7 +94,7 @@ public class UserRepository {
             statementUser.setString(5, user.getLogin());
             statementUser.execute();
 
-            PreparedStatement statementGetAddressId = this.connection.prepareStatement("SELECT address_id FROM users WHERE login = ?");
+            statementGetAddressId = this.connection.prepareStatement("SELECT address_id FROM users WHERE login = ?");
             statementGetAddressId.setString(1, user.getLogin());
             ResultSet set = statementGetAddressId.executeQuery();
             int addressId = -1;
@@ -97,7 +102,7 @@ public class UserRepository {
                 addressId = set.getInt(1);
             }
 
-            PreparedStatement statementAddress = this.connection.prepareStatement("UPDATE address SET country = ?, city = ?, street = ?, house = ? WHERE id = ?");
+            statementAddress = this.connection.prepareStatement("UPDATE address SET country = ?, city = ?, street = ?, house = ? WHERE id = ?");
             statementAddress.setString(1, address.getCountry());
             statementAddress.setString(2, address.getCity());
             statementAddress.setString(3, address.getStreet());
@@ -105,10 +110,28 @@ public class UserRepository {
             statementAddress.setInt(5, addressId);
             statementAddress.execute();
 
-            //TODO music type
-//            PreparedStatement statementMusic = this.connection.prepareStatement("UPDATE musics SET music_type = ? WHERE id = ?");
+            statementDeleteMusic = this.connection.prepareStatement("DELETE FROM login_music_id WHERE user_login = ?");
+            statementDeleteMusic.setString(1, user.getLogin());
+            statementDeleteMusic.execute();
+
+            statementMusic = this.connection.prepareStatement("INSERT INTO login_music_id(user_login, music_id) VALUES(?, ?)");
+            for (Integer  musicTypeId : musicTypesId) {
+                statementMusic.setString(1, user.getLogin());
+                statementMusic.setInt(2, musicTypeId);
+                statementMusic.addBatch();
+            }
+            statementMusic.executeBatch();
+            this.connection.commit();
         } catch (SQLException e) {
+            this.connection.rollback();
             e.printStackTrace();
+        } finally {
+            if (statementAddress != null) statementAddress.close();
+            if (statementUser != null) statementUser.close();
+            if (statementGetAddressId != null) statementGetAddressId.close();
+            if (statementDeleteMusic != null) statementDeleteMusic.close();
+            if (statementMusic != null) statementMusic.close();
+            this.connection.setAutoCommit(true);
         }
     }
 

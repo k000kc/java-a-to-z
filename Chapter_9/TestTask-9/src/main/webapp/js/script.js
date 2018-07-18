@@ -99,7 +99,7 @@ function printTable(data) {
 
 function returnbutton(login) {
     var buttons = "<td><form action='/update' method='get'>" +
-        "<input type='submit' value='update' class='submit>" +
+        "<input type='submit' value='update' class='submit'>" +
         "<input type='hidden' name='login' value='" + login + "'>" +
         "</form>" +
         "</td>" +

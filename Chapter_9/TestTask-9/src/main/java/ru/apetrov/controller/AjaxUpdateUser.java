@@ -32,6 +32,5 @@ public class AjaxUpdateUser extends HttpServlet {
 
     private void update(HttpServletRequest req, HttpServletResponse resp) {
         String login = req.getParameter("login");
-        System.out.println(login);
     }
 }

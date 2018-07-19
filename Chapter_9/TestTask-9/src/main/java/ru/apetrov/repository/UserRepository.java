@@ -18,8 +18,17 @@ public class UserRepository {
     private MergeUserAndMusicTables mergeUserMusic;
     private Connection connection;
 
-    public UserRepository() {
+    private static UserRepository instance;
+
+    private UserRepository() {
         this.init();
+    }
+
+    public static UserRepository getInstance() {
+        if (instance == null) {
+            instance = new UserRepository();
+        }
+        return instance;
     }
 
     private void init() {

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     getall();
-    getroles("loadroles");
-    getmusics("loadmusics");
+    getroles();
+    getmusics();
     $("#button").click(function () {
         setUser();
     });
@@ -13,8 +13,8 @@ function getall () {
     });
 };
 
-function getroles(roles) {
-    $.getJSON(roles, function (data) {
+function getroles() {
+    $.getJSON("loadroles", function (data) {
         var result = "<option value=''>" + "select" + "</option>";
         $.each(data, function (index, roles) {
             result += "<option value='" + roles.id + "'>" + roles.roleType + "</option>";
@@ -24,8 +24,8 @@ function getroles(roles) {
     });
 };
 
-function getmusics(musics) {
-    $.getJSON(musics, function (data) {
+function getmusics() {
+    $.getJSON("loadmusics", function (data) {
         var result = "<br>";
         $.each(data, function (index, musics) {
             result += "<input type='checkbox' value='" + musics.id + "'>" + musics.musicType + "<br>";
@@ -55,8 +55,8 @@ function setUser() {
         type: "POST",
         data: json,
         url: "add",
-        complete: function (data) {
-            printTable(data);
+        complete: function () {
+            getall ();
             $('#userform')[0].reset();
         }
     });
@@ -98,9 +98,9 @@ function printTable(data) {
 }
 
 function returnbutton(login) {
-    var buttons = "<td><form action='/update' method='get'>" +
-        "<input type='submit' value='update' class='submit'>" +
-        "<input type='hidden' name='login' value='" + login + "'>" +
+    var buttons = "<td><form>" +
+        "<input type='button' value='update' class='update-user'>" +
+        "<input type='hidden' value='" + login + "'>" +
         "</form>" +
         "</td>" +
         "<td>" +

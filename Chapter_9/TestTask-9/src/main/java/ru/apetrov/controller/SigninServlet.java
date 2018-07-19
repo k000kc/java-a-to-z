@@ -12,7 +12,12 @@ import java.io.IOException;
 
 public class SigninServlet extends HttpServlet {
 
-    private UserRepository repository = new UserRepository();
+    private UserRepository repository;
+
+    @Override
+    public void init() throws ServletException {
+        this.repository = UserRepository.getInstance();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,5 +38,10 @@ public class SigninServlet extends HttpServlet {
         } else {
             doGet(req, resp);
         }
+    }
+
+    @Override
+    public void destroy() {
+        this.repository.closeConection();
     }
 }

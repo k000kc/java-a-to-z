@@ -26,7 +26,7 @@ public class AjaxAddUser extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.repository = new UserRepository();
+        this.repository = UserRepository.getInstance();
     }
 
     @Override
@@ -34,13 +34,9 @@ public class AjaxAddUser extends HttpServlet {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
         addUser(req, resp);
-        String gson = new Gson().toJson(this.repository.findAll());
-        writer.write(gson);
-        writer.flush();
-        writer.close();
     }
 
-    private synchronized void addUser(HttpServletRequest req, HttpServletResponse resp) {
+    private void addUser(HttpServletRequest req, HttpServletResponse resp) {
         User user = new User();
         user.setLogin(req.getParameter("login"));
         user.setPassword(req.getParameter("password"));

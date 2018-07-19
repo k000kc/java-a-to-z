@@ -12,7 +12,12 @@ import java.io.PrintWriter;
 
 public class AjaxFindUsers extends HttpServlet {
 
-    UserRepository repository = new UserRepository();
+    private UserRepository repository;
+
+    @Override
+    public void init() throws ServletException {
+        this.repository = UserRepository.getInstance();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,5 +27,10 @@ public class AjaxFindUsers extends HttpServlet {
         writer.write(gson);
         writer.flush();
         writer.close();
+    }
+
+    @Override
+    public void destroy() {
+        this.repository.closeConection();
     }
 }

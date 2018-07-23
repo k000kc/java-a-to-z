@@ -5,6 +5,11 @@ $(document).ready(function () {
     $("#button").click(function () {
         setUser();
     });
+    $("#allusers").on('click', '.update-user', function () {
+        var login = $(this);
+        console.log(login);
+        $("#updateuser").show();
+    })
 });
 
 function getall () {
@@ -98,9 +103,8 @@ function printTable(data) {
 }
 
 function returnbutton(login) {
-    var buttons = "<td><form>" +
-        "<input type='button' value='update' class='update-user'>" +
-        "<input type='hidden' value='" + login + "'>" +
+    var buttons = "<td><form class='update-user' value='" + login + "'>" +
+        "<input type='button' value='update'>" +
         "</form>" +
         "</td>" +
         "<td>" +

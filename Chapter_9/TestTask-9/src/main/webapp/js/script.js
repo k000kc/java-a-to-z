@@ -6,7 +6,7 @@ $(document).ready(function () {
         setUser();
     });
     $("#allusers").on('click', '.update-user', function () {
-        var login = $(this.attributes[1]).val();
+        var login = $(this.elements[1].attributes[1]).val();
         console.log(login);
         $("#updateuser").show();
     })
@@ -103,9 +103,9 @@ function printTable(data) {
 }
 
 function returnbutton(login) {
-    var buttons = "<td><form class='update-user' name='" + login + "'>" +
+    var buttons = "<td><form class='update-user'>" +
         "<input type='button' value='update'>" +
-        "<input type='hidden'>" +
+        "<input type='hidden' value='" + login + "'>" +
         "</td>" +
         "</form>" +
         "<td>" +

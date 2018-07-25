@@ -45,7 +45,14 @@
         <url-pattern>/add</url-pattern>
     </servlet-mapping>
 
-
+    <servlet>
+        <servlet-name>AjsxUpdateUser</servlet-name>
+        <servlet-class>ru.apetrov.controller.AjaxUpdateUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjsxUpdateUser</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>LoadRolesr</servlet-name>

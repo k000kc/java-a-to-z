@@ -1,9 +1,7 @@
 package ru.apetrov.controller;
 
 import com.google.gson.Gson;
-import ru.apetrov.dao.RoleImpl;
 import ru.apetrov.models.Address;
-import ru.apetrov.models.Role;
 import ru.apetrov.models.User;
 import ru.apetrov.repository.UserRepository;
 
@@ -16,11 +14,10 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AjaxAddUser extends HttpServlet {
+public class AjaxUpdateUser extends HttpServlet {
 
     private UserRepository repository;
 
@@ -33,14 +30,14 @@ public class AjaxAddUser extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
-        addUser(req, resp);
+        updateUser(req, resp);
         String gson = new Gson().toJson(this.repository.findAll());
         writer.write(gson);
         writer.flush();
         writer.close();
     }
 
-    private void addUser(HttpServletRequest req, HttpServletResponse resp) {
+    private void updateUser(HttpServletRequest req, HttpServletResponse resp) {
         User user = new User();
         user.setLogin(req.getParameter("login"));
         user.setPassword(req.getParameter("password"));
@@ -64,7 +61,7 @@ public class AjaxAddUser extends HttpServlet {
             musicTypesId.add(id);
         }
         try {
-            this.repository.add(user, address, roleId, musicTypesId);
+            this.repository.update(user, address, roleId, musicTypesId);
         } catch (SQLException e) {
             e.printStackTrace();
         }

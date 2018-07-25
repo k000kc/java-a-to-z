@@ -64,8 +64,8 @@ function setUser() {
         type: "POST",
         data: json,
         url: "add",
-        complete: function () {
-            getall ();
+        success: function (data) {
+            printTable (data);
             $('#userform')[0].reset();
         }
     });
@@ -90,8 +90,8 @@ function updateUser(login) {
         type: "POST",
         data: json,
         url: "update",
-        complete: function () {
-            getall ();
+        success: function (data) {
+            printTable (data);
             $('#updateform')[0].reset();
             $("#updateuser").hide();
         }

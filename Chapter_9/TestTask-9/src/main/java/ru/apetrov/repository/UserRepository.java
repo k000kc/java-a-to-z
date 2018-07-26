@@ -210,7 +210,8 @@ public class UserRepository {
             statementLoginMusic.setString(1, login);
             statementLoginMusic.execute();
 
-            statementGetAddress = this.connection.prepareStatement("SELECT address_is FROM users WHERE login = ?");
+            statementGetAddress = this.connection.prepareStatement("SELECT address_id FROM users WHERE login = ?");
+            statementGetAddress.setString(1, login);
             ResultSet resultSet = statementGetAddress.executeQuery();
             Integer addressId = -1;
             while (resultSet.next()) {

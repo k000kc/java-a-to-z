@@ -2,17 +2,21 @@ $(document).ready(function () {
     getall();
     getroles("#roleslist");
     getmusics("#musiclist");
+    getroles("#newroleslist");
+    getmusics("#newmusiclist");
     $("#button").click(function () {
         setUser();
     });
     $("#allusers").on('click', '.update-user', function () {
         var login = $(this.elements[1].attributes[1]).val();
-        getroles("#newroleslist");
-        getmusics("#newmusiclist");
         $("#updateuser").show();
         $("#newbutton").click(function () {
             updateUser(login);
         })
+    });
+    $("#allusers").on('click', '.delete-user', function () {
+        var login = $(this.elements[1].attributes[1]).val();
+        deleteUser(login);
     })
 });
 
@@ -98,6 +102,18 @@ function updateUser(login) {
     });
 }
 
+function deleteUser(login) {
+    var json = {"login" : login};
+    $.ajax({
+        type: "POST",
+        data: json,
+        url: "delete",
+        success: function (data) {
+            printTable(data);
+        }
+    });
+}
+
 function printTable(data) {
     $("#userstable").empty();
     var result = "<tr>" +
@@ -137,11 +153,10 @@ function returnbutton(login) {
     var buttons = "<td><form class='update-user'>" +
         "<input type='button' value='update'>" +
         "<input type='hidden' value='" + login + "'>" +
-        "</td>" +
-        "</form>" +
-        "<td>" +
-        "<form>" +
-        "<input type='button' value='delete' class='delete-user'>" +
+        "</form></td>" +
+        "<td><form class='delete-user'>" +
+        "<input type='button' value='delete'>" +
+        "<input type='hidden' value='" + login + "'>" +
         "</form></td>";
     return buttons;
 }

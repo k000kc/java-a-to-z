@@ -199,6 +199,45 @@ public class UserRepository {
         return users;
     }
 
+    public void deleteUser(String login) throws SQLException {
+        PreparedStatement statementLoginMusic = null;
+        PreparedStatement statementGetAddress = null;
+        PreparedStatement statementUser = null;
+        PreparedStatement statementAddress = null;
+        try {
+            this.connection.setAutoCommit(false);
+            statementLoginMusic = this.connection.prepareStatement("DELETE FROM login_music_id WHERE user_login = ?");
+            statementLoginMusic.setString(1, login);
+            statementLoginMusic.execute();
+
+            statementGetAddress = this.connection.prepareStatement("SELECT address_is FROM users WHERE login = ?");
+            ResultSet resultSet = statementGetAddress.executeQuery();
+            Integer addressId = -1;
+            while (resultSet.next()) {
+                addressId = resultSet.getInt("address_id");
+            }
+
+            statementUser = this.connection.prepareStatement("DELETE FROM users WHERE login = ?");
+            statementUser.setString(1, login);
+            statementUser.execute();
+
+            statementAddress = this.connection.prepareStatement("DELETE FROM address WHERE id = ?");
+            statementAddress.setInt(1, addressId);
+            statementAddress.execute();
+
+            this.connection.commit();
+        } catch (SQLException e) {
+            this.connection.rollback();
+            e.printStackTrace();
+        } finally {
+            if (statementLoginMusic != null) statementLoginMusic.close();
+            if (statementGetAddress != null) statementGetAddress.close();
+            if (statementUser != null) statementUser.close();
+            if (statementAddress != null) statementAddress.close();
+            this.connection.setAutoCommit(true);
+        }
+    }
+
     public User getUser(String login) {
         User user = this.userDAO.getById(login);
         Set<Integer> musicIds = this.mergeUserMusic.getMusicTypeIdByLogin(login);

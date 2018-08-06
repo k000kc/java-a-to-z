@@ -4,6 +4,9 @@ $(document).ready(function () {
     getmusics("#musiclist");
     getroles("#newroleslist");
     getmusics("#newmusiclist");
+    $("#button-find-address").click(function () {
+        findByAddress();
+    });
     $("#button").click(function () {
         setUser();
     });
@@ -108,6 +111,22 @@ function deleteUser(login) {
         type: "POST",
         data: json,
         url: "delete",
+        success: function (data) {
+            printTable(data);
+        }
+    });
+}
+
+function findByAddress() {
+    var country = $("#by-country").val();
+    var city = $("#by-city").val();
+    var street = $("#by-street").val();
+    var house = $("#by-house").val();
+    var json = {"country" : country, "city" : city, "street": street, "house": house};
+    $.ajax({
+        type: "POST",
+        data: json,
+        url: "findbyaddress",
         success: function (data) {
             printTable(data);
         }

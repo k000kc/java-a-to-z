@@ -55,12 +55,21 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AjsxDeleteUser</servlet-name>
-        <servlet-class>ru.apetrov.controller.AjsxDeleteUser</servlet-class>
+        <servlet-name>AjaxDeleteUser</servlet-name>
+        <servlet-class>ru.apetrov.controller.AjaxDeleteUser</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AjsxDeleteUser</servlet-name>
+        <servlet-name>AjaxDeleteUser</servlet-name>
         <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AjaxFindByAddress</servlet-name>
+        <servlet-class>ru.apetrov.controller.AjaxFindByAddress</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxFindByAddress</servlet-name>
+        <url-pattern>/findbyaddress</url-pattern>
     </servlet-mapping>
 
     <servlet>

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
-public class AjsxDeleteUser extends HttpServlet {
+public class AjaxDeleteUser extends HttpServlet {
 
     private UserRepository repository;
 

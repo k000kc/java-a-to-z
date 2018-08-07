@@ -76,7 +76,7 @@ public class UserRepositoryTest {
         role.setId(2);
         role.setRoleType("user");
 
-        Set<User> users = repository.getUserByRole(role);
+        Set<User> users = repository.findUserByRole(role);
         for (User user : users) {
             System.out.println(user.getName());
         }

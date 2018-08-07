@@ -7,6 +7,9 @@ $(document).ready(function () {
     $("#button-find-address").click(function () {
         findByAddress();
     });
+    $("#button-find-role").click(function () {
+        findByRole();
+    });
     $("#button").click(function () {
         setUser();
     });
@@ -127,6 +130,18 @@ function findByAddress() {
         type: "POST",
         data: json,
         url: "findbyaddress",
+        success: function (data) {
+            printTable(data);
+        }
+    });
+}
+
+function findByRole() {
+    var json = {"role" : $("#by-role").val()};
+    $.ajax({
+        type: "POST",
+        data: json,
+        url: "findbyrole",
         success: function (data) {
             printTable(data);
         }

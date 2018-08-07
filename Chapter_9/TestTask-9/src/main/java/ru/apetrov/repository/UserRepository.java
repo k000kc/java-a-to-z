@@ -304,65 +304,54 @@ public class UserRepository {
         return users;
     }
 
-    private User getUserByAddressId(Integer addressId) {
-        User user = null;
-        ResultSet resultSet = null;
+    public Set<User> findUserByRole(Role role) {
+        Set<User> users = new CopyOnWriteArraySet<>();
+        Set<MusicType> musicTypes = new CopyOnWriteArraySet<>();
         try (
-                PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM users WHERE address_id = ?")
+                PreparedStatement statement = this.connection.prepareStatement("SELECT u.login, u.password, u.user_name, u.email, u.address_id, a.country, a.city, a.street, a.house, u.role_id, adr.role, m.id, m.music_type FROM users AS u \n" +
+                        "LEFT OUTER JOIN address AS a ON u.address_id = a.id\n" +
+                        "LEFT OUTER JOIN roles AS adr ON u.role_id = adr.id\n" +
+                        "LEFT OUTER JOIN login_music_id AS lm ON u.login = lm.user_login\n" +
+                        "LEFT OUTER JOIN musics AS m ON lm.music_id = m.id WHERE adr.role = ?;")
         ) {
-            statement.setInt(1, addressId);
-            resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = new User();
-                user.setLogin(resultSet.getString("login"));
-                user.setPassword(resultSet.getString("password"));
-                user.setName(resultSet.getString("user_name"));
-                user.setEmail(resultSet.getString("email"));
-                user.setAddress(new AddressImpl().getById(addressId));
-                Integer roleId = resultSet.getInt("role_id");
-                user.setRole(new RoleImpl().getById(roleId));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return user;
-    }
-
-    public Set<User> getUserByRole(Role role) {
-        Set<User> users = new HashSet<>();
-        User user = null;
-        ResultSet resultSet = null;
-        try (
-                PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM users WHERE role_id = ?")
-        ) {
-            statement.setInt(1, role.getId());
-            resultSet = statement.executeQuery();
+            statement.setString(1, role.getRoleType());
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                user = new User();
+                User user = new User();
+                Address address = new Address();
+                MusicType musicType = new MusicType();
+
                 user.setLogin(resultSet.getString("login"));
-                user.setPassword(resultSet.getString("password"));
                 user.setName(resultSet.getString("user_name"));
                 user.setEmail(resultSet.getString("email"));
-                Integer addressId = resultSet.getInt("address_id");
-                user.setAddress(new AddressImpl().getById(addressId));
-                Integer roleId = resultSet.getInt("role_id");
-                user.setRole(new RoleImpl().getById(roleId));
-                users.add(user);
+                user.setPassword(resultSet.getString("password"));
+
+                address.setId(resultSet.getInt("address_id"));
+                address.setCountry(resultSet.getString("country"));
+                address.setCity(resultSet.getString("city"));
+                address.setStreet(resultSet.getString("street"));
+                address.setHouse(resultSet.getString("house"));
+
+                role.setId(resultSet.getInt("role_id"));
+
+                musicType.setId(resultSet.getInt("id"));
+                musicType.setMusicType(resultSet.getString("music_type"));
+                user.setAddress(address);
+                user.setRole(role);
+
+                if (users.contains(user)) {
+                    musicTypes.add(musicType);
+                    user.setMusicTypes(musicTypes);
+                } else {
+                    musicTypes = new CopyOnWriteArraySet<>();
+                    musicTypes.add(musicType);
+                    user.setMusicTypes(musicTypes);
+                    users.add(user);
+                }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return users;
     }

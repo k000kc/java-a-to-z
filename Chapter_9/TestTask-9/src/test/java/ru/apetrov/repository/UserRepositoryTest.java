@@ -90,7 +90,7 @@ public class UserRepositoryTest {
         musicType.setId(1);
         musicType.setMusicType("rap");
 
-        Set<User> users = repository.getUserByMusicType(musicType);
+        Set<User> users = repository.findUserByMusicType(musicType);
         for (User user : users) {
             System.out.println(user.getName());
         }

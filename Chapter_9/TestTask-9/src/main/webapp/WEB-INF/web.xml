@@ -82,6 +82,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AjaxFindByMusic</servlet-name>
+        <servlet-class>ru.apetrov.controller.AjaxFindByMusic</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxFindByMusic</servlet-name>
+        <url-pattern>/findbymusic</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>LoadRolesr</servlet-name>
         <servlet-class>ru.apetrov.controller.LoadRoles</servlet-class>
     </servlet>

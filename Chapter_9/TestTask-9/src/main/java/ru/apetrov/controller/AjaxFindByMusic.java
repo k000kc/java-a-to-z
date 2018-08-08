@@ -1,7 +1,8 @@
 package ru.apetrov.controller;
 
 import com.google.gson.Gson;
-import ru.apetrov.models.Role;
+import ru.apetrov.models.Address;
+import ru.apetrov.models.MusicType;
 import ru.apetrov.models.User;
 import ru.apetrov.repository.UserRepository;
 
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Set;
 
-public class AjaxFindByRole extends HttpServlet {
+public class AjaxFindByMusic extends HttpServlet {
 
     private UserRepository repository;
 
@@ -32,14 +33,14 @@ public class AjaxFindByRole extends HttpServlet {
     }
 
     private Set<User> find(HttpServletRequest req, HttpServletResponse resp) {
-        Role role = new Role();
-        role.setRoleType(req.getParameter("role"));
-        return repository.findUserByRole(role);
+        MusicType musicType = new MusicType();
+        musicType.setMusicType(req.getParameter("music"));
+        return this.repository.findUserByMusicType(musicType);
     }
+
 
     @Override
     public void destroy() {
         this.repository.closeConection();
     }
-
 }

@@ -356,27 +356,55 @@ public class UserRepository {
         return users;
     }
 
-    public Set<User> getUserByMusicType(MusicType musicType) {
-        Set<User> users = new HashSet<>();
-        User user = null;
-        ResultSet resultSet = null;
+    public Set<User> findUserByMusicType(MusicType musicType) {
+        Set<User> users = new CopyOnWriteArraySet<>();
+        Set<MusicType> musicTypes = new CopyOnWriteArraySet<>();
         try (
-                PreparedStatement statement = this.connection.prepareStatement("SELECT user_login FROM login_music_id WHERE music_id = ?");
+                PreparedStatement statement = this.connection.prepareStatement("SELECT u.login, u.password, u.user_name, u.email, u.address_id, a.country, a.city, a.street, a.house, u.role_id, adr.role, m.id, m.music_type FROM users AS u \n" +
+                        "LEFT OUTER JOIN address AS a ON u.address_id = a.id \n" +
+                        "LEFT OUTER JOIN roles AS adr ON u.role_id = adr.id\n" +
+                        "LEFT OUTER JOIN login_music_id AS lm ON u.login = lm.user_login\n" +
+                        "LEFT OUTER JOIN musics AS m ON lm.music_id = m.id WHERE m.music_type = ?;");
         ) {
-            statement.setInt(1, musicType.getId());
-            resultSet = statement.executeQuery();
+            statement.setString(1, musicType.getMusicType());
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                user = this.userDAO.getById(resultSet.getString("user_login"));
-                users.add(user);
+                User user = new User();
+                Address address = new Address();
+                Role role = new Role();
+
+                user.setLogin(resultSet.getString("login"));
+                user.setName(resultSet.getString("user_name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+
+                address.setId(resultSet.getInt("address_id"));
+                address.setCountry(resultSet.getString("country"));
+                address.setCity(resultSet.getString("city"));
+                address.setStreet(resultSet.getString("street"));
+                address.setHouse(resultSet.getString("house"));
+
+                role.setId(resultSet.getInt("role_id"));
+                role.setRoleType(resultSet.getString("role"));
+
+                musicType.setId(resultSet.getInt("id"));
+                musicType.setMusicType(resultSet.getString("music_type"));
+                user.setAddress(address);
+                user.setRole(role);
+
+                if (users.contains(user)) {
+                    musicTypes.add(musicType);
+                    user.setMusicTypes(musicTypes);
+                } else {
+                    musicTypes = new CopyOnWriteArraySet<>();
+                    musicTypes.add(musicType);
+                    user.setMusicTypes(musicTypes);
+                    users.add(user);
+                }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return users;
     }

@@ -4,12 +4,23 @@ $(document).ready(function () {
     getmusics("#musiclist");
     getroles("#newroleslist");
     getmusics("#newmusiclist");
+
+    $("#button-find-all").click(function () {
+        getall();
+    })
+
     $("#button-find-address").click(function () {
         findByAddress();
     });
+
     $("#button-find-role").click(function () {
         findByRole();
     });
+
+    $("#button-find-music").click(function () {
+        findByMusic();
+    });
+
     $("#button").click(function () {
         setUser();
     });
@@ -142,6 +153,18 @@ function findByRole() {
         type: "POST",
         data: json,
         url: "findbyrole",
+        success: function (data) {
+            printTable(data);
+        }
+    });
+}
+
+function findByMusic() {
+    var json = {"music": $("#by-music").val()};
+    $.ajax({
+        type: "POST",
+        data: json,
+        url: "findbymusic",
         success: function (data) {
             printTable(data);
         }

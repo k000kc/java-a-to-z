@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    var currentRole = getCurrentRole();
     getall();
     getroles("#roleslist");
     getmusics("#musiclist");
@@ -63,6 +64,19 @@ function getmusics(musics) {
         var musicslist = $(musics);
         $(result).appendTo(musicslist);
     });
+}
+
+function getCurrentRole() {
+    var result = null;
+        $.ajax({
+            async: false,
+            url: "getcurrentrole",
+            dataType: "json",
+            success: function (data) {
+                result = data[0].currentRole;
+            }
+        });
+    return result;
 }
 
 function setUser() {
@@ -217,4 +231,5 @@ function returnbutton(login) {
         "</form></td>";
     return buttons;
 }
+
 

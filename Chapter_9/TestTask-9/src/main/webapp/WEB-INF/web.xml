@@ -108,4 +108,13 @@
         <url-pattern>/loadmusics</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AjaxCurentRole</servlet-name>
+        <servlet-class>ru.apetrov.controller.AjaxCurentRole</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxCurentRole</servlet-name>
+        <url-pattern>/getcurrentrole</url-pattern>
+    </servlet-mapping>
+
 </web-app>

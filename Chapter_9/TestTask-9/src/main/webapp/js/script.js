@@ -1,14 +1,19 @@
 $(document).ready(function () {
     var currentRole = getCurrentRole();
     getall();
-    getroles("#roleslist");
-    getmusics("#musiclist");
-    getroles("#newroleslist");
-    getmusics("#newmusiclist");
+    if (currentRole == 'admin' || currentRole == 'mandator') {
+        if (currentRole == 'admin') {
+            $("#adduser").show();
+            getroles("#roleslist", currentRole);
+            getmusics("#musiclist");
+        }
+        getroles("#newroleslist", currentRole);
+        getmusics("#newmusiclist");
+    }
 
     $("#button-find-all").click(function () {
         getall();
-    })
+    });
 
     $("#button-find-address").click(function () {
         findByAddress();
@@ -23,19 +28,32 @@ $(document).ready(function () {
     });
 
     $("#button").click(function () {
-        setUser();
+        if (currentRole == 'admin') {
+            setUser();
+        } else {
+            alert("access denied");
+        }
     });
+
     $("#allusers").on('click', '.update-user', function () {
-        var login = $(this.elements[1].attributes[1]).val();
-        $("#updateuser").show();
-        $("#newbutton").click(function () {
-            updateUser(login);
-        })
+        if (currentRole == 'admin' || currentRole == 'mandator') {
+            var login = $(this.elements[1].attributes[1]).val();
+            $("#updateuser").show();
+            $("#newbutton").click(function () {
+                updateUser(login);
+            });
+        } else {
+            alert("access denied");
+        }
     });
     $("#allusers").on('click', '.delete-user', function () {
-        var login = $(this.elements[1].attributes[1]).val();
-        deleteUser(login);
-    })
+        if (currentRole == 'admin') {
+            var login = $(this.elements[1].attributes[1]).val();
+            deleteUser(login);
+        } else {
+            alert("access denied");
+        }
+    });
 });
 
 function getall () {
@@ -44,11 +62,14 @@ function getall () {
     });
 }
 
-function getroles(rolelist) {
+function getroles(rolelist, currentRole) {
     $.getJSON("loadroles", function (data) {
         var result = "<option value=''>" + "select" + "</option>";
         $.each(data, function (index, roles) {
-            result += "<option value='" + roles.id + "'>" + roles.roleType + "</option>";
+            if (currentRole == 'mandator' && roles.roleType == 'admin') {
+            } else {
+                result += "<option value='" + roles.id + "'>" + roles.roleType + "</option>";
+            }
         });
         var roleslist = $(rolelist);
         $(result).appendTo(roleslist);

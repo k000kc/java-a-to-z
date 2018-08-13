@@ -1,0 +1,32 @@
+body {
+    background: darkgray;
+}
+.finders {
+    width: 1310px;
+    height: 130px;
+}
+
+.finder {
+    float: left;
+    color: white;
+    margin-right: 20px;
+}
+
+#updateuser {
+    position: absolute;
+    top: 140px;
+    left: 800px;
+    color: white;
+}
+
+#allusers {
+    color: white;
+}
+
+#adduser {
+    color: white;
+}
+
+table {
+    border-collapse: collapse;
+}

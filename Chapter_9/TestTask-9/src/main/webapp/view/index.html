@@ -6,7 +6,8 @@
 </head>
 <body>
 
-<div id="find-all">
+<div class="finders">
+<div id="find-all" class="finder">
     <form>
         <label>Show All:
             <div class="field">
@@ -16,7 +17,7 @@
     </form>
 </div>
 
-<div id="find-by-address">
+<div id="find-by-address" class="finder">
     <form>
         <label>Find User by address:
             <div class="field">
@@ -36,9 +37,9 @@
             </div>
         </label>
     </form>
-</div><br>
+</div>
 
-<div id="find-by-role">
+<div id="find-by-role" class="finder">
     <form>
         <label>Find User by role:
             <div class="field">
@@ -49,9 +50,9 @@
             </div>
         </label>
     </form>
-</div><br>
+</div>
 
-<div id="find-by-music">
+<div id="find-by-music" class="finder">
     <form>
         <label>Find User By Music:
             <div class="field">
@@ -63,12 +64,13 @@
         </label>
     </form>
 </div>
+</div>
 
 <div id="allusers">
     <table id="userstable" border="2">
 
     </table>
-</div>
+</div><br>
 
 <div id="adduser" hidden>
     <form id="userform">
@@ -171,5 +173,6 @@
 </div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="/js/script.js"></script>
+<link rel="stylesheet" href="/css/styles.css">
 </body>
 </html>

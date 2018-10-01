@@ -1,0 +1,10 @@
+<hibernate-mapping>
+    <class name="ru.apetrov.models.Item" table="items">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="desc" column="description"/>
+        <property name="created" column="created"/>
+        <property name="done" column="done"/>
+    </class>
+</hibernate-mapping>

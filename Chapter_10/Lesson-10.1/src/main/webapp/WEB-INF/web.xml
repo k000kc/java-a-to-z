@@ -1,0 +1,11 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+    <servlet>
+        <servlet-name>ShowPage</servlet-name>
+        <servlet-class>ru.apetrov.controller.ShowPage</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowPage</servlet-name>
+        <url-pattern>/show</url-pattern>
+    </servlet-mapping>
+</web-app>

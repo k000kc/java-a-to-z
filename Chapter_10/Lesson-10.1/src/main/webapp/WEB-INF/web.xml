@@ -8,4 +8,13 @@
         <servlet-name>ShowPage</servlet-name>
         <url-pattern>/show</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateItem</servlet-name>
+        <servlet-class>ru.apetrov.controller.CreateItem</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateItem</servlet-name>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
 </web-app>

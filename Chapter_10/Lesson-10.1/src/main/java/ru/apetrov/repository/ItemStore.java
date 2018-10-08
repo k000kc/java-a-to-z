@@ -19,6 +19,7 @@ public class ItemStore {
         session.beginTransaction();
         session.save(item);
         session.getTransaction().commit();
+        session.close();
     }
 
     public List<Item> getAll() {

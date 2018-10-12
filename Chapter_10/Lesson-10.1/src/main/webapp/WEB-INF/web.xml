@@ -17,4 +17,13 @@
         <servlet-name>CreateItem</servlet-name>
         <url-pattern>/create</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowItems</servlet-name>
+        <servlet-class>ru.apetrov.controller.ShowItems</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowItems</servlet-name>
+        <url-pattern>/get_items</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -26,4 +26,13 @@
         <servlet-name>ShowItems</servlet-name>
         <url-pattern>/get_items</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowFailedItems</servlet-name>
+        <servlet-class>ru.apetrov.controller.ShowFailedItems</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowFailedItems</servlet-name>
+        <url-pattern>/get_failed_items</url-pattern>
+    </servlet-mapping>
 </web-app>

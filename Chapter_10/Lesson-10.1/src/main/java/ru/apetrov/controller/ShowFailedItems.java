@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class ShowItems extends HttpServlet {
+public class ShowFailedItems extends HttpServlet {
 
     private SessionFactory factory;
     private ItemStore store;
@@ -30,7 +30,7 @@ public class ShowItems extends HttpServlet {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
 
-        List<Item> items = store.getAll();
+        List<Item> items = store.getFailedItems();
 
         String gson = new Gson().toJson(items);
         writer.write(gson);

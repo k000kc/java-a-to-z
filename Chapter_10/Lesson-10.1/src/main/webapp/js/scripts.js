@@ -2,7 +2,10 @@ $(document).ready(function () {
     $("#button_item").click(function () {
         create_item();
     });
-    getItems();
+    checkViewAll();
+    $("#view_all").click(function () {
+        checkViewAll();
+    });
 });
 
 function create_item() {
@@ -18,9 +21,17 @@ function create_item() {
     });
 }
 
-function getItems() {
-    console.log("ggg");
-    $.getJSON("get_items", function (data) {
+function checkViewAll() {
+    if ($("#view_all").prop("checked")) {
+        getItems("get_items");
+    } else {
+        getItems("get_failed_items");
+    }
+}
+
+function getItems(url) {
+    $("#items_table").empty();
+    $.getJSON(url, function (data) {
         var result = "<tr>" +
             "<th>id</th>" +
             "<th>description</th>" +

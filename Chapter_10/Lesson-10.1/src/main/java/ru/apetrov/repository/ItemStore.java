@@ -25,7 +25,14 @@ public class ItemStore {
     public List<Item> getAll() {
         Session session = this.factory.openSession();
         session.getTransaction();
-        List<Item> result = session.createQuery("from Item").list();
+        List<Item> result = session.createQuery("FROM Item").list();
+        return result;
+    }
+
+    public List<Item> getFailedItems() {
+        Session session = this.factory.openSession();
+        session.getTransaction();
+        List<Item> result = session.createQuery("FROM Item I WHERE I.done = false").list();
         return result;
     }
 }

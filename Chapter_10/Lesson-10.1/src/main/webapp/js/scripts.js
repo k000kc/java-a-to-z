@@ -6,6 +6,11 @@ $(document).ready(function () {
     $("#view_all").click(function () {
         checkViewAll();
     });
+
+    $("#all_items").on('click', '.checked_items', function () {
+        var id = $(this.elements[1].attributes[1]).val();
+        update_item(id);
+    });
 });
 
 function create_item() {
@@ -50,11 +55,23 @@ function getItems(url) {
 }
 
 function get_checkbox(items) {
-    var checkbox = "<td>" +
-        "<input type='checkbox' ";
+    var checkbox = "<form class='checked_items' >" +
+        "<input type='checkbox'";
     if (items.done == true)
         checkbox += "checked";
     checkbox += ">" +
-        "<input type='hidden' value='" + items.id + "'>";
+        "<input type='hidden' value='" + items.id + "'></form>";
     return checkbox;
+}
+
+function update_item(id) {
+    var json = {"id": id};
+    $.ajax({
+        type: "POST",
+        data: json,
+        url: "update_item",
+        success: function (data) {
+            checkViewAll();
+        }
+    });
 }

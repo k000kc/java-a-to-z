@@ -14,18 +14,27 @@ import java.sql.Timestamp;
 
 public class CreateItem extends HttpServlet {
 
+    private SessionFactory factory;
+    private ItemStore store;
+
+    @Override
+    public void init() throws ServletException {
+        this.factory = new Configuration().configure().buildSessionFactory();
+        this.store = new ItemStore(factory);
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("hello");
         resp.setContentType("application/json");
         Item item = new Item();
         item.setDesc(req.getParameter("description"));
         item.setCreated(new Timestamp(System.currentTimeMillis()));
         item.setDone(false);
+        this.store.create(item);
+    }
 
-        SessionFactory factory = new Configuration().configure().buildSessionFactory();
-        ItemStore store = new ItemStore(factory);
-        store.create(item);
-        factory.close();
+    @Override
+    public void destroy() {
+        this.factory.close();
     }
 }

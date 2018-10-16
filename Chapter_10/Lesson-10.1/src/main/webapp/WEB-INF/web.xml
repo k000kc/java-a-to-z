@@ -35,4 +35,14 @@
         <servlet-name>ShowFailedItems</servlet-name>
         <url-pattern>/get_failed_items</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateItem</servlet-name>
+        <servlet-class>ru.apetrov.controller.UpdateItem</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateItem</servlet-name>
+        <url-pattern>/update_item</url-pattern>
+    </servlet-mapping>
+
 </web-app>

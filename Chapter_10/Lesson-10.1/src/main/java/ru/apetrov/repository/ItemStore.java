@@ -35,4 +35,21 @@ public class ItemStore {
         List<Item> result = session.createQuery("FROM Item I WHERE I.done = false").list();
         return result;
     }
+
+    public void update(Item item) {
+        Session session = this.factory.openSession();
+        session.getTransaction();
+        session.update(item);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public Item getById(int id) {
+        Session session = this.factory.openSession();
+        session.getTransaction();
+        Item item = (Item) session.load(Item.class, id);
+        session.getTransaction().commit();
+        session.close();
+        return item;
+    }
 }

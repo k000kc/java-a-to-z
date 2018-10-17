@@ -9,7 +9,11 @@ $(document).ready(function () {
 
     $("#all_items").on('click', '.checked_items', function () {
         var id = $(this.elements[1].attributes[1]).val();
-        update_item(id);
+        var desc = $(this.elements[2].attributes[1]).val();
+        var created = $(this.elements[3].attributes[1]).val();
+        var done = $(this.elements[4].attributes[1]).val();
+        var json = {"id": id, "desc": desc, "created": created, "done": done};
+        update_item(json);
     });
 });
 
@@ -21,7 +25,7 @@ function create_item() {
         data: json,
         url: "create",
         success: function (data) {
-            console.log("created");
+            checkViewAll();
         }
     });
 }
@@ -60,17 +64,21 @@ function get_checkbox(items) {
     if (items.done == true)
         checkbox += "checked";
     checkbox += ">" +
-        "<input type='hidden' value='" + items.id + "'></form>";
+        "<input type='hidden' value='" + items.id + "'>" +
+        "<input type='hidden' value='" + items.desc + "'>" +
+        "<input type='hidden' value='" + items.created + "'>" +
+        "<input type='hidden' value='" + items.done + "'>" +
+        "</form>";
     return checkbox;
 }
 
-function update_item(id) {
-    var json = {"id": id};
+function update_item(json) {
     $.ajax({
         type: "POST",
         data: json,
         url: "update_item",
         success: function (data) {
+            console.log(data.toString());
             checkViewAll();
         }
     });

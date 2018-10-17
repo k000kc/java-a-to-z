@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 
 public class UpdateItem extends HttpServlet {
@@ -26,14 +27,22 @@ public class UpdateItem extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-        System.out.println(req.getParameter("id"));
-        Item item = this.store.getById(Integer.parseInt(req.getParameter("id")));
-        if (item.isDone()) {
+        Item item = new Item();
+
+        item.setId(Integer.parseInt(req.getParameter("id")));
+        item.setDesc(req.getParameter("desc"));
+        item.setCreated(Timestamp.valueOf(req.getParameter("created")));
+        if (Boolean.valueOf(req.getParameter("done"))) {
             item.setDone(false);
         } else {
             item.setDone(true);
         }
-        this.store.update(item);
+        System.out.println(item);
+//        this.store.update(item);
+//        PrintWriter writer = resp.getWriter();
+//        writer.write("accept");
+//        writer.flush();
+//        writer.close();
     }
 
     @Override

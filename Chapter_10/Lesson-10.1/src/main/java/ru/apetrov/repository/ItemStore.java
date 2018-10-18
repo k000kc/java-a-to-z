@@ -41,8 +41,7 @@ public class ItemStore {
     }
 
     public void update(Item item) {
-        Session session = null;
-        session = this.factory.openSession();
+        Session session = this.factory.openSession();
         session.beginTransaction();
         session.update(item);
         session.getTransaction().commit();

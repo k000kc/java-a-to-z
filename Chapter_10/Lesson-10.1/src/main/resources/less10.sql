@@ -1,0 +1,1 @@
+﻿create table items (id serial PRIMARY KEY, description TEXT, created TIMESTAMP, done boolean);

@@ -24,21 +24,26 @@ public class ItemStore {
 
     public List<Item> getAll() {
         Session session = this.factory.openSession();
-        session.getTransaction();
+        session.beginTransaction();
         List<Item> result = session.createQuery("FROM Item").list();
+        session.getTransaction().commit();
+        session.close();
         return result;
     }
 
     public List<Item> getFailedItems() {
         Session session = this.factory.openSession();
-        session.getTransaction();
+        session.beginTransaction();
         List<Item> result = session.createQuery("FROM Item I WHERE I.done = false").list();
+        session.getTransaction().commit();
+        session.close();
         return result;
     }
 
     public void update(Item item) {
-        Session session = this.factory.openSession();
-        session.getTransaction();
+        Session session = null;
+        session = this.factory.openSession();
+        session.beginTransaction();
         session.update(item);
         session.getTransaction().commit();
         session.close();

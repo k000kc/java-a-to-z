@@ -42,7 +42,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdateItem</servlet-name>
-        <url-pattern>/update_item</url-pattern>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -1,5 +1,6 @@
 package ru.apetrov.controller;
 
+import com.google.gson.Gson;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.apetrov.models.Item;
@@ -37,12 +38,14 @@ public class UpdateItem extends HttpServlet {
         } else {
             item.setDone(true);
         }
-        System.out.println(item);
-//        this.store.update(item);
+        this.store.update(item);
+//
 //        PrintWriter writer = resp.getWriter();
-//        writer.write("accept");
+//        String gson = new Gson().toJson(this.store.getAll());
+//        writer.write(gson);
 //        writer.flush();
 //        writer.close();
+
     }
 
     @Override

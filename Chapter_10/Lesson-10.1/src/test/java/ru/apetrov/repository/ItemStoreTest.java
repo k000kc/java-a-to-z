@@ -36,4 +36,17 @@ public class ItemStoreTest {
         }
         factory.close();
     }
+
+    @Test
+    public void testupdate() {
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        ItemStore store = new ItemStore(factory);
+        Item item = new Item();
+        item.setId(13);
+        item.setDesc("newtest3");
+        item.setCreated(new Timestamp(System.currentTimeMillis()));
+        item.setDone(true);
+        store.update(item);
+        factory.close();
+    }
 }

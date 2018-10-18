@@ -12,8 +12,7 @@ $(document).ready(function () {
         var desc = $(this.elements[2].attributes[1]).val();
         var created = $(this.elements[3].attributes[1]).val();
         var done = $(this.elements[4].attributes[1]).val();
-        var json = {"id": id, "desc": desc, "created": created, "done": done};
-        update_item(json);
+        updateItem(id, desc,created, done);
     });
 });
 
@@ -39,23 +38,27 @@ function checkViewAll() {
 }
 
 function getItems(url) {
-    $("#items_table").empty();
     $.getJSON(url, function (data) {
-        var result = "<tr>" +
-            "<th>id</th>" +
-            "<th>description</th>" +
-            "<th>created</th>" +
-            "<th>done</th>" +
-            "</tr>";
-        $.each(data, function (index, items) {
-            result += "<tr><td>" + items.id + "</td>" +
-                "<td>" + items.desc + "</td>" +
-                "<td>" + items.created + "</td>" +
-                "<td>" + get_checkbox(items) + "</td></tr>";
-        });
-        var table = $("#items_table");
-        $(result).appendTo(table);
+        printTable(data);
     })
+}
+
+function printTable(data) {
+    $("#items_table").empty();
+    var result = "<tr>" +
+        "<th>id</th>" +
+        "<th>description</th>" +
+        "<th>created</th>" +
+        "<th>done</th>" +
+        "</tr>";
+    $.each(data, function (index, items) {
+        result += "<tr><td>" + items.id + "</td>" +
+            "<td>" + items.desc + "</td>" +
+            "<td>" + items.created + "</td>" +
+            "<td>" + get_checkbox(items) + "</td></tr>";
+    });
+    var table = $("#items_table");
+    $(result).appendTo(table);
 }
 
 function get_checkbox(items) {
@@ -72,14 +75,12 @@ function get_checkbox(items) {
     return checkbox;
 }
 
-function update_item(json) {
+function updateItem(id, desc,created, done) {
+    var json = {"id": id, "desc": desc, "created": created, "done": done};
     $.ajax({
         type: "POST",
         data: json,
-        url: "update_item",
-        success: function (data) {
-            console.log(data.toString());
-            checkViewAll();
-        }
+        url: "update",
+        complate: checkViewAll()
     });
 }

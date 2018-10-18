@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 
 public class CreateItem extends HttpServlet {
@@ -31,6 +32,10 @@ public class CreateItem extends HttpServlet {
         item.setCreated(new Timestamp(System.currentTimeMillis()));
         item.setDone(false);
         this.store.create(item);
+        PrintWriter writer = resp.getWriter();
+        writer.write("accept");
+        writer.flush();
+        writer.close();
     }
 
     @Override

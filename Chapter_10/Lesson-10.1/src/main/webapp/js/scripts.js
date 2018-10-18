@@ -23,8 +23,10 @@ function create_item() {
         type: "POST",
         data: json,
         url: "create",
-        success: function (data) {
-            checkViewAll();
+        complete: function (data) {
+            if (data.responseText == "accept") {
+                checkViewAll();
+            }
         }
     });
 }
@@ -75,12 +77,16 @@ function get_checkbox(items) {
     return checkbox;
 }
 
-function updateItem(id, desc,created, done) {
+function updateItem(id, desc, created, done) {
     var json = {"id": id, "desc": desc, "created": created, "done": done};
     $.ajax({
         type: "POST",
         data: json,
         url: "update",
-        complate: checkViewAll()
+        complete: function(data) {
+            if (data.responseText == "accept") {
+                checkViewAll();
+            }
+        }
     });
 }

@@ -30,21 +30,31 @@ public class UpdateItem extends HttpServlet {
         resp.setContentType("application/json");
         Item item = new Item();
 
+        System.out.println(Integer.parseInt(req.getParameter("id")));
         item.setId(Integer.parseInt(req.getParameter("id")));
+
         item.setDesc(req.getParameter("desc"));
-        item.setCreated(Timestamp.valueOf(req.getParameter("created")));
+        System.out.println(req.getParameter("desc"));
+
+        item.setCreated(new Timestamp(System.currentTimeMillis()));
+
         if (Boolean.valueOf(req.getParameter("done"))) {
             item.setDone(false);
         } else {
             item.setDone(true);
         }
+        System.out.println(Boolean.valueOf(req.getParameter("done")));
+
+
+        System.out.println(item.toString());
+
         this.store.update(item);
-//
-//        PrintWriter writer = resp.getWriter();
-//        String gson = new Gson().toJson(this.store.getAll());
-//        writer.write(gson);
-//        writer.flush();
-//        writer.close();
+
+        PrintWriter writer = resp.getWriter();
+
+        writer.write("accept");
+        writer.flush();
+        writer.close();
 
     }
 

@@ -29,12 +29,9 @@ public class ShowItems extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
-
         List<Item> items = store.getAll();
-
         String gson = new Gson().toJson(items);
         writer.write(gson);
-
         writer.flush();
         writer.close();
     }

@@ -41,26 +41,22 @@ function checkViewAll() {
 
 function getItems(url) {
     $.getJSON(url, function (data) {
-        printTable(data);
+        $("#items_table").empty();
+        var result = "<tr>" +
+            "<th>id</th>" +
+            "<th>description</th>" +
+            "<th>created</th>" +
+            "<th>done</th>" +
+            "</tr>";
+        $.each(data, function (index, items) {
+            result += "<tr><td>" + items.id + "</td>" +
+                "<td>" + items.desc + "</td>" +
+                "<td>" + items.created + "</td>" +
+                "<td>" + get_checkbox(items) + "</td></tr>";
+        });
+        var table = $("#items_table");
+        $(result).appendTo(table);
     })
-}
-
-function printTable(data) {
-    $("#items_table").empty();
-    var result = "<tr>" +
-        "<th>id</th>" +
-        "<th>description</th>" +
-        "<th>created</th>" +
-        "<th>done</th>" +
-        "</tr>";
-    $.each(data, function (index, items) {
-        result += "<tr><td>" + items.id + "</td>" +
-            "<td>" + items.desc + "</td>" +
-            "<td>" + items.created + "</td>" +
-            "<td>" + get_checkbox(items) + "</td></tr>";
-    });
-    var table = $("#items_table");
-    $(result).appendTo(table);
 }
 
 function get_checkbox(items) {

@@ -17,34 +17,56 @@ public class ItemStore {
     public void create(Item item) {
         Session session = this.factory.openSession();
         session.beginTransaction();
-        session.save(item);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.save(item);
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     public List<Item> getAll() {
         Session session = this.factory.openSession();
         session.beginTransaction();
-        List<Item> result = session.createQuery("FROM Item").list();
-        session.getTransaction().commit();
-        session.close();
-        return result;
+        try {
+            return session.createQuery("FROM Item").list();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     public List<Item> getFailedItems() {
         Session session = this.factory.openSession();
         session.beginTransaction();
-        List<Item> result = session.createQuery("FROM Item I WHERE I.done = false").list();
-        session.getTransaction().commit();
-        session.close();
-        return result;
+        try {
+            return session.createQuery("FROM Item I WHERE I.done = false").list();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     public void update(Item item) {
         Session session = this.factory.openSession();
         session.beginTransaction();
-        session.update(item);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.update(item);
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 }

@@ -15,7 +15,7 @@ public class ItemStoreTest {
     @Test
     public void testadd() {
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
-        ItemStore store = new ItemStore(factory);
+        ItemStore store = ItemStore.getInstance();
 
         Item item = new Item();
         item.setDesc("test2");
@@ -29,7 +29,7 @@ public class ItemStoreTest {
     @Test
     public void testshow(){
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
-        ItemStore store = new ItemStore(factory);
+        ItemStore store = ItemStore.getInstance();
         List<Item> items = store.getAll();
         for (Item i : items) {
             System.out.println(i.getDesc());
@@ -40,7 +40,7 @@ public class ItemStoreTest {
     @Test
     public void testupdate() {
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
-        ItemStore store = new ItemStore(factory);
+        ItemStore store = ItemStore.getInstance();
         Item item = new Item();
         item.setId(13);
         item.setDesc("newtest3");

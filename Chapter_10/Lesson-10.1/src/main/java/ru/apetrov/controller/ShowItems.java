@@ -16,13 +16,11 @@ import java.util.List;
 
 public class ShowItems extends HttpServlet {
 
-    private SessionFactory factory;
     private ItemStore store;
 
     @Override
     public void init() throws ServletException {
-        this.factory = new Configuration().configure().buildSessionFactory();
-        this.store = new ItemStore(factory);
+        this.store = ItemStore.getInstance();
     }
 
     @Override
@@ -33,11 +31,5 @@ public class ShowItems extends HttpServlet {
         String gson = new Gson().toJson(items);
         writer.write(gson);
         writer.flush();
-        writer.close();
-    }
-
-    @Override
-    public void destroy() {
-        this.factory.close();
     }
 }

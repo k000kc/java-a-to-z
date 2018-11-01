@@ -16,13 +16,11 @@ import java.sql.Timestamp;
 
 public class UpdateItem extends HttpServlet {
 
-    private SessionFactory factory;
     private ItemStore store;
 
     @Override
     public void init() throws ServletException {
-        this.factory = new Configuration().configure().buildSessionFactory();
-        this.store = new ItemStore(factory);
+        this.store = ItemStore.getInstance();
     }
 
     @Override
@@ -41,11 +39,5 @@ public class UpdateItem extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         writer.write("accept");
         writer.flush();
-        writer.close();
-    }
-
-    @Override
-    public void destroy() {
-        this.factory.close();
     }
 }

@@ -6,6 +6,8 @@ import org.hibernate.cfg.Configuration;
 import ru.apetrov.models.Item;
 
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class ItemStore {
 
@@ -27,11 +29,25 @@ public class ItemStore {
         return sessionfactory;
     }
 
-    public void create(Item item) {
+    private <T> T  getTx(Function<Session, T> command) {
         Session session = this.sessionfactory.openSession();
         session.beginTransaction();
         try {
-            session.save(item);
+            return command.apply(session);
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
+
+    private void setTx(Consumer<Session> command) {
+        Session session = this.sessionfactory.openSession();
+        session.beginTransaction();
+        try {
+            command.accept(session);
         } catch (Exception e) {
             session.getTransaction().rollback();
             throw e;
@@ -42,44 +58,18 @@ public class ItemStore {
     }
 
     public List<Item> getAll() {
-        Session session = this.sessionfactory.openSession();
-        session.beginTransaction();
-        try {
-            return session.createQuery("FROM Item").list();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            throw e;
-        } finally {
-            session.getTransaction().commit();
-            session.close();
-        }
+        return this.getTx(session -> session.createQuery("from Item").list());
     }
 
     public List<Item> getFailedItems() {
-        Session session = this.sessionfactory.openSession();
-        session.beginTransaction();
-        try {
-            return session.createQuery("FROM Item I WHERE I.done = false").list();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            throw e;
-        } finally {
-            session.getTransaction().commit();
-            session.close();
-        }
+        return this.getTx(session -> session.createQuery("FROM Item AS i WHERE i.done = false").list());
+    }
+
+    public void create(Item item) {
+        this.setTx(session -> session.save(item));
     }
 
     public void update(Item item) {
-        Session session = this.sessionfactory.openSession();
-        session.beginTransaction();
-        try {
-            session.update(item);
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            throw e;
-        } finally {
-            session.getTransaction().commit();
-            session.close();
-        }
+        this.setTx(session -> session.update(item));
     }
 }

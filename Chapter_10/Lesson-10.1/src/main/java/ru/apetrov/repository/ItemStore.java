@@ -12,7 +12,7 @@ import java.util.function.Function;
 public class ItemStore {
 
     private SessionFactory sessionfactory;
-    private static ItemStore INSTANCE = null;
+    private static volatile ItemStore INSTANCE = null;
 
     private ItemStore() {
         this.sessionfactory = new Configuration().configure().buildSessionFactory();
@@ -20,7 +20,11 @@ public class ItemStore {
 
     public static ItemStore getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new ItemStore();
+            synchronized (ItemStore.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new ItemStore();
+                }
+            }
         }
         return INSTANCE;
     }

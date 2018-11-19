@@ -33,7 +33,7 @@ public class ItemStore {
         return sessionfactory;
     }
 
-    private <T> T  getTx(Function<Session, T> command) {
+    private <T> T  getItems(Function<Session, T> command) {
         Session session = this.sessionfactory.openSession();
         session.beginTransaction();
         try {
@@ -47,7 +47,7 @@ public class ItemStore {
         }
     }
 
-    private void setTx(Consumer<Session> command) {
+    private void saveOrUpdateItem(Consumer<Session> command) {
         Session session = this.sessionfactory.openSession();
         session.beginTransaction();
         try {
@@ -62,18 +62,18 @@ public class ItemStore {
     }
 
     public List<Item> getAll() {
-        return this.getTx(session -> session.createQuery("from Item").list());
+        return this.getItems(session -> session.createQuery("from Item").list());
     }
 
     public List<Item> getFailedItems() {
-        return this.getTx(session -> session.createQuery("FROM Item AS i WHERE i.done = false").list());
+        return this.getItems(session -> session.createQuery("FROM Item AS i WHERE i.done = false").list());
     }
 
     public void create(Item item) {
-        this.setTx(session -> session.save(item));
+        this.saveOrUpdateItem(session -> session.save(item));
     }
 
     public void update(Item item) {
-        this.setTx(session -> session.update(item));
+        this.saveOrUpdateItem(session -> session.update(item));
     }
 }

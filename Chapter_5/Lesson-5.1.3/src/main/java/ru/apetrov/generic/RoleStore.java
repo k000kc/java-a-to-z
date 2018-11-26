@@ -6,8 +6,8 @@ package ru.apetrov.generic;
 public class RoleStore extends AbstractStore<Role> {
 
     /**
-     * Constructor of role store.
-     * @param size size store.
+     * Constructor of role dao.
+     * @param size size dao.
      */
     public RoleStore(int size) {
         super(size);

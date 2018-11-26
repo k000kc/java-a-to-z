@@ -19,7 +19,7 @@ public class SigninController extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(UserStore.class);
 
     /**
-     * User store.
+     * User dao.
      */
     private UserStore userStore = UserStore.getInstance();
 

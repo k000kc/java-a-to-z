@@ -18,7 +18,7 @@ public class RoleStoreTest {
     private SimpleArray array;
 
     /**
-     * role store.
+     * role dao.
      */
     private RoleStore store;
 

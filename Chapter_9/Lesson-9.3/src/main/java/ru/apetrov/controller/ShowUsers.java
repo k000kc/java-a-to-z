@@ -24,7 +24,7 @@ public class ShowUsers extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(ShowUsers.class);
 
     /**
-     * user store.
+     * user dao.
      */
     private UserStore userStore = UserStore.getInstance();
 

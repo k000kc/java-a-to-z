@@ -18,7 +18,7 @@ public class UserStoreTest {
     private SimpleArray array;
 
     /**
-     * user store.
+     * user dao.
      */
     private UserStore store;
 

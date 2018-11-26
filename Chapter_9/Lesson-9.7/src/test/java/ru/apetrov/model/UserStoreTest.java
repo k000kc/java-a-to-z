@@ -34,9 +34,9 @@ public class UserStoreTest {
 
 //    @Test
 //    public void testDelete() {
-//        UserStore store = UserStore.getInstance();
+//        UserStore dao = UserStore.getInstance();
 //        try {
-//            store.delete("login-5");
+//            dao.delete("login-5");
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
@@ -44,9 +44,9 @@ public class UserStoreTest {
 
 //    @Test
 //    public void testUpdate() {
-//        UserStore store = UserStore.getInstance();
+//        UserStore dao = UserStore.getInstance();
 //        try {
-//            store.update(new User("login-2", "123", "Andrey", "ham2188@mail.ru", new Timestamp(System.currentTimeMillis()),"user"));
+//            dao.update(new User("login-2", "123", "Andrey", "ham2188@mail.ru", new Timestamp(System.currentTimeMillis()),"user"));
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }

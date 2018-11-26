@@ -24,7 +24,7 @@ public class UpdateUser extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(UserStore.class);
 
     /**
-     * user store.
+     * user dao.
      */
     private final UserStore userStore = UserStore.getInstance();
 

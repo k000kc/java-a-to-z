@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * user store.
+ * user dao.
  */
 public class UserStore implements AutoCloseable {
 

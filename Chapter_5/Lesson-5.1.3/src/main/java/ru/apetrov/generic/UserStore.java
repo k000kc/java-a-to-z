@@ -6,8 +6,8 @@ package ru.apetrov.generic;
 public class UserStore extends AbstractStore<User> {
 
     /**
-     * Constructor of user store.
-     * @param size size store.
+     * Constructor of user dao.
+     * @param size size dao.
      */
     protected UserStore(int size) {
         super(size);

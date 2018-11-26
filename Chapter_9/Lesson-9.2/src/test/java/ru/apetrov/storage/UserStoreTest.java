@@ -20,7 +20,7 @@ public class UserStoreTest {
         store.put(new User("B", "C", "b@C", new Timestamp(System.currentTimeMillis())));
         store.put(new User("A", "S", "A@S", new Timestamp(System.currentTimeMillis())));
         store.put(new User("D", "F", "d@F", new Timestamp(System.currentTimeMillis())));
-//        store.delete(new User("B", "C", "b@C", new Timestamp(System.currentTimeMillis())));
+//        dao.delete(new User("B", "C", "b@C", new Timestamp(System.currentTimeMillis())));
         store.update(new User("B", "E", "b@E", new Timestamp(System.currentTimeMillis())));
         System.out.println(store.getAll());
     }

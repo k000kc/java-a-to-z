@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * user store.
+ * user dao.
  */
 public class UserStore implements AutoCloseable {
 

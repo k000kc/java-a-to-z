@@ -59,7 +59,8 @@
         <module>Chapter_9/Lesson-9.7</module>
         <module>Chapter_9/TestTask-9</module>
 		<module>Chapter_10/Lesson-10.1</module>
-	</modules>
+        <module>Chapter_10/Lesson-10.2</module>
+    </modules>
 
 	<dependencies>
 

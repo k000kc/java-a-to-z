@@ -22,7 +22,7 @@ public class DeleteUser extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(UserStore.class);
 
     /**
-     * user store.
+     * user dao.
      */
     private UserStore userStore = UserStore.getInstance();
 

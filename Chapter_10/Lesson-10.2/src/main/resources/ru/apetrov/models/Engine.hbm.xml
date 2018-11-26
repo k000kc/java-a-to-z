@@ -1,0 +1,9 @@
+<hibernate-mapping>
+    <class name="ru.apetrov.models.Engine" table="engine">
+        <id name="id" columt="id">
+            <generator class="identity"/>
+        </id>
+        <property name="enginePower" column="enginePower"/>
+        <property name="engineCapacity" column="engineCapacity"/>
+    </class>
+</hibernate-mapping>
